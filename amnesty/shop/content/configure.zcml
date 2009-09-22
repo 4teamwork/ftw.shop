@@ -1,0 +1,50 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    i18n_domain="amnesty.shop">
+
+  <!-- configure your content components here -->
+  
+  <!-- -*- extra stuff goes here -*- -->
+  <class class=".shopcategory.ShopCategory">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IShopCategory"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IShopCategory"
+        />
+  </class>
+  <class class=".shopitemvariant.ShopItemVariant">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IShopItemVariant"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IShopItemVariant"
+        />
+  </class>
+  <class class=".shopmultiitem.ShopMultiItem">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IShopMultiItem"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IShopMultiItem"
+        />
+  </class>
+  <class class=".shopitem.ShopItem">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IShopItem"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IShopItem"
+        />
+  </class>
+
+</configure>
