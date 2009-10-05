@@ -5,6 +5,44 @@
 
   <include package="plone.app.contentmenu" />
 
-  <!-- -*- extra stuff goes here -*- -->
-
+  <browser:page
+        for="..interfaces.shopitem.IShopItem"
+        name="view"
+        permission="zope2.View"
+        class=".shopitem.ShopItemView"
+    />
+  <browser:page
+        for="..interfaces.shopmultiitem.IShopMultiItem"
+        name="view"
+        permission="zope2.View"
+        class=".shopitem.ShopItemView"
+    />
+  <browser:page
+        for="..interfaces.shopitemvariant.IShopItemVariant"
+        name="view"
+        permission="zope2.View"
+        class=".shopitemvariant.ShopItemVariantView"
+    />
+  <browser:page
+        for="..interfaces.shopcategory.IShopCategory"
+        name="view"
+        permission="zope2.View"
+        class=".category.CategoryView"
+    />
+    
+  <browser:page 
+    for="..interfaces.shopitem.IShopItem" 
+    name="addtocart" 
+    class=".cart.CartView" 
+    attribute="addtocart" 
+    permission="zope2.View" 
+    />
+  <browser:page 
+    for="..interfaces.shopitemvariant.IShopItemVariant" 
+    name="addtocart" 
+    class=".cart.CartView" 
+    attribute="addtocart" 
+    permission="zope2.View" 
+    />    
+    
 </configure>

@@ -1,5 +1,6 @@
 from Persistence import PersistentMapping
 from AccessControl import ClassSecurityInfo
+from amnesty.shop.config import CATEGORY_RELATIONSHIP
 
 class Categorizeable:
     """
@@ -8,7 +9,6 @@ class Categorizeable:
     
     security = ClassSecurityInfo()
     defaultRank = 100
-    category_relationship = 'shop_category'
     
     security.declareProtected("View", 'getRankForCategory')
     def getRankForCategory(self, category):
@@ -35,7 +35,7 @@ class Categorizeable:
         """
         Add the object to a category.
         """
-        self.addReference(category, self.category_relationship)
+        self.addReference(category, CATEGORY_RELATIONSHIP)
 
 
     security.declareProtected("Modify portal content", 'removeFromCategory')
@@ -43,7 +43,7 @@ class Categorizeable:
         """
         Remove the object from a category.
         """        
-        self.deleteReference(category, self.category_relationship)
+        self.deleteReference(category, CATEGORY_RELATIONSHIP)
 
 
     security.declareProtected("View", 'listCategories')
@@ -51,4 +51,4 @@ class Categorizeable:
         """
         List the categories where the object is registered.
         """       
-        return self.getRefs(self.category_relationship)
+        return self.getRefs(CATEGORY_RELATIONSHIP)

@@ -17,3 +17,5 @@ CURRENCIES = DisplayList((
 #      ('USD', 'US$'), # U.S. Dollars
 #      ('EUR', 'Eur'), # Euros
 ))
+
+CATEGORY_RELATIONSHIP = 'shop_category'
