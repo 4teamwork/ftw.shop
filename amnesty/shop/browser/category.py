@@ -36,9 +36,9 @@ class CategoryView(BrowserView):
                     url = item.absolute_url(),
                     image = tag,
                     variants = None,
-                    order_number = context.getSku_code(),
-                    price = context.Price(),
-                    addurl = '%s/addtocart' % context.absolute_url(),
+                    order_number = item.getSku_code(),
+                    price = item.Price(),
+                    addurl = '%s/addtocart' % item.absolute_url(),
                 ))
             
             if item.portal_type == 'ShopMultiItem':
