@@ -29,6 +29,13 @@
         permission="zope2.View"
         class=".category.CategoryView"
     />
+
+  <browser:page 
+    for="*" 
+    name="cart_view" 
+    class=".cart.CartView" 
+    permission="zope2.View" 
+    />
     
   <browser:page 
     for="..interfaces.shopitem.IShopItem" 

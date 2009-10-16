@@ -52,3 +52,13 @@ class CartView(BrowserView):
         # redirect to referer
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
+
+    def cart_items(self):
+        """ get content of shopping cart
+        """
+        context = aq_inner(self.context)
+        session = self.request.SESSION
+        items = session.get(CART_KEY, {})
+        return items
+
+        

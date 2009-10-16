@@ -1,0 +1,25 @@
+<dl class="portlet portletCartsPortlet"
+    i18n:domain="amnesty.shop">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span i18n:translate="">
+           Cart
+        </span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+        <tal:items repeat="item python:view.cart_items().values()">
+	    <a href="#" tal:content="item/title" /><br />
+	    <span tal:replace="item/currency" />:
+	    <span tal:replace="item/total" />
+	    (<span tal:replace="item/quantity" />)
+	    </tal:items>
+	    
+        <span class="portletBottomLeft"></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+
+</dl>
