@@ -1,0 +1,92 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: Thu Aug 11 17:30:49 2009\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
+"Language-Team:  4teamwork GmbH <info@4teamwork.ch>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Default: "A category for shop items"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
+msgid "A category for shop items"
+msgstr ""
+
+#. Default: "A shop item that consists of multiple variants (eg. colors, sizes)"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopMultiItem.xml
+msgid "A shop item that consists of multiple variants (eg. colors, sizes)"
+msgstr ""
+
+#. Default: "A shop item variant for multi items"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItemVariant.xml
+msgid "A shop item variant for multi items"
+msgstr ""
+
+#. Default: "A simple shop item"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItem.xml
+msgid "A simple shop item"
+msgstr ""
+
+#. Default: "Shop Category"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
+msgid "Shop Category"
+msgstr ""
+
+#. Default: "Shop Item"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItem.xml
+msgid "Shop Item"
+msgstr ""
+
+#. Default: "Shop Item Variant"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItemVariant.xml
+msgid "Shop Item Variant"
+msgstr ""
+
+#. Default: "Shop Multi Item"
+#: amnesty.shop/amnesty/shop/profiles/default/types/ShopMultiItem.xml
+msgid "Shop Multi Item"
+msgstr ""
+
+#: amnesty.shop/amnesty/shop/content/shopitem.py:22
+msgid "desc_currency"
+msgstr ""
+
+#: amnesty.shop/amnesty/shop/content/shopitem.py:32
+msgid "desc_price"
+msgstr ""
+
+#: amnesty.shop/amnesty/shop/content/shopitem.py:41
+msgid "desc_sku_code"
+msgstr ""
+
+#. Default: "e.g. Color. All variant items with the same label will be grouped together."
+#: amnesty.shop/amnesty/shop/content/shopitemvariant.py:22
+msgid "desc_variant_label"
+msgstr ""
+
+#. Default: "Currency"
+#: amnesty.shop/amnesty/shop/content/shopitem.py:21
+msgid "label_currency"
+msgstr ""
+
+#. Default: "Price"
+#: amnesty.shop/amnesty/shop/content/shopitem.py:31
+msgid "label_price"
+msgstr ""
+
+#. Default: "SKU Code"
+#: amnesty.shop/amnesty/shop/content/shopitem.py:40
+msgid "label_sku_code"
+msgstr ""
+
+#. Default: "Variant Label"
+#: amnesty.shop/amnesty/shop/content/shopitemvariant.py:21
+msgid "label_variant_label"
+msgstr ""
+
+#. Default: "Added item to cart."
+#: amnesty.shop/amnesty/shop/browser/cart.py:50
+msgid "msg_item_added"
+msgstr ""
+
