@@ -10,12 +10,25 @@
     </dt>
 
     <dd class="portletItem odd">
+        <ul>
         <tal:items repeat="item python:view.cart_items().values()">
-	    <a href="#" tal:content="item/title" /><br />
-	    <span tal:replace="item/currency" />:
-	    <span tal:replace="item/total" />
-	    (<span tal:replace="item/quantity" />)
+	        <li>
+	            <a href="#" tal:content="item/title" /><br />
+	            <span tal:replace="item/currency" />:
+	            <span tal:replace="item/total" />
+	            (<span tal:replace="item/quantity" />)
+	        </li>
 	    </tal:items>
+	    </ul>
+	    
+	    <div class="cartTotal">Total: CHF 100.00</div>
+	    
+	    <div class="cartActions">
+	        <ul>
+	            <li><a href="#">Edit cart</a></li>
+	            <li><a href="#">Order</a></li>
+	        </ul>
+	    </div>
 	    
         <span class="portletBottomLeft"></span>
         <span class="portletBottomRight"></span>
