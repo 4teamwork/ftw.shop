@@ -1,0 +1,58 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="amnesty.shop">
+
+<body metal:use-macro="here/main_template/macros/master">
+
+  <div metal:fill-slot="main">
+    <h1 i18n:translate="categories_title">Categories</h1>
+    <form method="post"
+          tal:attributes="action python:here.absolute_url() + '/update_categories'"
+          tal:define="all_categories  python:here.listAllCategories(here.UID())">
+      <table class="listing"
+             cellpadding="0"
+             cellspacing="0">
+        <thead>
+          <tr>
+            <th></th>
+            <th i18n:translate="categories_header_title">Title</th>
+            <th i18n:translate="categories_header_descrition">Short Description</th>
+            <th i18n:translate="categories_header_rank">Rank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <metal:block tal:repeat="category all_categories">
+            <tr class="even"
+                tal:define="oddrow repeat/category/odd"
+                tal:attributes="class python:test(oddrow, 'even', 'odd')" >
+              <td>
+                <input type="checkbox"
+                       class="noborder"
+                       name="categories:list"
+                       tal:attributes="value category/UID;
+                                       tabindex tabindex/next;
+                                       checked python: test(category in context.listCategories(), 'checked', None)" />
+              </td>
+              <td><a tal:attributes="href category/absolute_url" 
+                     tal:content="category/Title" /></td>
+              <td tal:content="category/Description"></td>
+              <td>
+                  <input type="text" size="10"
+                         tal:condition="python: hasattr(context,'getRankForCategory' )"
+                         tal:attributes="name python:'rank_%s' % category.UID();
+                                         value python:context.getRankForCategory(category)"/>
+              </td>
+            </tr>
+          </metal:block>
+        </tbody>
+      </table>
+      <input class="context"
+             type="submit"
+             value="Update"
+             i18n:attributes="value"
+             tal:attributes="tabindex tabindex/next;"
+             tal:condition="all_categories"/>
+    </form>
+  </div>
+</body>
+</html>
