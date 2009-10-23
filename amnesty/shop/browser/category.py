@@ -2,7 +2,6 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize import instance
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from amnesty.shop.config import CATEGORY_RELATIONSHIP
  
 class CategoryView(BrowserView):
@@ -18,13 +17,10 @@ class CategoryView(BrowserView):
 #    @property
 #    @instance.memoize
     def items(self):
-        context = aq_inner(self.context)
-        
-        contents = context.getBRefs(CATEGORY_RELATIONSHIP)
-        contents.sort(lambda x,y: cmp(x.getRankForCategory(context), y.getRankForCategory(context)))
-
+        """ get all shop items belonging to this category
+        """
         results = []
-        for item in contents:
+        for item in self.category_contents:
             image = item.getImage()
             tag = None
             if image:
@@ -63,4 +59,34 @@ class CategoryView(BrowserView):
                     variants = variants_data,
                 ))
         return results
+
+    #@property
+    #@instance.memoize      
+    def categories(self):
+        """ get a list with all categories belonging to this category.
+        """
+        results = []
+        for item in self.category_contents:
+            image = item.getImage()
+            tag = None
+            if image:
+                tag = image.tag(scale='tile')
+            if item.portal_type == 'ShopCategory':
+                results.append(dict(
+                    title = item.Title(),
+                    description = item.Description(),
+                    url = item.absolute_url(),
+                    image = tag,
+                ))
+        return results
     
+    @property
+    @instance.memoize        
+    def category_contents(self):
+        """ get all items (shop items, categories) belonging to this category.
+        """
+        context = aq_inner(self.context)     
+        contents = context.getBRefs(CATEGORY_RELATIONSHIP)
+        contents.sort(lambda x,y: cmp(x.getRankForCategory(context), y.getRankForCategory(context)))
+        return contents
+ 

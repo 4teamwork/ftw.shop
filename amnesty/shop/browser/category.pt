@@ -34,11 +34,28 @@
             This item does not have any body text, click the edit tab to change it.
         </p>
 
-        <metal:field use-macro="python:here.widget('text', mode='view')">
-        Body text
-        </metal:field>
+        <tal:categories repeat="item view/categories">
+        <div class="listItem">
+        
+            <div class="listItemImage" tal:condition="item/image">
+                <a href="#" tal:attributes="href item/url">
+                    <img src="" tal:replace="structure item/image" /></a>
+            </div>
+        
+            <div class="listItemHeading">
+                <h2><a href="#" tal:content="item/title" tal:attributes="href item/url" /></h2>
+            </div>
+        
+            <p class="listItemBody">
+                <span tal:replace="item/description" />
+                <a href="#" tal:attributes="href item/url"
+                            i18n:translate="label_more_link">More</a>
+            </p>
+            <div class="visualClear"><!-- --></div>
+        </div>
+        </tal:categories>
 
-        <tal:shopitems define="items view/items" repeat="item items">
+        <tal:shopitems repeat="item view/items">
         <div class="listItem">
         
             <div class="listItemImage" tal:condition="item/image">
