@@ -1,0 +1,141 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="amnesty">
+      
+<body metal:use-macro="here/main_template/macros/master">
+
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main"
+                tal:define="errors options/state/getI18NErrors">
+
+    <ul class="wizard-steps">    
+        <li class="wizard-step-link" i18n:translate="">
+            Customer Information
+        </li>
+        <li class="wizard-step-link selected" i18n:translate="">
+            Summary
+        </li>
+        <li class="wizard-step-link" i18n:translate="confirmation_step">
+            Confirmation
+        </li>
+    </ul>
+    
+    <h1 i18n:translate="order_review_title">Order Review</h1>
+
+    <div class="formRight">
+        
+    <form action=""
+          class="enableAutoFocus"
+          method="post"
+          tal:attributes="action template_id"
+          tal:define="session request/SESSION;
+                      customer python:session.get('customer_data', []);
+                      cview context/cart_view;"
+          tal:condition="customer">
+      
+        <h2 i18n:translate="title_personal_information">Personal Information</h2>
+            
+        <p>
+            <span tal:replace="customer/title" /><br />
+              
+            <span tal:replace="customer/firstname" />
+            <span tal:replace="customer/lastname" /><br />
+                
+            <span tal:replace="customer/street" /><br />
+                
+            <tal:block condition="customer/street2">
+            <span tal:replace="customer/street2" /><br />
+            </tal:block>
+                
+            <span tal:replace="customer/zipcode" />
+            <span tal:replace="customer/city" />                
+        </p>
+      
+        <p>
+            <span i18n:translate="label_email">Email:</span>
+            <span tal:replace="customer/email" />
+                
+            <tal:block condition="customer/phone">
+            <br /><span i18n:translate="label_phone">Tel.</span>:
+            <span tal:replace="customer/phone"></span>
+            </tal:block>
+        </p>
+      
+        <p>
+            <tal:block condition="customer/newsletter">
+             <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
+            </tal:block>
+        </p>    
+        <p tal:condition="customer/comments">
+            <span i18n:translate="label_details_comments">Comments</span>:
+            <span tal:replace="customer/comments" />            
+        </p>
+      
+        <h2 i18n:translate="header_cart_portlet">Your Cart</h2>
+
+        <table class="cartListing"
+               cellpadding="0"
+               cellspacing="0"
+               tal:define="cart_items cview/cart_items">
+        <thead>
+          <tr>
+            <th i18n:translate="cart_header_product">Product</th>
+            <!--th i18n:translate="cart_header_description">Description</th-->
+            <th i18n:translate="cart_header_quantity">Quantity</th>
+            <th i18n:translate="cart_header_price">Price</th>
+            <th i18n:translate="cart_header_total">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <metal:block tal:repeat="item python:cart_items.values()">
+            <tr>
+              <td tal:content="item/title"></td>
+              <!--td tal:content="product/Description"></td-->
+              <td tal:content="item/quantity"></td>
+              <td tal:content="item/price"></td>
+              <td tal:content="item/total"></td>
+            </tr> 
+          </metal:block>
+        </tbody>
+      </table>
+
+      <p>
+          Total: <b tal:content="cview/cart_total">US$ 100.00</b>
+          <span i18n:translate="txt_vat">(inkl. MwSt)</span>
+      </p>
+      <p i18n:translate="txt_shipping">
+          Shipping fee is not included.
+      </p>
+
+      <h2 i18n:translate="title_paymentmethod">Payment method</h2>
+          <p i18n:translate="txt_onaccount_payment">
+              On Account
+          </p>
+
+        <div class="formControls">
+
+          <input class="buttonBack"
+                 type="submit"
+                 name="form.button.back"
+                 value="button_back"
+                 i18n:attributes="value"/>
+       
+          <input class="context"
+                 type="submit"
+                 name="form.button.next"
+                 value="Next"
+                 i18n:attributes="value label_next;" />
+        </div>
+             
+        <input type="hidden" name="form.submitted" value="1" />
+        <input type="hidden" name="order_confirmation" value="1" />
+        <input tal:replace="structure context/@@authenticator/authenticator" />
+        
+    </form>
+    </div>
+
+
+</tal:main-macro>
+</metal:main>
+</body>
+</html>

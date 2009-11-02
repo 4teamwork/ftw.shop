@@ -1,0 +1,10 @@
+[validators]
+validators = order_review_validator
+validators..submit = order_review_validator
+validators..back =
+
+[actions]
+action.success = traverse_to:string:order_review_redirect
+action.success..submit = traverse_to:string:order_review_redirect
+action.success..back = redirect_to:string:customer
+action.failure = traverse_to:string:order_review

@@ -1,9 +1,8 @@
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.memoize import instance
 from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from amnesty.shop import shopMessageFactory as _
+from amnesty.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 
 CART_KEY = 'shop_cart_items'
 
@@ -34,6 +33,7 @@ class CartView(BrowserView):
                     'price': float(context.Price()),
                     'currency': context.getCurrency(),
                     'total': float(context.Price()),
+                    'url': context.absolute_url(),
             }    
         # item already in cart, update quantitiy
         else:
@@ -61,4 +61,39 @@ class CartView(BrowserView):
         items = session.get(CART_KEY, {})
         return items
 
+    def cart_total(self):
+        """
+        """
+        items = self.cart_items()
+        total = 0.0
+        for item in items.values():
+            total += item['total']
+        return total
         
+    def checkout(self):
+       """ process checkout
+       """
+       context = aq_inner(self.context)
+       ptool = getToolByName(context, 'plone_utils')
+       url = context.absolute_url()
+       
+       # check if we have something in the cart
+       items = self.cart_items()
+       if not items:
+           ptool.addPortalMessage(_(u'msg_no_cart', default=u"Can't proceed with empty cart."), 'error')
+           self.request.response.redirect(url)
+           
+       omanager = getToolByName(context, 'portal_ordermanager')
+       order_id = ''
+       try:
+           order_id = omanager.addOrder()
+       except MissingCustomerInformation:
+           self.request.response.redirect('%s/customer' % url)
+           return
+       except MissingOrderConfirmation:
+           self.request.response.redirect('%s/order_review' % url)
+           return
+           
+       self.request.SESSION.invalidate()
+       self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
+       return

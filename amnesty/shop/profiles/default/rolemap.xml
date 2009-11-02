@@ -18,5 +18,8 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
+    <permission name="amnesty.shop: Add Order" acquire="False">
+      <role name="Manager" />
+    </permission>
   </permissions>
 </rolemap>

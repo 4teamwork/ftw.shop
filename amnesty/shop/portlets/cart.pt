@@ -9,24 +9,25 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletItem odd">
+    <dd class="portletItem odd"
+        tal:define="cview context/cart_view">
         <ul>
         <tal:items repeat="item python:view.cart_items().values()">
 	        <li>
 	            <a href="#" tal:content="item/title" /><br />
-	            <span tal:replace="item/currency" />:
+	            <span tal:replace="item/currency" />
 	            <span tal:replace="item/total" />
 	            (<span tal:replace="item/quantity" />)
 	        </li>
 	    </tal:items>
 	    </ul>
 	    
-	    <div class="cartTotal">Total: CHF 100.00</div>
+	    <div class="cartTotal">Total: CHF <span tal:replace="cview/cart_total">100.00</span></div>
 	    
 	    <div class="cartActions">
 	        <ul>
 	            <li><a href="#">Edit cart</a></li>
-	            <li><a href="#">Order</a></li>
+	            <li><a href="#" tal:attributes="href string:${view/navroot_url}/checkout">Order</a></li>
 	        </ul>
 	    </div>
 	    

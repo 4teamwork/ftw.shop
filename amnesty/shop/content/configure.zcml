@@ -46,5 +46,15 @@
         set_schema="..interfaces.IShopItem"
         />
   </class>
+  <class class=".order.ShopOrder">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IShopItem"
+        />
+    <require
+        permission="cmf.ModifyPortalContent"
+        set_schema="..interfaces.IShopItem"
+        />
+  </class>
 
 </configure>

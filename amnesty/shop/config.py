@@ -10,6 +10,7 @@ ADD_PERMISSIONS = {
     'ShopItemVariant': 'amnesty.shop: Add Shop Item Variant',
     'ShopMultiItem': 'amnesty.shop: Add Shop Multi Item',
     'ShopItem': 'amnesty.shop: Add Shop Item',
+    'ShopOrder': 'amnesty.shop: Add Order',
 }
 
 CURRENCIES = DisplayList((
