@@ -9,6 +9,8 @@ from amnesty.shop.config import PROJECTNAME
 #from Products.AIWebShop.Currency import Currency
 from persistent.mapping import PersistentMapping
 from amnesty.shop import shopMessageFactory as _
+from zope.interface import implements
+from amnesty.shop.interfaces.order import IShopOrder
 
 OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -26,6 +28,7 @@ OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 class ShopOrder(base.ATCTContent):
     """ A shop order
     """
+    implements(IShopOrder)
     security = ClassSecurityInfo()
     meta_type = 'ShopOrder' 
     schema = OrderSchema

@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+<body>
+
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main"
+                tal:define="customer context/getCustomerData;
+                            cart context/getCartData;">
+
+    <div tal:replace="structure provider:plone.abovecontenttitle" />
+    
+    <h1 class="documentFirstHeading" tal:content="context/Title">Title</h1>
+
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+    <div tal:replace="structure provider:plone.abovecontentbody" />
+
+    <h2 i18n:translate="title_personal_information">Personal Information</h2>
+            
+        <p>
+            <span tal:replace="customer/title" /><br />
+              
+            <span tal:replace="customer/firstname" />
+            <span tal:replace="customer/lastname" /><br />
+                
+            <span tal:replace="customer/street" /><br />
+                
+            <tal:block condition="customer/street2">
+            <span tal:replace="customer/street2" /><br />
+            </tal:block>
+                
+            <span tal:replace="customer/zipcode" />
+            <span tal:replace="customer/city" />                
+        </p>
+      
+        <p>
+            <span i18n:translate="label_email">Email:</span>
+            <span tal:replace="customer/email" />
+                
+            <tal:block condition="customer/phone">
+            <br /><span i18n:translate="label_phone">Tel.</span>:
+            <span tal:replace="customer/phone"></span>
+            </tal:block>
+        </p>
+      
+        <p>
+            <tal:block condition="customer/newsletter">
+             <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
+            </tal:block>
+        </p>    
+        <p tal:condition="customer/comments">
+            <span i18n:translate="label_details_comments">Comments</span>:
+            <span tal:replace="customer/comments" />            
+        </p>
+
+    <h2>Ordered Items</h2>
+
+    <table class="cartListing"
+           cellpadding="0"
+           cellspacing="0">
+        <thead>
+          <tr>
+            <th i18n:translate="cart_header_product">Product</th>
+            <!--th i18n:translate="cart_header_description">Description</th-->
+            <th i18n:translate="cart_header_quantity">Quantity</th>
+            <th i18n:translate="cart_header_price">Price</th>
+            <th i18n:translate="cart_header_total">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <metal:block tal:repeat="item python:cart.values()">
+            <tr>
+              <td tal:content="item/title"></td>
+              <!--td tal:content="product/Description"></td-->
+              <td tal:content="item/quantity"></td>
+              <td tal:content="item/price"></td>
+              <td tal:content="item/total"></td>
+            </tr> 
+          </metal:block>
+        </tbody>
+      </table>
+
+      <p>
+          Total: <b tal:content="context/getTotal">US$ 100.00</b>
+          <span i18n:translate="txt_vat">(inkl. MwSt)</span>
+      </p>
+
+
+</tal:main-macro>
+</metal:main>
+</body>
+</html>
+        
+        

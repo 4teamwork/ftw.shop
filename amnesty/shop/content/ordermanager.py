@@ -49,7 +49,11 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         '''
  
         session = self.REQUEST.SESSION
-        
+
+        # check for cart
+        cart_view = getMultiAdapter((self, self.REQUEST), name=u'cart_view')
+        cart_data = cart_view.cart_items()
+                
         # check for customer data
         customer_data = session.get('customer_data', {})
         if not customer_data:
@@ -75,20 +79,13 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         order_number = '%03d%s%04d' % (now.dayOfYear()+500, now.yy(), order_id )
 
         order.setTitle(order_number)
-
-
-
-        session = self.REQUEST.SESSION
-
-        # process the customer information from SESSION
-        customer_data = session.get('customer', {})
+ 
+        # store customer data
         order.setCustomerData(customer_data)
 
         # store cart in order
-        cart_view = getMultiAdapter((self, self.REQUEST), name=u'cart_view')
-        cart_data = cart_view.cart_items()
         order.setCartData(cart_data)
-
+        order.setTotal(cart_view.cart_total())
 
         # Payment Method (pm)
         #pm = AIOnAccountPayment()

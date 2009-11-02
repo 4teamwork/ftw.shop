@@ -6,4 +6,5 @@ from shopitemvariant import IShopItemVariant
 from shopmultiitem import IShopMultiItem
 
 from shopitem import IShopItem
+from order import IShopOrder
 

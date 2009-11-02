@@ -29,6 +29,12 @@
         permission="zope2.View"
         class=".category.CategoryView"
     />
+  <browser:page
+        for="..interfaces.order.IShopOrder"
+        name="view"
+        permission="zope2.View"
+        template="order.pt"
+    />
 
   <browser:page 
     for="*" 
