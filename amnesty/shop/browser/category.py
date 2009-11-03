@@ -15,11 +15,14 @@ class CategoryView(BrowserView):
         return []
         
         
-#    @property
-#    @instance.memoize
+    @property
+    @instance.memoize
     def items(self):
         """ get all shop items belonging to this category
         """
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership') 
+        
         results = []
         for item in self.category_contents:
             image = item.getImage()
@@ -41,6 +44,7 @@ class CategoryView(BrowserView):
             if item.portal_type == 'ShopMultiItem':
                 # get variants
                 variants = item.contentValues(filter={'portal_type':'ShopItemVariant'})
+                variants = [v for v in variants if mtool.checkPermission('View', v)]
                 variants_data = {}
                 for variant in variants:
                     key = variant.getVariantLabel()
