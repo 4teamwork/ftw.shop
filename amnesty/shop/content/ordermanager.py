@@ -17,7 +17,7 @@ logger  = logging.getLogger('amnesty.shop')
 
 schema = atapi.Schema((
     atapi.IntegerField('next_order_id',
-        default="1",
+        default=1,
         widget=atapi.IntegerWidget(
             label="Next Order ID",
             label_msgid='PloneMallOrder_label_next_order_id',
