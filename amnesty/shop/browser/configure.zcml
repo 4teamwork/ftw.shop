@@ -29,13 +29,20 @@
         permission="zope2.View"
         class=".category.CategoryView"
     />
+  <!-- order view -->
   <browser:page
         for="..interfaces.order.IShopOrder"
         name="view"
         permission="zope2.View"
         template="order.pt"
     />
-
+  <!-- mail template for order -->
+  <browser:page
+        for="..interfaces.order.IShopOrder"
+        name="mail_view"
+        permission="zope2.View"
+        template="order_mail.pt"
+    />
   <browser:page 
     for="*" 
     name="cart_view" 

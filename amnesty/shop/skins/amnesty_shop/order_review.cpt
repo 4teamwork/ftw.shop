@@ -80,7 +80,7 @@
         <thead>
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
-            <!--th i18n:translate="cart_header_description">Description</th-->
+            <th i18n:translate="cart_header_description">Description</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
             <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
@@ -90,7 +90,7 @@
           <metal:block tal:repeat="item python:cart_items.values()">
             <tr>
               <td tal:content="item/title"></td>
-              <!--td tal:content="product/Description"></td-->
+              <td tal:content="item/description"></td>
               <td tal:content="item/quantity"></td>
               <td tal:content="item/price"></td>
               <td tal:content="item/total"></td>

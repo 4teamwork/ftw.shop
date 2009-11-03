@@ -3,7 +3,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize import instance
 from Acquisition import aq_inner
 from amnesty.shop.config import CATEGORY_RELATIONSHIP
- 
+from Products.CMFCore.utils import getToolByName
+
 class CategoryView(BrowserView):
     """Default view for a catgory. Shows all contained shop items and categories.
     """
@@ -85,8 +86,10 @@ class CategoryView(BrowserView):
     def category_contents(self):
         """ get all items (shop items, categories) belonging to this category.
         """
-        context = aq_inner(self.context)     
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership')   
         contents = context.getBRefs(CATEGORY_RELATIONSHIP)
+        contents = [item for item in contents if mtool.checkPermission('View', item)]
         contents.sort(lambda x,y: cmp(x.getRankForCategory(context), y.getRankForCategory(context)))
         return contents
  

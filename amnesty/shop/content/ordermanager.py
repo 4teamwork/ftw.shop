@@ -1,17 +1,19 @@
-
 from AccessControl import ClassSecurityInfo
-from AccessControl.unauthorized import Unauthorized
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
+from amnesty.shop.config import PROJECTNAME
+from amnesty.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 from DateTime import DateTime
-from Products.CMFCore.utils import UniqueObject, getToolByName
+from email.Header import Header
+from email.Utils import formataddr
 from Products.Archetypes import atapi
-
 from Products.ATContentTypes.content.folder import ATBTreeFolder
 from Products.ATContentTypes.content.folder import ATBTreeFolderSchema
-
-from amnesty.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
-from amnesty.shop.config import PROJECTNAME
+from Products.CMFCore.utils import UniqueObject, getToolByName
+from Products.MailHost.MailHost import MailHostError
 from zope.component import getMultiAdapter
+import socket
+import logging
+logger  = logging.getLogger('amnesty.shop')
 
 schema = atapi.Schema((
     atapi.IntegerField('next_order_id',
@@ -87,9 +89,8 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         order.setCartData(cart_data)
         order.setTotal(cart_view.cart_total())
 
-        # Payment Method (pm)
-        #pm = AIOnAccountPayment()
-        #pm.processPayment(o)
+        # now send a mail confirming the order
+        self.sendOrderMail(order_id)
 
         noSecurityManager()
         
@@ -101,12 +102,42 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         Send order confirmation mail of the order with the specified orderid.
         Can be used if initial sendig of order mail failed for some reason.
         """
-        o = getattr(self, str(orderid))
-        #pm = AIOnAccountPayment()
-        #pm.processPayment(o)
-        return "sent mail for order %s." % orderid
-    
+        order = getattr(self, str(orderid))
         
+        customer = order.getCustomerData()
+        
+        fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
+        mailTo = formataddr((getRfcHeaderValue(fullname), customer.get('email')))
+        mailFrom = 'no_reply@amnesty.ch'
+        mailBcc = ''
+        mailSubject = 'Amnesty Webshop'
+
+        # get values from properties
+        ltool = getToolByName(self, 'portal_languages')
+        lang = ltool.getPreferredLanguage()
+        properties = getToolByName(self, 'portal_properties', None)
+        shop_props = getattr(properties, 'shop_properties', None)
+        if shop_props is not None:
+            mailFrom = shop_props.getProperty('mail_from', mailFrom)
+            mailBcc = shop_props.getProperty('mail_bcc', mailBcc)
+            mailSubject = shop_props.getProperty('mail_subject_%s' % lang, mailSubject)
+
+        mhost = self.MailHost
+        mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
+        msg = mail_view()
+        
+        try:
+            mhost.secureSend(msg,
+                             mto=mailTo,
+                             mfrom=mailFrom,
+                             subject=mailSubject,
+                             mbcc=mailBcc,
+                             subtype='html',
+                             charset='utf8')        
+        except (MailHostError, socket.error), e:
+            logger.error("sending mail for order %s failed: %s." % (order.getOrderNumber(),str(e)))
+
+        return
 
     security.declareProtected("View", 'getOrderById')
     def getOrderById(self, order_id):
@@ -123,5 +154,12 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         self.setNext_order_id(nextid)
         return currid
 
+def getRfcHeaderValue(value):
+    header = None
+    try:
+        header = Header(value, 'ascii')
+    except:
+        header = Header(value, 'utf-8')
+    return str(header)
 
 atapi.registerType(OrderManager, PROJECTNAME)

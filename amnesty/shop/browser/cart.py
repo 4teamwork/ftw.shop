@@ -33,6 +33,7 @@ class CartView(BrowserView):
         if item is None:
             item = {'title': item_title,
                     'description': context.Description(),
+                    'skucode': context.getSku_code(),
                     'quantity':1,
                     'price': str(price),
                     'currency': context.getCurrency(),
