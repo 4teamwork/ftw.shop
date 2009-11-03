@@ -10,4 +10,13 @@
        insert-after="*"
     />
 
+   <assignment 
+       type="amnesty.shop.portlets.cart"
+       manager="plone.rightcolumn"
+       category="context"
+       key="/amnesty/www.amnesty.ch/fr/boutique"
+       name="shop-portlet"
+       insert-after="*"
+    />
+    
 </portlets>

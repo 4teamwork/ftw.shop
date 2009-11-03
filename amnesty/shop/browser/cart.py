@@ -132,6 +132,21 @@ class CartView(BrowserView):
         self.request.response.redirect(referer)
         return 
 
+    def cart_remove(self):
+        """ remove an item from cart.
+        """
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        uid = self.request.get('uid')
+        if uid:
+            self.remove_item(uid)
+            ptool.addPortalMessage(_(u'msg_cart_updated', default=u"Cart updated."), 'info')
+            
+        referer = self.request.get('HTTP_REFERER', context.absolute_url())
+        self.request.response.redirect(referer)
+        return 
+        
+        
     def cart_delete(self):
         """ remove all items from cart.
         """

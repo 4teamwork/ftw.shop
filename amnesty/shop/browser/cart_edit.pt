@@ -49,7 +49,7 @@
                       <td tal:content="item/price"></td>
                       <td tal:content="item/total"></td>
                       <td>
-                          <a href="" tal:attributes="href python:'cart_remove?id=%s' % uid"
+                          <a href="" tal:attributes="href python:'cart_remove?uid=%s' % uid"
                                      i18n:attributes="cart_remove">
                               <img src="" tal:replace="structure here/delete_p.gif" />
                           </a>

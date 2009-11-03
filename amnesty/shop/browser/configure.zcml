@@ -88,7 +88,15 @@
     attribute="cart_delete" 
     permission="zope2.View" 
     />
-    
+
+  <browser:page 
+    for="*" 
+    name="cart_remove" 
+    class=".cart.CartView" 
+    attribute="cart_remove" 
+    permission="zope2.View" 
+    />
+        
   <!-- cart edit page -->
   <browser:page 
     for="*" 
