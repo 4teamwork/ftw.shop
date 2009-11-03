@@ -1,20 +1,16 @@
-
 from AccessControl import ClassSecurityInfo
+from amnesty.shop import shopMessageFactory as _
+from amnesty.shop.config import PROJECTNAME
+from amnesty.shop.interfaces.order import IShopOrder
+from persistent.mapping import PersistentMapping
 from Products.Archetypes import atapi
-
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
-
-from amnesty.shop.config import PROJECTNAME
-#from Products.AIWebShop.Currency import Currency
-from persistent.mapping import PersistentMapping
-from amnesty.shop import shopMessageFactory as _
 from zope.interface import implements
-from amnesty.shop.interfaces.order import IShopOrder
 
 OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
-    atapi.FloatField(
+    atapi.FixedPointField(
         'total',
         required=False,
         widget=atapi.DecimalWidget(
@@ -26,13 +22,12 @@ OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
 
 class ShopOrder(base.ATCTContent):
-    """ A shop order
+    """ A content type for storing shop orders.
     """
     implements(IShopOrder)
     security = ClassSecurityInfo()
     meta_type = 'ShopOrder' 
     schema = OrderSchema
-
 
     def setCustomerData(self, data):
         self._customer_data = PersistentMapping(data)
@@ -48,23 +43,7 @@ class ShopOrder(base.ATCTContent):
         if hasattr(self, '_cart_data'):
             return self._cart_data
     
-    security.declarePublic('getOrderId')
-    def getOrderId(self):
-        """
-        
-        """
-        
-        return self.getId()
-
     def getOrderNumber(self):
         return self.Title() or self.getId()
-    
-
-    
-
-
-
 
 atapi.registerType(ShopOrder, PROJECTNAME)
-
-

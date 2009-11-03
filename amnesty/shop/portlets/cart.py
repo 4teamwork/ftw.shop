@@ -49,13 +49,5 @@ class Renderer(base.Renderer):
         
     @property 
     def available(self):
-        return len(self.cart_items())>0
-
-    @memoize
-    def cart_items(self):
-        """ get a list of shop items in cart
-        """
-        cart_view = getMultiAdapter((self.context, self.request), name=u'cart_view')
-        return cart_view.cart_items()
-
+        return True
 

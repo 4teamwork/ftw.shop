@@ -10,9 +10,16 @@
     </dt>
 
     <dd class="portletItem odd"
-        tal:define="cview context/cart_view">
+        tal:define="cview context/cart_view;
+                    cart_items python:cview.cart_items().values()">
+        
+        <tal:emptycart condition="not:cart_items">
+        <span i18n:translate="cart_is_empty">Your cart is empty</span>
+        </tal:emptycart>
+
+        <tal:cartcontents condition="cart_items">
         <ul>
-        <tal:items repeat="item python:view.cart_items().values()">
+        <tal:items repeat="item cart_items">
 	        <li>
 	            <a href="#" tal:content="item/title" /><br />
 	            <span tal:replace="item/currency" />
@@ -26,10 +33,11 @@
 	    
 	    <div class="cartActions">
 	        <ul>
-	            <li><a href="#">Edit cart</a></li>
-	            <li><a href="#" tal:attributes="href string:${view/navroot_url}/checkout">Order</a></li>
+	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit">Edit cart</a></li>
+	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout">Order</a></li>
 	        </ul>
 	    </div>
+	    </tal:cartcontents>
 	    
         <span class="portletBottomLeft"></span>
         <span class="portletBottomRight"></span>

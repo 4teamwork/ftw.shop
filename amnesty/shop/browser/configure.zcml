@@ -64,5 +64,29 @@
     class=".cart.CartView" 
     attribute="checkout" 
     permission="zope2.View" 
+    />
+    
+  <browser:page 
+    for="*" 
+    name="cart_update" 
+    class=".cart.CartView" 
+    attribute="cart_update" 
+    permission="zope2.View" 
     />    
+
+  <browser:page 
+    for="*" 
+    name="cart_delete" 
+    class=".cart.CartView" 
+    attribute="cart_delete" 
+    permission="zope2.View" 
+    />
+    
+  <!-- cart edit page -->
+  <browser:page 
+    for="*" 
+    name="cart_edit" 
+    template="cart_edit.pt" 
+    permission="zope2.View" 
+    />   
 </configure>

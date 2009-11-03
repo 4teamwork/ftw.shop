@@ -3,6 +3,8 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from amnesty.shop import shopMessageFactory as _
 from amnesty.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
+from decimal import Decimal
+from zope.component import getMultiAdapter
 
 CART_KEY = 'shop_cart_items'
 
@@ -26,19 +28,21 @@ class CartView(BrowserView):
             
         item_uid = context.UID()
         item = cart_items.get(item_uid, None)
+        price = Decimal(context.Price())
         # add item to cart
         if item is None:
             item = {'title': item_title,
+                    'description': context.Description(),
                     'quantity':1,
-                    'price': float(context.Price()),
+                    'price': str(price),
                     'currency': context.getCurrency(),
-                    'total': float(context.Price()),
+                    'total': str(price),
                     'url': context.absolute_url(),
             }    
         # item already in cart, update quantitiy
         else:
             item['quantity'] = item.get('quantity', 0) + 1
-            item['total'] = item['quantity'] * item['price']
+            item['total'] = str(item['quantity'] * price)
         
 
         # store cart in session    
@@ -65,10 +69,80 @@ class CartView(BrowserView):
         """
         """
         items = self.cart_items()
-        total = 0.0
+        total = Decimal('0.00')
         for item in items.values():
-            total += item['total']
-        return total
+            total += Decimal(item['total'])
+        return str(total)
+
+    def remove_item(self, uid):
+        """ remove item by uid from cart.
+        """
+        session = self.request.SESSION
+        cart_items = session.get(CART_KEY, {})
+        
+        if cart_items.has_key(uid):
+            del cart_items[uid]
+            
+        session[CART_KEY] = cart_items  
+
+    def update_item(self, uid, quantity):
+        """ update the quantity of an item.
+        """
+        session = self.request.SESSION
+        cart_items = session.get(CART_KEY, {})
+        
+        if cart_items.has_key(uid):
+            item = cart_items[uid]
+            item['quantity'] = int(quantity)
+            item['total'] = str(Decimal(item['price']) * item['quantity'])
+            cart_items[uid] = item
+            
+        session[CART_KEY] = cart_items
+        
+    def cart_update(self):
+        """ update cart contents.
+        """
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        
+        # first delete items with quantity 0
+        del_items = []
+        for uid in self.cart_items().keys():
+            try:
+                quantity = int(float(self.request.get('quantity_%s' % uid)))
+                if quantity == 0:
+                    del_items.append(uid)
+            except ValueError:
+                ptool.addPortalMessage(_(u'msg_cart_invalidvalue', default=u"Invalid Values specified. Cart was not updated."), 'error')
+                referer = self.request.get('HTTP_REFERER', context.absolute_url())
+                self.request.response.redirect(referer)
+                return
+        for uid in del_items:
+            self.remove_item(uid)
+        
+        # now update quantities    
+        for uid,item in self.cart_items().items():
+            quantity = int(float(self.request.get('quantity_%s' % uid)))
+            if quantity != item['quantity'] and quantity != 0:
+                self.update_item(uid, quantity)
+
+        ptool.addPortalMessage(_(u'msg_cart_updated', default=u"Cart updated."), 'info')
+        referer = self.request.get('HTTP_REFERER', context.absolute_url())
+        self.request.response.redirect(referer)
+        return 
+
+    def cart_delete(self):
+        """ remove all items from cart.
+        """
+        session = self.request.SESSION
+        session[CART_KEY] = {}
+        
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        ptool.addPortalMessage(_(u'msg_cart_emptied', default=u"Cart emptied."), 'info')
+        referer = self.request.get('HTTP_REFERER', context.absolute_url())
+        self.request.response.redirect(referer)
+        return
         
     def checkout(self):
        """ process checkout
@@ -97,3 +171,15 @@ class CartView(BrowserView):
        self.request.SESSION.invalidate()
        self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
        return
+
+    def shop_url(self):
+        """ return the root url of the shop folder.
+        """
+        # pretty hard coded now. maybe we should use a marker interface instead...
+        context = aq_inner(self.context)
+        portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
+        navroot_url = portal_state.navigation_root_url()
+        if navroot_url.endswith('fr'):
+            return '%s/boutique' % navroot_url
+        else:
+            return '%s/shop' % navroot_url

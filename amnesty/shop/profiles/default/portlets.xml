@@ -5,7 +5,7 @@
        type="amnesty.shop.portlets.cart"
        manager="plone.rightcolumn"
        category="context"
-       key="/de/shop"
+       key="/amnesty/www.amnesty.ch/de/shop"
        name="shop-portlet"
        insert-after="*"
     />
