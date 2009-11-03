@@ -73,7 +73,7 @@
             </p>
 
             <div class="listItemBody">
-                <table class="shopItemTable" tal:condition="not: item/variants">
+                <table class="shopItemTable" tal:condition="python: item['variants'] is None">
                     <tr>
                         <th i18n:translate="label_order_number">Order number</th>
                         <th colspan="2" i18n:translate="">Price</th>
