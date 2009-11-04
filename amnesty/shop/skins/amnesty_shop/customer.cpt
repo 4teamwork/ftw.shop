@@ -64,22 +64,22 @@
 		        id="customer_title"
 				tal:define="fieldvalue python:here.getCustomerDefaults('title')">
 		    <option value=""
-				    tal:define="optionName python:here.translate('label_details_ms', domain='amnesty')"
+				    tal:define="optionName python:here.translate('label_details_ms', domain='amnesty.shop')"
 				    tal:attributes="selected python:test(fieldvalue==optionName, 'selected', None);
 				    							value optionName"
 				    tal:content="optionName">optionName</option>
 			<option value=""
-				    tal:define="optionName python:here.translate('label_details_mr', domain='amnesty')"
+				    tal:define="optionName python:here.translate('label_details_mr', domain='amnesty.shop')"
 				    tal:attributes="selected python:test(fieldvalue==optionName, 'selected', None);
 				    							value optionName"
 				    tal:content="optionName">optionName</option>
 			<option value=""
-				    tal:define="optionName python:here.translate('label_details_family', domain='amnesty')"
+				    tal:define="optionName python:here.translate('label_details_family', domain='amnesty.shop')"
 				    tal:attributes="selected python:test(fieldvalue==optionName, 'selected', None);
 				    				value optionName"
 				    tal:content="optionName">optionName</option>
 			<option value=""
-				    tal:define="optionName python:here.translate('label_details_firm', domain='amnesty')"
+				    tal:define="optionName python:here.translate('label_details_firm', domain='amnesty.shop')"
 				    tal:attributes="selected python:test(fieldvalue==optionName, 'selected', None);
 				    							value optionName"
 				    tal:content="optionName">optionName</option>				    

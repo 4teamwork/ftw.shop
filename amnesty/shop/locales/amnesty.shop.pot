@@ -8,85 +8,492 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Default: "A category for shop items"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
+#: content/order.py:18
+msgid ""
+msgstr ""
+
+#: profiles/default/types/ShopCategory.xml
 msgid "A category for shop items"
 msgstr ""
 
-#. Default: "A shop item that consists of multiple variants (eg. colors, sizes)"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopMultiItem.xml
+#: profiles/default/types/OrderManager.xml
+msgid "A container for storing shop orders"
+msgstr ""
+
+#: profiles/default/types/ShopMultiItem.xml
 msgid "A shop item that consists of multiple variants (eg. colors, sizes)"
 msgstr ""
 
-#. Default: "A shop item variant for multi items"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItemVariant.xml
+#: profiles/default/types/ShopItemVariant.xml
 msgid "A shop item variant for multi items"
 msgstr ""
 
-#. Default: "A simple shop item"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItem.xml
+#: profiles/default/types/ShopItem.xml
 msgid "A simple shop item"
 msgstr ""
 
-#. Default: "Shop Category"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
+#: profiles/default/types/ShopOrder.xml
+msgid "An Order for storing custormer data and cart items"
+msgstr ""
+
+#: portlets/cart.pt:6
+msgid "Cart"
+msgstr ""
+
+#: browser/cart_edit.pt:75
+msgid "Checkout"
+msgstr ""
+
+#: skins/amnesty_shop/customer.cpt:12
+#: skins/amnesty_shop/order_review.cpt:12
+#: skins/amnesty_shop/thankyou.pt:10
+msgid "Customer Information"
+msgstr ""
+
+#: browser/cart_edit.pt:69
+msgid "Empty Shopping Cart"
+msgstr ""
+
+#: profiles/default/types/OrderManager.xml
+msgid "OrderManager"
+msgstr ""
+
+#: browser/category.pt:79
+msgid "Price"
+msgstr ""
+
+#: profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
 msgstr ""
 
-#. Default: "Shop Item"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItem.xml
+#: profiles/default/types/ShopItem.xml
 msgid "Shop Item"
 msgstr ""
 
-#. Default: "Shop Item Variant"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopItemVariant.xml
+#: profiles/default/types/ShopItemVariant.xml
 msgid "Shop Item Variant"
 msgstr ""
 
-#. Default: "Shop Multi Item"
-#: amnesty.shop/amnesty/shop/profiles/default/types/ShopMultiItem.xml
+#: profiles/default/types/ShopMultiItem.xml
 msgid "Shop Multi Item"
 msgstr ""
 
-#: amnesty.shop/amnesty/shop/content/shopitem.py:22
+#: profiles/default/types/ShopOrder.xml
+msgid "Shop Order"
+msgstr ""
+
+#: skins/amnesty_shop/customer.cpt:15
+#: skins/amnesty_shop/order_review.cpt:15
+#: skins/amnesty_shop/thankyou.pt:13
+msgid "Summary"
+msgstr ""
+
+#: content/order.py:17
+msgid "Total"
+msgstr ""
+
+#: skins/amnesty_shop/edit_categories.pt:49
+msgid "Update"
+msgstr ""
+
+#: browser/cart_edit.pt:63
+msgid "Update Cart"
+msgstr ""
+
+#: skins/amnesty_shop/order_review.cpt:117
+msgid "button_back"
+msgstr ""
+
+#. Default: "Delete"
+#: browser/cart_edit.pt:32
+msgid "cart_header_delete"
+msgstr ""
+
+#. Default: "Description"
+#: browser/cart_edit.pt:28
+#: skins/amnesty_shop/order_review.cpt:83
+msgid "cart_header_description"
+msgstr ""
+
+#. Default: "Price"
+#: browser/cart_edit.pt:30
+#: browser/order_mail.pt:72
+#: skins/amnesty_shop/order_review.cpt:85
+msgid "cart_header_price"
+msgstr ""
+
+#. Default: "Bezeichnung"
+#: browser/order_mail.pt:70
+#: skins/amnesty_shop/order_review.cpt:82
+msgid "cart_header_product"
+msgstr ""
+
+#. Default: "Quantity"
+#: browser/cart_edit.pt:29
+#: browser/order_mail.pt:71
+#: skins/amnesty_shop/order_review.cpt:84
+msgid "cart_header_quantity"
+msgstr ""
+
+#. Default: "Product"
+#: browser/cart_edit.pt:27
+msgid "cart_header_title"
+msgstr ""
+
+#. Default: "Total"
+#: browser/cart_edit.pt:31
+#: browser/order_mail.pt:73
+#: skins/amnesty_shop/order_review.cpt:86
+msgid "cart_header_total"
+msgstr ""
+
+#. Default: "Your cart is empty"
+#: browser/cart_edit.pt:18
+#: portlets/cart.pt:17
+msgid "cart_is_empty"
+msgstr ""
+
+#. Default: "Shopping Cart"
+#: browser/cart_edit.pt:14
+msgid "cart_title"
+msgstr ""
+
+#. Default: "Short Description"
+#: skins/amnesty_shop/edit_categories.pt:19
+msgid "categories_header_descrition"
+msgstr ""
+
+#. Default: "Rank"
+#: skins/amnesty_shop/edit_categories.pt:20
+msgid "categories_header_rank"
+msgstr ""
+
+#. Default: "Title"
+#: skins/amnesty_shop/edit_categories.pt:18
+msgid "categories_header_title"
+msgstr ""
+
+#. Default: "Categories"
+#: skins/amnesty_shop/edit_categories.pt:8
+msgid "categories_title"
+msgstr ""
+
+#. Default: "Confirmation"
+#: skins/amnesty_shop/customer.cpt:18
+#: skins/amnesty_shop/order_review.cpt:18
+#: skins/amnesty_shop/thankyou.pt:16
+msgid "confirmation_step"
+msgstr ""
+
+#. Default: "Customer Information"
+#: skins/amnesty_shop/customer.cpt:23
+msgid "customer_information_title"
+msgstr ""
+
+#: content/shopitem.py:22
 msgid "desc_currency"
 msgstr ""
 
-#: amnesty.shop/amnesty/shop/content/shopitem.py:32
+#: content/shopitem.py:32
 msgid "desc_price"
 msgstr ""
 
-#: amnesty.shop/amnesty/shop/content/shopitem.py:41
+#: content/shopitem.py:41
 msgid "desc_sku_code"
 msgstr ""
 
 #. Default: "e.g. Color. All variant items with the same label will be grouped together."
-#: amnesty.shop/amnesty/shop/content/shopitemvariant.py:22
+#: content/shopitemvariant.py:22
 msgid "desc_variant_label"
 msgstr ""
 
+#. Default: "Your Cart"
+#: skins/amnesty_shop/order_review.cpt:74
+msgid "header_cart_portlet"
+msgstr ""
+
+#. Default: "Einzelheiten zu Ihrer Bestellung"
+#: browser/order_mail.pt:23
+msgid "header_orderdetails"
+msgstr ""
+
+#. Default: "Bestellte Artikel"
+#: browser/order_mail.pt:65
+msgid "header_ordereditems"
+msgstr ""
+
+#. Default: "hier"
+#: skins/amnesty_shop/customer.cpt:30
+msgid "here"
+msgstr ""
+
+#. Default: "Artikel Nr."
+#: browser/order_mail.pt:69
+msgid "label_article_no"
+msgstr ""
+
+#. Default: "Order"
+#: portlets/cart.pt:38
+msgid "label_checkout"
+msgstr ""
+
+#. Default: "City"
+#: skins/amnesty_shop/customer.cpt:223
+msgid "label_city"
+msgstr ""
+
+#. Default: "Comments"
+#: skins/amnesty_shop/customer.cpt:290
+msgid "label_comments"
+msgstr ""
+
 #. Default: "Currency"
-#: amnesty.shop/amnesty/shop/content/shopitem.py:21
+#: content/shopitem.py:21
 msgid "label_currency"
 msgstr ""
 
+#. Default: "Comments"
+#: browser/order_mail.pt:61
+#: skins/amnesty_shop/order_review.cpt:70
+msgid "label_details_comments"
+msgstr ""
+
+msgid "label_details_family"
+msgstr ""
+
+msgid "label_details_firm"
+msgstr ""
+
+msgid "label_details_mr"
+msgstr ""
+
+msgid "label_details_ms"
+msgstr ""
+
+#. Default: "Edit cart"
+#: portlets/cart.pt:36
+msgid "label_edit_cart"
+msgstr ""
+
+#. Default: "Email:"
+#: browser/order_mail.pt:46
+#: skins/amnesty_shop/customer.cpt:139
+#: skins/amnesty_shop/order_review.cpt:55
+msgid "label_email"
+msgstr ""
+
+#. Default: "First Name"
+#: skins/amnesty_shop/customer.cpt:95
+msgid "label_firstname"
+msgstr ""
+
+#. Default: "Last Name"
+#: skins/amnesty_shop/customer.cpt:117
+msgid "label_lastname"
+msgstr ""
+
+#. Default: "More"
+#: browser/category.pt:51
+msgid "label_more_link"
+msgstr ""
+
+#. Default: "Newsletter"
+#: skins/amnesty_shop/customer.cpt:281
+msgid "label_newsletter"
+msgstr ""
+
+#. Default: "Next"
+#: skins/amnesty_shop/customer.cpt:301
+#: skins/amnesty_shop/order_review.cpt:123
+msgid "label_next"
+msgstr ""
+
+#. Default: "Order number"
+#: browser/category.pt:78
+msgid "label_order_number"
+msgstr ""
+
+#. Default: "Tel."
+#: browser/order_mail.pt:50
+#: skins/amnesty_shop/order_review.cpt:59
+msgid "label_phone"
+msgstr ""
+
 #. Default: "Price"
-#: amnesty.shop/amnesty/shop/content/shopitem.py:31
+#: content/shopitem.py:31
 msgid "label_price"
 msgstr ""
 
+#. Default: "(Required)"
+#: skins/amnesty_shop/customer.cpt:57
+msgid "label_required"
+msgstr ""
+
 #. Default: "SKU Code"
-#: amnesty.shop/amnesty/shop/content/shopitem.py:40
+#: content/shopitem.py:40
 msgid "label_sku_code"
 msgstr ""
 
+#. Default: "Street/No."
+#: skins/amnesty_shop/customer.cpt:161
+msgid "label_street"
+msgstr ""
+
+#. Default: "Address 2"
+#: skins/amnesty_shop/customer.cpt:183
+msgid "label_street2"
+msgstr ""
+
+#. Default: "Title"
+#: skins/amnesty_shop/customer.cpt:54
+msgid "label_title"
+msgstr ""
+
 #. Default: "Variant Label"
-#: amnesty.shop/amnesty/shop/content/shopitemvariant.py:21
+#: content/shopitemvariant.py:21
 msgid "label_variant_label"
 msgstr ""
 
+#. Default: "Zip Code"
+#: skins/amnesty_shop/customer.cpt:201
+msgid "label_zipcode"
+msgstr ""
+
+#. Default: "Cart emptied."
+#: browser/cart.py:158
+msgid "msg_cart_emptied"
+msgstr ""
+
+#. Default: "Invalid Values specified. Cart was not updated."
+#: browser/cart.py:117
+msgid "msg_cart_invalidvalue"
+msgstr ""
+
+#. Default: "Cart updated."
+#: browser/cart.py:130
+msgid "msg_cart_updated"
+msgstr ""
+
 #. Default: "Added item to cart."
-#: amnesty.shop/amnesty/shop/browser/cart.py:50
+#: browser/cart.py:55
 msgid "msg_item_added"
+msgstr ""
+
+#. Default: "Can't proceed with empty cart."
+#: browser/cart.py:173
+msgid "msg_no_cart"
+msgstr ""
+
+#. Default: "This item does not have any body text, click the edit tab to change it."
+#: browser/category.pt:31
+msgid "no_body_text"
+msgstr ""
+
+#. Default: "Order Review"
+#: skins/amnesty_shop/order_review.cpt:23
+msgid "order_review_title"
+msgstr ""
+
+#. Default: "Add to cart"
+#: browser/category.pt:84
+msgid "text_add_to_cart"
+msgstr ""
+
+#. Default: "Hinweis AGB ${link}"
+#: skins/amnesty_shop/customer.cpt:29
+msgid "text_agb"
+msgstr ""
+
+#. Default: "Bestellungen aus dem Ausland"
+#: skins/amnesty_shop/customer.cpt:37
+msgid "text_foreign_orders"
+msgstr ""
+
+#. Default: "I would like to subscribe to the newsletter."
+#: skins/amnesty_shop/customer.cpt:282
+msgid "text_subscribe_newsletter"
+msgstr ""
+
+#: skins/amnesty_shop/thankyou.pt:25
+msgid "thank_you_info"
+msgstr ""
+
+#. Default: "Order submited"
+#: skins/amnesty_shop/thankyou.pt:23
+msgid "thank_you_message"
+msgstr ""
+
+#. Default: "${order_number}"
+#: skins/amnesty_shop/thankyou.pt:28
+msgid "thank_you_orderno"
+msgstr ""
+
+#. Default: "Thank you!"
+#: skins/amnesty_shop/thankyou.pt:21
+msgid "thank_you_title"
+msgstr ""
+
+#. Default: "Payment method"
+#: skins/amnesty_shop/order_review.cpt:110
+msgid "title_paymentmethod"
+msgstr ""
+
+#. Default: "Personal Information"
+#: browser/order_mail.pt:27
+#: skins/amnesty_shop/order_review.cpt:36
+msgid "title_personal_information"
+msgstr ""
+
+#. Default: "Required"
+#: skins/amnesty_shop/customer.cpt:57
+msgid "title_required"
+msgstr ""
+
+#. Default: "Fuer Rueckfragen wenden Sie sich an: Telefon 031 307 22 22, E-Mail <a href=\"mailto:service@amnesty.ch\">service@amnesty.ch</a>"
+#: browser/order_mail.pt:92
+msgid "txt_contact"
+msgstr ""
+
+#. Default: "On Account"
+#: skins/amnesty_shop/order_review.cpt:111
+msgid "txt_onaccount_payment"
+msgstr ""
+
+#. Default: "Ihre Bestellnummer lautet"
+#: browser/order_mail.pt:25
+msgid "txt_ordernumber"
+msgstr ""
+
+#. Default: "Verpackung und Versandkosten sind nicht enthalten und werden individuell verrechnet."
+#: browser/order_mail.pt:90
+#: skins/amnesty_shop/order_review.cpt:106
+msgid "txt_shipping"
+msgstr ""
+
+#. Default: "Subscribe to newsletter"
+#: browser/order_mail.pt:56
+#: skins/amnesty_shop/order_review.cpt:66
+msgid "txt_subscribe_newsletter"
+msgstr ""
+
+#. Default: "Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom ${date}"
+#: browser/order_mail.pt:20
+msgid "txt_thankyou"
+msgstr ""
+
+#. Default: "Dear"
+#: browser/order_mail.pt:14
+msgid "txt_title"
+msgstr ""
+
+#. Default: "Gesamtsumme dieser Bestellung"
+#: browser/order_mail.pt:86
+msgid "txt_total"
+msgstr ""
+
+#. Default: "(inkl. MwSt)"
+#: browser/order_mail.pt:88
+#: skins/amnesty_shop/order_review.cpt:104
+msgid "txt_vat"
 msgstr ""
 

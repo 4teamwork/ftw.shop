@@ -33,8 +33,10 @@
 	    
 	    <div class="cartActions">
 	        <ul>
-	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit">Edit cart</a></li>
-	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout">Order</a></li>
+	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit"
+	                            i18n:translate="label_edit_cart">Edit cart</a></li>
+	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout"
+	                            i18n:translate="label_checkout">Order</a></li>
 	        </ul>
 	    </div>
 	    </tal:cartcontents>
