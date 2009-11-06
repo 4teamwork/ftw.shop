@@ -28,6 +28,15 @@ msgstr ""
 msgid "A simple shop item"
 msgstr ""
 
+#: portlets/cart.pt:6
+msgid "Cart"
+msgstr "Votre panier"
+
+#: browser/cart_edit.pt:75
+msgid "Checkout"
+msgstr "Commander"
+
+
 #. Default: "Shop Category"
 #: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
