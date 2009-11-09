@@ -412,7 +412,7 @@ msgstr "Sie finden ${link} unsere Allgemeinen Geschäftsbedingungen (AGB) und di
 #. Default: "Bestellungen aus dem Ausland"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:37
 msgid "text_foreign_orders"
-msgstr """Bestellungen aus dem Ausland sind innerhalb von Europa im Prinzip möglich, nehmen Sie aber vorher mit uns <a href="mailto:service@amnesty.ch?Subject=_Shop_d">Kontakt</a> auf."""
+msgstr """Bestellungen aus dem Ausland sind innerhalb von Europa im Prinzip möglich, nehmen Sie aber vorher mit uns <a href="mailto:service@amnesty.ch?Subject=Shop">Kontakt</a> auf."""
 
 #. Default: "I would like to subscribe to the newsletter."
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:282
