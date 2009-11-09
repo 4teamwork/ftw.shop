@@ -49,7 +49,7 @@ msgstr "Bestellen"
 #: skins/amnesty_shop/order_review.cpt:12
 #: skins/amnesty_shop/thankyou.pt:10
 msgid "Customer Information"
-msgstr "1.&nbsp;Kundendaten"
+msgstr "1.&nbsp; Meine Adresse"
 
 #: browser/cart_edit.pt:69
 msgid "Empty Shopping Cart"
@@ -441,7 +441,7 @@ msgstr "Besten Dank!"
 #. Default: "Payment method"
 #: skins/amnesty_shop/order_review.cpt:110
 msgid "title_paymentmethod"
-msgstr ""
+msgstr "Zahlungsart"
 
 #. Default: "Personal Information"
 #: browser/order_mail.pt:27
@@ -452,9 +452,9 @@ msgstr ""
 #. Default: "Required"
 #: skins/amnesty_shop/customer.cpt:57
 msgid "title_required"
-msgstr ""
+msgstr "Benötigte Angaben"
 
-#. Default: "Fuer Rueckfragen wenden Sie sich an: Telefon 031 307 22 22, E-Mail <a href=\"mailto:service@amnesty.ch\">service@amnesty.ch</a>"
+#. Default: "Fuer Rueckfragen wenden Sie sich an: Telefon 031 307 22 22, E-Mail <a href=\"mailto:webmaster@amnesty.ch\">webmaster@amnesty.ch</a>"
 #: browser/order_mail.pt:92
 msgid "txt_contact"
 msgstr ""
@@ -479,7 +479,7 @@ msgstr ""
 #: browser/order_mail.pt:56
 #: skins/amnesty_shop/order_review.cpt:66
 msgid "txt_subscribe_newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #. Default: "Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom ${date}"
 #: browser/order_mail.pt:20
