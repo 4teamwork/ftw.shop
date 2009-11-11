@@ -21,8 +21,6 @@
     </ul>
     
     <h1 i18n:translate="order_review_title">Order Review</h1>
-
-    <div class="formRight">
         
     <form action=""
           class="enableAutoFocus"
@@ -120,7 +118,7 @@
                  value="button_back"
                  i18n:attributes="value"/>
        
-          <input class="context"
+          <input class="buttonNext"
                  type="submit"
                  name="form.button.next"
                  value="Next"
@@ -132,8 +130,6 @@
         <input tal:replace="structure context/@@authenticator/authenticator" />
         
     </form>
-    </div>
-
 
 </tal:main-macro>
 </metal:main>

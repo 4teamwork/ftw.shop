@@ -39,7 +39,7 @@
         </p>
     	
     </div>
-    
+
     <div class="formRight">
         <form action=""
               class="enableAutoFocus enableUnloadProtection"
@@ -298,7 +298,7 @@
         </div>
 
       <div class="formControls">
-        <input class="context"
+        <input class="buttonNext"
                type="submit"
                name="form.button.next"
                value="Next"
