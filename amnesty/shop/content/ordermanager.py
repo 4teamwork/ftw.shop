@@ -107,7 +107,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         customer = order.getCustomerData()
         
         fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
-        mailTo = formataddr((getRfcHeaderValue(fullname), customer.get('email')))
+        mailTo = formataddr((toLatin1(fullname), customer.get('email')))
         mailFrom = 'no_reply@amnesty.ch'
         mailBcc = ''
         mailSubject = 'Amnesty Webshop'
@@ -118,14 +118,13 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         properties = getToolByName(self, 'portal_properties', None)
         shop_props = getattr(properties, 'shop_properties', None)
         if shop_props is not None:
-            mailFrom = shop_props.getProperty('mail_from', mailFrom)
-            mailBcc = shop_props.getProperty('mail_bcc', mailBcc)
-            mailSubject = shop_props.getProperty('mail_subject_%s' % lang, mailSubject)
+            mailFrom = toLatin1(shop_props.getProperty('mail_from', mailFrom))
+            mailBcc = toLatin1(shop_props.getProperty('mail_bcc', mailBcc))
+            mailSubject = toLatin1(shop_props.getProperty('mail_subject_%s' % lang, mailSubject))
 
         mhost = self.MailHost
         mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
         msg = mail_view()
-        
         try:
             mhost.secureSend(msg,
                              mto=mailTo,
@@ -133,7 +132,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
                              subject=mailSubject,
                              mbcc=mailBcc,
                              subtype='html',
-                             charset='utf8')        
+                             charset='iso-8859-1')        
         except (MailHostError, socket.error), e:
             logger.error("sending mail for order %s failed: %s." % (order.getOrderNumber(),str(e)))
 
@@ -154,12 +153,17 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         self.setNext_order_id(nextid)
         return currid
 
+def toLatin1(string):
+    if not isinstance(string,unicode):
+        string = string.decode('utf8')
+    return string.encode('iso-8859-1')
+
 def getRfcHeaderValue(value):
     header = None
     try:
         header = Header(value, 'ascii')
     except:
-        header = Header(value, 'utf-8')
+        header = Header(value, 'iso-8859-1')
     return str(header)
 
 atapi.registerType(OrderManager, PROJECTNAME)
