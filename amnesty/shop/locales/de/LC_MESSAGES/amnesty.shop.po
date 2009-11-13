@@ -447,7 +447,7 @@ msgstr "Zahlungsart"
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:27
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/order_review.cpt:34
 msgid "title_personal_information"
-msgstr ""
+msgstr "Adressangaben"
 
 #. Default: "Required"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:57
@@ -462,7 +462,7 @@ msgstr ""
 #. Default: "On Account"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/order_review.cpt:109
 msgid "txt_onaccount_payment"
-msgstr ""
+msgstr "Rechnung"
 
 #. Default: "Ihre Bestellnummer lautet"
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:25
@@ -473,7 +473,7 @@ msgstr ""
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:90
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/order_review.cpt:104
 msgid "txt_shipping"
-msgstr ""
+msgstr "Verpackung und Versandkosten sind nicht enthalten und werden individuell verrechnet."
 
 #. Default: "Subscribe to newsletter"
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:56
