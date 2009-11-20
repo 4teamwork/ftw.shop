@@ -52,7 +52,7 @@ msgstr "1.&nbsp; Mon adresse"
 
 #: amnesty.shop/amnesty/shop/browser/cart_edit.pt:69
 msgid "Empty Shopping Cart"
-msgstr ""
+msgstr "Vider votre panier"
 
 #: amnesty.shop/amnesty/shop/profiles/default/types/OrderManager.xml
 msgid "OrderManager"
@@ -61,7 +61,7 @@ msgstr ""
 #: amnesty.shop/amnesty/shop/browser/category.pt:79
 #: amnesty.shop/amnesty/shop/browser/shopitem.pt:44
 msgid "Price"
-msgstr ""
+msgstr "Prix"
 
 #. Default: "Shop Category"
 #: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
@@ -264,16 +264,16 @@ msgid "label_details_comments"
 msgstr "Remarques"
 
 msgid "label_details_family"
-msgstr ""
+msgstr "Famille"
 
 msgid "label_details_firm"
-msgstr ""
+msgstr "Entreprise"
 
 msgid "label_details_mr"
-msgstr ""
+msgstr "Monsieur"
 
 msgid "label_details_ms"
-msgstr ""
+msgstr "Madame"
 
 #. Default: "Edit cart"
 #: amnesty.shop/amnesty/shop/portlets/cart.pt:36
@@ -300,7 +300,7 @@ msgstr "Nom"
 #. Default: "More"
 #: amnesty.shop/amnesty/shop/browser/category.pt:51
 msgid "label_more_link"
-msgstr "Plus"
+msgstr "» Plus"
 
 #. Default: "Newsletter"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:281
@@ -366,7 +366,7 @@ msgid "label_zipcode"
 msgstr "NPA"
 
 msgid "link_agb"
-msgstr ""
+msgstr "http://www.amnesty.ch/fr/contacts/impressum/questions-legales/conditions-d-achat-en-ligne/"
 
 #. Default: "Cart emptied."
 #: amnesty.shop/amnesty/shop/browser/cart.py:158
@@ -413,12 +413,12 @@ msgstr "Dans votre panier"
 #. Default: "Hinweis AGB ${link}"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:29
 msgid "text_agb"
-msgstr "Conditions d'achat"
+msgstr "Vous trouvez ${link} nos conditions d'achat et les informations sur la protection des données."
 
 #. Default: "Bestellungen aus dem Ausland"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:37
 msgid "text_foreign_orders"
-msgstr "Commandes de l'étranger"
+msgstr "Il est en principe possible de faire des commandes depuis l'Europe. Veuillez cependant prendre <a href=\"http://www.amnesty.ch/fr/contacts\">contact</a> avec nous auparavant."
 
 #. Default: "I would like to subscribe to the newsletter."
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:282
@@ -427,17 +427,17 @@ msgstr "J'aimerais recevoir la Newsletter par e-mail."
 
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:25
 msgid "thank_you_info"
-msgstr ""
+msgstr "Votre commande a été envoyée"
 
 #. Default: "Order submited"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:23
 msgid "thank_you_message"
-msgstr ""
+msgstr "Vous recevrez prochainement un e-mail contenant la récapitulation de votre commande et dans les prochains jours votre article par courrier postal."
 
 #. Default: "${order_number}"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:28
 msgid "thank_you_orderno"
-msgstr ""
+msgstr "Le numéro de votre commande est le suivant: "
 
 #. Default: "Thank you!"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:21
@@ -453,7 +453,7 @@ msgstr "Mode de paiement"
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:27
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/order_review.cpt:34
 msgid "title_personal_information"
-msgstr "Coordonnées personnelles"
+msgstr "Mon adresse"
 
 #. Default: "Required"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:57
@@ -468,7 +468,7 @@ msgstr "Pour demandes, veuillez vous adresser à: Tél 031 307 22 22, E-mail <a 
 #. Default: "On Account"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/order_review.cpt:109
 msgid "txt_onaccount_payment"
-msgstr ""
+msgstr "Sur facture et avec bulletin de versement"
 
 #. Default: "Ihre Bestellnummer lautet"
 #: amnesty.shop/amnesty/shop/browser/order_mail.pt:25
