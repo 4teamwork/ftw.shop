@@ -28,7 +28,7 @@
             Hinweis AGB
             <span i18n:name="link">
                 <a href="#" target="_blank"
-                   tal:define="link_agb python:here.translate('link_agb', domain='amnesty')"
+                   tal:define="link_agb python:here.translate('link_agb', domain='amnesty.shop')"
                    tal:attributes="href string:$portal_url/$link_agb"
                    i18n:translate="here">hier</a>
             </span>

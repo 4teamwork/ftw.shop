@@ -59,6 +59,7 @@ msgid "OrderManager"
 msgstr ""
 
 #: amnesty.shop/amnesty/shop/browser/category.pt:79
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:44
 msgid "Price"
 msgstr ""
 
@@ -310,6 +311,7 @@ msgstr ""
 
 #. Default: "Order number"
 #: amnesty.shop/amnesty/shop/browser/category.pt:78
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:43
 msgid "label_order_number"
 msgstr ""
 
@@ -359,6 +361,9 @@ msgstr ""
 msgid "label_zipcode"
 msgstr ""
 
+msgid "link_agb"
+msgstr ""
+
 #. Default: "Cart emptied."
 #: amnesty.shop/amnesty/shop/browser/cart.py:158
 msgid "msg_cart_emptied"
@@ -386,6 +391,7 @@ msgstr ""
 
 #. Default: "This item does not have any body text, click the edit tab to change it."
 #: amnesty.shop/amnesty/shop/browser/category.pt:31
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:31
 msgid "no_body_text"
 msgstr ""
 
@@ -396,6 +402,7 @@ msgstr ""
 
 #. Default: "Add to cart"
 #: amnesty.shop/amnesty/shop/browser/category.pt:84
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:49
 msgid "text_add_to_cart"
 msgstr ""
 

@@ -1,13 +1,12 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: Thu Aug 11 17:30:49 2009\n"
-"PO-Revision-Date: 2009-11-06 10:23+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
-"Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
+"Language-Team:  4teamwork GmbH <info@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Project-Id-Version: \n"
 
 #. Default: "A category for shop items"
 #: amnesty.shop/amnesty/shop/profiles/default/types/ShopCategory.xml
@@ -60,6 +59,7 @@ msgid "OrderManager"
 msgstr ""
 
 #: amnesty.shop/amnesty/shop/browser/category.pt:79
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:44
 msgid "Price"
 msgstr ""
 
@@ -315,6 +315,7 @@ msgstr ""
 
 #. Default: "Order number"
 #: amnesty.shop/amnesty/shop/browser/category.pt:78
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:43
 msgid "label_order_number"
 msgstr ""
 
@@ -364,6 +365,9 @@ msgstr ""
 msgid "label_zipcode"
 msgstr ""
 
+msgid "link_agb"
+msgstr ""
+
 #. Default: "Cart emptied."
 #: amnesty.shop/amnesty/shop/browser/cart.py:158
 msgid "msg_cart_emptied"
@@ -391,6 +395,7 @@ msgstr ""
 
 #. Default: "This item does not have any body text, click the edit tab to change it."
 #: amnesty.shop/amnesty/shop/browser/category.pt:31
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:31
 msgid "no_body_text"
 msgstr ""
 
@@ -401,6 +406,7 @@ msgstr ""
 
 #. Default: "Add to cart"
 #: amnesty.shop/amnesty/shop/browser/category.pt:84
+#: amnesty.shop/amnesty/shop/browser/shopitem.pt:49
 msgid "text_add_to_cart"
 msgstr ""
 
