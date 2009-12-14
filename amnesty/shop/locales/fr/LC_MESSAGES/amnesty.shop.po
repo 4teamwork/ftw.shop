@@ -358,7 +358,7 @@ msgstr "Titre"
 #. Default: "Variant Label"
 #: amnesty.shop/amnesty/shop/content/shopitemvariant.py:21
 msgid "label_variant_label"
-msgstr ""
+msgstr "Variant Label - comme taille ou couleur. Doit être toujours le même dans l'article"
 
 #. Default: "Zip Code"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/customer.cpt:201
