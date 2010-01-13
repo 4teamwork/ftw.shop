@@ -437,7 +437,7 @@ msgstr "Ihre Bestellung wurde abgeschickt."
 #. Default: "${order_number}"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:28
 msgid "thank_you_orderno"
-msgstr "Ihre Bestellnummer lautet:"
+msgstr "Ihre Bestellnummer lautet: ${order_number}"
 
 #. Default: "Thank you!"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:21

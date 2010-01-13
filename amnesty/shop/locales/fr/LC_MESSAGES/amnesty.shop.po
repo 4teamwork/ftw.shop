@@ -437,7 +437,7 @@ msgstr "Vous recevrez prochainement un e-mail contenant la récapitulation de vo
 #. Default: "${order_number}"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:28
 msgid "thank_you_orderno"
-msgstr "Le numéro de votre commande est le suivant: "
+msgstr "Le numéro de votre commande est le suivant: ${order_number}"
 
 #. Default: "Thank you!"
 #: amnesty.shop/amnesty/shop/skins/amnesty_shop/thankyou.pt:21
