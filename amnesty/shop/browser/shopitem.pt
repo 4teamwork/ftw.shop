@@ -33,11 +33,11 @@
            class="discreet">
             This item does not have any body text, click the edit tab to change it.
         </p>
-
-        <metal:field use-macro="python:here.widget('text', mode='view')">
-        Body text
-        </metal:field>
-
+        <div class="shopItemText">
+            <metal:field use-macro="python:here.widget('text', mode='view')">
+            Body text
+            </metal:field>
+        </div>
         <table class="shopItemTable" tal:define="item view/item" tal:condition="item">
             <tr>
                 <th i18n:translate="label_order_number">Order number</th>
