@@ -8,7 +8,7 @@ from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 from DateTime import DateTime
 from amnesty.shop import shopMessageFactory as _
-from amnesty.shop.interfaces import IShopItemVariant
+from amnesty.shop.interfaces.shopitemvariant import IShopItemVariant
 from amnesty.shop.config import PROJECTNAME
 from amnesty.shop.content.shopitem import ShopItemBaseSchema
 

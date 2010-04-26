@@ -4,9 +4,10 @@ from Products.CMFCore.utils import getToolByName
 from amnesty.shop import shopMessageFactory as _
 from amnesty.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 from decimal import Decimal
-from zope.component import getMultiAdapter
+from amnesty.shop.root import get_shop_root_object
 
 CART_KEY = 'shop_cart_items'
+
 
 class CartView(BrowserView):
     """
@@ -61,7 +62,6 @@ class CartView(BrowserView):
     def cart_items(self):
         """ get content of shopping cart
         """
-        context = aq_inner(self.context)
         session = self.request.SESSION
         items = session.get(CART_KEY, {})
         return items
@@ -191,11 +191,6 @@ class CartView(BrowserView):
     def shop_url(self):
         """ return the root url of the shop folder.
         """
-        # pretty hard coded now. maybe we should use a marker interface instead...
         context = aq_inner(self.context)
-        portal_state = getMultiAdapter((context, self.request), name=u'plone_portal_state')
-        navroot_url = portal_state.navigation_root_url()
-        if navroot_url.endswith('fr'):
-            return '%s/boutique' % navroot_url
-        else:
-            return '%s/shop' % navroot_url
+        shop_root = get_shop_root_object(context)
+        return shop_root.absolute_url()

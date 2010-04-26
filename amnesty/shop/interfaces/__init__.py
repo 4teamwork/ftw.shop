@@ -1,10 +1,5 @@
-# -*- extra stuff goes here -*-
-from shopcategory import IShopCategory
+from zope.interface import Interface
 
-from shopitemvariant import IShopItemVariant
 
-from shopmultiitem import IShopMultiItem
-
-from shopitem import IShopItem
-from order import IShopOrder
-
+class IShopRoot(Interface):
+    """Marker interface for shop root folder."""

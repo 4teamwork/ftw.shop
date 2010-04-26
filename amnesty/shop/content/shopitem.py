@@ -7,7 +7,7 @@ from Products.Archetypes import atapi
 from amnesty.base.content.aiarticle import AIArticle
 from amnesty.base.content.aiarticle import AIArticleSchema
 from amnesty.shop import shopMessageFactory as _
-from amnesty.shop.interfaces import IShopItem
+from amnesty.shop.interfaces.shopitem import IShopItem
 from amnesty.shop.content.categorizeable import Categorizeable
 from amnesty.shop.config import PROJECTNAME, CURRENCIES
 
