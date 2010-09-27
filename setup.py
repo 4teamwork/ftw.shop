@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the tool of amnesty.shop
+This module contains the tool of ftw.shop
 """
 import os
 from setuptools import setup, find_packages
@@ -21,7 +21,7 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('amnesty', 'shop', 'README.txt')
+    read('ftp', 'shop', 'README.txt')
     + '\n' +
     'Contributors\n'
     '************\n'
@@ -34,9 +34,9 @@ long_description = (
 
 tests_require=['zope.testing']
 
-setup(name='amnesty.shop',
+setup(name='ftw.shop',
       version=version,
-      description="A web shop for the amnesty website",
+      description="A web shop solution for Plone",
       long_description=long_description,
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
@@ -51,7 +51,7 @@ setup(name='amnesty.shop',
       url='http://www.4teamwork.ch',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['amnesty', ],
+      namespace_packages=['ftw', ],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
@@ -60,7 +60,7 @@ setup(name='amnesty.shop',
       ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
-      test_suite = 'amnesty.shop.tests.test_docs.test_suite',
+      test_suite = 'ftw.shop.tests.test_docs.test_suite',
       entry_points="""
       # -*- entry_points -*-
       [z3c.autoinclude.plugin]

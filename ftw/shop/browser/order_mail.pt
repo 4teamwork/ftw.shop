@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="ftw.shop">
+<body>
+
+<body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
+      tal:define="customer context/getCustomerData;
+                  cart context/getCartData;">
+
+<p>
+    <span i18n:translate="txt_title">Dear</span>
+    <span tal:replace="customer/firstname"></span> <span tal:replace="customer/lastname"></span>
+</p>
+
+<p i18n:translate="txt_thankyou">
+Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom
+<span i18n:name="date" tal:replace="python:here.toLocalizedTime(context.ModificationDate(), long_format=0)"></span>
+</p>
+
+<h3 i18n:translate="header_orderdetails">Einzelheiten zu Ihrer Bestellung</h3>
+
+<span i18n:translate="txt_ordernumber">Ihre Bestellnummer lautet</span>: <span tal:replace="context/getOrderNumber"></span>
+
+<h4 i18n:translate="title_personal_information">Personal Information</h4>
+    
+    <p>
+        <span tal:replace="customer/title" /><br />
+        
+        <span tal:replace="customer/firstname" />
+        <span tal:replace="customer/lastname" /><br />
+        
+        <span tal:replace="customer/street" /><br />
+        
+        <tal:block condition="customer/street2">
+            <span tal:replace="customer/street2" /><br />
+        </tal:block>
+        
+        <span tal:replace="customer/zipcode" />
+        <span tal:replace="customer/city" />                
+    </p>
+
+    <p>
+        <span i18n:translate="label_email">Email:</span>
+        <span tal:replace="customer/email" />
+        
+        <tal:block condition="customer/phone">
+            <br /><span i18n:translate="label_phone">Tel.</span>:
+            <span tal:replace="customer/phone"></span>
+        </tal:block>
+    </p>
+    <p>
+    <tal:block condition="customer/newsletter">
+        <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
+    </tal:block>
+    </p>
+    
+    <p tal:condition="customer/comments">
+         <span i18n:translate="label_details_comments">Comments</span>:
+         <span tal:replace="customer/comments" />            
+    </p>
+    
+<h4 i18n:translate="header_ordereditems">Bestellte Artikel</h4>
+
+<table border="1" cellspacing="0" cellpadding="2">
+   <tr>
+       <th i18n:translate="label_article_no">Artikel Nr.</th>
+       <th i18n:translate="cart_header_product">Bezeichnung</th>
+       <th i18n:translate="cart_header_quantity">Anzahl</th>
+       <th i18n:translate="cart_header_price">Preis</th>
+       <th i18n:translate="cart_header_total">Total</th>
+   </tr>
+
+   <tr tal:repeat="item python:cart.values()">
+     <td tal:content="item/skucode"/>
+     <td tal:content="item/title"/>
+     <td tal:content="item/quantity"/>
+     <td tal:content="item/price"/>
+     <td tal:content="item/total"/>
+   </tr>
+</table>
+
+<br>
+<span i18n:translate="txt_total">Gesamtsumme dieser Bestellung</span>:
+<b tal:content="context/getTotal" />
+<span i18n:translate="txt_vat">(inkl. MwSt)</span>
+<br />
+<span  i18n:translate="txt_shipping">Verpackung und Versandkosten sind  nicht enthalten und werden individuell verrechnet.</span>
+
+<p i18n:translate="txt_contact">
+Fuer Rueckfragen wenden Sie sich an: 
+Telefon 031 307 22 22, E-Mail <a href="mailto:service@amnesty.ch">service@amnesty.ch</a>
+</p>
+
+</body>
+</html>
