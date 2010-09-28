@@ -21,7 +21,7 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('ftp', 'shop', 'README.txt')
+    read('ftw', 'shop', 'README.txt')
     + '\n' +
     'Contributors\n'
     '************\n'
