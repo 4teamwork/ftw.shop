@@ -12,14 +12,15 @@
            tal:define="kssClassesView context/@@kss_field_decorator_view;
                        getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
                        templateId template/getId;
-                       text here/getText;">
+                       text here/getText;
+                       is_editable context/@@plone_context_state/is_editable">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <div class="overline" tal:content="context/getOverline" />
+        <!-- <div class="overline" tal:content="context/getOverline" /> -->
         
-        <h1 class="documentFirstHeading" tal:content="context/getRealTitle"> 
-            <metal:field use-macro="python:here.widget('realTitle', mode='view')">
+        <h1 class="documentFirstHeading" tal:content="context/Title"> 
+            <metal:field use-macro="python:here.widget('Title', mode='view')">
             Title
             </metal:field>
         </h1>

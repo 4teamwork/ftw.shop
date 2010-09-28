@@ -18,8 +18,8 @@
 
         <div class="overline" tal:content="context/getOverline" />
         
-        <h1 class="documentFirstHeading" tal:content="context/getRealTitle"> 
-            <metal:field use-macro="python:here.widget('realTitle', mode='view')">
+        <h1 class="documentFirstHeading" tal:content="context/getTitle"> 
+            <metal:field use-macro="python:here.widget('Title', mode='view')">
             Title
             </metal:field>
         </h1>
