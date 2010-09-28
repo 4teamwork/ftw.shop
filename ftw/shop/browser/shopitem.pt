@@ -16,9 +16,9 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <div class="overline" tal:content="context/getOverline" />
+        <!-- <div class="overline" tal:content="context/getOverline" /> -->
         
-        <h1 class="documentFirstHeading" tal:content="context/getTitle"> 
+        <h1 class="documentFirstHeading" tal:content="context/Title"> 
             <metal:field use-macro="python:here.widget('Title', mode='view')">
             Title
             </metal:field>
