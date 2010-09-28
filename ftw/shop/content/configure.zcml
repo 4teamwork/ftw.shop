@@ -11,19 +11,11 @@
         permission="zope2.View"
         interface="..interfaces.shopcategory.IShopCategory"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.shopcategory.IShopCategory"
-        />
   </class>
   <class class=".shopitemvariant.ShopItemVariant">
     <require
         permission="zope2.View"
         interface="..interfaces.shopitemvariant.IShopItemVariant"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.shopitemvariant.IShopItemVariant"
         />
   </class>
   <class class=".shopmultiitem.ShopMultiItem">
@@ -31,29 +23,17 @@
         permission="zope2.View"
         interface="..interfaces.shopmultiitem.IShopMultiItem"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.shopmultiitem.IShopMultiItem"
-        />
   </class>
   <class class=".shopitem.ShopItem">
     <require
         permission="zope2.View"
         interface="..interfaces.shopitem.IShopItem"
         />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.shopitem.IShopItem"
-        />
   </class>
   <class class=".order.ShopOrder">
     <require
         permission="zope2.View"
         interface="..interfaces.order.IShopOrder"
-        />
-    <require
-        permission="cmf.ModifyPortalContent"
-        set_schema="..interfaces.order.IShopOrder"
         />
   </class>
 
