@@ -100,7 +100,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
     def sendOrderMail(self, orderid):
         """
         Send order confirmation mail of the order with the specified orderid.
-        Can be used if initial sendig of order mail failed for some reason.
+        Can be used if initial sending of order mail failed for some reason.
         """
         order = getattr(self, str(orderid))
         
@@ -108,9 +108,9 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         
         fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
         mailTo = formataddr((toLatin1(fullname), customer.get('email')))
-        mailFrom = 'no_reply@amnesty.ch'
+        mailFrom = 'no_reply@4teamwork.ch'
         mailBcc = ''
-        mailSubject = 'Amnesty Webshop'
+        mailSubject = '4teamwork Webshop'
 
         # get values from properties
         ltool = getToolByName(self, 'portal_languages')
@@ -141,7 +141,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
     security.declareProtected("View", 'getOrderById')
     def getOrderById(self, order_id):
         '''
-        Return an Order but its order id.
+        Return an Order by its order id.
         '''
 
         return self._getOb(str(order_id), None)
