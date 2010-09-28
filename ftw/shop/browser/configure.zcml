@@ -5,6 +5,10 @@
 
   <include package="plone.app.contentmenu" />
 
+  <browser:resourceDirectory
+      name='ftw-shop-resources'
+      directory="resources" />
+
   <browser:page
         for="..interfaces.shopitem.IShopItem"
         name="view"
