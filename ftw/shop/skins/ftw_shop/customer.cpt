@@ -6,7 +6,8 @@
 
 <metal:main fill-slot="main">
 <tal:main-macro metal:define-macro="main"
-                tal:define="errors options/state/getI18NErrors">
+                tal:define="errors options/state/getI18NErrors;
+                            template_id context/@@plone_context_state/view_template_id">
 
     <ul class="wizard-steps">    
         <li class="wizard-step-link selected" i18n:translate="">

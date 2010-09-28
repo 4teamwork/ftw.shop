@@ -51,7 +51,7 @@
                       <td>
                           <a href="" tal:attributes="href python:'cart_remove?uid=%s' % uid"
                                      i18n:attributes="cart_remove">
-                              <img src="" tal:replace="structure here/delete_p.gif" />
+                              <img src="++resource++ftw-shop-resources/delete_p.gif" />
                           </a>
                       </td>
                     </tr> 
