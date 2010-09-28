@@ -16,9 +16,9 @@
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
-      title="Amnesty Shop"
+      title="ftw.shop"
       directory="profiles/default"
-      description="A web shop for the amnesty website"
+      description="A web shop product"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   

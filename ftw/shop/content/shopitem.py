@@ -4,8 +4,10 @@
 from zope.interface import implements
 
 from Products.Archetypes import atapi
-from amnesty.base.content.aiarticle import AIArticle
-from amnesty.base.content.aiarticle import AIArticleSchema
+from Products.ATContentTypes.content.document import ATDocument
+from Products.ATContentTypes.content.document import ATDocumentSchema
+#from amnesty.base.content.aiarticle import AIArticle
+#from amnesty.base.content.aiarticle import AIArticleSchema
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces.shopitem import IShopItem
 from ftw.shop.content.categorizeable import Categorizeable
@@ -44,11 +46,11 @@ ShopItemBaseSchema = atapi.Schema((
     
 ),)
 
-ShopItemSchema = AIArticleSchema.copy() + ShopItemBaseSchema
-ShopItemSchema.moveField('price', after='realTitle')
-ShopItemSchema.moveField('sku_code', after='realTitle')
+ShopItemSchema = ATDocumentSchema.copy() + ShopItemBaseSchema
+#ShopItemSchema.moveField('price', after='realTitle')
+#ShopItemSchema.moveField('sku_code', after='realTitle')
 
-class ShopItem(Categorizeable, AIArticle):
+class ShopItem(Categorizeable, ATDocument):
     """A simple shop item"""
     implements(IShopItem)
 
