@@ -126,7 +126,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
         msg = mail_view()
         try:
-            mhost.secureSend(msg,
+            mhost.send(msg,
                              mto=mailTo,
                              mfrom=mailFrom,
                              subject=mailSubject,

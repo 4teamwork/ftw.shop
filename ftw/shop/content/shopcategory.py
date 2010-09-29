@@ -3,8 +3,6 @@
 
 from zope.interface import implements
 from Products.Archetypes import atapi
-# from amnesty.base.content.aiarticle import AIArticle
-# from amnesty.base.content.aiarticle import AIArticleSchema
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from ftw.shop.interfaces.shopcategory import IShopCategory

@@ -36,8 +36,8 @@ class CategoryView(BrowserView):
                     url = item.absolute_url(),
                     image = tag,
                     variants = None,
-                    order_number = item.getSku_code(),
-                    price = item.Price(),
+                    order_number = item.skuCode,
+                    price = item.price,
                     addurl = '%s/addtocart' % item.absolute_url(),
                 ))
             
@@ -47,13 +47,13 @@ class CategoryView(BrowserView):
                 variants = [v for v in variants if mtool.checkPermission('View', v)]
                 variants_data = {}
                 for variant in variants:
-                    key = variant.getVariantLabel()
+                    key = variant.variantLabel
                     if not variants_data.has_key(key):
                         variants_data[key] = list()
                     variants_data[key].append(dict(
-                        order_number = variant.getSku_code(),
+                        order_number = variant.skuCode,
                         title = variant.Title(),
-                        price = variant.Price(),
+                        price = variant.price,
                         addurl = '%s/addtocart' % variant.absolute_url(),
                     ))
                 results.append(dict(

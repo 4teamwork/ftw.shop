@@ -17,8 +17,8 @@ class ShopItemView(BrowserView):
         context = aq_inner(self.context)
         if context.portal_type == 'ShopItem':
             return dict(
-                order_number = context.getSku_code(),
-                price = context.Price(),
+                order_number = context.skuCode,
+                price = context.price,
                 url = '%s/addtocart' % context.absolute_url(),
             )
         return None
@@ -38,13 +38,13 @@ class ShopItemView(BrowserView):
             mitems = ct(**query)
             for mitem in mitems:
                 obj = mitem.getObject()
-                key = obj.getVariantLabel()
+                key = obj.variantLabel
                 if not results.has_key(key):
                     results[key] = list()
                 results[key].append(dict(
-                    order_number = obj.getSku_code(),
+                    order_number = obj.skuCode,
                     title = obj.Title(),
-                    price = obj.Price(),
+                    price = obj.price,
                     url = '%s/addtocart' % obj.absolute_url(),
                 ))
             return results

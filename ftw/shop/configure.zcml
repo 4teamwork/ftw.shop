@@ -21,7 +21,17 @@
       description="A web shop product"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
+             
+ <include package="archetypes.schemaextender" />
+ <adapter 
+     name="ftw.shop.extender.ShopItemExtender"
+     factory="ftw.shop.extender.ShopItemExtender"/>
+ <adapter 
+     name="ftw.shop.extender.ShopItemVariantExtender"
+     factory="ftw.shop.extender.ShopItemVariantExtender"/>
+
+
   <!-- -*- extra stuff goes here -*- -->
   <i18n:registerTranslations directory="locales"/> 
 

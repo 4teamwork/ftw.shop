@@ -29,15 +29,15 @@ class CartView(BrowserView):
             
         item_uid = context.UID()
         item = cart_items.get(item_uid, None)
-        price = Decimal(context.Price())
+        price = Decimal("%s.%02d" % context.price)
         # add item to cart
         if item is None:
             item = {'title': item_title,
                     'description': context.Description(),
-                    'skucode': context.getSku_code(),
+                    'skucode': context.skuCode,
                     'quantity':1,
                     'price': str(price),
-                    'currency': context.getCurrency(),
+                    'currency': context.currency,
                     'total': str(price),
                     'url': context.absolute_url(),
             }    
@@ -49,7 +49,7 @@ class CartView(BrowserView):
 
         # store cart in session    
         cart_items[item_uid] = item
-        session[CART_KEY] = cart_items  
+        session[CART_KEY] = cart_items
         
         # add portal message
         ptool = getToolByName(context, 'plone_utils')
