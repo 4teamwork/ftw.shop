@@ -1,6 +1,5 @@
 from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
-from Products.Archetypes import atapi
 
 from zope.component import adapts
 from zope.interface import implements
@@ -9,11 +8,22 @@ from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces.shopitem import IShopItem
 from ftw.shop.interfaces.shopitemvariant import IShopItemVariant
 
+from Products.Archetypes import atapi
+from Products.ATContentTypes.config import HAS_LINGUA_PLONE
+if HAS_LINGUA_PLONE:
+    from Products.LinguaPlone.public import StringField
+    from Products.LinguaPlone.public import FixedPointField
+    from Products.LinguaPlone.public import registerType
+else:
+    from Products.Archetypes.atapi import StringField
+    from Products.Archetypes.atapi import FixedPointField
+    from Products.Archetypes.atapi import registerType
 
-class StringField(ExtensionField, atapi.StringField):
+
+class ExtStringField(ExtensionField, StringField):
     """A string field."""
     
-class FixedPointField(ExtensionField, atapi.FixedPointField):
+class ExtFixedPointField(ExtensionField, FixedPointField):
     """A fixed point field."""
 
 
@@ -25,7 +35,7 @@ class ShopItemExtender(object):
     adapts(IShopItem)
     
     fields = [
-        FixedPointField('price',
+        ExtFixedPointField('price',
             default = "0.00",
             required = 0,
             widget = atapi.DecimalWidget(
@@ -35,7 +45,7 @@ class ShopItemExtender(object):
             ),
         ),
 
-        StringField('skuCode',
+        ExtStringField('skuCode',
             required = 1,
             widget = atapi.StringWidget(
                 label = _(u"label_sku_code", default=u"SKU Code"),
@@ -60,7 +70,7 @@ class ShopItemVariantExtender(ShopItemExtender):
     adapts(IShopItemVariant)
     
     fields = ShopItemExtender.fields + [
-        StringField('variantLabel',
+        ExtStringField('variantLabel',
             searchable = 0,
             required = 0,
             widget = atapi.StringWidget(

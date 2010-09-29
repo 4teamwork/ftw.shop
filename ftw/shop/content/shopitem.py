@@ -3,15 +3,20 @@
 
 from zope.interface import implements, alsoProvides
 
-from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
-from ftw.shop import shopMessageFactory as _
+
 from ftw.shop.interfaces.shopitem import IShopItem
 from ftw.shop.interfaces import IShoppable
 from ftw.shop.content.categorizeable import Categorizeable
 from ftw.shop.config import PROJECTNAME
 
+
+from Products.ATContentTypes.config import HAS_LINGUA_PLONE
+if HAS_LINGUA_PLONE:
+    from Products.LinguaPlone.public import registerType
+else:
+    from Products.Archetypes.atapi import registerType
 
 ShopItemSchema = ATFolderSchema.copy() 
 
@@ -23,4 +28,4 @@ class ShopItem(Categorizeable, ATFolder):
     meta_type = "ShopItem"
     schema = ShopItemSchema
 
-atapi.registerType(ShopItem, PROJECTNAME)
+registerType(ShopItem, PROJECTNAME)
