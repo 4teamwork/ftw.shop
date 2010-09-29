@@ -38,6 +38,7 @@ class ShopItemExtender(object):
         ExtFixedPointField('price',
             default = "0.00",
             required = 0,
+            languageIndependent=True,
             widget = atapi.DecimalWidget(
                 label = _(u"label_price", default=u"Price"),
                 description = _(u"desc_price", default=u""),
@@ -47,6 +48,7 @@ class ShopItemExtender(object):
 
         ExtStringField('skuCode',
             required = 1,
+            languageIndependent=True,
             widget = atapi.StringWidget(
                 label = _(u"label_sku_code", default=u"SKU Code"),
                 description = _(u"desc_sku_code", default=u""),
