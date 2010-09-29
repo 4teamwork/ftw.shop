@@ -18,12 +18,6 @@
         interface="..interfaces.shopitemvariant.IShopItemVariant"
         />
   </class>
-  <class class=".shopmultiitem.ShopMultiItem">
-    <require
-        permission="zope2.View"
-        interface="..interfaces.shopmultiitem.IShopMultiItem"
-        />
-  </class>
   <class class=".shopitem.ShopItem">
     <require
         permission="zope2.View"

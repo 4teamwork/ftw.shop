@@ -5,6 +5,7 @@ from zope.interface import implements, alsoProvides
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
+from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content import schemata
 from DateTime import DateTime
 from ftw.shop import shopMessageFactory as _
@@ -38,7 +39,7 @@ schemata.finalizeATCTSchema(ShopItemVariantSchema, moveDiscussion=False)
 # ShopItemVariantSchema['relatedItems'].widget.visible = {'edit' : 'invisible', 'view' : 'invisible' }
 # ShopItemVariantSchema['effectiveDate'].default = DateTime()
 
-class ShopItemVariant(base.ATCTContent):
+class ShopItemVariant(ATFolder):
     """A shop item variant for multi items"""
     implements(IShopItemVariant)
     alsoProvides(IShoppable)

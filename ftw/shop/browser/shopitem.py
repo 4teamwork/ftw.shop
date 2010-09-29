@@ -27,7 +27,7 @@ class ShopItemView(BrowserView):
     @instance.memoize
     def items(self):
         context = aq_inner(self.context)
-        if context.portal_type == 'ShopMultiItem':
+        if context.portal_type == 'ShopItem':
             ct = getToolByName(context, 'portal_catalog')
             query = {}
             query['path'] = {'query': '/'.join(context.getPhysicalPath()), 'depth': -1 }

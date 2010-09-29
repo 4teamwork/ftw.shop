@@ -8,7 +8,6 @@ ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
     'ShopCategory': 'ftw.shop: Add Shop Category',
     'ShopItemVariant': 'ftw.shop: Add Shop Item Variant',
-    'ShopMultiItem': 'ftw.shop: Add Shop Multi Item',
     'ShopItem': 'ftw.shop: Add Shop Item',
     'ShopOrder': 'ftw.shop: Add Order',
 }

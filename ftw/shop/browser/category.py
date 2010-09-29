@@ -6,7 +6,7 @@ from ftw.shop.config import CATEGORY_RELATIONSHIP
 from Products.CMFCore.utils import getToolByName
 
 class CategoryView(BrowserView):
-    """Default view for a catgory. Shows all contained shop items and categories.
+    """Default view for a category. Shows all contained shop items and categories.
     """
     
     __call__ = ViewPageTemplateFile('category.pt')
@@ -41,7 +41,7 @@ class CategoryView(BrowserView):
                     addurl = '%s/addtocart' % item.absolute_url(),
                 ))
             
-            if item.portal_type == 'ShopMultiItem':
+            if item.portal_type == 'ShopItem':
                 # get variants
                 variants = item.contentValues(filter={'portal_type':'ShopItemVariant'})
                 variants = [v for v in variants if mtool.checkPermission('View', v)]

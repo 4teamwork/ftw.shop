@@ -16,12 +16,6 @@
         class=".shopitem.ShopItemView"
     />
   <browser:page
-        for="..interfaces.shopmultiitem.IShopMultiItem"
-        name="view"
-        permission="zope2.View"
-        class=".shopitem.ShopItemView"
-    />
-  <browser:page
         for="..interfaces.shopitemvariant.IShopItemVariant"
         name="view"
         permission="zope2.View"

@@ -54,7 +54,7 @@ class ShopItemExtender(object):
 class ShopItemVariantExtender(ShopItemExtender):
     """Extends ShopItemVariants with a `variantLabel` that denotes
     the attribute that varies (color, size, ...). ShopItemVariants then
-    can be added to a ShopMultiItem and will be grouped by `variantLabel`
+    can be added to a ShopItem and will be grouped by `variantLabel`
     """
     implements(ISchemaExtender)
     adapts(IShopItemVariant)
