@@ -22,7 +22,6 @@
         <tal:items repeat="item cart_items">
 	        <li>
 	            <a href="#" tal:content="item/title" /><br />
-	            <span tal:replace="item/currency" />
 	            <span tal:replace="item/total" />
 	            (<span tal:replace="item/quantity" />)
 	        </li>

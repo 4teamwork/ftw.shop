@@ -28,4 +28,5 @@ class ShopItem(Categorizeable, ATFolder):
     meta_type = "ShopItem"
     schema = ShopItemSchema
 
+
 registerType(ShopItem, PROJECTNAME)

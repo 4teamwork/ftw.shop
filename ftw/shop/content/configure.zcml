@@ -30,5 +30,11 @@
         interface="..interfaces.order.IShopOrder"
         />
   </class>
+  
+  <adapter
+      provides="..interfaces.IVariationConfig"
+      for="..interfaces.shopitem.IShopItem"
+      factory=".variations.VariationConfig" />
+
 
 </configure>

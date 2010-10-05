@@ -29,15 +29,14 @@ class CartView(BrowserView):
             
         item_uid = context.UID()
         item = cart_items.get(item_uid, None)
-        price = Decimal("%s.%02d" % context.price)
+        price = context.Schema().getField('price').get(context)
         # add item to cart
         if item is None:
             item = {'title': item_title,
                     'description': context.Description(),
-                    'skucode': context.skuCode,
+                    'skucode': context.Schema().getField('skuCode').get(context),
                     'quantity':1,
                     'price': str(price),
-                    'currency': context.currency,
                     'total': str(price),
                     'url': context.absolute_url(),
             }    

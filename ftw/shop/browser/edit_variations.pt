@@ -1,0 +1,54 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="ftw.shop">
+
+<body metal:use-macro="here/main_template/macros/master">
+
+  <div metal:fill-slot="main">
+    <div>
+
+        <h1 class="documentFirstHeading" tal:content="context/Title"> 
+            <metal:field use-macro="python:here.widget('Title', mode='view')">
+            Title
+            </metal:field>
+        </h1>
+
+          <form method="post"
+          tal:attributes="action python:here.absolute_url() + '/edit_variations'">
+
+            <fieldset tal:repeat="varValue1 view/getVariation1Values">
+              <legend tal:content="varValue1">Red</legend>
+              <table>
+              <thead>
+              <tr>
+                <th></th><th></th><th>Price</th><th>Stock</th><th>SKU Code</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr tal:repeat="varValue2 view/getVariation2Values">
+                  <td tal:content="varValue2">S</td>
+                  <td><input type="checkbox"
+                      tal:attributes="name string:${varValue1}-${varValue2}-active;
+                                      checked python:view.getVariationData(varValue1, varValue2, 'active')"></td>
+                  <td><input type="text"
+                      tal:attributes="name string:${varValue1}-${varValue2}-price;
+                                      value python:view.getVariationData(varValue1, varValue2, 'price')"></td>
+                  <td><input type="text" 
+                      tal:attributes="name string:${varValue1}-${varValue2}-stock;
+                                      value python:view.getVariationData(varValue1, varValue2, 'stock')"></td>
+                  <td><input type="text" 
+                      tal:attributes="name string:${varValue1}-${varValue2}-skuCode;
+                                      value python:view.getVariationData(varValue1, varValue2, 'skuCode')"></td>
+                </tr>
+                </tbody>
+              </table>
+
+            </fieldset>
+            <input type="submit">
+            <input type="hidden" name="form.submitted:boolean" value="True" />
+          </form>
+    </div>
+
+  </div>
+</body>
+</html>

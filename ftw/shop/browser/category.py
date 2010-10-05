@@ -36,8 +36,8 @@ class CategoryView(BrowserView):
                     url = item.absolute_url(),
                     image = tag,
                     variants = None,
-                    order_number = item.skuCode,
-                    price = item.price,
+                    order_number = item.Schema().getField('skuCode').get(item),
+                    price = item.Schema().getField('price').get(item),
                     addurl = '%s/addtocart' % item.absolute_url(),
                 ))
             
@@ -51,9 +51,9 @@ class CategoryView(BrowserView):
                     if not variants_data.has_key(key):
                         variants_data[key] = list()
                     variants_data[key].append(dict(
-                        order_number = variant.skuCode,
+                        order_number = variant.Schema().getField('skuCode').get(variant),
                         title = variant.Title(),
-                        price = variant.price,
+                        price = variant.Schema().getField('price').get(variant),
                         addurl = '%s/addtocart' % variant.absolute_url(),
                     ))
                 results.append(dict(
@@ -84,6 +84,7 @@ class CategoryView(BrowserView):
                     image = tag,
                 ))
         return results
+
     
     @property
     @instance.memoize        

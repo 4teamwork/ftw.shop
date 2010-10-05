@@ -2,7 +2,7 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 
 from zope.component import adapts
-from zope.interface import implements
+from zope.interface import implements, Interface
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces.shopitem import IShopItem
@@ -33,6 +33,7 @@ class ShopItemExtender(object):
     """
     implements(ISchemaExtender)
     adapts(IShopItem)
+
     
     fields = [
         ExtFixedPointField('price',
@@ -54,6 +55,41 @@ class ShopItemExtender(object):
                 description = _(u"desc_sku_code", default=u""),
             ),
         ),
+        
+        ExtStringField('variation1_attribute',
+            required = 0,
+            widget = atapi.StringWidget(
+                label = _(u"label_variation1_attr", default=u"Variation 1 Attribute"),
+                description = _(u"desc_variation1_attr", default=u""),
+            ),
+        ),
+        
+        ExtStringField('variation1_values',
+            required = 0,
+            widget = atapi.StringWidget(
+                label = _(u"label_variation1_values", default=u"Variation 1 Values"),
+                description = _(u"desc_variation1_values", default=u""),
+            ),
+        ),
+
+
+        ExtStringField('variation2_attribute',
+            required = 0,
+            widget = atapi.StringWidget(
+                label = _(u"label_variation2_attr", default=u"Variation 2 Attribute"),
+                description = _(u"desc_variation2_attr", default=u""),
+            ),
+        ),
+        
+        
+        ExtStringField('variation2_values',
+            required = 0,
+            widget = atapi.StringWidget(
+                label = _(u"label_variation2_values", default=u"Variation 2 Values"),
+                description = _(u"desc_variation2_values", default=u""),
+            ),
+        ),
+         
     ]
 
     def __init__(self, context):

@@ -15,6 +15,14 @@
         permission="zope2.View"
         class=".shopitem.ShopItemView"
     />
+    
+    <browser:page
+          for="..interfaces.shopitem.IShopItem"
+          name="edit_variations"
+          permission="zope2.View"
+          class=".shopitem.EditVariationsView"
+      />
+      
   <browser:page
         for="..interfaces.shopitemvariant.IShopItemVariant"
         name="view"
