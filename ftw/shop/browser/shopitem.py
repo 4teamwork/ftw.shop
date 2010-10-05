@@ -66,42 +66,20 @@ class EditVariationsView(BrowserView):
         and updates them
         
         """
-
         form = self.request.form
 
         # Make sure we had a proper form submit, not just a GET request
         submitted = form.get('form.submitted', False)
         if submitted:
             variation_config = IVariationConfig(self.context)
-            shop_item = self.context
-            variation_data = {}
-            for var1_value in self.getVariation1Values():
-                for var2_value in self.getVariation2Values():
-                    variation_key = "%s-%s" % (var1_value, var2_value)
-                    data = {}
-                    data['active'] = bool(form.get("%s-active" % variation_key))
-                    # TODO: Handle decimal correctly
-                    price = form.get("%s-price" % variation_key)
-                    try:
-                        p = int(price)
-                        # Create a tuple of ints from string
-                        digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
-                        data['price'] = Decimal((0, digits, -2))
-                    except ValueError:
-                        if not price == "":
-                            data['price'] = Decimal(price)
-                        else:
-                            data['price'] = Decimal("0.00")
+            
+            edited_var_data = self._parse_edit_variations_form()
+            variation_config.updateVariationConfig(edited_var_data)
 
-                    data['stock'] = int(form.get("%s-stock" % variation_key))
-                    data['skuCode'] = form.get("%s-skuCode" % variation_key)
-                    variation_data[variation_key] = data
-            #shop_item.variation_data = str(variation_data)
-            variation_config.updateVariationConfig(variation_data)
-            IStatusMessage(self.request).addStatusMessage(_("Variations saved."),
-                                                                  type="info")
+            IStatusMessage(self.request).addStatusMessage(
+                _("Variations saved."), type="info")
             self.request.RESPONSE.redirect(self.context.absolute_url())
-                
+
         return self.template()
 
     def getVariationAttributes(self):
@@ -150,5 +128,33 @@ class EditVariationsView(BrowserView):
             return ""
         else:
             return None
+
+
+    def _parse_edit_variations_form(self):
+        form = self.request.form
+        variation_data = {}
+        
+        for var1_value in self.getVariation1Values():
+            for var2_value in self.getVariation2Values():
+                variation_key = "%s-%s" % (var1_value, var2_value)
+                data = {}
+                data['active'] = bool(form.get("%s-active" % variation_key))
+                # TODO: Handle decimal correctly
+                price = form.get("%s-price" % variation_key)
+                try:
+                    p = int(price)
+                    # Create a tuple of ints from string
+                    digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
+                    data['price'] = Decimal((0, digits, -2))
+                except ValueError:
+                    if not price == "":
+                        data['price'] = Decimal(price)
+                    else:
+                        data['price'] = Decimal("0.00")
+
+                data['stock'] = int(form.get("%s-stock" % variation_key))
+                data['skuCode'] = form.get("%s-skuCode" % variation_key)
+                variation_data[variation_key] = data
+        return variation_data
 
             
