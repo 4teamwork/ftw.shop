@@ -27,9 +27,6 @@
  <adapter 
      name="ftw.shop.extender.ShopItemExtender"
      factory="ftw.shop.extender.ShopItemExtender"/>
- <adapter 
-     name="ftw.shop.extender.ShopItemVariantExtender"
-     factory="ftw.shop.extender.ShopItemVariantExtender"/>
 
 
   <!-- -*- extra stuff goes here -*- -->

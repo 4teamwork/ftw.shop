@@ -12,25 +12,21 @@
         interface="..interfaces.shopcategory.IShopCategory"
         />
   </class>
-  <class class=".shopitemvariant.ShopItemVariant">
-    <require
-        permission="zope2.View"
-        interface="..interfaces.shopitemvariant.IShopItemVariant"
-        />
-  </class>
+
   <class class=".shopitem.ShopItem">
     <require
         permission="zope2.View"
         interface="..interfaces.shopitem.IShopItem"
         />
   </class>
+
   <class class=".order.ShopOrder">
     <require
         permission="zope2.View"
         interface="..interfaces.order.IShopOrder"
         />
   </class>
-  
+
   <adapter
       provides="..interfaces.IVariationConfig"
       for="..interfaces.shopitem.IShopItem"

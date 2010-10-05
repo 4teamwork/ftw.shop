@@ -22,13 +22,8 @@
           permission="zope2.View"
           class=".shopitem.EditVariationsView"
       />
-      
-  <browser:page
-        for="..interfaces.shopitemvariant.IShopItemVariant"
-        name="view"
-        permission="zope2.View"
-        class=".shopitemvariant.ShopItemVariantView"
-    />
+
+
   <browser:page
         for="..interfaces.shopcategory.IShopCategory"
         name="view"
@@ -63,13 +58,7 @@
     attribute="addtocart" 
     permission="zope2.View" 
     />
-  <browser:page 
-    for="..interfaces.shopitemvariant.IShopItemVariant" 
-    name="addtocart" 
-    class=".cart.CartView" 
-    attribute="addtocart" 
-    permission="zope2.View" 
-    />    
+
 
   <browser:page 
     for="..interfaces.IShopRoot" 

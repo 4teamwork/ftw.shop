@@ -6,7 +6,7 @@ from zope.interface import implements, Interface
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces.shopitem import IShopItem
-from ftw.shop.interfaces.shopitemvariant import IShopItemVariant
+
 
 from Products.Archetypes import atapi
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
@@ -97,24 +97,3 @@ class ShopItemExtender(object):
 
     def getFields(self):
         return self.fields
-
-
-class ShopItemVariantExtender(ShopItemExtender):
-    """Extends ShopItemVariants with a `variantLabel` that denotes
-    the attribute that varies (color, size, ...). ShopItemVariants then
-    can be added to a ShopItem and will be grouped by `variantLabel`
-    """
-    implements(ISchemaExtender)
-    adapts(IShopItemVariant)
-    
-    fields = ShopItemExtender.fields + [
-        ExtStringField('variantLabel',
-            searchable = 0,
-            required = 0,
-            widget = atapi.StringWidget(
-                label = _(u"label_variant_label", default=u"Variant Label"),
-                description = _(u"desc_variant_label", default=u"e.g. Color. All variant items with the same label will be grouped together."),
-            ),
-        ),
-    ]
-

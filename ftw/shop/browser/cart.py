@@ -44,7 +44,7 @@ class CartView(BrowserView):
         else:
             item['quantity'] = item.get('quantity', 0) + 1
             item['total'] = str(item['quantity'] * price)
-        
+
 
         # store cart in session    
         cart_items[item_uid] = item

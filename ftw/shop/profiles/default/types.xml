@@ -10,8 +10,6 @@
   <!-- -*- extra stuff goes here -*- -->
   <object name="ShopCategory"
     meta_type="Factory-based Type Information with dynamic views" />
-  <object name="ShopItemVariant"
-    meta_type="Factory-based Type Information with dynamic views" />
   <object name="ShopItem"
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="OrderManager"

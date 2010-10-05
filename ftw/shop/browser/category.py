@@ -43,8 +43,9 @@ class CategoryView(BrowserView):
             
             if item.portal_type == 'ShopItem':
                 # get variants
-                variants = item.contentValues(filter={'portal_type':'ShopItemVariant'})
-                variants = [v for v in variants if mtool.checkPermission('View', v)]
+                #variants = item.contentValues(filter={'portal_type':'ShopItemVariant'})
+                #variants = [v for v in variants if mtool.checkPermission('View', v)]
+                variants = []
                 variants_data = {}
                 for variant in variants:
                     key = variant.variantLabel
