@@ -5,6 +5,8 @@ from zope.annotation.interfaces import IAnnotations
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces.shopitem import IShopItem
 
+from persistent.mapping import PersistentMapping
+
 class VariationConfig(object):
     """An Adapter for storing variation configurations on ShopItems
     """
@@ -17,9 +19,9 @@ class VariationConfig(object):
         self.annotations = IAnnotations(self.context)
         
     def getVariationConfig(self):
-        return self.annotations.get('variations', None)
+        return self.annotations.get('variations', PersistentMapping())
 
     def updateVariationConfig(self, data):
         if not 'variations' in self.annotations.keys():
-            self.annotations['variations'] = {}
+            self.annotations['variations'] = PersistentMapping()
         self.annotations['variations'].update(data)
