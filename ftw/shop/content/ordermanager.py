@@ -3,6 +3,7 @@ from AccessControl.SecurityManagement import newSecurityManager, noSecurityManag
 from ftw.shop.config import PROJECTNAME
 from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 from DateTime import DateTime
+from email import message_from_string
 from email.Header import Header
 from email.Utils import formataddr
 from Products.Archetypes import atapi
@@ -107,9 +108,8 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         customer = order.getCustomerData()
         
         fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
-        mailTo = formataddr((toLatin1(fullname), customer.get('email')))
+        mailTo = formataddr((fullname, customer.get('email')))
         mailFrom = 'no_reply@4teamwork.ch'
-        mailBcc = ''
         mailSubject = '4teamwork Webshop'
 
         # get values from properties
@@ -117,22 +117,27 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         lang = ltool.getPreferredLanguage()
         properties = getToolByName(self, 'portal_properties', None)
         shop_props = getattr(properties, 'shop_properties', None)
+        mailBcc = ''
         if shop_props is not None:
-            mailFrom = toLatin1(shop_props.getProperty('mail_from', mailFrom))
-            mailBcc = toLatin1(shop_props.getProperty('mail_bcc', mailBcc))
-            mailSubject = toLatin1(shop_props.getProperty('mail_subject_%s' % lang, mailSubject))
+            mailFrom = shop_props.getProperty('mail_from', mailFrom)
+            mailBcc = shop_props.getProperty('mail_bcc', mailBcc)
+            mailSubject = shop_props.getProperty('mail_subject_%s' % lang, mailSubject)
 
         mhost = self.MailHost
         mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
-        msg = mail_view()
+        msg_body = mail_view()
+        msg = message_from_string(msg_body.encode('utf-8'))
+        msg.set_charset('utf-8')
+        msg['BCC']= Header(mailBcc)
         try:
             mhost.send(msg,
-                             mto=mailTo,
-                             mfrom=mailFrom,
-                             subject=mailSubject,
-                             mbcc=mailBcc,
-                             subtype='html',
-                             charset='iso-8859-1')        
+                         mto=mailTo,
+                         mfrom=mailFrom,
+                         subject=mailSubject,
+                         encode=None,
+                         immediate=False,
+                         msg_type='text/html',
+                         charset='utf8')
         except (MailHostError, socket.error), e:
             logger.error("sending mail for order %s failed: %s." % (order.getOrderNumber(),str(e)))
 
@@ -152,11 +157,6 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         nextid=int(currid) + 1
         self.setNext_order_id(nextid)
         return currid
-
-def toLatin1(string):
-    if not isinstance(string,unicode):
-        string = string.decode('utf8')
-    return string.encode('iso-8859-1')
 
 def getRfcHeaderValue(value):
     header = None
