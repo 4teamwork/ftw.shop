@@ -13,11 +13,11 @@ class VariationConfig(object):
     
     implements(IVariationConfig)
     adapts(IShopItem)
-    
+
     def __init__(self, context):
         self.context = context
         self.annotations = IAnnotations(self.context)
-        
+
     def getVariationConfig(self):
         return self.annotations.get('variations', PersistentMapping())
 
@@ -25,3 +25,4 @@ class VariationConfig(object):
         if not 'variations' in self.annotations.keys():
             self.annotations['variations'] = PersistentMapping()
         self.annotations['variations'].update(data)
+
