@@ -14,31 +14,36 @@
         </h1>
 
           <form method="post"
-          tal:attributes="action python:here.absolute_url() + '/edit_variations'">
+          tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+          tal:define="varConf python:view.getVariationsConfig()">
 
-            <fieldset tal:repeat="varValue1 view/getVariation1Values">
+            <fieldset tal:repeat="varValue1 varConf/getVariation1Values">
               <legend tal:content="varValue1">Red</legend>
               <table>
               <thead>
               <tr>
-                <th></th><th></th><th>Price</th><th>Stock</th><th>SKU Code</th>
+                <th></th><th></th><th>Price</th><th>Stock</th>
+                <th>SKU Code 
+                    <span class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                </th>
               </tr>
               </thead>
               <tbody>
-                <tr tal:repeat="varValue2 view/getVariation2Values">
+                <tr tal:repeat="varValue2 varConf/getVariation2Values">
                   <td tal:content="varValue2">S</td>
                   <td><input type="checkbox"
-                      tal:attributes="name string:${varValue1}-${varValue2}-active;
-                                      checked python:view.getVariationData(varValue1, varValue2, 'active')"></td>
+                      tal:attributes="name string:${varValue1}-${varValue2}-active:boolean;
+                                      checked python:varConf.getVariationData(varValue1, varValue2, 'active')"></td>
                   <td><input type="text"
                       tal:attributes="name string:${varValue1}-${varValue2}-price;
-                                      value python:view.getVariationData(varValue1, varValue2, 'price')"></td>
+                                      value python:varConf.getVariationData(varValue1, varValue2, 'price')"></td>
                   <td><input type="text" 
-                      tal:attributes="name string:${varValue1}-${varValue2}-stock;
-                                      value python:view.getVariationData(varValue1, varValue2, 'stock')"></td>
+                      tal:attributes="name string:${varValue1}-${varValue2}-stock:int;
+                                      value python:varConf.getVariationData(varValue1, varValue2, 'stock')"></td>
                   <td><input type="text" 
-                      tal:attributes="name string:${varValue1}-${varValue2}-skuCode;
-                                      value python:view.getVariationData(varValue1, varValue2, 'skuCode')"></td>
+                      tal:attributes="name string:${varValue1}-${varValue2}-skuCode:required;
+                                      value python:varConf.getVariationData(varValue1, varValue2, 'skuCode')">
+                  </td>
                 </tr>
                 </tbody>
               </table>

@@ -9,7 +9,7 @@ from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
 from decimal import Decimal
 
-     
+
 class ShopItemView(BrowserView):
     """Default view for a shop item
     """
@@ -55,44 +55,6 @@ class ShopItemView(BrowserView):
         return variation_attributes
 
 
-    def getVariation1Values(self):
-        value_string = getattr(self.context, 'variation1_values', None)
-        if value_string:
-            return [v.strip() for v in value_string.split(',')]
-        else:
-            return []
-
-
-    def getVariation2Values(self):
-        value_string = getattr(self.context, 'variation2_values', None)
-        if value_string:
-            return [v.strip() for v in value_string.split(',')]
-        else:
-            return []
-
-
-    def getVariationData(self, var1_attr, var2_attr, field):
-        variation_config = IVariationConfig(self.context)
-        variation_data= variation_config.getVariationConfig()
-
-        variation_key = "%s-%s" % (var1_attr, var2_attr)
-        var_dict = variation_data.get(variation_key, None)
-        if var_dict is not None and field in var_dict.keys():
-            if not var_dict[field] == "":
-                return var_dict[field]
-        # Return a default value appropriate for the field type
-        if field == 'active':
-            return True
-        elif field == 'price':
-            return Decimal("%s.%02d" % self.context.price)
-        elif field == 'stock':
-            return 0
-        elif field == 'skuCode':
-            return ""
-        else:
-            return None
-
-
 class EditVariationsView(ShopItemView):
     """View for editing ShopItem Variations
     """
@@ -119,8 +81,6 @@ class EditVariationsView(ShopItemView):
             self.request.RESPONSE.redirect(self.context.absolute_url())
 
         return self.template()
-
-
 
 
 

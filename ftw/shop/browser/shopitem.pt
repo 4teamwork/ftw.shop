@@ -56,7 +56,7 @@
 
 
         <tal:block tal:define="varConf python:view.getVariationsConfig()">
-        <div tal:repeat="varValue1 view/getVariation1Values">
+        <div tal:repeat="varValue1 varConf/getVariation1Values">
           <h2 tal:content="varValue1">Red</h2>
           <table>
           <thead>
@@ -65,12 +65,15 @@
           </tr>
           </thead>
           <tbody>
-            <tal:block tal:repeat="varValue2 view/getVariation2Values">
-            <tr tal:condition="python:view.getVariationData(varValue1, varValue2, 'active')"
-                tal:define="skuCode python:view.getVariationData(varValue1, varValue2, 'skuCode')">
+            <tal:block tal:repeat="varValue2 varConf/getVariation2Values">
+            <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
+                            skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
+                            price python:varConf.getVariationData(varValue1, varValue2, 'price');
+                            stock python:varConf.getVariationData(varValue1, varValue2, 'stock')"
+                tal:condition="active">
               <td tal:content="varValue2">S</td>
-              <td><span tal:content="python:view.getVariationData(varValue1, varValue2, 'price')"/></td>
-              <td><span tal:content="python:view.getVariationData(varValue1, varValue2, 'stock')"/></td>
+              <td><span tal:content="price"/></td>
+              <td><span tal:content="stock"/></td>
               <td><span tal:content="skuCode"/></td>
               <td><a href="#" class="addToCartLink"
                      tal:attributes="href string:${context/absolute_url}/addtocart?skuCode=${skuCode}"
@@ -83,31 +86,6 @@
         </div>
         </tal:block>
 
-
-
-
-         
-<!--         <tal:itemvariants define="variations view/variations" tal:condition="variations">    
-        <table class="shopItemTable" tal:define="variations view/variations" tal:repeat="vkey python:variations.keys()">
-            <tr>
-                <th i18n:translate="label_order_number">Order number</th>
-                <th tal:content="vkey">Label</th>
-                <th colspan="2" i18n:translate="">Price</th>
-            </tr>
-            <tal:items define="mitems python:variations[vkey]" repeat="mitem mitems">
-            <tr>
-                <td tal:content="mitem/order_number" />
-                <td tal:content="mitem/title" />
-                <td tal:content="mitem/price" />
-                <td><a href="#" class="addToCartLink"
-                       tal:attributes="href string:${mitem/url}"
-                       i18n:translate="text_add_to_cart">Add to cart</a></td>
-            </tr>
-            </tal:items>
-        </table>
-        </tal:itemvariants> -->
-
-            
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
     </tal:main-macro>
