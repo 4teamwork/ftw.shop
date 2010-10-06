@@ -20,67 +20,31 @@ class ShopItemView(BrowserView):
     @instance.memoize    
     def item(self):
         context = aq_inner(self.context)
-        if context.portal_type == 'ShopItem':
+        has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
+        skuCode = context.Schema().getField('skuCode').get(context)
+        if not has_variations:
             return dict(
-                order_number = context.Schema().getField('skuCode').get(context),
+                order_number = skuCode,
                 price = context.Schema().getField('price').get(context),
-                url = '%s/addtocart' % context.absolute_url(),
+                url = '%s/addtocart?skuCode=%s' % (context.absolute_url(), skuCode),
             )
         return None
 
     @property
     @instance.memoize
-    def items(self):
+    def variations(self):
         context = aq_inner(self.context)
-        if context.portal_type == 'ShopItem':
-            ct = getToolByName(context, 'portal_catalog')
-            query = {}
-            query['path'] = {'query': '/'.join(context.getPhysicalPath()), 'depth': -1 }
-            query['portal_type'] = 'ShopItemVariant'
-            query['sort_on'] = 'getObjPositionInParent'
-
-            results = {}
-            mitems = ct(**query)
-            for mitem in mitems:
-                obj = mitem.getObject()
-                key = obj.variantLabel
-                if not results.has_key(key):
-                    results[key] = list()
-                results[key].append(dict(
-                    order_number = obj.Schema().getField('skuCode').get(obj),
-                    title = obj.Title(),
-                    price = obj.Schema().getField('price').get(obj),
-                    url = '%s/addtocart' % obj.absolute_url(),
-                ))
-            return results
+        variation_config = IVariationConfig(self.context)
+        has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
+        if has_variations:
+            return variation_config.getVariationConfig()
 
 
-class EditVariationsView(BrowserView):
-    """View for editing ShopItem Variations
-    """
-    template = ViewPageTemplateFile('edit_variations.pt')
+    def getVariationsConfig(self):
+        context = aq_inner(self.context)
+        variation_config = IVariationConfig(self.context)
+        return variation_config
 
-    def __call__(self):
-        """
-        Self-submitting form that displays ShopItem Variations
-        and updates them
-        
-        """
-        form = self.request.form
-
-        # Make sure we had a proper form submit, not just a GET request
-        submitted = form.get('form.submitted', False)
-        if submitted:
-            variation_config = IVariationConfig(self.context)
-            
-            edited_var_data = self._parse_edit_variations_form()
-            variation_config.updateVariationConfig(edited_var_data)
-
-            IStatusMessage(self.request).addStatusMessage(
-                _("Variations saved."), type="info")
-            self.request.RESPONSE.redirect(self.context.absolute_url())
-
-        return self.template()
 
     def getVariationAttributes(self):
         variation_attributes = []
@@ -111,7 +75,6 @@ class EditVariationsView(BrowserView):
         variation_config = IVariationConfig(self.context)
         variation_data= variation_config.getVariationConfig()
 
-        #variation_data = eval(self.context.variation_data)
         variation_key = "%s-%s" % (var1_attr, var2_attr)
         var_dict = variation_data.get(variation_key, None)
         if var_dict is not None and field in var_dict.keys():
@@ -128,6 +91,37 @@ class EditVariationsView(BrowserView):
             return ""
         else:
             return None
+
+
+class EditVariationsView(ShopItemView):
+    """View for editing ShopItem Variations
+    """
+    template = ViewPageTemplateFile('edit_variations.pt')
+
+    def __call__(self):
+        """
+        Self-submitting form that displays ShopItem Variations
+        and updates them
+        
+        """
+        form = self.request.form
+
+        # Make sure we had a proper form submit, not just a GET request
+        submitted = form.get('form.submitted', False)
+        if submitted:
+            variation_config = IVariationConfig(self.context)
+            
+            edited_var_data = self._parse_edit_variations_form()
+            variation_config.updateVariationConfig(edited_var_data)
+
+            IStatusMessage(self.request).addStatusMessage(
+                _("Variations saved."), type="info")
+            self.request.RESPONSE.redirect(self.context.absolute_url())
+
+        return self.template()
+
+
+
 
 
     def _parse_edit_variations_form(self):
