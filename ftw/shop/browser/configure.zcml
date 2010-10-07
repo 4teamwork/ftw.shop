@@ -98,5 +98,11 @@
     name="cart_edit" 
     template="cart_edit.pt" 
     permission="zope2.View" 
-    />   
+    />
+    
+    <browser:resource
+        name="ftw_shop.css"
+        file="resources/ftw_shop.css"
+        />
+   
 </configure>

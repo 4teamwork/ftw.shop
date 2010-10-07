@@ -48,13 +48,7 @@ class ShopItemView(BrowserView):
         return variation_config
 
 
-    def getVariationAttributes(self):
-        variation_attributes = []
-        if self.context.Schema().getField('variation1_attribute').get(self.context) not in (None, ''):
-            variation_attributes.append(self.context.Schema().getField('variation1_attribute').get(self.context))
-        if self.context.Schema().getField('variation2_attribute').get(self.context) not in (None, ''):
-            variation_attributes.append(self.context.Schema().getField('variation2_attribute').get(self.context))
-        return variation_attributes
+
 
 
 class EditVariationsView(BrowserView):

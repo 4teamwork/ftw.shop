@@ -1,0 +1,14 @@
+.variation-details {
+    font-size: 90%;
+    margin-left: 2em;
+}
+
+.listItem table td {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.listItem table th {
+    padding-left: 4px;
+    padding-right: 4px;
+}

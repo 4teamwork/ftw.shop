@@ -51,6 +51,15 @@ class VariationConfig(object):
             return []
 
 
+    def getVariationAttributes(self):
+        variation_attributes = []
+        if self.context.Schema().getField('variation1_attribute').get(self.context) not in (None, ''):
+            variation_attributes.append(self.context.Schema().getField('variation1_attribute').get(self.context))
+        if self.context.Schema().getField('variation2_attribute').get(self.context) not in (None, ''):
+            variation_attributes.append(self.context.Schema().getField('variation2_attribute').get(self.context))
+        return variation_attributes
+
+
     def getVariationData(self, var1_attr, var2_attr, field):
         variation_data= self.getVariationConfig()
         normalizer = getUtility(IIDNormalizer)
