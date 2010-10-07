@@ -27,6 +27,12 @@
  <adapter 
      name="ftw.shop.extender.ShopItemExtender"
      factory="ftw.shop.extender.ShopItemExtender"/>
+     
+     <subscriber
+       for=".interfaces.shopitem.IShopItem
+            Products.Archetypes.interfaces.IObjectInitializedEvent"
+       handler=".content.shopitem.object_initialized_handler"
+       />
 
 
   <!-- -*- extra stuff goes here -*- -->
