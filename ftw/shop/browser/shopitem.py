@@ -57,7 +57,7 @@ class ShopItemView(BrowserView):
         return variation_attributes
 
 
-class EditVariationsView(ShopItemView):
+class EditVariationsView(BrowserView):
     """View for editing ShopItem Variations
     """
     template = ViewPageTemplateFile('edit_variations.pt')
@@ -114,5 +114,11 @@ class EditVariationsView(ShopItemView):
                 data['skuCode'] = form.get("%s-skuCode" % variation_key)
                 variation_data[variation_key] = data
         return variation_data
+
+
+    def getVariationsConfig(self):
+        context = aq_inner(self.context)
+        variation_config = IVariationConfig(self.context)
+        return variation_config
 
             
