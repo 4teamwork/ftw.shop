@@ -33,15 +33,16 @@ class CategoryView(BrowserView):
             if image:
                 tag = image.tag(scale='tile')
             if item.portal_type == 'ShopItem' and not has_variations:
+                skuCode = item.Schema().getField('skuCode').get(item)
                 results.append(dict(
                     title = item.Title(),
                     description = item.Description(),
                     url = item.absolute_url(),
                     image = tag,
                     variants = None,
-                    order_number = item.Schema().getField('skuCode').get(item),
+                    order_number = skuCode,
                     price = item.Schema().getField('price').get(item),
-                    addurl = '%s/addtocart' % item.absolute_url(),
+                    addurl = '%s/addtocart?skuCode=%s' % (item.absolute_url(), skuCode)
                 ))
             
             if item.portal_type == 'ShopItem' and has_variations:
