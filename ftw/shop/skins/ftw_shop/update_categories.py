@@ -9,17 +9,17 @@
 ##
 from Products.CMFCore.utils import getToolByName
 
-atool = context.archetype_tool
+catalog = getToolByName(context, 'portal_catalog')
 old_uids = [obj.UID() for obj in context.listCategories()]
 
 # add the checked categories
-new_uids = [atool.getObject(uid) for uid in categories if uid not in old_uids]
+new_uids = [uid for uid in categories if uid not in old_uids]
 for c in new_uids:
     context.addToCategory(c)
 
 # remove the unchecked categories
 uids_delete = [uid for uid in old_uids if uid not in categories]
-categories_delete = [atool.getObject(uid) for uid in uids_delete]
+categories_delete = uids_delete
 for c in categories_delete:
     context.removeFromCategory(c)
   

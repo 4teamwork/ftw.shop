@@ -30,7 +30,6 @@
                        class="noborder"
                        name="categories:list"
                        tal:attributes="value category/UID;
-                                       tabindex tabindex/next;
                                        checked python: test(category in context.listCategories(), 'checked', None)" />
               </td>
               <td><a tal:attributes="href category/absolute_url" 
@@ -50,7 +49,6 @@
              type="submit"
              value="Update"
              i18n:attributes="value"
-             tal:attributes="tabindex tabindex/next;"
              tal:condition="all_categories"/>
     </form>
   </div>

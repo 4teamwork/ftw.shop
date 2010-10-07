@@ -21,15 +21,18 @@ class CategoryView(BrowserView):
         """ get all shop items belonging to this category
         """
         context = aq_inner(self.context)
-        mtool = getToolByName(context, 'portal_membership') 
+        mtool = getToolByName(context, 'portal_membership')
+        
         
         results = []
         for item in self.category_contents:
-            image = item.getImage()
+            has_variations = item.Schema().getField('variation1_attribute').get(item) not in (None, '')
+            # XXX
+            image = None
             tag = None
             if image:
                 tag = image.tag(scale='tile')
-            if item.portal_type == 'ShopItem':
+            if item.portal_type == 'ShopItem' and not has_variations:
                 results.append(dict(
                     title = item.Title(),
                     description = item.Description(),
@@ -41,7 +44,7 @@ class CategoryView(BrowserView):
                     addurl = '%s/addtocart' % item.absolute_url(),
                 ))
             
-            if item.portal_type == 'ShopItem':
+            if item.portal_type == 'ShopItem' and has_variations:
                 # get variants
                 #variants = item.contentValues(filter={'portal_type':'ShopItemVariant'})
                 #variants = [v for v in variants if mtool.checkPermission('View', v)]
@@ -55,7 +58,7 @@ class CategoryView(BrowserView):
                         order_number = variant.Schema().getField('skuCode').get(variant),
                         title = variant.Title(),
                         price = variant.Schema().getField('price').get(variant),
-                        addurl = '%s/addtocart' % variant.absolute_url(),
+                        addurl = '%s/addtocart' % variant.absolute_url(), 
                     ))
                 results.append(dict(
                     title = item.Title(),
@@ -73,7 +76,7 @@ class CategoryView(BrowserView):
         """
         results = []
         for item in self.category_contents:
-            image = item.getImage()
+            image = None
             tag = None
             if image:
                 tag = image.tag(scale='tile')

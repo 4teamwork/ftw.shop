@@ -13,12 +13,13 @@ from Products.CMFCore.utils import getToolByName
 
 portalPath = getToolByName(context, 'portal_url').getPortalPath()
 ltool = getToolByName(context, 'portal_languages')
+catalog = getToolByName(context, 'portal_catalog')
 lang = ltool.getPreferredLanguage()
 
 query = {}
 query['portal_type'] = ['ShopCategory']
-query['path'] = '%s/%s' % (portalPath, lang)
+#query['path'] = '%s/%s' % (portalPath, lang)
 query['sort_on'] = 'sortable_title'
 
-categories = context.portal_catalog.queryCatalog(query)
+categories = catalog(query)
 return [category.getObject() for category in categories if category.UID != categoryUID]

@@ -59,7 +59,6 @@
             <div class="visualClear"><!-- --></div>
         </div>
         </tal:categories>
-
         <tal:shopitems repeat="item view/items">
         <div class="listItem">
         
@@ -67,16 +66,13 @@
                 <a href="#" tal:attributes="href item/url">
                     <img src="" tal:replace="structure item/image" /></a>
             </div>
-        
             <div class="listItemHeading">
                 <h2><a href="#" tal:content="item/title" tal:attributes="href item/url" /></h2>
             </div>
-        
             <p class="listItemBody">
                 <span tal:replace="item/description" />
                 <a href="#" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
             </p>
-
             <div class="listItemBody">
                 <table class="shopItemTable" tal:condition="python: item['variants'] is None">
                     <tr>
@@ -91,7 +87,6 @@
                                i18n:translate="text_add_to_cart">Add to cart</a></td>
                     </tr>
                 </table>
-
                 <tal:itemvariants define="variants item/variants" tal:condition="variants">    
                 <table class="shopItemTable" tal:repeat="vkey python:variants.keys()">
                     <tr>
@@ -116,7 +111,7 @@
         
             <div class="visualClear"><!-- --></div>    
     
-        </div>        
+        </div>
         </tal:shopitems>
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
