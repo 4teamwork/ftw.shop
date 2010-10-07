@@ -8,6 +8,9 @@ from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces.shopitem import IShopItem
 
 from persistent.mapping import PersistentMapping
+from zope.component import getUtility
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+
 
 class VariationConfig(object):
     """An Adapter for storing variation configurations on ShopItems
@@ -19,6 +22,10 @@ class VariationConfig(object):
     def __init__(self, context):
         self.context = context
         self.annotations = IAnnotations(self.context)
+        
+    def hasVariations(self):
+        return self.context.Schema().getField('variation1_attribute').get(self.context) not in (None, '')
+        
 
     def getVariationConfig(self):
         return self.annotations.get('variations', PersistentMapping())
@@ -46,8 +53,9 @@ class VariationConfig(object):
 
     def getVariationData(self, var1_attr, var2_attr, field):
         variation_data= self.getVariationConfig()
-
-        variation_key = "%s-%s" % (var1_attr, var2_attr)
+        normalizer = getUtility(IIDNormalizer)
+        
+        variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))
         var_dict = variation_data.get(variation_key, None)
         if var_dict is not None and field in var_dict.keys():
             if not var_dict[field] == "":

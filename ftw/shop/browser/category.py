@@ -4,6 +4,7 @@ from plone.memoize import instance
 from Acquisition import aq_inner
 from ftw.shop.config import CATEGORY_RELATIONSHIP
 from Products.CMFCore.utils import getToolByName
+from ftw.shop.interfaces import IVariationConfig
 
 class CategoryView(BrowserView):
     """Default view for a category. Shows all contained shop items and categories.
@@ -42,7 +43,8 @@ class CategoryView(BrowserView):
                     variants = None,
                     order_number = skuCode,
                     price = item.Schema().getField('price').get(item),
-                    addurl = '%s/addtocart?skuCode=%s' % (item.absolute_url(), skuCode)
+                    addurl = '%s/addtocart?skuCode=%s' % (item.absolute_url(), skuCode),
+                    varConf = None,
                 ))
             
             if item.portal_type == 'ShopItem' and has_variations:
@@ -67,6 +69,7 @@ class CategoryView(BrowserView):
                     url = item.absolute_url(),
                     image = tag,
                     variants = variants_data,
+                    varConf = IVariationConfig(item),
                 ))
         return results
 

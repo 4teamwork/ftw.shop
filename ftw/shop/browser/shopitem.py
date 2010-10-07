@@ -8,6 +8,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
 from decimal import Decimal
+from zope.component import getUtility
+from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 
 class ShopItemView(BrowserView):
@@ -86,11 +88,13 @@ class EditVariationsView(ShopItemView):
 
     def _parse_edit_variations_form(self):
         form = self.request.form
+        variation_config = IVariationConfig(self.context)
         variation_data = {}
-        
-        for var1_value in self.getVariation1Values():
-            for var2_value in self.getVariation2Values():
-                variation_key = "%s-%s" % (var1_value, var2_value)
+        normalizer = getUtility(IIDNormalizer)
+
+        for var1_value in variation_config.getVariation1Values():
+            for var2_value in variation_config.getVariation2Values():
+                variation_key = normalizer.normalize("%s-%s" % (var1_value, var2_value))
                 data = {}
                 data['active'] = bool(form.get("%s-active" % variation_key))
                 # TODO: Handle decimal correctly

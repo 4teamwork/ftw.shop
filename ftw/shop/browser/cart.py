@@ -1,5 +1,5 @@
 from Products.Five.browser import BrowserView
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
@@ -20,7 +20,6 @@ class CartView(BrowserView):
         """
         context = aq_inner(self.context)
 
-                
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})

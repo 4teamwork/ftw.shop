@@ -60,8 +60,9 @@
         </div>
         </tal:categories>
         <tal:shopitems repeat="item view/items">
+
         <div class="listItem">
-        
+
             <div class="listItemImage" tal:condition="item/image">
                 <a href="#" tal:attributes="href item/url">
                     <img src="" tal:replace="structure item/image" /></a>
@@ -73,6 +74,7 @@
                 <span tal:replace="item/description" />
                 <a href="#" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
             </p>
+           
             <div class="listItemBody">
                 <table class="shopItemTable" tal:condition="python: item['variants'] is None">
                     <tr>
@@ -87,27 +89,40 @@
                                i18n:translate="text_add_to_cart">Add to cart</a></td>
                     </tr>
                 </table>
-                <tal:itemvariants define="variants item/variants" tal:condition="variants">    
-                <table class="shopItemTable" tal:repeat="vkey python:variants.keys()">
-                    <tr>
-                        <th i18n:translate="label_order_number">Order number</th>
-                        <th tal:content="vkey">Label</th>
-                        <th colspan="2" i18n:translate="">Price</th>
-                    </tr>
-                    <tal:items define="mitems python:variants[vkey]" repeat="mitem mitems">
-                    <tr>
-                        <td tal:content="mitem/order_number" />
-                        <td tal:content="mitem/title" />
-                        <td tal:content="mitem/price" />
-                        <td><a href="#" class="addToCartLink"
-                               tal:attributes="href string:${mitem/addurl}"
-                               i18n:translate="text_add_to_cart">Add to cart</a></td>
-                    </tr>
-                    </tal:items>
-                </table>
-                </tal:itemvariants>
                 
             </div>
+            
+            <tal:block tal:define="varConf item/varConf" tal:condition="varConf">
+
+            <div tal:repeat="varValue1 varConf/getVariation1Values">
+              <h2 tal:content="varValue1">Red</h2>
+              <table>
+              <thead>
+              <tr>
+                <th>Size</th><th>Price</th><th>Stock</th><th>SKU Code</th>
+              </tr>
+              </thead>
+              <tbody>
+                <tal:block tal:repeat="varValue2 varConf/getVariation2Values">
+                <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
+                                skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
+                                price python:varConf.getVariationData(varValue1, varValue2, 'price');
+                                stock python:varConf.getVariationData(varValue1, varValue2, 'stock')"
+                    tal:condition="active">
+                  <td tal:content="varValue2">S</td>
+                  <td><span tal:content="price"/></td>
+                  <td><span tal:content="stock"/></td>
+                  <td><span tal:content="skuCode"/></td>
+                  <td><a href="#" class="addToCartLink"
+                         tal:attributes="href string:${context/absolute_url}/addtocart?skuCode=${skuCode}"
+                         i18n:translate="text_add_to_cart">Add to cart</a></td>
+                </tr>
+                </tal:block>
+                </tbody>
+              </table>
+
+            </div>
+            </tal:block>
         
             <div class="visualClear"><!-- --></div>    
     
