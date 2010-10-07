@@ -3,8 +3,8 @@
 
 from zope.interface import implements, alsoProvides
 
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.ATContentTypes.content.folder import ATFolderSchema
+from Products.ATContentTypes.content.document import ATDocument
+from Products.ATContentTypes.content.document import ATDocumentSchema
 
 from ftw.shop.interfaces.shopitem import IShopItem
 from ftw.shop.interfaces import IShoppable
@@ -19,9 +19,9 @@ if HAS_LINGUA_PLONE:
 else:
     from Products.Archetypes.atapi import registerType
 
-ShopItemSchema = ATFolderSchema.copy() 
+ShopItemSchema = ATDocumentSchema.copy() 
 
-class ShopItem(Categorizeable, ATFolder):
+class ShopItem(Categorizeable, ATDocument):
     """A simple shop item"""
     implements(IShopItem)
     alsoProvides(IShoppable)

@@ -3,12 +3,12 @@
     margin-left: 2em;
 }
 
-.listItem table td {
+.listItem table td, .shopItemTable td {
     padding-left: 4px;
     padding-right: 4px;
 }
 
-.listItem table th {
+.listItem table th, .shopItemTable th {
     padding-left: 4px;
     padding-right: 4px;
 }
