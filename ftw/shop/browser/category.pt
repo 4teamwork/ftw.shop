@@ -114,7 +114,7 @@
                   <td><span tal:content="stock"/></td>
                   <td><span tal:content="skuCode"/></td>
                   <td><a href="#" class="addToCartLink"
-                         tal:attributes="href string:${context/absolute_url}/addtocart?skuCode=${skuCode}"
+                         tal:attributes="href string:${item/url}/addtocart?skuCode=${skuCode}"
                          i18n:translate="text_add_to_cart">Add to cart</a></td>
                 </tr>
                 </tal:block>
