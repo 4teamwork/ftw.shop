@@ -94,3 +94,16 @@ class VariationConfig(object):
             return ""
         else:
             return None
+    def getPrettyName(self, variation_key):
+        """Returns the human facing name for a variation,
+        e.g. 'Green-XXL'
+        """
+        import pdb; pdb.set_trace()
+        normalizer = getUtility(IIDNormalizer)
+        for var1_value in self.getVariation1Values():
+            for var2_value in self.getVariation2Values():
+                vkey = normalizer.normalize("%s-%s" % (var1_value, var2_value))
+                if vkey == variation_key:
+                    return "%s-%s" % (var1_value, var2_value)
+        return None
+        

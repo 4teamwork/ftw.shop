@@ -31,15 +31,15 @@ class CartView(BrowserView):
 
         has_variations = varConf.hasVariations()
         if has_variations:
-            
             variation_dict = varConf.getVariationDict()
             variation_key = None
             for vkey in variation_dict.keys():
                 if variation_dict[vkey]['skuCode'] == skuCode:
                     variation_key = vkey
                     break
-
-            item_title = '%s - %s' % (context.Title(), variation_key)
+                    
+            variation_pretty_name = varConf.getPrettyName(variation_key) 
+            item_title = '%s - %s' % (context.Title(), variation_pretty_name)
             price = Decimal(variation_dict[variation_key]['price'])
             # add item to cart
             if item is None:
