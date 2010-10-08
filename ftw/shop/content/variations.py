@@ -29,8 +29,8 @@ class VariationConfig(object):
         field = self.context.Schema().getField('variation1_attribute')
         return field.get(self.context) not in (None, '')
 
-    def getVariationConfig(self):
-        """Returns a list of nested dicts with the variation config
+    def getVariationDict(self):
+        """Returns a nested dict with the variation config for the item
         """
         return self.annotations.get('variations', PersistentMapping())
 
@@ -75,7 +75,7 @@ class VariationConfig(object):
     def getVariationData(self, var1_attr, var2_attr, field):
         """Returns the data for one specific variation instance's field
         """
-        variation_data= self.getVariationConfig()
+        variation_data= self.getVariationDict()
         normalizer = getUtility(IIDNormalizer)
 
         variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))

@@ -19,6 +19,7 @@ class CartView(BrowserView):
         """ add item to cart and redirect to referer
         """
         context = aq_inner(self.context)
+        varConf = IVariationConfig(self.context)
 
         # get current items in cart
         session = self.request.SESSION
@@ -26,20 +27,20 @@ class CartView(BrowserView):
 
         item = cart_items.get(skuCode, None)
         item_title = context.Title()
-        #quantity = int(quantity)
+        quantity = int(quantity)
 
-        has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
+        has_variations = varConf.hasVariations()
         if has_variations:
-            variation_config = IVariationConfig(self.context)
-            variation_data = variation_config.getVariationConfig()
+            
+            variation_dict = varConf.getVariationDict()
             variation_key = None
-            for vkey in variation_data.keys():
-                if variation_data[vkey]['skuCode'] == skuCode:
+            for vkey in variation_dict.keys():
+                if variation_dict[vkey]['skuCode'] == skuCode:
                     variation_key = vkey
                     break
 
             item_title = '%s - %s' % (context.Title(), variation_key)
-            price = Decimal(variation_data[variation_key]['price'])
+            price = Decimal(variation_dict[variation_key]['price'])
             # add item to cart
             if item is None:
                 item = {'title': item_title,
