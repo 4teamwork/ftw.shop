@@ -6,7 +6,7 @@ from zope.viewlet.interfaces import IViewletManager
 class IShopRoot(Interface):
     """Marker interface for shop root folder."""
 
-class IShoppable(Interface):
+class IBuyable(Interface):
     """Marker interface for marking items as buyable."""
 
 class IVariationConfig(Interface):

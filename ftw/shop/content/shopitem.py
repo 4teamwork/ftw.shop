@@ -7,7 +7,7 @@ from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 
 from ftw.shop.interfaces.shopitem import IShopItem
-from ftw.shop.interfaces import IShoppable
+from ftw.shop.interfaces import IBuyable
 from ftw.shop.content.categorizeable import Categorizeable
 from ftw.shop.config import PROJECTNAME
 from Acquisition import aq_parent
@@ -24,7 +24,7 @@ ShopItemSchema = ATDocumentSchema.copy()
 class ShopItem(Categorizeable, ATDocument):
     """A simple shop item"""
     implements(IShopItem)
-    alsoProvides(IShoppable)
+    alsoProvides(IBuyable)
 
     meta_type = "ShopItem"
     schema = ShopItemSchema
