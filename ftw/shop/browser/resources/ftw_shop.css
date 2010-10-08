@@ -12,3 +12,10 @@
     padding-left: 4px;
     padding-right: 4px;
 }
+
+.addToCartLink {
+    background:url("++resource++ftw-shop-resources/addcart_p.gif") no-repeat scroll left top transparent;
+    float:right;
+    padding-left:25px;
+    text-decoration:none;
+}
