@@ -115,9 +115,13 @@
                   <td><span tal:content="price"/></td>
                   <td><span tal:content="stock"/></td>
                   <td><span tal:content="skuCode"/></td>
-                  <td><a href="#" class="addToCartLink"
-                         tal:attributes="href string:${item/url}/addtocart?skuCode=${skuCode}"
-                         i18n:translate="text_add_to_cart">Add to cart</a></td>
+                  <td>
+                      <form tal:attributes="action string:${item/url}/addtocart">
+                      <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
+                      <input type="text" size="2" name="quantity:int" value="1"/>
+                      <input type="submit" value="Add to cart"/>
+                      </form>
+                  </td>
                 </tr>
                 </tal:block>
                 </tbody>

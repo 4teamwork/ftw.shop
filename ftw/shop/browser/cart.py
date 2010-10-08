@@ -15,7 +15,7 @@ class CartView(BrowserView):
     """
     """
     
-    def addtocart(self, skuCode):
+    def addtocart(self, skuCode, quantity=1):
         """ add item to cart and redirect to referer
         """
         context = aq_inner(self.context)
@@ -26,6 +26,7 @@ class CartView(BrowserView):
 
         item = cart_items.get(skuCode, None)
         item_title = context.Title()
+        #quantity = int(quantity)
 
         has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
         if has_variations:
@@ -44,15 +45,15 @@ class CartView(BrowserView):
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
-                        'quantity':1,
+                        'quantity':quantity,
                         'price': str(price),
-                        'total': str(price),
+                        'total': str(price * quantity),
                         'url': context.absolute_url(),
                         'variation_key': variation_key,
                 }    
             # item already in cart, update quantitiy
             else:
-                item['quantity'] = item.get('quantity', 0) + 1
+                item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
                 
         else:
@@ -62,14 +63,14 @@ class CartView(BrowserView):
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
-                        'quantity':1,
+                        'quantity':quantity,
                         'price': str(price),
-                        'total': str(price),
+                        'total': str(price * quantity),
                         'url': context.absolute_url(),
                 }    
             # item already in cart, update quantitiy
             else:
-                item['quantity'] = item.get('quantity', 0) + 1
+                item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
 
 
