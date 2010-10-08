@@ -4,6 +4,7 @@
     i18n_domain="ftw.shop">
 
   <include package="plone.app.contentmenu" />
+  <include package=".viewlets" />
 
   <browser:resourceDirectory
       name='ftw-shop-resources'

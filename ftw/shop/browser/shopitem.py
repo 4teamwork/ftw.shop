@@ -1,9 +1,6 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.memoize import instance
-from zope.interface import Interface, implements
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
@@ -15,40 +12,22 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 class ShopItemView(BrowserView):
     """Default view for a shop item
     """
-    
+
     __call__ = ViewPageTemplateFile('shopitem.pt')
-    
-    @property
-    @instance.memoize    
-    def item(self):
-        context = aq_inner(self.context)
-        has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
-        skuCode = context.Schema().getField('skuCode').get(context)
-        if not has_variations:
-            return dict(
-                order_number = skuCode,
-                price = context.Schema().getField('price').get(context),
-                url = '%s/addtocart?skuCode=%s' % (context.absolute_url(), skuCode),
-            )
-        return None
 
-    @property
-    @instance.memoize
-    def variations(self):
+    def getItems(self):
+        """Returns a list with this item as its only element,
+        so the listing viewlet can treat it like a list of items
+        """
         context = aq_inner(self.context)
-        variation_config = IVariationConfig(self.context)
-        has_variations = context.Schema().getField('variation1_attribute').get(context) not in (None, '')
-        if has_variations:
-            return variation_config.getVariationConfig()
-
+        return [context]
 
     def getVariationsConfig(self):
+        """Returns the variation config for the item currently being viewed
+        """
         context = aq_inner(self.context)
         variation_config = IVariationConfig(self.context)
         return variation_config
-
-
-
 
 
 class EditVariationsView(BrowserView):
@@ -60,7 +39,7 @@ class EditVariationsView(BrowserView):
         """
         Self-submitting form that displays ShopItem Variations
         and updates them
-        
+
         """
         form = self.request.form
 
@@ -68,7 +47,7 @@ class EditVariationsView(BrowserView):
         submitted = form.get('form.submitted', False)
         if submitted:
             variation_config = IVariationConfig(self.context)
-            
+
             edited_var_data = self._parse_edit_variations_form()
             variation_config.updateVariationConfig(edited_var_data)
 
@@ -78,9 +57,10 @@ class EditVariationsView(BrowserView):
 
         return self.template()
 
-
-
     def _parse_edit_variations_form(self):
+        """Parses the form the user submitted when editing variations,
+        and returns a dictionary that contains the variation data.
+        """
         form = self.request.form
         variation_config = IVariationConfig(self.context)
         variation_data = {}
@@ -88,7 +68,8 @@ class EditVariationsView(BrowserView):
 
         for var1_value in variation_config.getVariation1Values():
             for var2_value in variation_config.getVariation2Values():
-                variation_key = normalizer.normalize("%s-%s" % (var1_value, var2_value))
+                variation_key = normalizer.normalize(
+                                    "%s-%s" % (var1_value, var2_value))
                 data = {}
                 data['active'] = bool(form.get("%s-active" % variation_key))
                 # TODO: Handle decimal correctly
@@ -109,10 +90,9 @@ class EditVariationsView(BrowserView):
                 variation_data[variation_key] = data
         return variation_data
 
-
     def getVariationsConfig(self):
+        """Returns the variation config for the item being edited
+        """
         context = aq_inner(self.context)
         variation_config = IVariationConfig(self.context)
         return variation_config
-
-            

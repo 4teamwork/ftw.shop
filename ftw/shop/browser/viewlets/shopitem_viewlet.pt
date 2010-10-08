@@ -1,0 +1,80 @@
+<tal:def i18n:domain="ftw.shop">
+    <tal:shopitems repeat="item view/getItemDatas">
+
+        <div class="listItem">
+            
+            <div class="listItemImage" tal:condition="item/imageTag">
+                <a href="#" tal:attributes="href item/url">
+                <img src="" tal:replace="structure item/imageTag" /></a>
+            </div>
+
+            <div class="listItemHeading">
+                <h2><a href="#" tal:content="item/title" tal:attributes="href item/url" /></h2>
+            </div>
+
+            <p class="listItemBody">
+                <span tal:replace="item/description" />
+                <a href="#" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
+            </p>
+
+            <!-- Single Item with no Variations -->
+            <div class="listItemTable" tal:condition="not:item/hasVariations">
+                <table class="shopItemTable">
+                    <tr>
+                        <th i18n:translate="label_order_number">Order number</th>
+                        <th colspan="2" i18n:translate="">Price</th>
+                    </tr>
+                    <tr>
+                        <td tal:content="item/order_number" />
+                        <td tal:content="item/price" />
+                        <td>
+                            <form tal:attributes="action string:${item/url}/addtocart">
+                                <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
+                                <input type="text" size="2" name="quantity:int" value="1"/>
+                                <input type="submit" value="Add to cart"/>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Item with Variations -->
+            <div class="listItemVariationsTable" tal:condition="item/hasVariations"
+                                                 tal:define="varConf item/varConf">
+                <div class="variation-toplevel-group" tal:repeat="varValue1 varConf/getVariation1Values">
+                <h2 tal:content="varValue1">Red</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
+                                <th>Price</th><th>Stock</th><th>SKU Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tal:block tal:repeat="varValue2 varConf/getVariation2Values">
+                                <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
+                                             skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
+                                             price python:varConf.getVariationData(varValue1, varValue2, 'price');
+                                             stock python:varConf.getVariationData(varValue1, varValue2, 'stock')"
+                                    tal:condition="active">
+                                    <td tal:content="varValue2">S</td>
+                                    <td><span tal:content="price"/></td>
+                                    <td><span tal:content="stock"/></td>
+                                    <td><span tal:content="skuCode"/></td>
+                                    <td>
+                                        <form tal:attributes="action string:${item/url}/addtocart">
+                                            <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
+                                            <input type="text" size="2" name="quantity:int" value="1"/>
+                                            <input type="submit" value="Add to cart"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tal:block>
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+     </tal:shopitems>
+</tal:def>

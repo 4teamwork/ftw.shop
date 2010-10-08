@@ -15,55 +15,69 @@ from plone.i18n.normalizer.interfaces import IIDNormalizer
 class VariationConfig(object):
     """An Adapter for storing variation configurations on ShopItems
     """
-    
+
     implements(IVariationConfig)
     adapts(IShopItem)
 
     def __init__(self, context):
         self.context = context
         self.annotations = IAnnotations(self.context)
-        
+
     def hasVariations(self):
-        return self.context.Schema().getField('variation1_attribute').get(self.context) not in (None, '')
-        
+        """Determines if the item has variations or not
+        """
+        field = self.context.Schema().getField('variation1_attribute')
+        return field.get(self.context) not in (None, '')
 
     def getVariationConfig(self):
+        """Returns a list of nested dicts with the variation config
+        """
         return self.annotations.get('variations', PersistentMapping())
 
     def updateVariationConfig(self, data):
+        """Updates the stored variation config with changes
+        """
         if not 'variations' in self.annotations.keys():
             self.annotations['variations'] = PersistentMapping()
         self.annotations['variations'].update(data)
 
     def getVariation1Values(self):
+        """Returns the values for the top level variation,
+        e.g. ['Red', 'Green', 'Blue']
+        """
         value_string = getattr(self.context, 'variation1_values', None)
         if value_string:
             return [v.strip() for v in value_string.split(',')]
         else:
             return []
 
-
     def getVariation2Values(self):
+        """Returns the values for the second level variation,
+        e.g. ['S', 'M', 'L', 'XL']
+        """
         value_string = getattr(self.context, 'variation2_values', None)
         if value_string:
             return [v.strip() for v in value_string.split(',')]
         else:
             return []
 
-
     def getVariationAttributes(self):
+        """Returns a list of the two variation attributes,
+        e.g. ['Color', 'Size']
+        """
         variation_attributes = []
-        if self.context.Schema().getField('variation1_attribute').get(self.context) not in (None, ''):
-            variation_attributes.append(self.context.Schema().getField('variation1_attribute').get(self.context))
-        if self.context.Schema().getField('variation2_attribute').get(self.context) not in (None, ''):
-            variation_attributes.append(self.context.Schema().getField('variation2_attribute').get(self.context))
+        for name in ['variation1_attribute', 'variation2_attribute']:
+            field = self.context.Schema().getField(name)
+            if field.get(self.context) not in (None, ''):
+                variation_attributes.append(field.get(self.context))
         return variation_attributes
 
-
     def getVariationData(self, var1_attr, var2_attr, field):
+        """Returns the data for one specific variation instance's field
+        """
         variation_data= self.getVariationConfig()
         normalizer = getUtility(IIDNormalizer)
-        
+
         variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))
         var_dict = variation_data.get(variation_key, None)
         if var_dict is not None and field in var_dict.keys():

@@ -28,16 +28,16 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-        <div class="shopItemDescription">
+        <!-- <div class="shopItemDescription">
             <metal:field use-macro="python:here.widget('description', mode='view')">
             Body text
             </metal:field>
             <br/><br/>
-        </div>
+        </div> -->
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
         
-        <div tal:content="structure text"/>
+        <!-- <div tal:content="structure text"/>
 
 
         <p tal:condition="python: not text and is_editable"
@@ -96,7 +96,10 @@
           </table>
 
         </div>
-        </tal:block>
+        </tal:block> -->
+        
+        <div tal:replace="structure provider:ftw.shop.listing" />
+        
 
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
