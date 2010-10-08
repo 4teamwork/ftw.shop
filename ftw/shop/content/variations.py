@@ -75,14 +75,19 @@ class VariationConfig(object):
     def getVariationData(self, var1_attr, var2_attr, field):
         """Returns the data for one specific variation instance's field
         """
-        variation_data= self.getVariationDict()
+        variation_dict = self.getVariationDict()
         normalizer = getUtility(IIDNormalizer)
 
-        variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))
-        var_dict = variation_data.get(variation_key, None)
-        if var_dict is not None and field in var_dict.keys():
-            if not var_dict[field] == "":
-                return var_dict[field]
+        if var2_attr is None:
+            # We only have one variation
+            variation_key = normalizer.normalize(var1_attr)
+        else:
+            # We have two levels of variation
+            variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))
+        var_data = variation_dict.get(variation_key, None)
+        if var_data is not None and field in var_data.keys():
+            if not var_data[field] == "":
+                return var_data[field]
         # Return a default value appropriate for the field type
         if field == 'active':
             return True
@@ -94,16 +99,22 @@ class VariationConfig(object):
             return ""
         else:
             return None
+
     def getPrettyName(self, variation_key):
         """Returns the human facing name for a variation,
         e.g. 'Green-XXL'
         """
-        import pdb; pdb.set_trace()
         normalizer = getUtility(IIDNormalizer)
-        for var1_value in self.getVariation1Values():
-            for var2_value in self.getVariation2Values():
-                vkey = normalizer.normalize("%s-%s" % (var1_value, var2_value))
+        if len(self.getVariationAttributes()) == 1:
+            for var1_value in self.getVariation1Values():
+                vkey = normalizer.normalize(var1_value)
                 if vkey == variation_key:
-                    return "%s-%s" % (var1_value, var2_value)
+                    return var1_value
+        else:
+            for var1_value in self.getVariation1Values():
+                for var2_value in self.getVariation2Values():
+                    vkey = normalizer.normalize("%s-%s" % (var1_value, var2_value))
+                    if vkey == variation_key:
+                        return "%s-%s" % (var1_value, var2_value)
         return None
         

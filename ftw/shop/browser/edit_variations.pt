@@ -28,11 +28,56 @@
             Title
             </metal:field>
         </h1>
-
+        
+          <!-- One Variation -->
           <form id="variations" method="post"
           tal:attributes="action python:here.absolute_url() + '/edit_variations'"
           tal:define="varConf python:view.getVariationsConfig();
-                      normalizeString nocall: context/@@plone/normalizeString">
+                      normalizeString nocall: context/@@plone/normalizeString"
+          tal:condition="python:len(varConf.getVariationAttributes()) == 1">
+
+              <table>
+              <thead>
+              <tr>
+                <th></th><th></th><th>Price</th><th>Stock</th>
+                <th>SKU Code 
+                    <span class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr tal:repeat="varValue1 varConf/getVariation1Values">
+                <tal:block tal:define="vkey python:normalizeString(varValue1)">
+                  <td tal:content="varValue1">Red</td>
+                  <td><input type="checkbox"
+                      tal:attributes="name string:${vkey}-active:boolean;
+                                      checked python:varConf.getVariationData(varValue1, None, 'active')"></td>
+                  <td><input type="text" class="number"
+                      tal:attributes="name string:${vkey}-price;
+                                      value python:varConf.getVariationData(varValue1, None, 'price')"></td>
+                  <td><input type="text" class="number" 
+                      tal:attributes="name string:${vkey}-stock:int;
+                                      value python:varConf.getVariationData(varValue1, None, 'stock')"></td>
+                  <td><input type="text" class="required uniqueSkuCode"
+                      tal:attributes="name string:${vkey}-skuCode:required;
+                                      value python:varConf.getVariationData(varValue1, None, 'skuCode')">
+                  </td>
+                  </tal:block>
+                </tr>
+                </tbody>
+              </table>
+
+            <input type="submit">
+            <input type="hidden" name="form.submitted:boolean" value="True" />
+          </form>
+          
+          
+          <!-- Two Variations -->
+          <form id="variations" method="post"
+          tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+          tal:define="varConf python:view.getVariationsConfig();
+                      normalizeString nocall: context/@@plone/normalizeString"
+          tal:condition="python:len(varConf.getVariationAttributes()) > 1">
 
             <fieldset tal:repeat="varValue1 varConf/getVariation1Values">
               <legend><strong tal:content="varValue1">Red</strong></legend>
@@ -66,8 +111,6 @@
                 </tr>
                 </tbody>
               </table>
-
-
             </fieldset>
             <input type="submit">
             <input type="hidden" name="form.submitted:boolean" value="True" />

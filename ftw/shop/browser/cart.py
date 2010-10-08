@@ -37,7 +37,7 @@ class CartView(BrowserView):
                 if variation_dict[vkey]['skuCode'] == skuCode:
                     variation_key = vkey
                     break
-                    
+
             variation_pretty_name = varConf.getPrettyName(variation_key) 
             item_title = '%s - %s' % (context.Title(), variation_pretty_name)
             price = Decimal(variation_dict[variation_key]['price'])
