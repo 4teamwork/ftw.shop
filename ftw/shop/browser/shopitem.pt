@@ -65,10 +65,11 @@
         <tal:block tal:define="varConf python:view.getVariationsConfig()">
         <div tal:repeat="varValue1 varConf/getVariation1Values">
           <h2 tal:content="varValue1">Red</h2>
-          <table>
+          <table class="shopItemTable">
           <thead>
           <tr>
-            <th>Size</th><th>Price</th><th>Stock</th><th>SKU Code</th>
+            <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
+            <th>Price</th><th>Stock</th><th>SKU Code</th>
           </tr>
           </thead>
           <tbody>
