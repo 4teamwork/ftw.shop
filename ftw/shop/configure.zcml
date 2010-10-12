@@ -22,17 +22,25 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <!-- Register "various" import step -->
+  <genericsetup:importStep
+      name="ftw.shop"
+      title="ftw.shop special import handlers"
+      description=""
+      handler="ftw.shop.setuphandlers.import_various" 
+      />
+
              
- <include package="archetypes.schemaextender" />
- <adapter 
-     name="ftw.shop.extender.ShopItemExtender"
-     factory="ftw.shop.extender.ShopItemExtender"/>
+  <include package="archetypes.schemaextender" />
+  <adapter 
+      name="ftw.shop.extender.ShopItemExtender"
+      factory="ftw.shop.extender.ShopItemExtender"/>
      
-     <subscriber
-       for=".interfaces.IShopItem
-            Products.Archetypes.interfaces.IObjectInitializedEvent"
-       handler=".content.shopitem.object_initialized_handler"
-       />
+  <subscriber
+    for=".interfaces.IShopItem
+         Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".content.shopitem.object_initialized_handler"
+    />
 
 
   <!-- -*- extra stuff goes here -*- -->

@@ -5,53 +5,52 @@
 
   <include package="plone.app.contentmenu" />
   <include package=".viewlets" />
-
-  <browser:resourceDirectory
-      name='ftw-shop-resources'
-      directory="resources" />
-
-  <browser:page
-        for="..interfaces.IShopItem"
-        name="view"
-        permission="zope2.View"
-        class=".shopitem.ShopItemView"
-    />
     
-    <browser:page
-          for="..interfaces.IShopItem"
-          name="edit_variations"
-          permission="zope2.View"
-          class=".shopitem.EditVariationsView"
-      />
-
-
   <browser:page
-        for="..interfaces.IShopCategory"
-        name="view"
-        permission="zope2.View"
-        class=".category.CategoryView"
+    for="..interfaces.IShopItem"
+    name="view"
+    permission="zope2.View"
+    class=".shopitem.ShopItemView"
     />
+  
+  <browser:page
+    for="..interfaces.IShopItem"
+    name="edit_variations"
+    permission="zope2.View"
+    class=".shopitem.EditVariationsView"
+    />
+  
+  
+  <browser:page
+    for="..interfaces.IShopCategory"
+    name="view"
+    permission="zope2.View"
+    class=".category.CategoryView"
+    />
+  
   <!-- order view -->
   <browser:page
-        for="..interfaces.IShopOrder"
-        name="view"
-        permission="zope2.View"
-        template="order.pt"
+    for="..interfaces.IShopOrder"
+    name="view"
+    permission="zope2.View"
+    template="order.pt"
     />
+  
   <!-- mail template for order -->
   <browser:page
-        for="..interfaces.IShopOrder"
-        name="mail_view"
-        permission="zope2.View"
-        template="order_mail.pt"
+    for="..interfaces.IShopOrder"
+    name="mail_view"
+    permission="zope2.View"
+    template="order_mail.pt"
     />
+  
   <browser:page 
     for="*" 
     name="cart_view" 
     class=".cart.CartView" 
     permission="zope2.View" 
     />
-    
+  
   <browser:page 
     for="..interfaces.IShopItem" 
     name="addtocart" 
@@ -59,8 +58,7 @@
     attribute="addtocart" 
     permission="zope2.View" 
     />
-
-
+  
   <browser:page 
     for="..interfaces.IShopRoot" 
     name="checkout" 
@@ -68,7 +66,7 @@
     attribute="checkout" 
     permission="zope2.View" 
     />
-    
+  
   <browser:page 
     for="..interfaces.IShopRoot"
     name="cart_update" 
@@ -76,7 +74,7 @@
     attribute="cart_update" 
     permission="zope2.View" 
     />    
-
+  
   <browser:page 
     for="..interfaces.IShopRoot"
     name="cart_delete" 
@@ -84,7 +82,7 @@
     attribute="cart_delete" 
     permission="zope2.View" 
     />
-
+  
   <browser:page 
     for="..interfaces.IShopRoot" 
     name="cart_remove" 
@@ -92,7 +90,8 @@
     attribute="cart_remove" 
     permission="zope2.View" 
     />
-        
+  
+  
   <!-- cart edit page -->
   <browser:page 
     for="..interfaces.IShopRoot" 
@@ -100,10 +99,29 @@
     template="cart_edit.pt" 
     permission="zope2.View" 
     />
+  
+  <browser:page
+    for="Products.CMFPlone.Portal.PloneSite"
+    name="shop-configuration"
+    class=".config.ShopConfigurationForm"
+    permission="cmf.ManagePortal"
+     />
+
+  <adapter
+    for="Products.CMFPlone.Portal.PloneSite"
+    provides="..interfaces.IShopConfiguration"
+    factory=".config.form_adapter" 
+    />  
+
+  
+  <browser:resourceDirectory
+    name='ftw-shop-resources'
+    directory="resources" 
+    />
     
-    <browser:resource
-        name="ftw_shop.css"
-        file="resources/ftw_shop.css"
-        />
-   
+  <browser:resource
+    name="ftw_shop.css"
+    file="resources/ftw_shop.css"
+    />
+	 
 </configure>
