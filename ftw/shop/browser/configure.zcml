@@ -11,14 +11,14 @@
       directory="resources" />
 
   <browser:page
-        for="..interfaces.shopitem.IShopItem"
+        for="..interfaces.IShopItem"
         name="view"
         permission="zope2.View"
         class=".shopitem.ShopItemView"
     />
     
     <browser:page
-          for="..interfaces.shopitem.IShopItem"
+          for="..interfaces.IShopItem"
           name="edit_variations"
           permission="zope2.View"
           class=".shopitem.EditVariationsView"
@@ -26,21 +26,21 @@
 
 
   <browser:page
-        for="..interfaces.shopcategory.IShopCategory"
+        for="..interfaces.IShopCategory"
         name="view"
         permission="zope2.View"
         class=".category.CategoryView"
     />
   <!-- order view -->
   <browser:page
-        for="..interfaces.order.IShopOrder"
+        for="..interfaces.IShopOrder"
         name="view"
         permission="zope2.View"
         template="order.pt"
     />
   <!-- mail template for order -->
   <browser:page
-        for="..interfaces.order.IShopOrder"
+        for="..interfaces.IShopOrder"
         name="mail_view"
         permission="zope2.View"
         template="order_mail.pt"
@@ -53,7 +53,7 @@
     />
     
   <browser:page 
-    for="..interfaces.shopitem.IShopItem" 
+    for="..interfaces.IShopItem" 
     name="addtocart" 
     class=".cart.CartView" 
     attribute="addtocart" 

@@ -29,7 +29,7 @@
      factory="ftw.shop.extender.ShopItemExtender"/>
      
      <subscriber
-       for=".interfaces.shopitem.IShopItem
+       for=".interfaces.IShopItem
             Products.Archetypes.interfaces.IObjectInitializedEvent"
        handler=".content.shopitem.object_initialized_handler"
        />

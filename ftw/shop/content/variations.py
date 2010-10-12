@@ -4,8 +4,7 @@ from zope.annotation.interfaces import IAnnotations
 
 from decimal import Decimal
 
-from ftw.shop.interfaces import IVariationConfig
-from ftw.shop.interfaces.shopitem import IShopItem
+from ftw.shop.interfaces import IVariationConfig, IShopItem
 
 from persistent.mapping import PersistentMapping
 from zope.component import getUtility

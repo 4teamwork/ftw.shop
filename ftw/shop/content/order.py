@@ -1,7 +1,7 @@
 from AccessControl import ClassSecurityInfo
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import PROJECTNAME
-from ftw.shop.interfaces.order import IShopOrder
+from ftw.shop.interfaces import IShopOrder
 from persistent.mapping import PersistentMapping
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
