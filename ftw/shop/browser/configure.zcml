@@ -122,6 +122,13 @@
     permission="cmf.ManagePortal"
   />
 
+  <browser:page
+      for="*"
+      name="initialize-shop-structure"
+      class=".initialize.InitShopStructure"
+      permission="zope.Public"
+  />
+
 
   <browser:resourceDirectory
     name='ftw-shop-resources'

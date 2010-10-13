@@ -7,9 +7,15 @@
 	       i18n:translate="label_up_to_plone_setup"
 	       i18n:domain="plone">
               Up to Site Setup
-	    </a>
+	    </a><br/><br/>
   </metal:block>
   <metal:block fill-slot="admin_content">
+  
+  <p>
+      <a href="" 
+      tal:attributes="href string: $portal_url/initialize-shop-structure">
+      Initialize Shop Structure</a>
+  </p>
   
   <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
 

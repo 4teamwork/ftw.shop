@@ -35,7 +35,6 @@
       handler="ftw.shop.setuphandlers.import_various" 
       />
 
-
   <include package="archetypes.schemaextender" />
   <adapter 
       name="ftw.shop.extender.ShopItemExtender"
