@@ -10,17 +10,18 @@
                                               
           <li tal:content="customer/title"></li>
           <li tal:content="python:customer['firstname'] + ' ' + customer['lastname'] "></li>
-
-          <li tal:content="customer/email"></li>
-
-          <li tal:content="customer/phone"></li>
-
           <li tal:content="customer/street"></li>
           <li tal:content="customer/street2"></li>
           <li tal:content="python:str(customer['zipcode']) + ' ' + customer['city']"></li>
           <li tal:content="customer/country|nothing"></li>
-          <li tal:content="customer/comments"></li>
-          <li tal:content="customer/newsletter"></li>
+          <li><br></li>
+          
+          <li tal:content="string:Email: ${customer/email}"></li>
+          <li tal:content="string:Phone: ${customer/phone}"></li>
+
+          <li tal:condition="customer/comments" 
+              tal:content="string:Comments: ${customer/comments}"></li>
+          <li tal:content="string:Receive Newsletter: ${customer/newsletter}"></li>
           <li><br></li>
       </ul>
       
