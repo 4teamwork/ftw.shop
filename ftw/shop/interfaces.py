@@ -69,5 +69,58 @@ class IShopConfiguration(Interface):
 
     shop_name = schema.TextLine(title=_(u"Enter the shop name"),
                                   required=True)
-    
-    
+
+
+class ICustomerInformation(Interface):
+    """Schema defining a common customer address form
+    """
+    title= schema.TextLine(
+      title=u'Title',
+      required=True)
+
+    firstname = schema.TextLine(
+      title=u'First Name',
+      required=True)
+
+    lastname = schema.TextLine(
+      title=u'Last Name',
+      required=True)
+
+    email = schema.TextLine(
+      title=u'Email',
+      required=True)
+
+    street = schema.TextLine(
+      title=u'Street/No.',
+      required=True)
+
+    street2 = schema.TextLine(
+      title=u'Address 2',
+      required=False)
+
+    phone = schema.TextLine(
+      title=u'Phone number',
+      required=True)
+
+    zipcode = schema.Int(
+      title=u'Zip Code',
+      required=True)
+
+    city = schema.TextLine(
+      title=u'City',
+      required=True)
+
+    country = schema.TextLine(
+      title=u'Country',
+      required=True)
+
+    newsletter = schema.Bool(
+      title=u'Newsletter',
+      description=u'I would like to subscribe to the newsletter.',
+      required=False,
+      default=False)
+
+    comments = schema.Text(
+      title=u'Comments',
+      required=False)
+
