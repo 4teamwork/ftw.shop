@@ -36,9 +36,30 @@
       />
 
   <include package="archetypes.schemaextender" />
+
+  <adapter 
+      name="ftw.shop.CustomerInformationStep"
+      factory="ftw.shop.browser.checkout.CustomerInfoStep"
+      provides="ftw.shop.interfaces.IContactInformationStep"
+    />
+
+  <adapter 
+    name="ftw.shop.EmployeeNumberStep"
+    factory="ftw.shop.browser.checkout.EmployeeNumberStep"
+    provides="ftw.shop.interfaces.IContactInformationStep"
+    />
+    
+    <!-- Contact Information Steps Vocabulary -->
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="ftw.shop.contact_info_steps"
+        component=".vocabularies.ContactInfoSteps"
+        />
+        
   <adapter 
       name="ftw.shop.extender.ShopItemExtender"
-      factory="ftw.shop.extender.ShopItemExtender"/>
+      factory="ftw.shop.extender.ShopItemExtender"
+      />
 
   <subscriber
     for=".interfaces.IShopItem

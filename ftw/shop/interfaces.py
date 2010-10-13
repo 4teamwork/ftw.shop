@@ -4,6 +4,7 @@ from zope import schema
 from zope.app.container.constraints import containers, contains
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from z3c.form import interfaces
 
@@ -63,8 +64,6 @@ class IOrderReviewStep(IWizardStep):
 
 # ------------------------------------------------------
 
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
 
 class IShopConfiguration(Interface):
     """This interface defines the ftw.shop configlet."""
@@ -79,6 +78,11 @@ class IShopConfiguration(Interface):
                                             SimpleTerm(value=u'creditcard', title=_(u'Credit Card'))]
                                            ),
                                        required=True)
+
+    contact_info_step = schema.Choice(title=_(u"Contact Information Step"),
+                                      vocabulary="ftw.shop.contact_info_steps",
+                                      required=True)
+
 
 class ICustomerInformation(Interface):
     """Schema defining a common customer address form
@@ -132,4 +136,12 @@ class ICustomerInformation(Interface):
     comments = schema.Text(
       title=u'Comments',
       required=False)
+
+
+class IEmployeeNumber(Interface):
+  """Schema defining a form to enter an employee number
+  """
+  number= schema.TextLine(
+    title=u'Employee Number',
+    required=True)
 
