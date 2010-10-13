@@ -56,6 +56,8 @@ setup(name='ftw.shop',
       zip_safe=False,
       install_requires=[
         'setuptools',
+        'plone.app.z3cform',
+        'collective.z3cform.wizard'
 #        'Products.ATCountryWidget',
       ],
       tests_require=tests_require,
@@ -65,9 +67,6 @@ setup(name='ftw.shop',
       # -*- entry_points -*-
       [z3c.autoinclude.plugin]
       target = plone
-            
-      [distutils.setup_keywords]
-      paster_plugins = setuptools.dist:assert_string_list
+
       """,
-      paster_plugins = ["ZopeSkel"],
       )

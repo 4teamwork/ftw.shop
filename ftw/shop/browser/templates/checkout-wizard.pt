@@ -1,0 +1,55 @@
+<ul class="wizard-steps">
+    <li tal:repeat="step view/activeSteps"
+        class="wizard-step-link"
+        tal:attributes="class python:'wizard-step-link' + ((step is view.currentStep) and ' selected' or '')">
+        <a tal:omit-tag="python:not step.available or step is view.currentStep"
+           tal:attributes="href string:${view/absolute_url}?step:int=${repeat/step/index}">
+           <span tal:content="string:${repeat/step/number}." />&nbsp;<span tal:content="step/label">
+            Link to step
+            </span>
+        </a>
+    </li>
+    <li class="wizard-step-link">
+        <span>3.</span>&nbsp;<span i18n:domain="amnesty.donation" i18n:translate="confirmation_step">Confirmation</span>
+    </li>
+</ul>
+
+<div class="form" tal:condition="view/finished">
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+</div>
+
+<div class="form" tal:condition="not:view/finished"
+    tal:attributes="id string:wizard-step-${view/currentStep/prefix}">
+
+  <div class="description"
+       tal:condition="view/description"
+       tal:content="structure view/description">Form description</div>
+
+  <tal:comment condition="nothing">
+    <ul tal:define="errors view/currentStep/widgets/errors"
+        tal:condition="errors">
+      <li tal:repeat="error errors">
+        <tal:block replace="error/widget/label"/>:
+        <tal:block replace="structure error/render" />
+      </li>
+    </ul>
+  </tal:comment>
+
+    <tal:form define="form nocall:view/currentStep">
+
+        <form action="." method="post" tal:attributes="action request/getURL"
+            class="enableUnloadProtection">
+                <div class="formElements">
+                    <div tal:replace="structure form/render"/>
+                </div>
+        <div class="clearer"></div>
+        <div class="wizard-buttons">
+            <div class="action" tal:repeat="action view/actions/values">
+              <input type="submit" tal:replace="structure action/render"/>
+            </div>
+      </form>
+
+  </tal:form>
+</div>

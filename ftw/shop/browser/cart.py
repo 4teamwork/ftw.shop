@@ -206,10 +206,10 @@ class CartView(BrowserView):
        try:
            order_id = omanager.addOrder()
        except MissingCustomerInformation:
-           self.request.response.redirect('%s/customer' % url)
+           self.request.response.redirect('%s/checkout-wizard' % url)
            return
        except MissingOrderConfirmation:
-           self.request.response.redirect('%s/order_review' % url)
+           self.request.response.redirect('%s/checkout-wizard' % url)
            return
            
        self.request.SESSION.invalidate()

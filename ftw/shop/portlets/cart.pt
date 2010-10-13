@@ -34,7 +34,7 @@
 	        <ul>
 	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit"
 	                            i18n:translate="label_edit_cart">Edit cart</a></li>
-	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout"
+	            <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout-wizard"
 	                            i18n:translate="label_checkout">Order</a></li>
 	        </ul>
 	    </div>

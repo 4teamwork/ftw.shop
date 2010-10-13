@@ -7,44 +7,45 @@
   <include package=".viewlets" />
 
   <browser:resourceDirectory
-      name='ftw-shop-resources'
-      directory="resources" />
+    name='ftw-shop-resources'
+    directory="resources" />
 
   <browser:page
-        for="..interfaces.shopitem.IShopItem"
-        name="view"
-        permission="zope2.View"
-        class=".shopitem.ShopItemView"
+    for="..interfaces.shopitem.IShopItem"
+    name="view"
+    permission="zope2.View"
+    class=".shopitem.ShopItemView"
     />
     
-    <browser:page
-          for="..interfaces.shopitem.IShopItem"
-          name="edit_variations"
-          permission="zope2.View"
-          class=".shopitem.EditVariationsView"
-      />
+  <browser:page
+    for="..interfaces.shopitem.IShopItem"
+    name="edit_variations"
+    permission="zope2.View"
+    class=".shopitem.EditVariationsView"
+  />
 
 
   <browser:page
-        for="..interfaces.shopcategory.IShopCategory"
-        name="view"
-        permission="zope2.View"
-        class=".category.CategoryView"
+    for="..interfaces.shopcategory.IShopCategory"
+    name="view"
+    permission="zope2.View"
+    class=".category.CategoryView"
     />
   <!-- order view -->
   <browser:page
-        for="..interfaces.order.IShopOrder"
-        name="view"
-        permission="zope2.View"
-        template="order.pt"
+    for="..interfaces.order.IShopOrder"
+    name="view"
+    permission="zope2.View"
+    template="order.pt"
     />
   <!-- mail template for order -->
   <browser:page
-        for="..interfaces.order.IShopOrder"
-        name="mail_view"
-        permission="zope2.View"
-        template="order_mail.pt"
+    for="..interfaces.order.IShopOrder"
+    name="mail_view"
+    permission="zope2.View"
+    template="order_mail.pt"
     />
+    
   <browser:page 
     for="*" 
     name="cart_view" 
@@ -100,10 +101,19 @@
     template="cart_edit.pt" 
     permission="zope2.View" 
     />
-    
-    <browser:resource
-        name="ftw_shop.css"
-        file="resources/ftw_shop.css"
-        />
-   
+
+
+  <browser:resource
+    name="ftw_shop.css"
+    file="resources/ftw_shop.css"
+  />
+
+
+  <browser:page
+    for="*"
+    name="checkout-wizard"
+    class=".checkout.CheckoutView"
+    permission= "zope.Public"
+  />
+
 </configure>

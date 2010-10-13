@@ -63,7 +63,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
             raise MissingCustomerInformation
         
         # check for order confirmation
-        if not self.REQUEST.get('order_confirmation', None):
+        if not session.get('order_confirmation', None):
             raise MissingOrderConfirmation            
 
         # calculate the next order id
