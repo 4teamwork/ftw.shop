@@ -1,0 +1,19 @@
+<metal:page use-macro="context/@@manage-shop-settings-template/admin"
+	    i18n:domain="ftw.shop">
+  <metal:block fill-slot="up_to_parent"> 	    
+	    <a href=""
+	       class="link-parent"
+	       tal:attributes="href string: $portal_url/plone_control_panel"
+	       i18n:translate="label_up_to_plone_setup"
+	       i18n:domain="plone">
+              Up to Site Setup
+	    </a>
+  </metal:block>
+  <metal:block fill-slot="admin_content">
+  
+  <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
+
+
+  </metal:block>
+</metal:page>
+

@@ -10,7 +10,7 @@
         </a>
     </li>
     <li class="wizard-step-link">
-        <span>3.</span>&nbsp;<span i18n:domain="amnesty.donation" i18n:translate="confirmation_step">Confirmation</span>
+        <span>3.</span>&nbsp;<span i18n:domain="ftw.shop" i18n:translate="confirmation_step">Confirmation</span>
     </li>
 </ul>
 

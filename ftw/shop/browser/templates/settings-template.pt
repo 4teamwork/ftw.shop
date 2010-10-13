@@ -1,0 +1,49 @@
+<metal:page define-macro="admin"
+			i18n:domain="ftw.shop">
+  <metal:block use-macro="here/prefs_main_template/macros/master">
+    <metal:block fill-slot="prefs_configlet_content">
+
+      <div class="documentEditable">
+
+  <div id="edit-bar">
+
+  	<div class="contentActions">
+  	  &nbsp;
+  	</div>
+  </div>
+	
+	<div id="region-content" class="documentContent">
+	  <div metal:use-macro="here/global_statusmessage/macros/portal_message">
+	    Portal status message
+	  </div> 
+	  
+	  <div id="content">
+	    <h1 i18n:translate="heading_shop_setup">Shop Setup</h1> 
+	    
+        <metal:block define-slot="up_to_parent">
+            <a href=""
+               class="link-parent"
+               tal:attributes="href string: $portal_url/@@manage-shop-overview"
+               i18n:translate="label_up_to_shop_setup">
+                  Up to GetPaid Setup
+            </a>
+	    </metal:block>
+
+<!--	    
+	    <p i18n:translate="description_getpaid_setup">
+              Use the links below to configure GetPaid. Documentation on GetPaid can be found at <a href="http://plone.org/products/getpaid/documentation">http://plone.org/products/getpaid/documentation</a> . To view and manage orders in the site, click on the Orders tab above. 
+	    </p>
+-->
+	  
+	    <metal:block define-slot="admin_content" tal:content="nothing" i18n:translate="">
+	      Admin Template
+	    </metal:block>
+	  </div>
+	</div>
+
+      </div>    
+
+    </metal:block>
+  </metal:block>
+</metal:page>
+

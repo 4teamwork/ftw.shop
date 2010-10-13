@@ -3,8 +3,7 @@ from zope.formlib import form
 from zope.interface import implements
 from zope.schema.fieldproperty import FieldProperty
 
-from OFS.SimpleItem import SimpleItem
-from Products.Five.formlib import formbase
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.app.registry.browser import controlpanel
 
@@ -19,13 +18,10 @@ class ShopConfigurationForm(controlpanel.RegistryEditForm):
     schema = IShopConfiguration
     form_fields = form.Fields(IShopConfiguration)
     label = _(u"Shop configuration")
+    template = ViewPageTemplateFile('templates/controlpanel.pt')
        
     def updateFields(self):
         super(ShopConfigurationForm, self).updateFields()
 
     def updateWidgets(self):
         super(ShopConfigurationForm, self).updateWidgets()
-
-
-class ShopConfigurationControlPanel(controlpanel.ControlPanelFormWrapper):
-    form = ShopConfigurationForm

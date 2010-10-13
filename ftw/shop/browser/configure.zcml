@@ -91,7 +91,6 @@
     permission="zope2.View" 
     />
 
-
   <!-- cart edit page -->
   <browser:page 
     for="..interfaces.IShopRoot" 
@@ -111,9 +110,17 @@
   <browser:page
     for="Products.CMFPlone.Portal.PloneSite"
     name="shop-configuration"
-    class=".controlpanel.ShopConfigurationControlPanel"
+    class=".controlpanel.ShopConfigurationForm"
     permission="cmf.ManagePortal"
      />
+
+  <!-- Settings Master Template -->
+  <browser:page
+    for="*"
+    name="manage-shop-settings-template"
+    template="templates/settings-template.pt"
+    permission="cmf.ManagePortal"
+  />
 
 
   <browser:resourceDirectory
