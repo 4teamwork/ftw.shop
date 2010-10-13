@@ -63,6 +63,8 @@ class IOrderReviewStep(IWizardStep):
 
 # ------------------------------------------------------
 
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+
 
 class IShopConfiguration(Interface):
     """This interface defines the ftw.shop configlet."""
@@ -70,6 +72,13 @@ class IShopConfiguration(Interface):
     shop_name = schema.TextLine(title=_(u"Enter the shop name"),
                                   required=True)
 
+    payment_processor = schema.Choice(title=_(u"Payment processor"),
+                                       vocabulary=SimpleVocabulary(
+                                           [SimpleTerm(value=u'invoice', title=_(u'Invoice')),
+                                            SimpleTerm(value=u'adminpay', title=_(u'AdminPay')),
+                                            SimpleTerm(value=u'creditcard', title=_(u'Credit Card'))]
+                                           ),
+                                       required=True)
 
 class ICustomerInformation(Interface):
     """Schema defining a common customer address form
