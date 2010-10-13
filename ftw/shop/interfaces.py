@@ -5,6 +5,9 @@ from zope.app.container.constraints import containers, contains
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 
+from z3c.form import interfaces
+
+
 
 class IShopRoot(Interface):
     """Marker interface for shop root folder."""
@@ -66,3 +69,5 @@ class IShopConfiguration(Interface):
 
     shop_name = schema.TextLine(title=_(u"Enter the shop name"),
                                   required=True)
+    
+    

@@ -56,6 +56,8 @@ setup(name='ftw.shop',
       zip_safe=False,
       install_requires=[
         'setuptools',
+	'plone.app.registry',
+
 #        'Products.ATCountryWidget',
       ],
       tests_require=tests_require,

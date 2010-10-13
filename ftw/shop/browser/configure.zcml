@@ -103,15 +103,9 @@
   <browser:page
     for="Products.CMFPlone.Portal.PloneSite"
     name="shop-configuration"
-    class=".config.ShopConfigurationForm"
+    class=".controlpanel.ShopConfigurationControlPanel"
     permission="cmf.ManagePortal"
      />
-
-  <adapter
-    for="Products.CMFPlone.Portal.PloneSite"
-    provides="..interfaces.IShopConfiguration"
-    factory=".config.form_adapter" 
-    />  
 
   
   <browser:resourceDirectory
