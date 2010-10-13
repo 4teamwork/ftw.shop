@@ -5,7 +5,7 @@ from zope.component import adapts
 from zope.interface import implements, Interface
 
 from ftw.shop import shopMessageFactory as _
-from ftw.shop.interfaces.shopitem import IShopItem
+from ftw.shop.interfaces import IShopItem
 
 
 from Products.Archetypes import atapi

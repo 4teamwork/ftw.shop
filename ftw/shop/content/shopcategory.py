@@ -5,7 +5,7 @@ from zope.interface import implements
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
-from ftw.shop.interfaces.shopcategory import IShopCategory
+from ftw.shop.interfaces import IShopCategory
 from ftw.shop.config import PROJECTNAME
 from ftw.shop.content.categorizeable import Categorizeable
 

@@ -9,27 +9,27 @@
   <class class=".shopcategory.ShopCategory">
     <require
         permission="zope2.View"
-        interface="..interfaces.shopcategory.IShopCategory"
+        interface="..interfaces.IShopCategory"
         />
   </class>
 
   <class class=".shopitem.ShopItem">
     <require
         permission="zope2.View"
-        interface="..interfaces.shopitem.IShopItem"
+        interface="..interfaces.IShopItem"
         />
   </class>
 
   <class class=".order.ShopOrder">
     <require
         permission="zope2.View"
-        interface="..interfaces.order.IShopOrder"
+        interface="..interfaces.IShopOrder"
         />
   </class>
 
   <adapter
       provides="..interfaces.IVariationConfig"
-      for="..interfaces.shopitem.IShopItem"
+      for="..interfaces.IShopItem"
       factory=".variations.VariationConfig" />
 
 

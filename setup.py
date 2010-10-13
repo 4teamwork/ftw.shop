@@ -58,6 +58,7 @@ setup(name='ftw.shop',
         'setuptools',
         'plone.app.z3cform',
         'collective.z3cform.wizard'
+        'plone.app.registry',
 #        'Products.ATCountryWidget',
       ],
       tests_require=tests_require,

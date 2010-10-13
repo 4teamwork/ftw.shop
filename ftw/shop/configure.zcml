@@ -7,15 +7,17 @@
     i18n_domain="ftw.shop">
 
   <five:registerPackage package="." initialize=".initialize" />
-  
-    <include package="plone.app.z3cform" />
+
+  <include package="plone.app.z3cform" />
+  <include package="plone.app.registry" />
+
 
   <!-- Include the sub-packages that use their own configure.zcml files. -->
   <include package=".browser" />
   <include package=".content" />
   <include package=".portlets" />
 
-  
+
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"
@@ -25,17 +27,25 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-             
- <include package="archetypes.schemaextender" />
- <adapter 
-     name="ftw.shop.extender.ShopItemExtender"
-     factory="ftw.shop.extender.ShopItemExtender"/>
-     
-     <subscriber
-       for=".interfaces.shopitem.IShopItem
-            Products.Archetypes.interfaces.IObjectInitializedEvent"
-       handler=".content.shopitem.object_initialized_handler"
-       />
+  <!-- Register "various" import step -->
+  <genericsetup:importStep
+      name="ftw.shop"
+      title="ftw.shop special import handlers"
+      description=""
+      handler="ftw.shop.setuphandlers.import_various" 
+      />
+
+
+  <include package="archetypes.schemaextender" />
+  <adapter 
+      name="ftw.shop.extender.ShopItemExtender"
+      factory="ftw.shop.extender.ShopItemExtender"/>
+
+  <subscriber
+    for=".interfaces.IShopItem
+         Products.Archetypes.interfaces.IObjectInitializedEvent"
+    handler=".content.shopitem.object_initialized_handler"
+    />
 
 
   <!-- -*- extra stuff goes here -*- -->

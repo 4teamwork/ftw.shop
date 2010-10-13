@@ -6,8 +6,7 @@ from zope.interface import implements, alsoProvides
 from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 
-from ftw.shop.interfaces.shopitem import IShopItem
-from ftw.shop.interfaces import IBuyable
+from ftw.shop.interfaces import IShopItem, IBuyable
 from ftw.shop.content.categorizeable import Categorizeable
 from ftw.shop.config import PROJECTNAME
 from Acquisition import aq_parent
