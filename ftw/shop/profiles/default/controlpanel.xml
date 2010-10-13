@@ -8,8 +8,8 @@
   
    <configlet 
      title="Shop Configuration" 
-     action_id="QuickInstaller" 
-     appId="QuickInstaller"
+     action_id="ShopConfiguration" 
+     appId="ftw.shop"
      category="Products" condition_expr=""
      icon_expr="string:$portal_url/product_icon.png"
      url_expr="string:${portal_url}/shop-configuration"
