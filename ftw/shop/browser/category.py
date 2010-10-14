@@ -1,5 +1,6 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import getMultiAdapter
 from plone.memoize import instance
 from Acquisition import aq_inner
 from ftw.shop.config import CATEGORY_RELATIONSHIP
@@ -56,3 +57,6 @@ class CategoryView(BrowserView):
         contents.sort(lambda x, y: cmp(x.getRankForCategory(context),
                         y.getRankForCategory(context)))
         return contents
+    
+    def manage_categories(self):
+        return getMultiAdapter((self.context, self.request), 'manage_categories')

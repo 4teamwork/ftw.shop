@@ -1,6 +1,0 @@
-[validators]
-validators = customer_validator
-
-[actions]
-action.success = traverse_to:string:customer_redirect
-action.failure = traverse_to:string:customer

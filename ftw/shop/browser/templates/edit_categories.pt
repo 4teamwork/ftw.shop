@@ -6,9 +6,9 @@
 
   <div metal:fill-slot="main">
     <h1 i18n:translate="categories_title">Categories</h1>
-    <form method="post"
-          tal:attributes="action python:here.absolute_url() + '/update_categories'"
-          tal:define="all_categories  python:here.listAllCategories(here.UID())">
+    <form method="post" 
+			  tal:attributes="action python:here.absolute_url() + '/edit_categories'"
+	          tal:define="all_categories python:view.list_all_categories(here.UID())">
       <table class="listing"
              cellpadding="0"
              cellspacing="0">
@@ -24,13 +24,13 @@
           <metal:block tal:repeat="category all_categories">
             <tr class="even"
                 tal:define="oddrow repeat/category/odd"
-                tal:attributes="class python:test(oddrow, 'even', 'odd')" >
+                tal:attributes="class python:oddrow and 'even' or 'odd'" >
               <td>
                 <input type="checkbox"
                        class="noborder"
                        name="categories:list"
                        tal:attributes="value category/UID;
-                                       checked python: test(category in context.listCategories(), 'checked', None)" />
+                                       checked python: category in context.listCategories() and 'checked' or None" />
               </td>
               <td><a tal:attributes="href category/absolute_url" 
                      tal:content="category/Title" /></td>
@@ -45,6 +45,7 @@
           </metal:block>
         </tbody>
       </table>
+      <input type="hidden" name="form.submitted:boolean" value="True" />
       <input class="context"
              type="submit"
              value="Update"

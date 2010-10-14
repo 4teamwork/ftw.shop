@@ -20,7 +20,6 @@
     class=".shopitem.EditVariationsView"
     />
 
-
   <browser:page
     for="..interfaces.IShopCategory"
     name="view"
@@ -99,13 +98,26 @@
     permission="zope2.View" 
     />
 
+  <browser:page 
+    for="*" 
+    name="edit_categories" 
+    class=".manage_categories.ManageCategories"
+    permission="zope2.View" 
+    />
+ 
+<!--   <browser:page -->
+<!--    for="*"-->
+<!--    name="manage_categories" -->
+<!--    class=".manage_categories.ManageCategories"-->
+<!--    permission="zope2.View"-->
+<!--    />-->
+
   <browser:page
     for="*"
     name="checkout-wizard"
     class=".checkout.CheckoutView"
     permission= "zope.Public"
   />
-
 
   <browser:page
     for="Products.CMFPlone.Portal.PloneSite"
@@ -129,6 +141,20 @@
       permission="zope.Public"
   />
 
+	<browser:page
+	    for="*"
+	    name="list_all_categories"
+	    class=".manage_categories.ManageCategories"
+	    attribute="list_all_categories"
+	    permission="zope2.View"
+	/>
+
+  <browser:page
+    for="*"
+    name="thankyou"
+    template="templates/thankyou.pt"
+    permission="zope2.View"
+  />
 
   <browser:resourceDirectory
     name='ftw-shop-resources'

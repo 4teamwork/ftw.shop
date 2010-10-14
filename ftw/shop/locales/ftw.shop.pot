@@ -1,261 +1,334 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Thu Aug 11 17:30:49 2009\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-10-14 11:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
-"Language-Team:  4teamwork GmbH <info@4teamwork.ch>\n"
+"Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 
-#: ftw.shop/ftw/shop/content/order.py:18
+#: ./ftw/shop/content/order.py:18
 msgid ""
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "A category for shop items"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/OrderManager.xml
+#: ./ftw/shop/profiles/default/types/OrderManager.xml
 msgid "A container for storing shop orders"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopMultiItem.xml
-msgid "A shop item that consists of multiple variants (eg. colors, sizes)"
-msgstr ""
-
-#: ftw.shop/ftw/shop/profiles/default/types/ShopItemVariant.xml
-msgid "A shop item variant for multi items"
-msgstr ""
-
-#: ftw.shop/ftw/shop/profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "A simple shop item"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopOrder.xml
+#: ./ftw/shop/portlets/cart.py:60
+msgid "Add Shopping Cart Portlet"
+msgstr ""
+
+#: ./ftw/shop/interfaces.py:77
+msgid "AdminPay"
+msgstr ""
+
+#: ./ftw/shop/profiles/default/types/ShopOrder.xml
 msgid "An Order for storing custormer data and cart items"
 msgstr ""
 
-#: ftw.shop/ftw/shop/portlets/cart.pt:6
+#: ./ftw/shop/portlets/cart.pt:6
 msgid "Cart"
 msgstr ""
 
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:75
+#: ./ftw/shop/browser/templates/cart_edit.pt:75
 msgid "Checkout"
 msgstr ""
 
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:12
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:12
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:10
+#: ./ftw/shop/interfaces.py:82
+msgid "Contact Information Step"
+msgstr ""
+
+#: ./ftw/shop/interfaces.py:78
+msgid "Credit Card"
+msgstr ""
+
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:13
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:13
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:10
 msgid "Customer Information"
 msgstr ""
 
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:69
+#: ./ftw/shop/browser/templates/cart_edit.pt:69
 msgid "Empty Shopping Cart"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/OrderManager.xml
+#: ./ftw/shop/interfaces.py:71
+msgid "Enter the shop name"
+msgstr ""
+
+#: ./ftw/shop/interfaces.py:76
+msgid "Invoice"
+msgstr ""
+
+#: ./ftw/shop/profiles/default/types/OrderManager.xml
 msgid "OrderManager"
 msgstr ""
 
-#: ftw.shop/ftw/shop/browser/category.pt:79
-#: ftw.shop/ftw/shop/browser/shopitem.pt:44
+#: ./ftw/shop/interfaces.py:74
+msgid "Payment processor"
+msgstr ""
+
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:25
 msgid "Price"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Shop Item"
 msgstr ""
 
-#: ftw.shop/ftw/shop/profiles/default/types/ShopItemVariant.xml
-msgid "Shop Item Variant"
-msgstr ""
-
-#: ftw.shop/ftw/shop/profiles/default/types/ShopMultiItem.xml
-msgid "Shop Multi Item"
-msgstr ""
-
-#: ftw.shop/ftw/shop/profiles/default/types/ShopOrder.xml
+#: ./ftw/shop/profiles/default/types/ShopOrder.xml
 msgid "Shop Order"
 msgstr ""
 
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:15
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:15
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:13
+#: ./ftw/shop/browser/controlpanel.py:20
+msgid "Shop configuration"
+msgstr ""
+
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:16
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:16
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:13
 msgid "Summary"
 msgstr ""
 
-#: ftw.shop/ftw/shop/content/order.py:17
+#: ./ftw/shop/portlets/cart.py:61
+msgid "This portlet displays the shopping cart contents."
+msgstr ""
+
+#: ./ftw/shop/content/order.py:17
 msgid "Total"
 msgstr ""
 
-#: ftw.shop/ftw/shop/skins/ftw_shop/edit_categories.pt:49
+#: ./ftw/shop/skins/ftw_shop/edit_categories.pt:48
 msgid "Update"
 msgstr ""
 
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:63
+#: ./ftw/shop/browser/templates/cart_edit.pt:63
 msgid "Update Cart"
 msgstr ""
 
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:115
+#: ./ftw/shop/browser/shopitem.py:55
+msgid "Variations saved."
+msgstr ""
+
+#. Default: "back"
+#: ./ftw/shop/browser/checkout.py:72
+msgid "back_btn"
+msgstr ""
+
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:116
 msgid "button_back"
 msgstr ""
 
 #. Default: "Delete"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:32
+#: ./ftw/shop/browser/templates/cart_edit.pt:32
 msgid "cart_header_delete"
 msgstr ""
 
 #. Default: "Description"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:28
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:81
+#: ./ftw/shop/browser/templates/cart_edit.pt:28
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:82
 msgid "cart_header_description"
 msgstr ""
 
 #. Default: "Price"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:30
-#: ftw.shop/ftw/shop/browser/order_mail.pt:72
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:83
+#: ./ftw/shop/browser/templates/cart_edit.pt:30
+#: ./ftw/shop/browser/templates/order_mail.pt:72
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:84
 msgid "cart_header_price"
 msgstr ""
 
 #. Default: "Bezeichnung"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:70
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:80
+#: ./ftw/shop/browser/templates/order_mail.pt:70
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:81
 msgid "cart_header_product"
 msgstr ""
 
 #. Default: "Quantity"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:29
-#: ftw.shop/ftw/shop/browser/order_mail.pt:71
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:82
+#: ./ftw/shop/browser/templates/cart_edit.pt:29
+#: ./ftw/shop/browser/templates/order_mail.pt:71
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:83
 msgid "cart_header_quantity"
 msgstr ""
 
 #. Default: "Product"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:27
+#: ./ftw/shop/browser/templates/cart_edit.pt:27
 msgid "cart_header_title"
 msgstr ""
 
 #. Default: "Total"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:31
-#: ftw.shop/ftw/shop/browser/order_mail.pt:73
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:84
+#: ./ftw/shop/browser/templates/cart_edit.pt:31
+#: ./ftw/shop/browser/templates/order_mail.pt:73
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:85
 msgid "cart_header_total"
 msgstr ""
 
 #. Default: "Your cart is empty"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:18
-#: ftw.shop/ftw/shop/portlets/cart.pt:17
+#: ./ftw/shop/browser/templates/cart_edit.pt:18
+#: ./ftw/shop/portlets/cart.pt:17
 msgid "cart_is_empty"
 msgstr ""
 
 #. Default: "Shopping Cart"
-#: ftw.shop/ftw/shop/browser/cart_edit.pt:14
+#: ./ftw/shop/browser/templates/cart_edit.pt:14
 msgid "cart_title"
 msgstr ""
 
 #. Default: "Short Description"
-#: ftw.shop/ftw/shop/skins/ftw_shop/edit_categories.pt:19
+#: ./ftw/shop/skins/ftw_shop/edit_categories.pt:19
 msgid "categories_header_descrition"
 msgstr ""
 
 #. Default: "Rank"
-#: ftw.shop/ftw/shop/skins/ftw_shop/edit_categories.pt:20
+#: ./ftw/shop/skins/ftw_shop/edit_categories.pt:20
 msgid "categories_header_rank"
 msgstr ""
 
 #. Default: "Title"
-#: ftw.shop/ftw/shop/skins/ftw_shop/edit_categories.pt:18
+#: ./ftw/shop/skins/ftw_shop/edit_categories.pt:18
 msgid "categories_header_title"
 msgstr ""
 
 #. Default: "Categories"
-#: ftw.shop/ftw/shop/skins/ftw_shop/edit_categories.pt:8
+#: ./ftw/shop/skins/ftw_shop/edit_categories.pt:8
 msgid "categories_title"
 msgstr ""
 
+#. Default: "confirm"
+#: ./ftw/shop/browser/checkout.py:117
+msgid "confirm_btn"
+msgstr ""
+
 #. Default: "Confirmation"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:18
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:18
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:16
+#: ./ftw/shop/browser/templates/checkout-wizard.pt:13
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:19
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:19
 msgid "confirmation_step"
 msgstr ""
 
+#. Default: "continue"
+#: ./ftw/shop/browser/checkout.py:95
+msgid "continue_btn"
+msgstr ""
+
 #. Default: "Customer Information"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:23
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:24
 msgid "customer_information_title"
 msgstr ""
 
-#: ftw.shop/ftw/shop/content/shopitem.py:22
-msgid "desc_currency"
-msgstr ""
-
-#: ftw.shop/ftw/shop/content/shopitem.py:32
+#: ./ftw/shop/extender.py:45
 msgid "desc_price"
 msgstr ""
 
-#: ftw.shop/ftw/shop/content/shopitem.py:41
+#: ./ftw/shop/extender.py:55
 msgid "desc_sku_code"
 msgstr ""
 
-#. Default: "e.g. Color. All variant items with the same label will be grouped together."
-#: ftw.shop/ftw/shop/content/shopitemvariant.py:22
-msgid "desc_variant_label"
+#: ./ftw/shop/extender.py:63
+msgid "desc_variation1_attr"
+msgstr ""
+
+#: ./ftw/shop/extender.py:71
+msgid "desc_variation1_values"
+msgstr ""
+
+#: ./ftw/shop/extender.py:80
+msgid "desc_variation2_attr"
+msgstr ""
+
+#: ./ftw/shop/extender.py:89
+msgid "desc_variation2_values"
 msgstr ""
 
 #. Default: "Your Cart"
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:72
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:73
 msgid "header_cart_portlet"
 msgstr ""
 
 #. Default: "Einzelheiten zu Ihrer Bestellung"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:23
+#: ./ftw/shop/browser/templates/order_mail.pt:23
 msgid "header_orderdetails"
 msgstr ""
 
 #. Default: "Bestellte Artikel"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:65
+#: ./ftw/shop/browser/templates/order_mail.pt:65
 msgid "header_ordereditems"
 msgstr ""
 
+#. Default: "Shop Setup"
+#: ./ftw/shop/browser/templates/settings-template.pt:21
+msgid "heading_shop_setup"
+msgstr ""
+
+#: ./ftw/shop/browser/checkout.py:26
+msgid "help_customer_info_step"
+msgstr ""
+
+#: ./ftw/shop/browser/checkout.py:36
+msgid "help_employee_number_step"
+msgstr ""
+
+#: ./ftw/shop/browser/checkout.py:43
+msgid "help_summary_step"
+msgstr ""
+
 #. Default: "hier"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:30
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:31
 msgid "here"
 msgstr ""
 
 #. Default: "Artikel Nr."
-#: ftw.shop/ftw/shop/browser/order_mail.pt:69
+#: ./ftw/shop/browser/templates/order_mail.pt:69
 msgid "label_article_no"
 msgstr ""
 
 #. Default: "Order"
-#: ftw.shop/ftw/shop/portlets/cart.pt:38
+#: ./ftw/shop/portlets/cart.pt:37
 msgid "label_checkout"
 msgstr ""
 
+#. Default: "Checkout"
+#: ./ftw/shop/browser/checkout.py:49
+msgid "label_checkout_wizard"
+msgstr ""
+
 #. Default: "City"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:223
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:224
 msgid "label_city"
 msgstr ""
 
 #. Default: "Comments"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:290
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:291
 msgid "label_comments"
 msgstr ""
 
-#. Default: "Currency"
-#: ftw.shop/ftw/shop/content/shopitem.py:21
-msgid "label_currency"
+#. Default: "Customer Information"
+#: ./ftw/shop/browser/checkout.py:24
+msgid "label_customer_info_step"
 msgstr ""
 
 #. Default: "Comments"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:61
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:68
+#: ./ftw/shop/browser/templates/order_mail.pt:61
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:69
 msgid "label_details_comments"
 msgstr ""
 
@@ -272,92 +345,122 @@ msgid "label_details_ms"
 msgstr ""
 
 #. Default: "Edit cart"
-#: ftw.shop/ftw/shop/portlets/cart.pt:36
+#: ./ftw/shop/portlets/cart.pt:35
 msgid "label_edit_cart"
 msgstr ""
 
 #. Default: "Email:"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:46
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:139
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:53
+#: ./ftw/shop/browser/templates/order_mail.pt:46
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:140
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:54
 msgid "label_email"
 msgstr ""
 
+#. Default: "Employee Number"
+#: ./ftw/shop/browser/checkout.py:34
+msgid "label_employee_number_step"
+msgstr ""
+
 #. Default: "First Name"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:95
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:96
 msgid "label_firstname"
 msgstr ""
 
 #. Default: "Last Name"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:117
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:118
 msgid "label_lastname"
 msgstr ""
 
 #. Default: "More"
-#: ftw.shop/ftw/shop/browser/category.pt:51
+#: ./ftw/shop/browser/templates/category.pt:55
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:17
 msgid "label_more_link"
 msgstr ""
 
 #. Default: "Newsletter"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:281
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:282
 msgid "label_newsletter"
 msgstr ""
 
 #. Default: "Next"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:301
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:121
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:302
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:122
 msgid "label_next"
 msgstr ""
 
 #. Default: "Order number"
-#: ftw.shop/ftw/shop/browser/category.pt:78
-#: ftw.shop/ftw/shop/browser/shopitem.pt:43
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
 msgid "label_order_number"
 msgstr ""
 
 #. Default: "Tel."
-#: ftw.shop/ftw/shop/browser/order_mail.pt:50
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:57
+#: ./ftw/shop/browser/templates/order_mail.pt:50
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:58
 msgid "label_phone"
 msgstr ""
 
 #. Default: "Price"
-#: ftw.shop/ftw/shop/content/shopitem.py:31
+#: ./ftw/shop/extender.py:44
 msgid "label_price"
 msgstr ""
 
 #. Default: "(Required)"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:57
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:58
 msgid "label_required"
 msgstr ""
 
 #. Default: "SKU Code"
-#: ftw.shop/ftw/shop/content/shopitem.py:40
+#: ./ftw/shop/extender.py:54
 msgid "label_sku_code"
 msgstr ""
 
 #. Default: "Street/No."
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:161
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:162
 msgid "label_street"
 msgstr ""
 
 #. Default: "Address 2"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:183
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:184
 msgid "label_street2"
 msgstr ""
 
+#. Default: "Order Summary"
+#: ./ftw/shop/browser/checkout.py:42
+msgid "label_summary_step"
+msgstr ""
+
 #. Default: "Title"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:54
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:55
 msgid "label_title"
 msgstr ""
 
-#. Default: "Variant Label"
-#: ftw.shop/ftw/shop/content/shopitemvariant.py:21
-msgid "label_variant_label"
+#. Default: "Up to GetPaid Setup"
+#: ./ftw/shop/browser/templates/settings-template.pt:24
+msgid "label_up_to_shop_setup"
+msgstr ""
+
+#. Default: "Variation 1 Attribute"
+#: ./ftw/shop/extender.py:62
+msgid "label_variation1_attr"
+msgstr ""
+
+#. Default: "Variation 1 Values"
+#: ./ftw/shop/extender.py:70
+msgid "label_variation1_values"
+msgstr ""
+
+#. Default: "Variation 2 Attribute"
+#: ./ftw/shop/extender.py:79
+msgid "label_variation2_attr"
+msgstr ""
+
+#. Default: "Variation 2 Values"
+#: ./ftw/shop/extender.py:88
+msgid "label_variation2_values"
 msgstr ""
 
 #. Default: "Zip Code"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:201
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:202
 msgid "label_zipcode"
 msgstr ""
 
@@ -365,142 +468,140 @@ msgid "link_agb"
 msgstr ""
 
 #. Default: "Cart emptied."
-#: ftw.shop/ftw/shop/browser/cart.py:158
+#: ./ftw/shop/browser/cart.py:186
 msgid "msg_cart_emptied"
 msgstr ""
 
 #. Default: "Invalid Values specified. Cart was not updated."
-#: ftw.shop/ftw/shop/browser/cart.py:117
+#: ./ftw/shop/browser/cart.py:145
 msgid "msg_cart_invalidvalue"
 msgstr ""
 
 #. Default: "Cart updated."
-#: ftw.shop/ftw/shop/browser/cart.py:130
+#: ./ftw/shop/browser/cart.py:158
 msgid "msg_cart_updated"
 msgstr ""
 
 #. Default: "Added item to cart."
-#: ftw.shop/ftw/shop/browser/cart.py:55
+#: ./ftw/shop/browser/cart.py:84
 msgid "msg_item_added"
 msgstr ""
 
 #. Default: "Can't proceed with empty cart."
-#: ftw.shop/ftw/shop/browser/cart.py:173
+#: ./ftw/shop/browser/cart.py:201
 msgid "msg_no_cart"
 msgstr ""
 
+#. Default: "Shop structure initialized."
+#: ./ftw/shop/browser/initialize.py:37
+msgid "msg_shop_initialized"
+msgstr ""
+
 #. Default: "This item does not have any body text, click the edit tab to change it."
-#: ftw.shop/ftw/shop/browser/category.pt:31
-#: ftw.shop/ftw/shop/browser/shopitem.pt:31
+#: ./ftw/shop/browser/templates/category.pt:31
 msgid "no_body_text"
 msgstr ""
 
 #. Default: "Order Review"
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:23
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:24
 msgid "order_review_title"
 msgstr ""
 
-#. Default: "Add to cart"
-#: ftw.shop/ftw/shop/browser/category.pt:84
-#: ftw.shop/ftw/shop/browser/shopitem.pt:49
-msgid "text_add_to_cart"
-msgstr ""
-
 #. Default: "Hinweis AGB ${link}"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:29
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:30
 msgid "text_agb"
 msgstr ""
 
 #. Default: "Bestellungen aus dem Ausland"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:37
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:38
 msgid "text_foreign_orders"
 msgstr ""
 
 #. Default: "I would like to subscribe to the newsletter."
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:282
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:283
 msgid "text_subscribe_newsletter"
 msgstr ""
 
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:25
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:25
 msgid "thank_you_info"
 msgstr ""
 
 #. Default: "Order submited"
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:23
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:23
 msgid "thank_you_message"
 msgstr ""
 
 #. Default: "${order_number}"
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:28
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:28
 msgid "thank_you_orderno"
 msgstr ""
 
 #. Default: "Thank you!"
-#: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:21
+#: ./ftw/shop/skins/ftw_shop/thankyou.pt:21
 msgid "thank_you_title"
 msgstr ""
 
 #. Default: "Payment method"
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:108
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:109
 msgid "title_paymentmethod"
 msgstr ""
 
 #. Default: "Personal Information"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:27
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:34
+#: ./ftw/shop/browser/templates/order_mail.pt:27
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:35
 msgid "title_personal_information"
 msgstr ""
 
 #. Default: "Required"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:57
+#: ./ftw/shop/skins/ftw_shop/customer.cpt:58
 msgid "title_required"
 msgstr ""
 
 #. Default: "Fuer Rueckfragen wenden Sie sich an: Telefon 031 307 22 22, E-Mail <a href=\"mailto:service@amnesty.ch\">service@amnesty.ch</a>"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:92
+#: ./ftw/shop/browser/templates/order_mail.pt:92
 msgid "txt_contact"
 msgstr ""
 
 #. Default: "On Account"
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:109
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:110
 msgid "txt_onaccount_payment"
 msgstr ""
 
 #. Default: "Ihre Bestellnummer lautet"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:25
+#: ./ftw/shop/browser/templates/order_mail.pt:25
 msgid "txt_ordernumber"
 msgstr ""
 
 #. Default: "Verpackung und Versandkosten sind nicht enthalten und werden individuell verrechnet."
-#: ftw.shop/ftw/shop/browser/order_mail.pt:90
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:104
+#: ./ftw/shop/browser/templates/order_mail.pt:90
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:105
 msgid "txt_shipping"
 msgstr ""
 
 #. Default: "Subscribe to newsletter"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:56
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:64
+#: ./ftw/shop/browser/templates/order_mail.pt:56
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:65
 msgid "txt_subscribe_newsletter"
 msgstr ""
 
 #. Default: "Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom ${date}"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:20
+#: ./ftw/shop/browser/templates/order_mail.pt:20
 msgid "txt_thankyou"
 msgstr ""
 
 #. Default: "Dear"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:14
+#: ./ftw/shop/browser/templates/order_mail.pt:14
 msgid "txt_title"
 msgstr ""
 
 #. Default: "Gesamtsumme dieser Bestellung"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:86
+#: ./ftw/shop/browser/templates/order_mail.pt:86
 msgid "txt_total"
 msgstr ""
 
 #. Default: "(inkl. MwSt)"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:88
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:102
+#: ./ftw/shop/browser/templates/order_mail.pt:88
+#: ./ftw/shop/skins/ftw_shop/order_review.cpt:103
 msgid "txt_vat"
 msgstr ""
 

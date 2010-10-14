@@ -73,14 +73,7 @@
     handler=".content.shopcategory.object_initialized_handler"
     />
 
-
   <!-- -*- extra stuff goes here -*- -->
   <i18n:registerTranslations directory="locales"/> 
-
-  <cmf:registerDirectory
-      name="skins"
-      directory="skins"
-      recursive="True"
-   />
 
 </configure>
