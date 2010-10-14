@@ -15,6 +15,13 @@
 
   <browser:page
     for="..interfaces.IShopItem"
+    name="compact_view"
+    permission="zope2.View"
+    class=".shopitem.ShopCompactItemView"
+    />
+
+  <browser:page
+    for="..interfaces.IShopItem"
     name="edit_variations"
     permission="zope2.View"
     class=".shopitem.EditVariationsView"
@@ -26,6 +33,15 @@
     permission="zope2.View"
     class=".category.CategoryView"
     />
+
+  <browser:menuItem
+    for="*"
+    menu="plone_displayviews"
+    title="Compact View"
+    action="compact_view"
+    description=""
+    />
+  
 
   <!-- order view -->
   <browser:page

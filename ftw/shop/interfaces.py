@@ -35,6 +35,10 @@ class IShopListing(IViewletManager):
     """ Viewlet manager registration for shop view
     """
 
+class IShopCompactListing(IViewletManager):
+    """ Compact Viewlet manager registration for shop view
+    """
+
 class IShopOrder(Interface):
     """A shop order"""
     

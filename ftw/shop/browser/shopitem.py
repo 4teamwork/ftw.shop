@@ -29,6 +29,27 @@ class ShopItemView(BrowserView):
         variation_config = IVariationConfig(self.context)
         return variation_config
 
+		
+class ShopCompactItemView(BrowserView):
+    """Compact view for a shop item
+    """
+
+    __call__ = ViewPageTemplateFile('templates/shopcompactitem.pt')
+
+    def getItems(self):
+        """Returns a list with this item as its only element,
+        so the listing viewlet can treat it like a list of items
+        """
+        context = aq_inner(self.context)
+        return [context]
+
+    def getVariationsConfig(self):
+        """Returns the variation config for the item currently being viewed
+        """
+        context = aq_inner(self.context)
+        variation_config = IVariationConfig(self.context)
+        return variation_config
+
 
 class EditVariationsView(BrowserView):
     """View for editing ShopItem Variations
