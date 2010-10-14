@@ -30,6 +30,5 @@ def object_initialized_handler(context, event):
     @param event: Subclass of event.
     """
     parent = aq_parent(context)
-    import pdb; pdb.set_trace()
     if parent.portal_type == 'ShopCategory':
         context.addToCategory(parent.UID())
