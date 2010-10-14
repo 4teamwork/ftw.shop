@@ -10,7 +10,7 @@ class CategoryView(BrowserView):
     """Default view for a category. Shows all contained items and categories.
     """
 
-    __call__ = ViewPageTemplateFile('category.pt')
+    __call__ = ViewPageTemplateFile('templates/category.pt')
 
     def dummyitems(self):
         return []

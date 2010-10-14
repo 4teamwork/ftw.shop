@@ -13,7 +13,7 @@ class ShopItemView(BrowserView):
     """Default view for a shop item
     """
 
-    __call__ = ViewPageTemplateFile('shopitem.pt')
+    __call__ = ViewPageTemplateFile('templates/shopitem.pt')
 
     def getItems(self):
         """Returns a list with this item as its only element,
@@ -33,7 +33,7 @@ class ShopItemView(BrowserView):
 class EditVariationsView(BrowserView):
     """View for editing ShopItem Variations
     """
-    template = ViewPageTemplateFile('edit_variations.pt')
+    template = ViewPageTemplateFile('templates/edit_variations.pt')
 
     def __call__(self):
         """

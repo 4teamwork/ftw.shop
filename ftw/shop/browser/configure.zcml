@@ -33,7 +33,7 @@
     for="..interfaces.IShopOrder"
     name="view"
     permission="zope2.View"
-    template="order.pt"
+    template="templates/order.pt"
     />
  
   <!-- mail template for order -->
@@ -41,7 +41,7 @@
     for="..interfaces.IShopOrder"
     name="mail_view"
     permission="zope2.View"
-    template="order_mail.pt"
+    template="templates/order_mail.pt"
     />
 
   <browser:page 
@@ -95,7 +95,7 @@
   <browser:page 
     for="..interfaces.IShopRoot" 
     name="cart_edit" 
-    template="cart_edit.pt" 
+    template="templates/cart_edit.pt" 
     permission="zope2.View" 
     />
 
