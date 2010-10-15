@@ -67,7 +67,10 @@
                  
                  <table id="itemDataTable" tal:define="varDict varConf/getVariationDict">
 	                 <thead>
-		                 <th>Variation</th><th>Price</th><th>Stock</th><th>SKU Code</th>
+		                 <th>Variation</th>
+                         <th i18n:translate="label_price">Price</th>
+                         <th i18n:translate="label_stock">Stock</th>
+                         <th i18n:translate="label_sku_code">SKU code</th>
 	                 </thead>
 	                 <tbody>
 		                 <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
@@ -113,7 +116,10 @@
                  
                  <table id="itemDataTable" tal:define="varDict varConf/getVariationDict">
 	                 <thead>
-		                 <th></th><th>Price</th><th>Stock</th><th>SKU Code</th>
+		                 <th>Variation</th>
+                         <th i18n:translate="label_price">Price</th>
+                         <th i18n:translate="label_stock">Stock</th>
+                         <th i18n:translate="label_sku_code">SKU code</th>
 	                 </thead>
 	                 <tbody>
 		                 <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
