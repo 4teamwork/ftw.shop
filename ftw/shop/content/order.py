@@ -14,7 +14,7 @@ OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
         'total',
         required=False,
         widget=atapi.DecimalWidget(
-            label=_(u"Total"),
+            label=_(u'label_total', default=u"Total"),
             description=_(u"")
         ),
     ),

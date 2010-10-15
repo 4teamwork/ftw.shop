@@ -2,9 +2,9 @@
 <object name="OrderManager"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="ftw.shop" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">OrderManager</property>
+  <property name="title" i18n:translate="ct_ordermanager">OrderManager</property>
   <property name="description"
-    i18n:translate="">A container for storing shop orders</property>
+    i18n:translate="ct_desc_ordermanager">A container for storing shop orders</property>
   <property name="content_meta_type">OrderManager</property>
   <property name="content_icon">folder_icon.gif</property>
   <property name="product">ftw.shop</property>

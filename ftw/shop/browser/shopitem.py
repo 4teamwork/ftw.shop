@@ -73,7 +73,7 @@ class EditVariationsView(BrowserView):
             variation_config.updateVariationConfig(edited_var_data)
 
             IStatusMessage(self.request).addStatusMessage(
-                _("Variations saved."), type="info")
+                _(u'msg_variations_saved', default=u"Variations saved."), type="info")
             self.request.RESPONSE.redirect(self.context.absolute_url())
 
         return self.template()

@@ -3,7 +3,7 @@
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-        <span i18n:translate="">
+        <span i18n:translate="portletheader_cart">
            Cart
         </span>
         <span class="portletTopRight"></span>

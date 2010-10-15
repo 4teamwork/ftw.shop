@@ -21,7 +21,7 @@ class ManageCategories(BrowserView):
             edited_category_data = self.request.get('categories', [])
             self.update_categories(edited_category_data)
             IStatusMessage(self.request).addStatusMessage(
-                _("Categories updated."), type="info")
+                _(u'msg_categories_updated', default=u"Categories updated."), type="info")
             self.request.RESPONSE.redirect(self.context.absolute_url())
 
         return self.template()
@@ -49,7 +49,7 @@ class ManageCategories(BrowserView):
             self.context.setRankForCategory(c, rank)
         
         putils = getToolByName(self.context, 'plone_utils')
-        putils.addPortalMessage('Categories updated.', 'info')
+        putils.addPortalMessage(_(u'msg_categories_updated', default=u"Categories updated."), 'info')
         return self.context.REQUEST.RESPONSE.redirect('%s' % (self.context.absolute_url()))
     
     

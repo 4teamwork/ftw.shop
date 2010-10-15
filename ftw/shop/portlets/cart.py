@@ -30,7 +30,7 @@ class Assignment(base.Assignment):
         """This property is used to give the title of the portlet in the
         "manage portlets" screen.
         """
-        return "Cart Portlet"
+        return _(u"label_cart_portlet", default=u"Cart Portlet")
 
 
 class Renderer(base.Renderer):
@@ -55,8 +55,10 @@ class Renderer(base.Renderer):
 
 
 class AddForm(base.NullAddForm):
-    label = _(u"Add Shopping Cart Portlet")
-    description = _(u"This portlet displays the shopping cart contents.")
+    label = _(u"label_add_cart_portlet", 
+              default=u"Add Shopping Cart Portlet")
+    description = _(u"help_add_cart_portlet", 
+                    default=u"This portlet displays the shopping cart contents.")
 
     def create(self):
         return Assignment()

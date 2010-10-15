@@ -22,7 +22,7 @@
                 <table class="shopItemTable">
                     <tr>
                         <th i18n:translate="label_order_number">Order number</th>
-                        <th colspan="2" i18n:translate="">Price</th>
+                        <th colspan="2" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
                         <td tal:content="item/order_number" />

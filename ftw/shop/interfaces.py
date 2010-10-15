@@ -72,18 +72,18 @@ class IOrderReviewStep(IWizardStep):
 class IShopConfiguration(Interface):
     """This interface defines the ftw.shop configlet."""
 
-    shop_name = schema.TextLine(title=_(u"Enter the shop name"),
+    shop_name = schema.TextLine(title=_(u"label_shop_name", default=u"Enter the shop name"),
                                   required=True)
 
-    payment_processor = schema.Choice(title=_(u"Payment processor"),
-                                       vocabulary=SimpleVocabulary(
-                                           [SimpleTerm(value=u'invoice', title=_(u'Invoice')),
-                                            SimpleTerm(value=u'adminpay', title=_(u'AdminPay')),
-                                            SimpleTerm(value=u'creditcard', title=_(u'Credit Card'))]
-                                           ),
-                                       required=True)
+    payment_processor = schema.Choice(title=_(u"label_payment_processor", default=u"Payment processor"),
+        vocabulary=SimpleVocabulary(
+            [SimpleTerm(value=u'invoice', title=_(u'label_invoice', default=u'Invoice')),
+             SimpleTerm(value=u'adminpay', title=_(u'label_adminpay', default=u'AdminPay')),
+             SimpleTerm(value=u'creditcard', title=_(u'label_creditcard', default=u'Credit Card'))]
+            ),
+        required=True)
 
-    contact_info_step = schema.Choice(title=_(u"Contact Information Step"),
+    contact_info_step = schema.Choice(title=_(u"label_contact_info_step", default="Contact Information Step"),
                                       vocabulary="ftw.shop.contact_info_steps",
                                       required=True)
 
@@ -92,53 +92,53 @@ class ICustomerInformation(Interface):
     """Schema defining a common customer address form
     """
     title= schema.TextLine(
-      title=u'Title',
+      title=_(u'label_title', default=u'Title'),
       required=True)
 
     firstname = schema.TextLine(
-      title=u'First Name',
+      title=_(u'label_firstname', default=u'First Name'),
       required=True)
 
     lastname = schema.TextLine(
-      title=u'Last Name',
+      title=_(u'label_lastname', default=u'Last Name'),
       required=True)
 
     email = schema.TextLine(
-      title=u'Email',
+      title=_(u'label_email', default=u'Email'),
       required=True)
 
     street = schema.TextLine(
-      title=u'Street/No.',
+      title=_(u'label_street', default=u'Street/No.'),
       required=True)
 
     street2 = schema.TextLine(
-      title=u'Address 2',
+      title=_(u'label_street2', default=u'Address 2'),
       required=False)
 
     phone = schema.TextLine(
-      title=u'Phone number',
+      title=_(u'label_phone_number', default=u'Phone number'),
       required=True)
 
     zipcode = schema.Int(
-      title=u'Zip Code',
+      title=_(u'label_zipcode', default=u'Zip Code'),
       required=True)
 
     city = schema.TextLine(
-      title=u'City',
+      title=_(u'label_city', default=u'City'),
       required=True)
 
     country = schema.TextLine(
-      title=u'Country',
+      title=_(u'label_country', default=u'Country'),
       required=True)
 
     newsletter = schema.Bool(
-      title=u'Newsletter',
-      description=u'I would like to subscribe to the newsletter.',
+      title=_(u'label_newsletter', default=u'Newsletter'),
+      description=_(u'help_newsletter', default=u'I would like to subscribe to the newsletter.'),
       required=False,
       default=False)
 
     comments = schema.Text(
-      title=u'Comments',
+      title=_(u'label_comments', default=u'Comments'),
       required=False)
 
 
@@ -146,6 +146,6 @@ class IEmployeeNumber(Interface):
     """Schema defining a form to enter an employee number
     """
     number= schema.TextLine(
-        title=u'Employee Number',
+        title=_(u'label_employee_number', default=u'Employee Number'),
         required=True)
 

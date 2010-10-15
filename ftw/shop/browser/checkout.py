@@ -69,7 +69,7 @@ class CheckoutWizard(wizard.Wizard):
         return (step1, SummaryStep)
 
 
-    @button.buttonAndHandler(_(u'back_btn', default="back"),
+    @button.buttonAndHandler(_(u'btn_back', default="Back"),
                              name='back',
                              condition=lambda form:not form.onFirstStep)
 
@@ -92,7 +92,7 @@ class CheckoutWizard(wizard.Wizard):
             # do not redirect.
             self.updateActions()
 
-    @button.buttonAndHandler(_(u'continue_btn', default='continue'),
+    @button.buttonAndHandler(_(u'btn_continue', default='Next'),
                              name='continue',
                              condition=lambda form:not form.onLastStep)
     def handleContinue(self, action):
@@ -114,7 +114,7 @@ class CheckoutWizard(wizard.Wizard):
             # do not redirect.
             self.updateActions()
 
-    @button.buttonAndHandler(_(u'confirm_btn',default='confirm'),
+    @button.buttonAndHandler(_(u'btn_finish',default='Finish'),
                              name='finish',
                              condition=lambda form:form.allStepsFinished or form.onLastStep)
     def handleFinish(self, action):

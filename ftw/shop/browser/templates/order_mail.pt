@@ -4,7 +4,6 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       i18n:domain="ftw.shop">
-<body>
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="customer context/getCustomerData;
@@ -16,13 +15,13 @@
 </p>
 
 <p i18n:translate="txt_thankyou">
-Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom
+Thank you for your order in our shop on the
 <span i18n:name="date" tal:replace="python:here.toLocalizedTime(context.ModificationDate(), long_format=0)"></span>
 </p>
 
-<h3 i18n:translate="header_orderdetails">Einzelheiten zu Ihrer Bestellung</h3>
+<h3 i18n:translate="header_orderdetails">Details of your order</h3>
 
-<span i18n:translate="txt_ordernumber">Ihre Bestellnummer lautet</span>: <span tal:replace="context/getOrderNumber"></span>
+<span i18n:translate="txt_ordernumber">Your order number is</span>: <span tal:replace="context/getOrderNumber"></span>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
     
@@ -43,11 +42,11 @@ Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom
     </p>
 
     <p>
-        <span i18n:translate="label_email">Email:</span>
+        <span i18n:translate="label_email">Email</span>:
         <span tal:replace="customer/email" />
         
         <tal:block condition="customer/phone">
-            <br /><span i18n:translate="label_phone">Tel.</span>:
+            <br /><span i18n:translate="label_phone">Phone</span>:
             <span tal:replace="customer/phone"></span>
         </tal:block>
     </p>
@@ -62,14 +61,14 @@ Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom
          <span tal:replace="customer/comments" />            
     </p>
     
-<h4 i18n:translate="header_ordereditems">Bestellte Artikel</h4>
+<h4 i18n:translate="header_ordereditems">Ordered items</h4>
 
 <table border="1" cellspacing="0" cellpadding="2">
    <tr>
-       <th i18n:translate="label_article_no">Artikel Nr.</th>
-       <th i18n:translate="cart_header_product">Bezeichnung</th>
-       <th i18n:translate="cart_header_quantity">Anzahl</th>
-       <th i18n:translate="cart_header_price">Preis</th>
+       <th i18n:translate="label_article_no">Article number</th>
+       <th i18n:translate="cart_header_product">Product</th>
+       <th i18n:translate="cart_header_quantity">Quantity</th>
+       <th i18n:translate="cart_header_price">Price</th>
        <th i18n:translate="cart_header_total">Total</th>
    </tr>
 
@@ -82,16 +81,16 @@ Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom
    </tr>
 </table>
 
-<br>
-<span i18n:translate="txt_total">Gesamtsumme dieser Bestellung</span>:
+<br/>
+<span i18n:translate="txt_total">Total amount of this order</span>:
 <b tal:content="context/getTotal" />
-<span i18n:translate="txt_vat">(inkl. MwSt)</span>
+<span i18n:translate="txt_vat">(incl. VAT)</span>
 <br />
-<span  i18n:translate="txt_shipping">Verpackung und Versandkosten sind  nicht enthalten und werden individuell verrechnet.</span>
+<span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
 <p i18n:translate="txt_contact">
-Fuer Rueckfragen wenden Sie sich an: 
-Telefon 031 307 22 22, E-Mail <a href="mailto:service@amnesty.ch">service@amnesty.ch</a>
+For inquiries please contact us: 
+Phone 999 99 99 99, E-Mail <a href="mailto:example@example.org">example@example.org</a>
 </p>
 
 </body>

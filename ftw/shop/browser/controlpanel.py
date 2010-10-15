@@ -14,7 +14,7 @@ class ShopConfigurationForm(controlpanel.RegistryEditForm):
     
     schema = IShopConfiguration
     form_fields = form.Fields(IShopConfiguration)
-    label = _(u"Shop configuration")
+    label = _(u'label_shop_configuration', default=u"Shop configuration")
     template = ViewPageTemplateFile('templates/controlpanel.pt')
        
     def updateFields(self):
