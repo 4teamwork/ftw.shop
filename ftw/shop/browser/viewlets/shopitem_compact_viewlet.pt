@@ -111,12 +111,12 @@
 					</fieldset>
 				</form>
                  
-                 <table tal:define="varDict varConf/getVariationDict">
+                 <table id="itemDataTable" tal:define="varDict varConf/getVariationDict">
 	                 <thead>
-		                 <th>Variation</th><th>Price</th><th>Stock</th><th>SKU Code</th>
+		                 <th></th><th>Price</th><th>Stock</th><th>SKU Code</th>
 	                 </thead>
 	                 <tbody>
-		                 <tr tal:repeat="vkey varDict">
+		                 <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
 		                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
 		                 <td tal:content="python: varDict[vkey]['price']"></td>
 		                 <td tal:content="python: varDict[vkey]['stock']"></td>
@@ -125,6 +125,23 @@
 	                 </tbody>
                  </table>
              </div>
+
+             <script type="text/javascript">
+			    jq("select").change(function () {
+			          var varkey = "";
+			          varkey += jq("select[name=var1choice] option:selected").attr("value") + "-" + 
+			          		    jq("select[name=var2choice] option:selected").attr("value"); 
+			          jq("table#itemDataTable tr").hide();
+			          jq("table#itemDataTable tr").each( function() {
+			          		if (varkey == jq(this).attr("id")) {
+			          			jq(this).show()
+			          			}
+			          		})
+			        })
+			        .change();
+			</script>
+
+             
 
          </div>
      </tal:shopitems>
