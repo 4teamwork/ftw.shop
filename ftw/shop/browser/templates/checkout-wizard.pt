@@ -46,9 +46,9 @@
                 </div>
         <div class="clearer"></div>
         <div class="wizard-buttons">
-            <div class="action" tal:repeat="action view/actions/values">
+            <span class="action" tal:repeat="action view/actions/values">
               <input type="submit" tal:replace="structure action/render"/>
-            </div>
+            </span>
       </form>
 
   </tal:form>

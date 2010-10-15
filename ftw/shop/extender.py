@@ -51,7 +51,7 @@ class ShopItemExtender(object):
             required = 1,
             languageIndependent=True,
             widget = atapi.StringWidget(
-                label = _(u"label_sku_code", default=u"SKU Code"),
+                label = _(u"label_sku_code", default=u"SKU code"),
                 description = _(u"desc_sku_code", default=u""),
             ),
         ),

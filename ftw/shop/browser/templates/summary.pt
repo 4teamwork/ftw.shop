@@ -1,9 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal">       
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.shop">       
   <body>
-      <h1>Summary</h1>
+      <h1 i18n:translate="label_summary">Summary</h1>
       
-      <h2>Personal Information</h2>
+      <h2 i18n:translate="label_personal_information">Personal Information</h2>
 
       <ul style="list-style:none" tal:define="customer python:view.wizard.session['step1'];">
                                               
@@ -15,16 +17,16 @@
           <li tal:content="customer/country|nothing"></li>
           <li><br/></li>
           
-          <li tal:content="string:Email: ${customer/email}"></li>
-          <li tal:content="string:Phone: ${customer/phone}"></li>
+          <li><span i18n:translate="label_email">Email</span>: <span tal:content="customer/email"/></li>
+          <li><span i18n:translate="label_phone">Phone</span>: <span tal:content="customer/phone"/></li>
 
-          <li tal:condition="customer/comments" 
-              tal:content="string:Comments: ${customer/comments}"></li>
-          <li tal:content="string:Receive Newsletter: ${customer/newsletter}"></li>
+          <li tal:condition="customer/comments"> 
+              <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
+          <li><span i18n:translate="label_receive_newsletter">Receive Newsletter</span>: <span tal:content="customer/newsletter"/></li>
           <li><br/></li>
       </ul>
       
-      <h2>Cart Contents</h2>
+      <h2 i18n:translate="label_cart_contents">Cart Contents</h2>
       
         <table class="cartListing"
                cellpadding="0"

@@ -21,7 +21,7 @@
             <div class="listItemTable" tal:condition="not:item/hasVariations">
                 <table class="shopItemTable">
                     <tr>
-                        <th i18n:translate="label_order_number">Order number</th>
+                        <th i18n:translate="label_sku_code">SKU code</th>
                         <th colspan="2" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
@@ -31,7 +31,7 @@
                             <form tal:attributes="action string:${item/url}/addtocart">
                                 <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
                                 <input type="text" size="2" name="quantity:int" value="1"/>
-                                <input type="submit" value="Add to cart"/>
+                                <input type="submit" value="Add to cart" i18n:attributes="value" />
                             </form>
                         </td>
                     </tr>
@@ -49,7 +49,9 @@
                          <thead>
                              <tr>
                                  <th tal:content="python: varConf.getVariationAttributes()[0]">Red</th>
-                                 <th>Price</th><th>Stock</th><th>SKU Code</th>
+                                 <th i18n:translate="label_price">Price</th>
+                                 <th i18n:translate="label_stock">Stock</th>
+                                 <th i18n:translate="label_sku_code">SKU code</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -67,7 +69,7 @@
                                          <form tal:attributes="action string:${item/url}/addtocart">
                                              <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                              <input type="text" size="2" name="quantity:int" value="1"/>
-                                             <input type="submit" value="Add to cart"/>
+                                             <input type="submit" value="Add to cart" i18n:attributes="value" />
                                          </form>
                                      </td>
                                  </tr>
@@ -84,7 +86,9 @@
                         <thead>
                             <tr>
                                 <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
-                                <th>Price</th><th>Stock</th><th>SKU Code</th>
+                                <th i18n:translate="label_price">Price</th>
+                                <th i18n:translate="label_stock">Stock</th>
+                                <th i18n:translate="label_sku_code">SKU code</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,7 +106,7 @@
                                         <form tal:attributes="action string:${item/url}/addtocart">
                                             <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                             <input type="text" size="2" name="quantity:int" value="1"/>
-                                            <input type="submit" value="Add to cart"/>
+                                            <input type="submit" value="Add to cart" i18n:attributes="value" />
                                         </form>
                                     </td>
                                 </tr>

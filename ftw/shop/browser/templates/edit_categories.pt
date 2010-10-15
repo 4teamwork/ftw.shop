@@ -16,7 +16,7 @@
           <tr>
             <th></th>
             <th i18n:translate="categories_header_title">Title</th>
-            <th i18n:translate="categories_header_descrition">Short Description</th>
+            <th i18n:translate="categories_header_description">Short Description</th>
             <th i18n:translate="categories_header_rank">Rank</th>
           </tr>
         </thead>

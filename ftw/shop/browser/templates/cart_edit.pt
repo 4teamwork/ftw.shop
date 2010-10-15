@@ -24,7 +24,7 @@
             <table class="cartListing" cellpadding="0" cellspacing="0">
                 <thead>
                   <tr>
-                    <th i18n:translate="cart_header_title">Product</th>
+                    <th i18n:translate="cart_header_product">Product</th>
                     <th i18n:translate="cart_header_description">Description</th>
                     <th i18n:translate="cart_header_quantity">Quantity</th>
                     <th i18n:translate="cart_header_price">Price</th>
@@ -45,7 +45,7 @@
                       <td tal:content="item/description"></td>
                       <td><input type="text" size="5"
                                  tal:attributes="value item/quantity;
-                                                 name string:quantity_${uid}" /></td>
+                                                 name string:quantity_${skuCode}" /></td>
                       <td tal:content="item/price"></td>
                       <td tal:content="item/total"></td>
                       <td>

@@ -25,6 +25,7 @@
 		    <p i18n:translate="msg_thank_you_info"></p>
 		    
 		    <p i18n:translate="msg_thank_you_orderno">
+		    Your order number:
 		    <b i18n:name="order_number" tal:content="request/order_id|nothing"></b>
 		    </p>
 		

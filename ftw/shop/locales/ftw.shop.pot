@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-10-15 14:08+0000\n"
+"POT-Creation-Date: 2010-10-15 15:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -16,6 +16,10 @@ msgstr ""
 
 #: ./ftw/shop/content/order.py:18
 msgid ""
+msgstr ""
+
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:34
+msgid "Add to cart"
 msgstr ""
 
 #: ./ftw/shop/browser/templates/cart_edit.pt:75
@@ -56,34 +60,35 @@ msgstr ""
 
 #. Default: "Description"
 #: ./ftw/shop/browser/templates/cart_edit.pt:28
+#: ./ftw/shop/browser/templates/summary.pt:38
 msgid "cart_header_description"
 msgstr ""
 
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/cart_edit.pt:30
 #: ./ftw/shop/browser/templates/order_mail.pt:71
+#: ./ftw/shop/browser/templates/summary.pt:40
 msgid "cart_header_price"
 msgstr ""
 
 #. Default: "Product"
+#: ./ftw/shop/browser/templates/cart_edit.pt:27
 #: ./ftw/shop/browser/templates/order_mail.pt:69
+#: ./ftw/shop/browser/templates/summary.pt:37
 msgid "cart_header_product"
 msgstr ""
 
 #. Default: "Quantity"
 #: ./ftw/shop/browser/templates/cart_edit.pt:29
 #: ./ftw/shop/browser/templates/order_mail.pt:70
+#: ./ftw/shop/browser/templates/summary.pt:39
 msgid "cart_header_quantity"
-msgstr ""
-
-#. Default: "Product"
-#: ./ftw/shop/browser/templates/cart_edit.pt:27
-msgid "cart_header_title"
 msgstr ""
 
 #. Default: "Total"
 #: ./ftw/shop/browser/templates/cart_edit.pt:31
 #: ./ftw/shop/browser/templates/order_mail.pt:72
+#: ./ftw/shop/browser/templates/summary.pt:41
 msgid "cart_header_total"
 msgstr ""
 
@@ -100,7 +105,7 @@ msgstr ""
 
 #. Default: "Short Description"
 #: ./ftw/shop/browser/templates/edit_categories.pt:19
-msgid "categories_header_descrition"
+msgid "categories_header_description"
 msgstr ""
 
 #. Default: "Rank"
@@ -239,6 +244,11 @@ msgstr ""
 msgid "label_article_no"
 msgstr ""
 
+#. Default: "Cart Contents"
+#: ./ftw/shop/browser/templates/summary.pt:29
+msgid "label_cart_contents"
+msgstr ""
+
 #. Default: "Cart Portlet"
 #: ./ftw/shop/portlets/cart.py:33
 msgid "label_cart_portlet"
@@ -260,6 +270,7 @@ msgid "label_city"
 msgstr ""
 
 #. Default: "Comments"
+#: ./ftw/shop/browser/templates/summary.pt:24
 #: ./ftw/shop/interfaces.py:141
 msgid "label_comments"
 msgstr ""
@@ -290,6 +301,7 @@ msgid "label_customer_info_step"
 msgstr ""
 
 #. Default: "Customer Information"
+#: ./ftw/shop/browser/templates/customerinfo.pt:6
 #: ./ftw/shop/browser/templates/thankyou.pt:10
 msgid "label_customer_information"
 msgstr ""
@@ -318,6 +330,7 @@ msgstr ""
 
 #. Default: "Email"
 #: ./ftw/shop/browser/templates/order_mail.pt:45
+#: ./ftw/shop/browser/templates/summary.pt:20
 #: ./ftw/shop/interfaces.py:107
 msgid "label_email"
 msgstr ""
@@ -361,7 +374,6 @@ msgstr ""
 
 #. Default: "Order number"
 #: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:26
-#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
 msgid "label_order_number"
 msgstr ""
 
@@ -370,8 +382,14 @@ msgstr ""
 msgid "label_payment_processor"
 msgstr ""
 
+#. Default: "Personal Information"
+#: ./ftw/shop/browser/templates/summary.pt:8
+msgid "label_personal_information"
+msgstr ""
+
 #. Default: "Phone"
 #: ./ftw/shop/browser/templates/order_mail.pt:49
+#: ./ftw/shop/browser/templates/summary.pt:21
 msgid "label_phone"
 msgstr ""
 
@@ -387,6 +405,11 @@ msgstr ""
 msgid "label_price"
 msgstr ""
 
+#. Default: "Receive Newsletter"
+#: ./ftw/shop/browser/templates/summary.pt:25
+msgid "label_receive_newsletter"
+msgstr ""
+
 #. Default: "Shop configuration"
 #: ./ftw/shop/browser/controlpanel.py:17
 msgid "label_shop_configuration"
@@ -397,9 +420,15 @@ msgstr ""
 msgid "label_shop_name"
 msgstr ""
 
-#. Default: "SKU Code"
+#. Default: "SKU code"
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
 #: ./ftw/shop/extender.py:54
 msgid "label_sku_code"
+msgstr ""
+
+#. Default: "Stock"
+#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:53
+msgid "label_stock"
 msgstr ""
 
 #. Default: "Street/No."
@@ -413,6 +442,7 @@ msgid "label_street2"
 msgstr ""
 
 #. Default: "Summary"
+#: ./ftw/shop/browser/templates/summary.pt:6
 #: ./ftw/shop/browser/templates/thankyou.pt:13
 msgid "label_summary"
 msgstr ""
@@ -432,7 +462,7 @@ msgstr ""
 msgid "label_total"
 msgstr ""
 
-#. Default: "Up to GetPaid Setup"
+#. Default: "Up to Shop Setup"
 #: ./ftw/shop/browser/templates/settings-template.pt:24
 msgid "label_up_to_shop_setup"
 msgstr ""
@@ -509,8 +539,8 @@ msgstr ""
 msgid "msg_thank_you_message"
 msgstr ""
 
-#. Default: "${order_number}"
-#: ./ftw/shop/browser/templates/thankyou.pt:28
+#. Default: "Your order number: ${order_number}"
+#: ./ftw/shop/browser/templates/thankyou.pt:29
 msgid "msg_thank_you_orderno"
 msgstr ""
 
