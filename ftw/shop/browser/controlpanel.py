@@ -1,7 +1,4 @@
-from zope.component import getUtility
 from zope.formlib import form
-from zope.interface import implements
-from zope.schema.fieldproperty import FieldProperty
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 

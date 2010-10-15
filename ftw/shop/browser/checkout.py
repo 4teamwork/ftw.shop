@@ -128,15 +128,12 @@ class CheckoutWizard(wizard.Wizard):
         self.currentStep.applyChanges(data)
         self.finish()
 
-        req = self.request
-
-        session = self.session
-        step1Form = session['step1']
-        step2Form = session['step2']
-
-        context = aq_inner(self.context)
-
-        title = step1Form.get('title', 'N/A')
+        #req = self.request
+        #session = self.session
+        #step1Form = session['step1']
+        #step2Form = session['step2']
+        #context = aq_inner(self.context)
+        #title = step1Form.get('title', 'N/A')
 
         self.request.SESSION['customer_data'] = {}
         self.request.SESSION['customer_data'].update(self.session['step1'])

@@ -143,9 +143,9 @@ class ICustomerInformation(Interface):
 
 
 class IEmployeeNumber(Interface):
-  """Schema defining a form to enter an employee number
-  """
-  number= schema.TextLine(
-    title=u'Employee Number',
-    required=True)
+    """Schema defining a form to enter an employee number
+    """
+    number= schema.TextLine(
+        title=u'Employee Number',
+        required=True)
 

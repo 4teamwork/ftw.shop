@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal">       
   <body>
       <h1>Summary</h1>
@@ -14,7 +13,7 @@
           <li tal:content="customer/street2"></li>
           <li tal:content="python:str(customer['zipcode']) + ' ' + customer['city']"></li>
           <li tal:content="customer/country|nothing"></li>
-          <li><br></li>
+          <li><br/></li>
           
           <li tal:content="string:Email: ${customer/email}"></li>
           <li tal:content="string:Phone: ${customer/phone}"></li>
@@ -22,7 +21,7 @@
           <li tal:condition="customer/comments" 
               tal:content="string:Comments: ${customer/comments}"></li>
           <li tal:content="string:Receive Newsletter: ${customer/newsletter}"></li>
-          <li><br></li>
+          <li><br/></li>
       </ul>
       
       <h2>Cart Contents</h2>

@@ -58,10 +58,10 @@ class ManageCategories(BrowserView):
         (that could be a Category instance too).
         """
         categoryUID = self.request.get('CategoryUID', None)
-        portalPath = getToolByName(self.context, 'portal_url').getPortalPath()
-        ltool = getToolByName(self.context, 'portal_languages')
+        #portalPath = getToolByName(self.context, 'portal_url').getPortalPath()
+        #ltool = getToolByName(self.context, 'portal_languages')
         catalog = getToolByName(self.context, 'portal_catalog')
-        lang = ltool.getPreferredLanguage()
+        #lang = ltool.getPreferredLanguage()
         
         query = {}
         query['portal_type'] = ['ShopCategory']

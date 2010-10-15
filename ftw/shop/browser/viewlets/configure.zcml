@@ -30,7 +30,7 @@
 	    />
 
     <browser:viewlet
-        name="ftw.shop.shopcompactitem"
+        name="ftw.shop.shopitem_compact"
         manager="...interfaces.IShopCompactListing"
         class=".viewlets.ShopItemCompactListingViewlet"
         permission="zope2.View"

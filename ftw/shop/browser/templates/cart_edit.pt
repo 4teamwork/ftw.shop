@@ -35,7 +35,7 @@
                 <tbody>
                   <metal:block tal:repeat="ctuple python:cart.items()">
                     <tr tal:define="item python:ctuple[1];
-                                    uid python:ctuple[0]">
+                                    skuCode python:ctuple[0]">
                       <td>
                         <a tal:attributes="href item/url"
                            tal:content="item/title">
@@ -49,7 +49,7 @@
                       <td tal:content="item/price"></td>
                       <td tal:content="item/total"></td>
                       <td>
-                          <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % uid"
+                          <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
                               <img src="++resource++ftw-shop-resources/delete_p.gif" />
                           </a>

@@ -2,13 +2,13 @@ from archetypes.schemaextender.field import ExtensionField
 from archetypes.schemaextender.interfaces import ISchemaExtender
 
 from zope.component import adapts
-from zope.interface import implements, Interface
+from zope.interface import implements
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopItem
 
-
 from Products.Archetypes import atapi
+
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 if HAS_LINGUA_PLONE:
     from Products.LinguaPlone.public import StringField

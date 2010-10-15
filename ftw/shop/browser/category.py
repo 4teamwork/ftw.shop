@@ -19,7 +19,6 @@ class CategoryView(BrowserView):
     def getItems(self):
         """Returns a list of ShopItems directly contained in this category
         """
-        context = aq_inner(self.context)
         return [item for item in self.category_contents
                 if item.portal_type == 'ShopItem']
 
@@ -28,7 +27,6 @@ class CategoryView(BrowserView):
     def categories(self):
         """ get a list with all categories belonging to this category.
         """
-
         results = []
         for item in self.category_contents:
             image = None

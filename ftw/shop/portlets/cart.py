@@ -4,8 +4,6 @@ from zope.component import getMultiAdapter
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 
-from zope.formlib import form
-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize.instance import memoize 
 
@@ -62,11 +60,3 @@ class AddForm(base.NullAddForm):
 
     def create(self):
         return Assignment()
-
-
-# class EditForm(base.EditForm):
-#     form_fields = form.Fields(ICartPortlet)
-#     label = _(u"Edit Shopping Cart Portlet")
-#     description = _(u"This portlet displays the shopping cart contents.")
-# 
-

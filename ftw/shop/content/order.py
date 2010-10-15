@@ -34,7 +34,7 @@ class ShopOrder(base.ATCTContent):
 
     def getCustomerData(self):
         if hasattr(self, '_customer_data'):
-           return self._customer_data
+            return self._customer_data
 
     def setCartData(self, data):
         self._cart_data = PersistentMapping(data)

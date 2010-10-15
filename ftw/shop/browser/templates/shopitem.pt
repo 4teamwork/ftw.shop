@@ -17,8 +17,6 @@
                        text here/getText|nothing">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
-
-        <!-- <div class="overline" tal:content="context/getOverline" /> -->
         
         <h1 class="documentFirstHeading" tal:content="context/Title"> 
             <metal:field use-macro="python:here.widget('Title', mode='view')">
@@ -28,12 +26,6 @@
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-        <!-- <div class="shopItemDescription">
-            <metal:field use-macro="python:here.widget('description', mode='view')">
-            Body text
-            </metal:field>
-            <br/><br/>
-        </div> -->
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
         

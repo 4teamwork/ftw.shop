@@ -55,7 +55,7 @@
                 <a href="#" tal:attributes="href item/url"
                             i18n:translate="label_more_link">More</a>
             </p>
-            <div class="visualClear"><!-- --></div>
+            <div class="visualClear"></div>
         </div>
         </tal:categories>
 
