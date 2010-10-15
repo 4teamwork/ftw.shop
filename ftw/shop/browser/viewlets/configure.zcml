@@ -14,6 +14,13 @@
         layer="ftw.shop.interfaces.IFtwShopSpecific"
 	    />
 
+    <browser:viewlet
+        name="ftw.shop.shopitem"
+        manager="...interfaces.IShopListing"
+        class=".viewlets.ShopItemListingViewlet"
+        permission="zope2.View"
+        />
+
 	<browser:viewletManager
 	    name="ftw.shop.compact_listing"
 	    provides="...interfaces.IShopCompactListing"
@@ -23,24 +30,10 @@
 	    />
 
     <browser:viewlet
-        name="ftw.shop.shopitem"
-        manager="...interfaces.IShopListing"
-        class=".viewlets.ShopItemListingViewlet"
-        permission="zope2.View"
-        />
-
-    <browser:viewlet
         name="ftw.shop.shopcompactitem"
         manager="...interfaces.IShopCompactListing"
         class=".viewlets.ShopItemCompactListingViewlet"
         permission="zope2.View"
         />
-
-    <!-- <browser:viewlet
-        name="ftw.shop.variedshopitem"
-        manager="...interfaces.IShopListing"
-        class=".viewlets.VariedShopItemListingViewlet"
-        permission="zope2.View"
-        /> -->
 
 </configure>

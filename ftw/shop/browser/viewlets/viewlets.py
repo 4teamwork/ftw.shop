@@ -44,6 +44,7 @@ class ShopItemListingViewlet(ViewletBase):
                     varConf = varConf,
                     hasVariations = has_variations))
         return results
+    
 
 class ShopItemCompactListingViewlet(ShopItemListingViewlet):
-    render = ViewPageTemplateFile('shopcompactitem_viewlet.pt')
+    render = ViewPageTemplateFile('shopitem_compact_viewlet.pt')

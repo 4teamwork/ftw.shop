@@ -28,6 +28,12 @@ class VariationConfig(object):
         field = self.context.Schema().getField('variation1_attribute')
         return field.get(self.context) not in (None, '')
 
+    def getItemUID(self):
+        """Returns the ShopItem's UID
+        """
+        return self.context.UID()
+
+
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
         """

@@ -15,7 +15,7 @@ class CartView(BrowserView):
     """
     """
     
-    def addtocart(self, skuCode, quantity=1):
+    def addtocart(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
         """ add item to cart and redirect to referer
         """
         context = aq_inner(self.context)
@@ -24,8 +24,13 @@ class CartView(BrowserView):
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
+        
+        if not skuCode:
+            # We got no skuCode, so look it up by variation key
+            skuCode = varConf.getVariationData(var1choice, var2choice, 'skuCode')
 
         item = cart_items.get(skuCode, None)
+
         item_title = context.Title()
         quantity = int(quantity)
 
@@ -52,7 +57,7 @@ class CartView(BrowserView):
                         'url': context.absolute_url(),
                         'variation_key': variation_key,
                 }    
-            # item already in cart, update quantitiy
+            # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
@@ -189,32 +194,32 @@ class CartView(BrowserView):
         return
         
     def checkout(self):
-       """ process checkout
-       """
-       context = aq_inner(self.context)
-       ptool = getToolByName(context, 'plone_utils')
-       url = context.absolute_url()
-       
-       # check if we have something in the cart
-       items = self.cart_items()
-       if not items:
-           ptool.addPortalMessage(_(u'msg_no_cart', default=u"Can't proceed with empty cart."), 'error')
-           self.request.response.redirect(url)
-           
-       omanager = getToolByName(context, 'portal_ordermanager')
-       order_id = ''
-       try:
-           order_id = omanager.addOrder()
-       except MissingCustomerInformation:
-           self.request.response.redirect('%s/checkout-wizard' % url)
-           return
-       except MissingOrderConfirmation:
-           self.request.response.redirect('%s/checkout-wizard' % url)
-           return
-           
-       self.request.SESSION.invalidate()
-       self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
-       return
+        """ process checkout
+        """
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        url = context.absolute_url()
+        
+        # check if we have something in the cart
+        items = self.cart_items()
+        if not items:
+            ptool.addPortalMessage(_(u'msg_no_cart', default=u"Can't proceed with empty cart."), 'error')
+            self.request.response.redirect(url)
+            
+        omanager = getToolByName(context, 'portal_ordermanager')
+        order_id = ''
+        try:
+            order_id = omanager.addOrder()
+        except MissingCustomerInformation:
+            self.request.response.redirect('%s/checkout-wizard' % url)
+            return
+        except MissingOrderConfirmation:
+            self.request.response.redirect('%s/checkout-wizard' % url)
+            return
+            
+        self.request.SESSION.invalidate()
+        self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
+        return
 
     def shop_url(self):
         """ return the root url of the shop folder.
