@@ -31,7 +31,7 @@
                             <form tal:attributes="action string:${item/url}/addtocart">
                                 <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
                                 <input type="text" size="2" name="quantity:int" value="1"/>
-                                <input type="submit" value="Add to cart" i18n:attributes="value" />
+                                <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
                             </form>
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
                                          <form tal:attributes="action string:${item/url}/addtocart">
                                              <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                              <input type="text" size="2" name="quantity:int" value="1"/>
-                                             <input type="submit" value="Add to cart" i18n:attributes="value" />
+                                             <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
                                          </form>
                                      </td>
                                  </tr>
@@ -106,7 +106,7 @@
                                         <form tal:attributes="action string:${item/url}/addtocart">
                                             <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                             <input type="text" size="2" name="quantity:int" value="1"/>
-                                            <input type="submit" value="Add to cart" i18n:attributes="value" />
+                                            <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
                                         </form>
                                     </td>
                                 </tr>
@@ -116,9 +116,7 @@
                 </div>
                 
             </div>
-            
-            
-            
+
         </div>
      </tal:shopitems>
 </tal:def>

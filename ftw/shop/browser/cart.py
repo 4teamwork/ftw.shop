@@ -1,11 +1,15 @@
-from Products.Five.browser import BrowserView
+import json
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
-from ftw.shop import shopMessageFactory as _
-from ftw.shop.interfaces import IVariationConfig
-from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from decimal import Decimal
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.exceptions import MissingCustomerInformation, \
+    MissingOrderConfirmation
+from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.root import get_shop_root_object
+
 
 
 CART_KEY = 'shop_cart_items'
@@ -14,9 +18,39 @@ CART_KEY = 'shop_cart_items'
 class CartView(BrowserView):
     """
     """
-    
+    def addtocart_ajax(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
+        """ Render the Cart Portlet to update with an AJAX request
+        """
+        self._addtocart(skuCode, quantity, var1choice, var2choice)
+        portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
+        status_message = """
+            <dt>Information</dt>
+            <dd>Warenkorb wurde aktualisiert.</dd>
+        """
+
+        return json.dumps(dict(portlet_html=portlet_template(self), 
+                    status_message=status_message))
+
+
     def addtocart(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
         """ add item to cart and redirect to referer
+        """
+        context = aq_inner(self.context)
+
+        # Add item to cart
+        self._addtocart(skuCode, quantity, var1choice, var2choice)
+
+        # redirect to referer
+        referer = self.request.get('HTTP_REFERER', context.absolute_url())
+        self.request.response.redirect(referer)
+
+        # add portal message
+        ptool = getToolByName(context, 'plone_utils')
+        ptool.addPortalMessage(_(u'msg_item_added', default=u'Added item to cart.'), 'info')
+
+
+    def _addtocart(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
+        """ add item to cart
         """
         context = aq_inner(self.context)
         varConf = IVariationConfig(self.context)
@@ -84,13 +118,6 @@ class CartView(BrowserView):
         cart_items[skuCode] = item
         session[CART_KEY] = cart_items
         
-        # add portal message
-        ptool = getToolByName(context, 'plone_utils')
-        ptool.addPortalMessage(_(u'msg_item_added', default=u'Added item to cart.'), 'info')
-        
-        # redirect to referer
-        referer = self.request.get('HTTP_REFERER', context.absolute_url())
-        self.request.response.redirect(referer)
 
     def cart_items(self):
         """ get content of shopping cart
@@ -192,6 +219,10 @@ class CartView(BrowserView):
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
         return
+    
+    
+
+        
         
     def checkout(self):
         """ process checkout

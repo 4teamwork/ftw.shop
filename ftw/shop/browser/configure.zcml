@@ -74,6 +74,14 @@
     permission="zope2.View" 
     />
 
+  <browser:page
+    for="*"
+    name="addtocart_ajax"
+    class=".cart.CartView"
+    attribute="addtocart_ajax"
+    permission="zope2.View"
+    />
+
   <browser:page 
     for="..interfaces.IShopRoot" 
     name="checkout" 

@@ -33,7 +33,7 @@
                             <form tal:attributes="action string:${item/url}/addtocart">
                                 <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
                                 <input type="text" size="2" name="quantity:int" value="1"/>
-                                <input type="submit" value="Add to cart"/>
+                                <input name="addtocart" type="submit" value="Add to cart"/>
                                 
                             </form>
                         </td>
@@ -60,7 +60,7 @@
 						<p>
 							<label>Menge</label>
 							<input name="quantity:int" type="text" value="1" size="2" />
-							<input type="submit" value="Add to cart" />
+							<input name="addtocart" type="submit" value="Add to cart" />
 						</p>
 					</fieldset>
 				</form>
@@ -109,7 +109,7 @@
 						<p>
 							<label>Menge</label>
 							<input name="quantity:int" type="text" value="1" size="2" />
-							<input type="submit" value="Add to cart" />
+							<input name="addtocart" type="submit" value="Add to cart" />
 						</p>
 					</fieldset>
 				</form>
@@ -152,7 +152,41 @@
 			     .change();
 			</script>
 
-             
+            <script type="text/javascript">
+            jq(function() {
+                jq('input[name=addtocart]').click(function(event) {
+                    event.preventDefault();
+                    var url = jq(this).parent().parent().parent().attr('action');
+                    var var1choice = jq(this).parent().parent().children().filter('p').children().filter('select[name=var1choice]').children().filter('option:selected').val()
+                    var var2choice = jq(this).parent().parent().children().filter('p').children().filter('select[name=var2choice]').children().filter('option:selected').val()
+
+                    if (var1choice == undefined) {
+                        var itemdata = {skuCode: jq(this).siblings().filter('input[name=skuCode]').val(),
+                                        quantity: jq(this).siblings().filter('input[name=quantity:int]').val()}
+                    }
+                    else {
+                        if (var2choice == undefined) {
+                            var itemdata = {var1choice: var1choice,
+                                            quantity: jq(this).siblings().filter('input[name=quantity:int]').val()}
+                        }
+                        else {
+                            var itemdata = {var1choice: var1choice,
+                                            var2choice: var2choice,
+                                            quantity: jq(this).siblings().filter('input[name=quantity:int]').val()}
+                        }
+                    }
+
+                    jq.getJSON(url + "_ajax", itemdata,
+                        function(response) {
+                            var portlet_html = response['portlet_html'];
+                            var status_message = response['status_message'];
+                            jq('.portletCartPortlet').replaceWith(portlet_html);
+                            jq('#kssPortalMessage').html(status_message);
+                            jq('#kssPortalMessage').fadeIn().delay(2000).fadeOut();
+                        });
+                });
+            });
+            </script>
 
          </div>
      </tal:shopitems>
