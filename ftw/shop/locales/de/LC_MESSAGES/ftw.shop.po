@@ -415,12 +415,14 @@ msgid "label_shop_name"
 msgstr "Geben sie den Shop-Namen ein"
 
 #. Default: "SKU code"
+#: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:73
 #: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
 #: ./ftw/shop/extender.py:54
 msgid "label_sku_code"
 msgstr "Artikel-Nr."
 
 #. Default: "Stock"
+#: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:72
 #: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:53
 msgid "label_stock"
 msgstr "Bestand"
@@ -490,17 +492,17 @@ msgid "link_agb"
 msgstr "http://www.4teamwork.ch"
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:191
+#: ./ftw/shop/browser/cart.py:222
 msgid "msg_cart_emptied"
 msgstr "Der Warenkorb wurde geleert."
 
 #. Default: "Invalid Values specified. Cart was not updated."
-#: ./ftw/shop/browser/cart.py:150
+#: ./ftw/shop/browser/cart.py:181
 msgid "msg_cart_invalidvalue"
 msgstr "Ungültige Mengenangabe. Der Warenkorb wurde nicht aktualisiert."
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:163
+#: ./ftw/shop/browser/cart.py:194
 msgid "msg_cart_updated"
 msgstr "Der Warenkorb wurde aktualisiert."
 
@@ -510,12 +512,17 @@ msgid "msg_categories_updated"
 msgstr "Kategorien wurden aktualisiert."
 
 #. Default: "Added item to cart."
-#: ./ftw/shop/browser/cart.py:89
+#: ./ftw/shop/browser/cart.py:28
 msgid "msg_item_added"
 msgstr "Der Artikel wurde in den Warenkorb gelegt."
 
+#. Default: "Information"
+#: ./ftw/shop/browser/cart.py:27
+msgid "msg_label_info"
+msgstr ""
+
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:206
+#: ./ftw/shop/browser/cart.py:241
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 

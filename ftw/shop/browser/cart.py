@@ -19,14 +19,18 @@ class CartView(BrowserView):
     """
     """
     def addtocart_ajax(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
-        """ Render the Cart Portlet to update with an AJAX request
+        """ Add item to cart, return portlet HTML and translated status message
         """
         self._addtocart(skuCode, quantity, var1choice, var2choice)
+        translate = self.context.translate
         portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
+        status_msg_label = _(u'msg_label_info', default=u"Information")
+        status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
         status_message = """
-            <dt>Information</dt>
-            <dd>Warenkorb wurde aktualisiert.</dd>
-        """
+            <dt>%s</dt>
+            <dd>%s</dd>
+        """ % (translate(status_msg_label), 
+               translate(status_msg_text))
 
         return json.dumps(dict(portlet_html=portlet_template(self), 
                     status_message=status_message))

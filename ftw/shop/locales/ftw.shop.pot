@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-10-15 15:21+0000\n"
+"POT-Creation-Date: 2010-10-18 07:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -421,12 +421,14 @@ msgid "label_shop_name"
 msgstr ""
 
 #. Default: "SKU code"
+#: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:73
 #: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
 #: ./ftw/shop/extender.py:54
 msgid "label_sku_code"
 msgstr ""
 
 #. Default: "Stock"
+#: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:72
 #: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:53
 msgid "label_stock"
 msgstr ""
@@ -496,17 +498,17 @@ msgid "link_agb"
 msgstr ""
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:191
+#: ./ftw/shop/browser/cart.py:222
 msgid "msg_cart_emptied"
 msgstr ""
 
 #. Default: "Invalid Values specified. Cart was not updated."
-#: ./ftw/shop/browser/cart.py:150
+#: ./ftw/shop/browser/cart.py:181
 msgid "msg_cart_invalidvalue"
 msgstr ""
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:163
+#: ./ftw/shop/browser/cart.py:194
 msgid "msg_cart_updated"
 msgstr ""
 
@@ -516,12 +518,17 @@ msgid "msg_categories_updated"
 msgstr ""
 
 #. Default: "Added item to cart."
-#: ./ftw/shop/browser/cart.py:89
+#: ./ftw/shop/browser/cart.py:28
 msgid "msg_item_added"
 msgstr ""
 
+#. Default: "Information"
+#: ./ftw/shop/browser/cart.py:27
+msgid "msg_label_info"
+msgstr ""
+
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:206
+#: ./ftw/shop/browser/cart.py:241
 msgid "msg_no_cart"
 msgstr ""
 
