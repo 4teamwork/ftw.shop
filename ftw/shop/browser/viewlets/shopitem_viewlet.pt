@@ -114,9 +114,35 @@
                          </tbody>
                     </table>
                 </div>
-                
+
             </div>
 
         </div>
      </tal:shopitems>
+
+
+     <script type="text/javascript">
+     jq(function() {
+         jq('input[name=addtocart]').click(function(event) {
+             event.preventDefault();
+             // Get the containing form's action URL
+             var url = jq(this).parent().attr('action');
+             // Get skuCode and quantity from adjacent input fields
+             var itemdata = {skuCode: jq(this).siblings().filter('input[name=skuCode]').val(),
+                             quantity: jq(this).siblings().filter('input[name=quantity:int]').val()};
+
+             jq.getJSON(url + "_ajax", itemdata,
+                 function(response) {
+                     // Add item to cart, receive updated portlet html and translated status message
+                     var portlet_html = response['portlet_html'];
+                     var status_message = response['status_message'];
+                     jq('.portletCartPortlet').replaceWith(portlet_html);
+                     jq('#kssPortalMessage').html(status_message);
+                     jq('#kssPortalMessage').fadeIn().delay(2000).fadeOut();
+                 });
+         });
+     });
+     </script>
+
+
 </tal:def>
