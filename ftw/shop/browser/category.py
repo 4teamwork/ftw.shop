@@ -4,6 +4,7 @@ from zope.component import getMultiAdapter
 from plone.memoize import instance
 from Acquisition import aq_inner
 from ftw.shop.config import CATEGORY_RELATIONSHIP
+from ftw.shop.interfaces import IVariationConfig
 from Products.CMFCore.utils import getToolByName
 
 
@@ -12,6 +13,11 @@ class CategoryView(BrowserView):
     """
 
     __call__ = ViewPageTemplateFile('templates/category.pt')
+    
+    single_item_template = ViewPageTemplateFile('templates/listing/single_item.pt')
+    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
+    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
+
 
     def dummyitems(self):
         return []
@@ -21,6 +27,54 @@ class CategoryView(BrowserView):
         """
         return [item for item in self.category_contents
                 if item.portal_type == 'ShopItem']
+        
+    def single_item(self, item):
+        return self.single_item_template(item=item)
+
+    def one_variation(self, item):
+        return self.one_variation_template(item=item)
+    
+    def two_variations(self, item):
+        return self.two_variations_template(item=item)
+
+    def getItemDatas(self):
+        """Returns a dictionary of an item's properties to be used in
+        templates. If the item has variations, the variation config is
+        also included.
+        """
+        results = []
+        for item in self.getItems():
+            assert(item.portal_type == 'ShopItem')
+            varConf = IVariationConfig(item)
+
+            has_variations = varConf.hasVariations()
+
+            image = None
+            tag = None
+            if has_variations:
+                skuCode = None
+                price = None
+            else:
+                varConf = None
+                skuCode = item.Schema().getField('skuCode').get(item)
+                price = item.Schema().getField('price').get(item)
+
+            if image:
+                tag = image.tag(scale='tile')
+
+            results.append(
+                dict(
+                    title = item.Title(),
+                    description = item.Description(),
+                    url = item.absolute_url(),
+                    imageTag = tag,
+                    variants = None,
+                    order_number = skuCode,
+                    price = price,
+                    varConf = varConf,
+                    hasVariations = has_variations))
+        return results
+
 
     @property
     @instance.memoize
@@ -58,3 +112,12 @@ class CategoryView(BrowserView):
     
     def manage_categories(self):
         return getMultiAdapter((self.context, self.request), 'manage_categories')
+    
+class CategoryCompactView(CategoryView):
+    """Compact view for a category. Shows all contained items and categories.
+    """
+    
+    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
+    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
+
+

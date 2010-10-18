@@ -1,0 +1,43 @@
+			<!-- One Variation Attribute -->
+             <tal:block tal:define="item options/item;
+             						varConf item/varConf;
+             						normalizeString nocall: context/@@plone/normalizeString">
+		            <div class="variation-toplevel-group" 
+		                 tal:condition="python:item['hasVariations'] and len(varConf.getVariationAttributes()) == 1" 
+					     tal:define="varConf item/varConf">
+						<form tal:attributes="action string:${item/url}/addtocart">
+							<fieldset>
+								<legend>Bestellung</legend>
+								<p>
+									<label tal:content="python:varConf.getVariationAttributes()[0]">Farbe</label>
+									<select name="var1choice">
+										<option tal:repeat="varValue1 varConf/getVariation1Values"
+											tal:content="varValue1" tal:attributes="value python:normalizeString(varValue1)">Blau</option>
+									</select>
+								</p>
+								<p>
+									<label>Menge</label>
+									<input name="quantity:int" type="text" value="1" size="2" />
+									<input name="addtocart" type="submit" value="Add to cart" />
+								</p>
+							</fieldset>
+						</form>
+		                 
+		                 <table id="itemDataTable" tal:define="varDict varConf/getVariationDict">
+			                 <thead>
+				                 <th>Variation</th>
+		                         <th i18n:translate="label_price">Price</th>
+		                         <th i18n:translate="label_stock">Stock</th>
+		                         <th i18n:translate="label_sku_code">SKU code</th>
+			                 </thead>
+			                 <tbody>
+				                 <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
+				                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
+				                 <td tal:content="python: varDict[vkey]['price']"></td>
+				                 <td tal:content="python: varDict[vkey]['stock']"></td>
+				                 <td tal:content="python: varDict[vkey]['skuCode']"></td>
+				                 </tr>
+			                 </tbody>
+		                 </table>
+		             </div>
+             </tal:block>

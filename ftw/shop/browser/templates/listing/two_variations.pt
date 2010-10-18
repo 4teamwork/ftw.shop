@@ -1,0 +1,39 @@
+            <!-- Two Variations -->
+            <tal:block tal:define="item options/item;
+            					   varConf item/varConf">
+                <div class="variation-toplevel-group" tal:repeat="varValue1 varConf/getVariation1Values"
+                    tal:condition="python:len(varConf.getVariationAttributes()) > 1">
+                <h2 tal:content="varValue1">Red</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
+                                <th i18n:translate="label_price">Price</th>
+                                <th i18n:translate="label_stock">Stock</th>
+                                <th i18n:translate="label_sku_code">SKU code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tal:block tal:repeat="varValue2 varConf/getVariation2Values">
+                                <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
+                                             skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
+                                             price python:varConf.getVariationData(varValue1, varValue2, 'price');
+                                             stock python:varConf.getVariationData(varValue1, varValue2, 'stock')"
+                                    tal:condition="active">
+                                    <td tal:content="varValue2">S</td>
+                                    <td><span tal:content="price"/></td>
+                                    <td><span tal:content="stock"/></td>
+                                    <td><span tal:content="skuCode"/></td>
+                                    <td>
+                                        <form tal:attributes="action string:${item/url}/addtocart">
+                                            <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
+                                            <input type="text" size="2" name="quantity:int" value="1"/>
+                                            <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tal:block>
+                         </tbody>
+                    </table>
+                </div>
+            </tal:block>

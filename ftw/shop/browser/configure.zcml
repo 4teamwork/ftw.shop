@@ -4,8 +4,9 @@
     i18n_domain="ftw.shop">
 
   <include package="plone.app.contentmenu" />
-  <include package=".viewlets" />
 
+
+  <!-- Shop Items --> 
   <browser:page
     for="..interfaces.IShopItem"
     name="view"
@@ -19,21 +20,7 @@
     permission="zope2.View"
     class=".shopitem.ShopCompactItemView"
     />
-
-  <browser:page
-    for="..interfaces.IShopItem"
-    name="edit_variations"
-    permission="zope2.View"
-    class=".shopitem.EditVariationsView"
-    />
-
-  <browser:page
-    for="..interfaces.IShopCategory"
-    name="view"
-    permission="zope2.View"
-    class=".category.CategoryView"
-    />
-
+    
   <browser:menuItem
     for="..interfaces.IShopItem"
     menu="plone_displayviews"
@@ -41,6 +28,37 @@
     action="compact_view"
     description=""
     />
+
+  <browser:page
+    for="..interfaces.IShopItem"
+    name="edit_variations"
+    permission="zope2.View"
+    class=".shopitem.EditVariationsView"
+    />
+    
+  <!-- Shop Categories --> 
+  <browser:page
+    for="..interfaces.IShopCategory"
+    name="view"
+    permission="zope2.View"
+    class=".category.CategoryView"
+    />
+    
+  <browser:page
+    for="..interfaces.IShopCategory"
+    name="compact_view"
+    permission="zope2.View"
+    class=".category.CategoryCompactView"
+    />
+    
+  <browser:menuItem
+    for="..interfaces.IShopCategory"
+    menu="plone_displayviews"
+    title="Compact View"
+    action="compact_view"
+    description=""
+    />
+    
   
 
   <!-- order view -->
@@ -188,6 +206,11 @@
   <browser:resource
     name="ftw_shop.css"
     file="resources/ftw_shop.css"
+    />
+
+  <browser:resource
+    name="shop.js"
+    file="resources/shop.js"
     />
 
 </configure>

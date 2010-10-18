@@ -1,0 +1,22 @@
+            <!-- Single Item with no Variations -->
+            <tal:block tal:define="item options/item">
+            <div class="listItemTable" tal:condition="not:item/hasVariations">
+                <table class="shopItemTable">
+                    <tr>
+                        <th i18n:translate="label_sku_code">SKU code</th>
+                        <th colspan="2" i18n:translate="label_price">Price</th>
+                    </tr>
+                    <tr>
+                        <td tal:content="item/order_number" />
+                        <td tal:content="item/price" />
+                        <td>
+                            <form tal:attributes="action string:${item/url}/addtocart">
+                                <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
+                                <input type="text" size="2" name="quantity:int" value="1"/>
+                                <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </tal:block>
