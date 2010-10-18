@@ -29,6 +29,8 @@
 
         <div tal:replace="structure provider:plone.abovecontentbody" />
         
+        <div tal:replace="structure text" />
+        
         <div tal:replace="structure provider:ftw.shop.compact_listing" />
         
 

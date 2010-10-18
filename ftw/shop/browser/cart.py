@@ -224,9 +224,6 @@ class CartView(BrowserView):
         self.request.response.redirect(referer)
         return
     
-    
-
-        
         
     def checkout(self):
         """ process checkout

@@ -35,7 +35,7 @@
     />
 
   <browser:menuItem
-    for="*"
+    for="..interfaces.IShopItem"
     menu="plone_displayviews"
     title="Compact View"
     action="compact_view"
@@ -75,7 +75,7 @@
     />
 
   <browser:page
-    for="*"
+    for="..interfaces.IShopItem"
     name="addtocart_ajax"
     class=".cart.CartView"
     attribute="addtocart_ajax"
