@@ -2,9 +2,9 @@
 <object name="ShopCategory"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="ftw.shop" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="ct_shopcategory">Shop Category</property>
+  <property name="title" i18n:translate="">Shop Category</property>
   <property name="description"
-    i18n:translate="ct_desc_shopcategory">A category for shop items</property>
+    i18n:translate="">A category for shop items</property>
   <property name="content_meta_type">Shop Category</property>
   <property name="content_icon">folder_icon.gif</property>
   <property name="product">ftw.shop</property>
@@ -35,7 +35,7 @@
     <permission value="Modify portal content" />
   </action>
   <action title="Categories" action_id="categories" category="object" condition_expr=""
-    url_expr="string:${object_url}/edit_categories" visible="True">
+    url_expr="string:${object_url}/edit_categories" visible="True" i18n:attributes="title">
     <permission value="Modify portal content" />
   </action>  
 </object>

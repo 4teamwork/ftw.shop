@@ -12,9 +12,31 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
+msgid "A category for shop items"
+msgstr "Eine Kategorie für Shop-Artikel"
+
+#: ./ftw/shop/profiles/default/types/OrderManager.xml
+msgid "A container for storing shop orders"
+msgstr "Ein Ordner um Shop-Bestellungen zu speichern"
+
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
+msgid "A simple shop item"
+msgstr "Ein einfacher Shop-Artikel"
+
+#: ./ftw/shop/browser/templates/shopitem.pt:72
 #: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:34
 msgid "Add to cart"
 msgstr "In Warenkorb legen"
+
+#: ./ftw/shop/profiles/default/types/ShopOrder.xml
+msgid "An Order for storing custormer data and cart items"
+msgstr "Eine Bestellung um Kundendaten und Warenkorbinhalt zu speichern"
+
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
+msgid "Categories"
+msgstr "Kategorien"
 
 #: ./ftw/shop/browser/templates/cart_edit.pt:75
 msgid "Checkout"
@@ -24,6 +46,22 @@ msgstr "Bestellen"
 msgid "Empty Shopping Cart"
 msgstr "Warenkorb leeren"
 
+#: ./ftw/shop/profiles/default/types/OrderManager.xml
+msgid "OrderManager"
+msgstr "BestellungsManager"
+
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
+msgid "Shop Category"
+msgstr "Shop-Kategorie"
+
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
+msgid "Shop Item"
+msgstr "Shop-Artikel"
+
+#: ./ftw/shop/profiles/default/types/ShopOrder.xml
+msgid "Shop Order"
+msgstr "Shop-Bestellung"
+
 #: ./ftw/shop/browser/templates/edit_categories.pt:49
 msgid "Update"
 msgstr "Aktualisieren"
@@ -31,6 +69,10 @@ msgstr "Aktualisieren"
 #: ./ftw/shop/browser/templates/cart_edit.pt:63
 msgid "Update Cart"
 msgstr "Warenkorb aktualisieren"
+
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
+msgid "Variations"
+msgstr "Variationen"
 
 #. Default: "Back"
 #: ./ftw/shop/browser/checkout.py:72
@@ -105,7 +147,7 @@ msgstr "Kurze Beschreibung"
 #. Default: "Rank"
 #: ./ftw/shop/browser/templates/edit_categories.pt:20
 msgid "categories_header_rank"
-msgstr "Rang"
+msgstr "Gewichtung"
 
 #. Default: "Title"
 #: ./ftw/shop/browser/templates/edit_categories.pt:18
@@ -121,46 +163,6 @@ msgstr "Kategorien"
 #: ./ftw/shop/browser/templates/checkout-wizard.pt:13
 msgid "confirmation_step"
 msgstr "Bestätigung"
-
-#. Default: "A container for storing shop orders"
-#: ./ftw/shop/profiles/default/types/OrderManager.xml
-msgid "ct_desc_ordermanager"
-msgstr "Ein Ordner um Bestellungen zu speichern"
-
-#. Default: "A category for shop items"
-#: ./ftw/shop/profiles/default/types/ShopCategory.xml
-msgid "ct_desc_shopcategory"
-msgstr "Eine Kategorie für Shop-Artikel"
-
-#. Default: "A simple shop item"
-#: ./ftw/shop/profiles/default/types/ShopItem.xml
-msgid "ct_desc_shopitem"
-msgstr "Ein einfacher Shop-Artikel"
-
-#. Default: "An Order for storing custormer data and cart items"
-#: ./ftw/shop/profiles/default/types/ShopOrder.xml
-msgid "ct_desc_shoporder"
-msgstr "Eine Bestellung um Kundendaten und Produkte im Warenkorb zu speichern"
-
-#. Default: "OrderManager"
-#: ./ftw/shop/profiles/default/types/OrderManager.xml
-msgid "ct_ordermanager"
-msgstr "BestellungsManager"
-
-#. Default: "Shop Category"
-#: ./ftw/shop/profiles/default/types/ShopCategory.xml
-msgid "ct_shopcategory"
-msgstr "Shop-Kategorie"
-
-#. Default: "Shop Item"
-#: ./ftw/shop/profiles/default/types/ShopItem.xml
-msgid "ct_shopitem"
-msgstr "Shop-Artikel"
-
-#. Default: "Shop Order"
-#: ./ftw/shop/profiles/default/types/ShopOrder.xml
-msgid "ct_shoporder"
-msgstr "Shop-Bestellung"
 
 #: ./ftw/shop/extender.py:45
 msgid "desc_price"
@@ -356,8 +358,8 @@ msgstr "Nachname"
 
 #. Default: "More"
 #: ./ftw/shop/browser/templates/category.pt:55
-#: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:18
-#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:17
+#: ./ftw/shop/browser/templates/shopitem.pt:55
+#: ./ftw/shop/browser/templates/shopitem_compact.pt:54
 msgid "label_more_link"
 msgstr "» Mehr"
 
@@ -367,6 +369,7 @@ msgid "label_newsletter"
 msgstr "Newsletter"
 
 #. Default: "Order number"
+#: ./ftw/shop/browser/templates/shopitem_compact.pt:62
 #: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:26
 msgid "label_order_number"
 msgstr "Bestellnummer"
@@ -393,9 +396,9 @@ msgid "label_phone_number"
 msgstr "Telefonnummer"
 
 #. Default: "Price"
+#: ./ftw/shop/browser/templates/shopitem.pt:63
+#: ./ftw/shop/browser/templates/shopitem_compact.pt:63
 #: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:27
-#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:25
-#: ./ftw/shop/extender.py:44
 msgid "label_price"
 msgstr "Preis"
 
@@ -415,15 +418,16 @@ msgid "label_shop_name"
 msgstr "Geben sie den Shop-Namen ein"
 
 #. Default: "SKU code"
+#: ./ftw/shop/browser/templates/shopitem.pt:62
+#: ./ftw/shop/browser/templates/shopitem_compact.pt:109
 #: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:73
-#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:24
-#: ./ftw/shop/extender.py:54
 msgid "label_sku_code"
 msgstr "Artikel-Nr."
 
 #. Default: "Stock"
+#: ./ftw/shop/browser/templates/shopitem.pt:99
+#: ./ftw/shop/browser/templates/shopitem_compact.pt:108
 #: ./ftw/shop/browser/viewlets/shopitem_compact_viewlet.pt:72
-#: ./ftw/shop/browser/viewlets/shopitem_viewlet.pt:53
 msgid "label_stock"
 msgstr "Bestand"
 
@@ -522,7 +526,7 @@ msgid "msg_label_info"
 msgstr ""
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:241
+#: ./ftw/shop/browser/cart.py:238
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 
@@ -551,7 +555,7 @@ msgid "msg_thank_you_title"
 msgstr "Besten Dank!"
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:76
+#: ./ftw/shop/browser/shopitem.py:155
 msgid "msg_variations_saved"
 msgstr "Variationen wurden gespeichert."
 

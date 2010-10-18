@@ -2,9 +2,9 @@
 <object name="ShopOrder"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="ftw.shop" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="ct_shoporder">Shop Order</property>
+  <property name="title" i18n:translate="">Shop Order</property>
   <property name="description"
-    i18n:translate="ct_desc_shoporder">An Order for storing custormer data and cart items</property>
+    i18n:translate="">An Order for storing custormer data and cart items</property>
   <property name="content_meta_type">ShopOrder</property>
   <property name="content_icon">document_icon.gif</property>
   <property name="product">ftw.shop</property>
