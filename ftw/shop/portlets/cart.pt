@@ -21,7 +21,7 @@
         <ul>
         <tal:items repeat="item cart_items">
 	        <li>
-	            <a href="#" tal:content="item/title" /><br />
+	            <a href="" tal:content="item/title" tal:attributes="href item/url"/><br />
 	            <span tal:replace="item/total" />
 	            (<span tal:replace="item/quantity" />)
 	        </li>
