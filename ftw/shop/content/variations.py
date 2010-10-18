@@ -50,21 +50,32 @@ class VariationConfig(object):
         """Returns the values for the top level variation,
         e.g. ['Red', 'Green', 'Blue']
         """
-        value_string = getattr(self.context, 'variation1_values', None)
-        if value_string:
-            return [v.strip() for v in value_string.split(',')]
+        values = self.context.getField('variation1_values').get(self.context)
+        if values:
+            return values
         else:
             return []
+        
+#        value_string = getattr(self.context, 'variation1_values', None)
+#        if value_string:
+#            return [v.strip() for v in value_string.split(',')]
+#        else:
+#            return []
 
     def getVariation2Values(self):
         """Returns the values for the second level variation,
         e.g. ['S', 'M', 'L', 'XL']
         """
-        value_string = getattr(self.context, 'variation2_values', None)
-        if value_string:
-            return [v.strip() for v in value_string.split(',')]
+        values = self.context.getField('variation2_values').get(self.context)
+        if values:
+            return values
         else:
             return []
+#        value_string = getattr(self.context, 'variation2_values', None)
+#        if value_string:
+#            return [v.strip() for v in value_string.split(',')]
+#        else:
+#            return []
 
     def getVariationAttributes(self):
         """Returns a list of the two variation attributes,

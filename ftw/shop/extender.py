@@ -12,10 +12,12 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 if HAS_LINGUA_PLONE:
     from Products.LinguaPlone.public import StringField
+    from Products.LinguaPlone.public import LinesField
     from Products.LinguaPlone.public import FixedPointField
     from Products.LinguaPlone.public import registerType
 else:
     from Products.Archetypes.atapi import StringField
+    from Products.Archetypes.atapi import LinesField
     from Products.Archetypes.atapi import FixedPointField
     from Products.Archetypes.atapi import registerType
 
@@ -25,6 +27,10 @@ class ExtStringField(ExtensionField, StringField):
     
 class ExtFixedPointField(ExtensionField, FixedPointField):
     """A fixed point field."""
+    
+class ExtLinesField(ExtensionField, LinesField):
+    """A lines field."""
+
 
 
 class ShopItemExtender(object):
@@ -64,9 +70,9 @@ class ShopItemExtender(object):
             ),
         ),
         
-        ExtStringField('variation1_values',
+        ExtLinesField('variation1_values',
             required = 0,
-            widget = atapi.StringWidget(
+            widget = atapi.LinesWidget(
                 label = _(u"label_variation1_values", default=u"Variation 1 Values"),
                 description = _(u"desc_variation1_values", default=u""),
             ),
@@ -82,9 +88,9 @@ class ShopItemExtender(object):
         ),
         
         
-        ExtStringField('variation2_values',
+        ExtLinesField('variation2_values',
             required = 0,
-            widget = atapi.StringWidget(
+            widget = atapi.LinesWidget(
                 label = _(u"label_variation2_values", default=u"Variation 2 Values"),
                 description = _(u"desc_variation2_values", default=u""),
             ),
