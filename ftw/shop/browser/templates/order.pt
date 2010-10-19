@@ -39,7 +39,7 @@
         </p>
       
         <p>
-            <span i18n:translate="label_email">Email:</span>
+            <span i18n:translate="label_email">Email</span>:
             <span tal:replace="customer/email" />
                 
             <tal:block condition="customer/phone">
