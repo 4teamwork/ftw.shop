@@ -6,6 +6,7 @@ from plone.app.registry.browser import controlpanel
 
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
+from zope.app.form.browser import MultiSelectWidget
 
 
 class ShopConfigurationForm(controlpanel.RegistryEditForm):
@@ -16,6 +17,7 @@ class ShopConfigurationForm(controlpanel.RegistryEditForm):
     form_fields = form.Fields(IShopConfiguration)
     label = _(u'label_shop_configuration', default=u"Shop configuration")
     template = ViewPageTemplateFile('templates/controlpanel.pt')
+    #form_fields['payment_processor'].widget = MultiSelectWidget('fooo', ['foobar', 'barfoo'], None)
        
     def updateFields(self):
         super(ShopConfigurationForm, self).updateFields()

@@ -1,0 +1,17 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="ftw.shop">
+
+<body metal:use-macro="here/main_template/macros/master">
+
+  <div metal:fill-slot="main">
+
+		If you're not automatically redirected, please click here:
+		<form action="" method="post" tal:attributes="action context/REQUEST/SESSION/external-processor-url">
+			<input type="hidden" name="order_id" value="3245345" />
+			<input value="Continue to external payment processor..." type="submit" />	
+		</form>
+	</div>
+	
+  </body>
+</html>

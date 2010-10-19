@@ -1,12 +1,15 @@
 from ftw.shop import shopMessageFactory as _
 from plone.theme.interfaces import IDefaultPloneLayer
 from zope import schema
+from zope.schema import vocabulary
 from zope.app.container.constraints import containers, contains
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from z3c.form import interfaces
+from plone.app.form.widgets import MultiCheckBoxWidget
+
 
 
 
@@ -50,20 +53,35 @@ class IShopCategory(Interface):
 
 class IWizardStep(Interface):
     """A wizard step"""
+    
+class IWizardStepGroup(Interface):
+    """A wizard step"""
+    
+class IPaymentProcessor(Interface):
+    """A payment processor"""
+
+class IContactInformationStepGroup(IWizardStepGroup):
+    """A wizard step group gathering contact information about the customer"""
 
 class IContactInformationStep(IWizardStep):
     """A wizard step gathering contact information about the customer"""
     
-class IPaymentProcessorStep(IWizardStep):
+    
+    
+class IPaymentProcessorChoiceStep(IWizardStep):
     """A wizard step asking to choose a payment processor"""
     
-class IPaymentDetailsStep(IWizardStep):
-    """A wizard step collecting details about the payment with the chosen 
-    payment processor"""
+class IPaymentProcessorDetailsStep(IWizardStep):
+    """A wizard step asking for details regarding the payment processor"""
+    
+class IPaymentProcessorStepGroup(IWizardStepGroup):
+    """A wizard step group gathering contact information about the payment processor"""
+    
 
 class IOrderReviewStep(IWizardStep):
     """A wizard step asking the customer to review the order and payment
     details and confirm the order."""
+
 
 
 # ------------------------------------------------------
@@ -75,21 +93,34 @@ class IShopConfiguration(Interface):
     shop_name = schema.TextLine(title=_(u"label_shop_name", default=u"Enter the shop name"),
                                   required=True)
 
-    payment_processor = schema.Choice(title=_(u"label_payment_processor", default=u"Payment processor"),
-        vocabulary=SimpleVocabulary(
-            [SimpleTerm(value=u'invoice', title=_(u'label_invoice', default=u'Invoice')),
-             SimpleTerm(value=u'adminpay', title=_(u'label_adminpay', default=u'AdminPay')),
-             SimpleTerm(value=u'creditcard', title=_(u'label_creditcard', default=u'Credit Card'))]
-            ),
-        required=True)
+    payment_processors = schema.List(title=_(u"label_payment_processors", default="Payment Processors"),
+                                      value_type=schema.Choice(vocabulary="ftw.shop.payment_processors"),
+                                    )
 
-    contact_info_step = schema.Choice(title=_(u"label_contact_info_step", default="Contact Information Step"),
-                                      vocabulary="ftw.shop.contact_info_steps",
+    contact_info_step_group = schema.Choice(title=_(u"label_contact_info_step_group", default="Contact Information Step Group"),
+                                      vocabulary="ftw.shop.contact_info_step_groups",
                                       required=True)
+    
+
+class IDefaultPaymentProcessorChoice(Interface):
+    """Schema defining a choice from available payment processors
+    """
+    payment_processor = schema.Choice(title=_(u"label_payment_processor", default="Payment Processor"),
+                                      vocabulary="ftw.shop.payment_processors",
+                                      required=True,
+                                    )
+    
+class IDefaultPaymentProcessorDetails(Interface):
+    """Schema defining details for a chosen payment processor
+    """
+    details = schema.TextLine(title=_(u"label_payment_processor_details", default="Payment Processor Details"),
+                                      required=True,
+                                    )
 
 
-class ICustomerInformation(Interface):
-    """Schema defining a common customer address form
+
+class IDefaultContactInformation(Interface):
+    """Schema defining a common contact address form
     """
     title= schema.TextLine(
       title=_(u'label_title', default=u'Title'),
@@ -141,11 +172,4 @@ class ICustomerInformation(Interface):
       title=_(u'label_comments', default=u'Comments'),
       required=False)
 
-
-class IEmployeeNumber(Interface):
-    """Schema defining a form to enter an employee number
-    """
-    number= schema.TextLine(
-        title=_(u'label_employee_number', default=u'Employee Number'),
-        required=True)
 

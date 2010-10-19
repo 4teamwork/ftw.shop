@@ -38,22 +38,33 @@
   <include package="archetypes.schemaextender" />
 
   <adapter 
-      name="ftw.shop.CustomerInformationStep"
-      factory="ftw.shop.browser.checkout.CustomerInfoStep"
-      provides="ftw.shop.interfaces.IContactInformationStep"
+      name="ftw.shop.DefaultContactInformationStepGroup"
+      factory="ftw.shop.browser.checkout.DefaultContactInfoStepGroup"
     />
 
   <adapter 
-    name="ftw.shop.EmployeeNumberStep"
-    factory="ftw.shop.browser.checkout.EmployeeNumberStep"
-    provides="ftw.shop.interfaces.IContactInformationStep"
+      name="ftw.shop.DefaultPaymentProcessorStepGroup"
+      factory="ftw.shop.browser.checkout.DefaultPaymentProcessorStepGroup"
     />
-    
+
+  <adapter 
+      name="ftw.shop.InvoicePaymentProcessor"
+      factory="ftw.shop.browser.checkout.InvoicePaymentProcessor"
+    />
+
+
     <!-- Contact Information Steps Vocabulary -->
     <utility
         provides="zope.schema.interfaces.IVocabularyFactory"
-        name="ftw.shop.contact_info_steps"
-        component=".vocabularies.ContactInfoSteps"
+        name="ftw.shop.contact_info_step_groups"
+        component=".vocabularies.ContactInfoStepGroups"
+        />
+        
+    <!-- Payment Processors Vocabulary -->
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="ftw.shop.payment_processors"
+        component=".vocabularies.PaymentProcessors"
         />
         
   <adapter 

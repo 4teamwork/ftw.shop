@@ -197,6 +197,14 @@
     template="templates/thankyou.pt"
     permission="zope2.View"
   />
+  
+    <browser:page
+    for="*"
+    name="external-payment-processor"
+    permission="zope2.View"
+    class=".checkout.ExternalPaymentProcessorView"
+    />
+    
 
   <browser:resourceDirectory
     name='ftw-shop-resources'

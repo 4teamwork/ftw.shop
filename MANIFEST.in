@@ -1,2 +1,2 @@
-recursive-include amnesty *
+recursive-include ftw *
 global-exclude *pyc

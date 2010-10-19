@@ -5,6 +5,8 @@ from zope.component import getUtility
 from zope.app.pagetemplate import viewpagetemplatefile
 from zope.interface import implements, Interface
 
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.registry.interfaces import IRegistry
 
 from z3c.form import field, button
@@ -13,35 +15,76 @@ from plone.z3cform.layout import FormWrapper
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopConfiguration
-from ftw.shop.interfaces import ICustomerInformation, IEmployeeNumber
+from ftw.shop.interfaces import IDefaultContactInformation
 from ftw.shop.interfaces import IContactInformationStep
+from ftw.shop.interfaces import IContactInformationStepGroup
+from ftw.shop.interfaces import IPaymentProcessor
+from ftw.shop.interfaces import IPaymentProcessorChoiceStep
+from ftw.shop.interfaces import IPaymentProcessorDetailsStep
+from ftw.shop.interfaces import IPaymentProcessorStepGroup
+
+from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
+from ftw.shop.interfaces import IDefaultPaymentProcessorDetails
 
 
-class CustomerInfoStep(wizard.Step):
+class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
-    adapts(Interface, Interface, Interface)
     prefix = 'step1'
-    label = _(u"label_customer_info_step", default="Customer Information")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/customerinfo.pt')
-    description = _(u'help_customer_info_step', default=u"")
-    fields = field.Fields(ICustomerInformation)
+    label = _(u"label_default_contact_info_step", default="Default Contact Information")
+    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultcontactinfo.pt')
+    description = _(u'help_default_contact__info_step', default=u"")
+    fields = field.Fields(IDefaultContactInformation)
 
 
-class EmployeeNumberStep(wizard.Step):
-    implements(IContactInformationStep)
+class DefaultContactInfoStepGroup(object):
+    implements(IContactInformationStepGroup)
     adapts(Interface, Interface, Interface)
-    prefix = 'step1'
-    label = _(u"label_employee_number_step", default="Employee Number")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/employee_number.pt')
-    description = _(u'help_employee_number_step', default=u"")
-    fields = field.Fields(IEmployeeNumber)
+    steps = (DefaultContactInfoStep,)
+    
+    def __init__(self, context, request, foo):
+        pass
 
-
-class SummaryStep(wizard.Step):
+class DefaultPaymentProcessorChoiceStep(wizard.Step):
+    implements(IPaymentProcessorChoiceStep)
+    prefix = 'payment_processor_choice'
+    label = _(u"label_default_payment_processor_choice_step", default="Default Payment Processor Choice")
+    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultpaymentprocessorchoice.pt')
+    description = _(u'help_default_payment_processor_choice_step', default=u"")
+    fields = field.Fields(IDefaultPaymentProcessorChoice)
+    
+class DefaultPaymentProcessorDetailsStep(wizard.Step):
+    implements(IPaymentProcessorDetailsStep)
     prefix = 'step2'
-    label = _(u'label_summary_step', default="Order Summary")
-    description = _(u'help_summary_step', default=u'')
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/summary.pt')
+    label = _(u"label_default_payment_processor_details_step", default="Default Payment Processor Details")
+    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultpaymentprocessordetails.pt')
+    description = _(u'help_default_payment_processor_details_step', default=u"")
+    fields = field.Fields(IDefaultPaymentProcessorDetails)
+
+
+class DefaultPaymentProcessorStepGroup(object):
+    implements(IPaymentProcessorStepGroup)
+    adapts(Interface, Interface, Interface)
+    steps = (DefaultPaymentProcessorChoiceStep, DefaultPaymentProcessorDetailsStep)
+    
+    def __init__(self, context, request, foo):
+        pass
+    
+class InvoicePaymentProcessor(object):
+    implements(IPaymentProcessor)
+    adapts(Interface, Interface, Interface)
+    
+    external = False
+    url = None
+    
+    def __init__(self, context, request, foo):
+        pass
+
+
+class OrderReviewStep(wizard.Step):
+    prefix = 'step3'
+    label = _(u'label_order_review_step', default="Order Review")
+    description = _(u'help_order_review_step', default=u'')
+    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/order_review.pt')
 
 
 
@@ -53,20 +96,38 @@ class CheckoutWizard(wizard.Wizard):
         super(CheckoutWizard, self).__init__(context, request)
         self.context = context
         self.request = request
-
-
+        
+    def getSelectedPaymentProcessor(self):
+        payment_processor = None
+        try:
+            payment_processor_name = self.session['payment_processor_choice']['payment_processor']
+        except KeyError:
+            payment_processor_name = self.request.SESSION['payment_processor_choice']['payment_processor']
+        for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
+            if name == payment_processor_name:
+                payment_processor = adapter
+        return payment_processor
+        
     @property
     def steps(self):
-        step1 = None
-        contact_info_steps = getAdapters((self.context, self.request, self,), IContactInformationStep)
+        contact_info_steps = ()
+        contact_info_step_groups = getAdapters((self.context, self.request, self,), IContactInformationStepGroup)
+        payment_processor_step_groups = getAdapters((self.context, self.request, self,), IPaymentProcessorStepGroup)
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IShopConfiguration)
-        selected_contact_info_step = settings.contact_info_step
+        selected_contact_info_step_group = settings.contact_info_step_group
         
-        for name, step_adapter in contact_info_steps:
-            if name == selected_contact_info_step:
-                step1 = step_adapter.__class__
-        return (step1, SummaryStep)
+        for name, step_group_adapter in contact_info_step_groups:
+            if name == selected_contact_info_step_group:
+                contact_info_steps = step_group_adapter.steps
+                
+        selected_payment_processor_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"        
+        for name, step_group_adapter in payment_processor_step_groups:
+            if name == selected_payment_processor_step_group:
+                payment_processor_steps = step_group_adapter.steps
+                
+
+        return contact_info_steps + payment_processor_steps + (OrderReviewStep, )
 
 
     @button.buttonAndHandler(_(u'btn_back', default="Back"),
@@ -127,22 +188,23 @@ class CheckoutWizard(wizard.Wizard):
             self.finished = True
         self.currentStep.applyChanges(data)
         self.finish()
-
-        #req = self.request
-        #session = self.session
-        #step1Form = session['step1']
-        #step2Form = session['step2']
-        #context = aq_inner(self.context)
-        #title = step1Form.get('title', 'N/A')
-
+        
         self.request.SESSION['customer_data'] = {}
         self.request.SESSION['customer_data'].update(self.session['step1'])
         self.request.SESSION['order_confirmation'] = True
+        self.request.SESSION['payment_processor_choice'] = {}
+        self.request.SESSION['payment_processor_choice'].update(self.session['payment_processor_choice'])
 
         self.request.SESSION[self.sessionKey] = {}
         self.sync()
-
-        self.request.response.redirect('checkout')
+        
+        pp = self.getSelectedPaymentProcessor()
+        if pp.external:
+            self.request.SESSION['external-processor-url'] = pp.url
+            self.request.SESSION['external-processor-url'] = "http://localhost:8077/"
+            self.request.response.redirect('external-payment-processor')
+        else:
+            self.request.response.redirect('checkout')
 
 class CheckoutView(FormWrapper):
     #layout = ViewPageTemplateFile("templates/layout.pt")
@@ -154,3 +216,7 @@ class CheckoutView(FormWrapper):
         request['cart_view'] = cart_view
         FormWrapper.__init__(self, context, request)
 
+class ExternalPaymentProcessorView(BrowserView):
+    """Redirects to an external payment processor
+    """
+    __call__ = ViewPageTemplateFile('templates/checkout/external.pt')
