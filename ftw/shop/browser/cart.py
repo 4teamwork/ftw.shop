@@ -1,4 +1,4 @@
-import json
+import simplejson
 from zope.component import getAdapters, getMultiAdapter
 from ftw.shop.interfaces import IPaymentProcessor
 from Acquisition import aq_inner
@@ -34,7 +34,7 @@ class CartView(BrowserView):
         """ % (translate(status_msg_label), 
                translate(status_msg_text))
 
-        return json.dumps(dict(portlet_html=portlet_template(self), 
+        return simplejson.dumps(dict(portlet_html=portlet_template(self), 
                     status_message=status_message))
 
 

@@ -60,6 +60,7 @@ setup(name='ftw.shop',
         'collective.z3cform.wizard',
         'collective.remove.kss',
         'plone.app.registry',
+        'simplejson'
 #        'Products.ATCountryWidget',
       ],
       tests_require=tests_require,
