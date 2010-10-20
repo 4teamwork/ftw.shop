@@ -1,5 +1,5 @@
 import json
-from zope.component import getAdapters
+from zope.component import getAdapters, getMultiAdapter
 from ftw.shop.interfaces import IPaymentProcessor
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
@@ -266,7 +266,9 @@ class CartView(BrowserView):
         else:
             #self.request.SESSION.invalidate()
             self.request.SESSION['order_id'] = order_id
-            self.request.response.redirect('%s/external-payment-processor' % url)
+            pp_launch_page = 'external-payment-processor'
+            pp_launch_page = payment_processor.launch_page
+            self.request.response.redirect('%s/%s' % (url, pp_launch_page))
             return
             
 
