@@ -60,12 +60,20 @@
         component=".vocabularies.ContactInfoStepGroups"
         />
         
-    <!-- Payment Processors Vocabulary -->
+    <!-- Installed Payment Processors Vocabulary -->
     <utility
         provides="zope.schema.interfaces.IVocabularyFactory"
         name="ftw.shop.payment_processors"
         component=".vocabularies.PaymentProcessors"
         />
+        
+    <!-- ENABLED Payment Processors Vocabulary -->
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="ftw.shop.enabled_payment_processors"
+        component=".vocabularies.EnabledPaymentProcessors"
+        />
+        
         
   <adapter 
       name="ftw.shop.extender.ShopItemExtender"
