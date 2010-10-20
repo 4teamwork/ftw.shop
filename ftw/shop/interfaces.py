@@ -99,7 +99,7 @@ class IShopConfiguration(Interface):
     
 
 class IDefaultPaymentProcessorChoice(Interface):
-    """Schema defining a choice from available payment processors
+    """Schema defining a customer choice from enabled payment processors
     """
     payment_processor = schema.Choice(
             title=_(u"label_payment_processor", default="Payment Processor"),
@@ -135,7 +135,7 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_email', default=u'Email'),
             required=True)
 
-    street = schema.TextLine(
+    street1 = schema.TextLine(
             title=_(u'label_street', default=u'Street/No.'),
             required=True)
 

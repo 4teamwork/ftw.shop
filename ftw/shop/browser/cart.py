@@ -1,4 +1,6 @@
 import json
+from zope.component import getAdapters
+from ftw.shop.interfaces import IPaymentProcessor
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -232,6 +234,14 @@ class CartView(BrowserView):
         ptool = getToolByName(context, 'plone_utils')
         url = context.absolute_url()
         
+        # Get the payment processor selected by the customer
+        payment_processor = None
+        payment_processor_name = context.REQUEST.SESSION['payment_processor_choice']['payment_processor']
+        for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
+            if name == payment_processor_name:
+                payment_processor = adapter
+
+        
         # check if we have something in the cart
         items = self.cart_items()
         if not items:
@@ -248,10 +258,17 @@ class CartView(BrowserView):
         except MissingOrderConfirmation:
             self.request.response.redirect('%s/checkout-wizard' % url)
             return
+        
+        if not payment_processor.external:
+            self.request.SESSION.invalidate()
+            self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
+            return
+        else:
+            #self.request.SESSION.invalidate()
+            self.request.SESSION['order_id'] = order_id
+            self.request.response.redirect('%s/external-payment-processor' % url)
+            return
             
-        self.request.SESSION.invalidate()
-        self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
-        return
 
     def shop_url(self):
         """ return the root url of the shop folder.

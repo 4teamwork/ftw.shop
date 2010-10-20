@@ -13,6 +13,7 @@ from z3c.form import field, button
 from collective.z3cform.wizard import wizard
 from plone.z3cform.layout import FormWrapper
 
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IDefaultContactInformation
@@ -29,7 +30,7 @@ from ftw.shop.interfaces import IDefaultPaymentProcessorDetails
 
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
-    prefix = 'step1'
+    prefix = 'contact_information'
     label = _(u"label_default_contact_info_step", default="Default Contact Information")
     index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultcontactinfo.pt')
     description = _(u'help_default_contact__info_step', default=u"")
@@ -189,8 +190,8 @@ class CheckoutWizard(wizard.Wizard):
         self.currentStep.applyChanges(data)
         self.finish()
         
-        self.request.SESSION['customer_data'] = {}
-        self.request.SESSION['customer_data'].update(self.session['step1'])
+        self.request.SESSION[SESSION_ADDRESS_KEY] = {}
+        self.request.SESSION[SESSION_ADDRESS_KEY].update(self.session['contact_information'])
         self.request.SESSION['order_confirmation'] = True
         self.request.SESSION['payment_processor_choice'] = {}
         self.request.SESSION['payment_processor_choice'].update(self.session['payment_processor_choice'])
@@ -202,9 +203,8 @@ class CheckoutWizard(wizard.Wizard):
         if pp.external:
             self.request.SESSION['external-processor-url'] = pp.url
             self.request.SESSION['external-processor-url'] = "http://localhost:8077/"
-            self.request.response.redirect('external-payment-processor')
-        else:
-            self.request.response.redirect('checkout')
+
+        self.request.response.redirect('checkout')
 
 class CheckoutView(FormWrapper):
     #layout = ViewPageTemplateFile("templates/layout.pt")

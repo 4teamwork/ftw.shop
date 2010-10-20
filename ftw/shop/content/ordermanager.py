@@ -1,11 +1,13 @@
 from AccessControl import ClassSecurityInfo
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
 from ftw.shop.config import PROJECTNAME
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY 
 from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 from DateTime import DateTime
 from email import message_from_string
 from email.Header import Header
 from email.Utils import formataddr
+
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATBTreeFolder
 from Products.ATContentTypes.content.folder import ATBTreeFolderSchema
@@ -56,9 +58,9 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         # check for cart
         cart_view = getMultiAdapter((self, self.REQUEST), name=u'cart_view')
         cart_data = cart_view.cart_items()
-                
+       
         # check for customer data
-        customer_data = session.get('customer_data', {})
+        customer_data = session.get(SESSION_ADDRESS_KEY, {})
         if not customer_data:
             raise MissingCustomerInformation
         

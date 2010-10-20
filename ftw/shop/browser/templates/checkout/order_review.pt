@@ -7,11 +7,11 @@
       
       <h2 i18n:translate="label_personal_information">Personal Information</h2>
 
-      <ul style="list-style:none" tal:define="customer python:view.wizard.session['step1'];">
+      <ul style="list-style:none" tal:define="customer python:view.wizard.session['contact_information'];">
                                               
           <li tal:content="customer/title"></li>
           <li tal:content="python:customer['firstname'] + ' ' + customer['lastname'] "></li>
-          <li tal:content="customer/street"></li>
+          <li tal:content="customer/street1"></li>
           <li tal:content="customer/street2"></li>
           <li tal:content="python:str(customer['zipcode']) + ' ' + customer['city']"></li>
           <li tal:content="customer/country|nothing"></li>

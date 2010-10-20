@@ -17,4 +17,9 @@ CURRENCIES = DisplayList((
 #      ('EUR', 'Eur'), # Euros
 ))
 
+SESSION_ORDERS_KEY = 'ftw.shop.orders'
+SESSION_ADDRESS_KEY = 'ftw.shop.customer_data'
+SESSION_ERRORS_KEY = 'ftw.shop.errors'
+
+
 CATEGORY_RELATIONSHIP = 'shop_category'
