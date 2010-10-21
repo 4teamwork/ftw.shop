@@ -13,9 +13,8 @@ except ImportError:
 
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
-from zope.app.form.browser import MultiSelectWidget
 
-from plone.app.z3cform.layout import wrap_form, FormWrapper
+from plone.app.z3cform.layout import wrap_form
 
 class ShopConfigurationForm(RegistryEditForm):
     """Configuration form for the ftw.shop configlet
