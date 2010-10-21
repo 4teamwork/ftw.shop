@@ -1,6 +1,7 @@
 from zope.formlib import form
 
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+#from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from plone.app.registry.browser import controlpanel
 
