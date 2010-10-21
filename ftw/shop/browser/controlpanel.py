@@ -1,7 +1,7 @@
 from zope.formlib import form
 
-#from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+#from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 from plone.app.registry.browser import controlpanel
 
@@ -19,12 +19,16 @@ class ShopConfigurationForm(controlpanel.RegistryEditForm):
     schema = IShopConfiguration
     form_fields = form.Fields(IShopConfiguration)
     label = _(u'label_shop_configuration', default=u"Shop configuration")
-    template = ViewPageTemplateFile('templates/controlpanel.pt')
        
     def updateFields(self):
         super(ShopConfigurationForm, self).updateFields()
 
     def updateWidgets(self):
         super(ShopConfigurationForm, self).updateWidgets()
-        
+
+# BBB: For Plone3 compatibility, we need to override the template
+# on the form wrapper, not the form itself, and use zope2's
+# ViewPageTemplateFile, not zope3's
+# See http://plone.org/products/dexterity/documentation/error/rendering-a-form-fails-with-attributeerror-str-object-has-no-attribute-other
 ShopConfigurationView = wrap_form(ShopConfigurationForm)
+ShopConfigurationView.template = ViewPageTemplateFile('templates/controlpanel.pt')
