@@ -32,7 +32,6 @@ class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
     prefix = 'contact_information'
     label = _(u"label_default_contact_info_step", default="Default Contact Information")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultcontactinfo.pt')
     description = _(u'help_default_contact__info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
 
@@ -49,7 +48,6 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     implements(IPaymentProcessorChoiceStep)
     prefix = 'payment_processor_choice'
     label = _(u"label_default_payment_processor_choice_step", default="Default Payment Processor Choice")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultpaymentprocessorchoice.pt')
     description = _(u'help_default_payment_processor_choice_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
     
@@ -57,7 +55,6 @@ class DefaultPaymentProcessorDetailsStep(wizard.Step):
     implements(IPaymentProcessorDetailsStep)
     prefix = 'step2'
     label = _(u"label_default_payment_processor_details_step", default="Default Payment Processor Details")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/defaultpaymentprocessordetails.pt')
     description = _(u'help_default_payment_processor_details_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorDetails)
 

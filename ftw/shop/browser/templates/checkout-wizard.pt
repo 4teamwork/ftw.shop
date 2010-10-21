@@ -49,6 +49,8 @@
             <span class="action" tal:repeat="action view/actions/values">
               <input type="submit" tal:replace="structure action/render"/>
             </span>
+        </div>
+
       </form>
 
   </tal:form>

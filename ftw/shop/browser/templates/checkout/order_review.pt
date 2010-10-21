@@ -1,8 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
+<tal:block 
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.shop">       
-  <body>
+
       <h1 i18n:translate="label_summary">Summary</h1>
       
       <h2 i18n:translate="label_personal_information">Personal Information</h2>
@@ -57,5 +56,5 @@
       <tal:block tal:define="payment_processor view/wizard/getSelectedPaymentProcessor">
       	<div tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
 	  </tal:block>    
-    </body>
-</html>
+
+</tal:block>
