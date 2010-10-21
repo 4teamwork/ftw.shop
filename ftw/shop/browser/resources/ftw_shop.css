@@ -70,7 +70,7 @@ ul.wizard-steps li {
 
 /* link inside the tab. uses a background image */
 ul.wizard-steps a {
-	background-color:#efefef;
+/*	background-color:#efefef;*/
 	color:#777;
 }
 

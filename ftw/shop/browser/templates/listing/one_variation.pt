@@ -1,6 +1,7 @@
              <!-- One Variation -->
              <tal:block tal:define="item options/item;
-             						varConf item/varConf">
+             						varConf item/varConf"
+             			i18n:domain="ftw.shop">
                  <div class="variation-toplevel-group"
                         tal:condition="python:len(varConf.getVariationAttributes()) == 1">
                      <table>

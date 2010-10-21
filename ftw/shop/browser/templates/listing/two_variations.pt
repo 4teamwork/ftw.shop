@@ -1,6 +1,7 @@
             <!-- Two Variations -->
             <tal:block tal:define="item options/item;
-            					   varConf item/varConf">
+            					   varConf item/varConf"
+            		   i18n:domain="ftw.shop">
                 <div class="variation-toplevel-group" tal:repeat="varValue1 varConf/getVariation1Values"
                     tal:condition="python:len(varConf.getVariationAttributes()) > 1">
                 <h2 tal:content="varValue1">Red</h2>

@@ -1,7 +1,8 @@
 			<!-- Two Variation Attributes -->
             <tal:block tal:define="item options/item;
          						   varConf item/varConf;
-         						   normalizeString nocall: context/@@plone/normalizeString">
+         						   normalizeString nocall: context/@@plone/normalizeString"
+         				i18n:domain="ftw.shop">
 	            <div class="variation-toplevel-group" 
 	                 tal:condition="python:item['hasVariations'] and len(varConf.getVariationAttributes()) > 1" 
 				     tal:define="varConf item/varConf">
