@@ -20,12 +20,14 @@ CART_KEY = 'shop_cart_items'
 class CartView(BrowserView):
     """
     """
+    portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
+    
     def addtocart_ajax(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
         """ Add item to cart, return portlet HTML and translated status message
         """
         self._addtocart(skuCode, quantity, var1choice, var2choice)
         translate = self.context.translate
-        portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
+        
         status_msg_label = _(u'msg_label_info', default=u"Information")
         status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
         status_message = """
@@ -33,8 +35,9 @@ class CartView(BrowserView):
             <dd>%s</dd>
         """ % (translate(status_msg_label), 
                translate(status_msg_text))
+        
 
-        return simplejson.dumps(dict(portlet_html=portlet_template(self), 
+        return simplejson.dumps(dict(portlet_html=self.portlet_template(), 
                     status_message=status_message))
 
 
