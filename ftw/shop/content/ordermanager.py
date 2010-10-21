@@ -128,17 +128,30 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         mhost = self.MailHost
         mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
         msg_body = mail_view()
-        msg = message_from_string(msg_body.encode('utf-8'))
-        msg.set_charset('utf-8')
-        msg['BCC']= Header(mailBcc)
+
         try:
+            # Plone 4
+            msg = message_from_string(msg_body.encode('utf-8'))
+            msg['BCC']= Header(mailBcc)
+            msg.set_charset('utf-8')
             mhost.send(msg,
                          mto=mailTo,
                          mfrom=mailFrom,
                          subject=mailSubject,
                          encode=None,
+                         immediate=False,
                          msg_type='text/html',
                          charset='utf8')
+        except TypeError:
+            # BBB: For Plone 3
+            mhost.secureSend(msg_body,
+                             mto=mailTo,
+                             mfrom=mailFrom,
+                             subject=mailSubject,
+                             mbcc=mailBcc,
+                             subtype='html',
+                             charset='utf-8')
+            
         except (MailHostError, socket.error), e:
             logger.error("sending mail for order %s failed: %s." % (order.getOrderNumber(),str(e)))
 
