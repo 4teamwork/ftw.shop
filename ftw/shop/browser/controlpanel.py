@@ -8,6 +8,8 @@ from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
 from zope.app.form.browser import MultiSelectWidget
 
+from plone.app.z3cform.layout import wrap_form, FormWrapper
+
 
 class ShopConfigurationForm(controlpanel.RegistryEditForm):
     """Configuration form for the ftw.shop configlet
@@ -24,3 +26,5 @@ class ShopConfigurationForm(controlpanel.RegistryEditForm):
 
     def updateWidgets(self):
         super(ShopConfigurationForm, self).updateWidgets()
+        
+ShopConfigurationView = wrap_form(ShopConfigurationForm)

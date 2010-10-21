@@ -164,7 +164,7 @@
   <browser:page
     for="Products.CMFPlone.Portal.PloneSite"
     name="shop-configuration"
-    class=".controlpanel.ShopConfigurationForm"
+    class=".controlpanel.ShopConfigurationView"
     permission="cmf.ManagePortal"
      />
 
