@@ -137,7 +137,6 @@ class OrderManager(UniqueObject, ATBTreeFolder):
                          mfrom=mailFrom,
                          subject=mailSubject,
                          encode=None,
-                         immediate=False,
                          msg_type='text/html',
                          charset='utf8')
         except (MailHostError, socket.error), e:
