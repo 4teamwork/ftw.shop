@@ -31,7 +31,7 @@ from ftw.shop.interfaces import IDefaultPaymentProcessorDetails
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
     prefix = 'contact_information'
-    label = _(u"label_default_contact_info_step", default="Default Contact Information")
+    label = _(u"label_default_contact_info_step", default="Contact Information")
     description = _(u'help_default_contact__info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
 
@@ -47,22 +47,22 @@ class DefaultContactInfoStepGroup(object):
 class DefaultPaymentProcessorChoiceStep(wizard.Step):
     implements(IPaymentProcessorChoiceStep)
     prefix = 'payment_processor_choice'
-    label = _(u"label_default_payment_processor_choice_step", default="Default Payment Processor Choice")
+    label = _(u"label_default_payment_processor_choice_step", default="Payment Processor")
     description = _(u'help_default_payment_processor_choice_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
     
-class DefaultPaymentProcessorDetailsStep(wizard.Step):
-    implements(IPaymentProcessorDetailsStep)
-    prefix = 'step2'
-    label = _(u"label_default_payment_processor_details_step", default="Default Payment Processor Details")
-    description = _(u'help_default_payment_processor_details_step', default=u"")
-    fields = field.Fields(IDefaultPaymentProcessorDetails)
+#class DefaultPaymentProcessorDetailsStep(wizard.Step):
+#    implements(IPaymentProcessorDetailsStep)
+#    prefix = 'step2'
+#    label = _(u"label_default_payment_processor_details_step", default="Payment Processor Details")
+#    description = _(u'help_default_payment_processor_details_step', default=u"")
+#    fields = field.Fields(IDefaultPaymentProcessorDetails)
 
 
 class DefaultPaymentProcessorStepGroup(object):
     implements(IPaymentProcessorStepGroup)
     adapts(Interface, Interface, Interface)
-    steps = (DefaultPaymentProcessorChoiceStep, DefaultPaymentProcessorDetailsStep)
+    steps = (DefaultPaymentProcessorChoiceStep,)
     
     def __init__(self, context, request, foo):
         pass

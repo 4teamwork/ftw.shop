@@ -32,3 +32,69 @@
 variations fieldset legend {
     font-size: 120%;
 }
+
+
+.clearer {
+	clear: both;}
+
+/* root element for tabs  */
+ul.wizard-steps {  
+	margin:0 !important; 
+	padding:0;
+	height:30px;
+	border-bottom:1px solid #666;	
+	font-site: 90%; 	
+}
+
+/* single tab */
+ul.wizard-steps li {  
+	float:left;	 
+	padding:0; 
+	margin:0;  
+	list-style-type:none;
+
+	float:left;
+	font-size:13px;
+	display:block;
+	padding:5px 10px;	
+	text-decoration:none;
+	border:1px solid #666;	
+	border-bottom:0px;
+	height:18px;
+	margin-right:2px;
+	position:relative;
+	top:1px;	
+	outline:0;
+	-moz-border-radius:4px 4px 0 0;	
+}
+
+/* link inside the tab. uses a background image */
+ul.wizard-steps a {
+	background-color:#efefef;
+	color:#777;
+}
+
+ul.wizard-steps a:hover {
+	background-color:#F7F7F7;
+	color:#333;
+}
+	
+/* selected tab */
+ul.wizard-steps li.selected {
+	background-color:#eee;
+	border-bottom:1px solid #eee;	
+	color:#000;	
+	cursor:default;
+}
+
+/* tab pane */
+.tab-pane {
+	border:1px solid #666;
+	border-width:0 1px 1px 1px;
+	min-height:150px;
+	padding:15px 20px;
+	background-color:#eee;	
+}
+
+
+
