@@ -12,9 +12,7 @@ from ftw.shop.exceptions import MissingCustomerInformation, \
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.root import get_shop_root_object
 
-
-
-CART_KEY = 'shop_cart_items'
+from ftw.shop.config import CART_KEY
 
 
 class CartView(BrowserView):
