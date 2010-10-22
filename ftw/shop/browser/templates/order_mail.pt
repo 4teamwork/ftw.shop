@@ -7,7 +7,8 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="customer context/getCustomerData;
-                  cart context/getCartData;">
+                  cart context/getCartData;
+                  shop_config context/getShopConfig">
 
 <p>
     <span i18n:translate="txt_title">Dear</span>
@@ -90,7 +91,7 @@ Thank you for your order in our shop on the
 
 <p i18n:translate="txt_contact">
 For inquiries please contact us: 
-Phone 999 99 99 99, E-Mail <a href="mailto:example@example.org">example@example.org</a>
+Phone <span i18n:name="phone" tal:content="shop_config/shop_phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
 </p>
 
 </body>

@@ -7,6 +7,10 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from zope.interface import implements
+from zope.component import getUtility
+
+from plone.registry.interfaces import IRegistry
+from ftw.shop.interfaces import IShopConfiguration
 
 OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -35,6 +39,11 @@ class ShopOrder(base.ATCTContent):
     def getCustomerData(self):
         if hasattr(self, '_customer_data'):
             return self._customer_data
+        
+    def getShopConfig(self):
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+        return shop_config
 
     def setCartData(self, data):
         self._cart_data = PersistentMapping(data)

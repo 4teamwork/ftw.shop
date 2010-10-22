@@ -84,7 +84,17 @@ class IShopConfiguration(Interface):
 
     shop_name = schema.TextLine(
             title=_(u"label_shop_name", default=u"Enter the shop name"),
-            required=True)
+            required=True,
+            default=u"Webshop")
+
+    shop_email = schema.TextLine(
+            title=_(u"label_shop_email", default=u"Sender e-Mail Address"),
+            required=True,
+            default=u"webshop@example.org")
+
+    shop_phone = schema.TextLine(
+            title=_(u"label_shop_phone", default=u"Shop Phone Number"),
+            required=False)
 
     enabled_payment_processors = schema.List(
             title=_(u"label_enabled_payment_processors", 
