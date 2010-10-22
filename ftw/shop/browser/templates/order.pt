@@ -28,7 +28,7 @@
             <span tal:replace="customer/firstname" />
             <span tal:replace="customer/lastname" /><br />
                 
-            <span tal:replace="customer/street" /><br />
+            <span tal:replace="customer/street1" /><br />
                 
             <tal:block condition="customer/street2">
             <span tal:replace="customer/street2" /><br />
