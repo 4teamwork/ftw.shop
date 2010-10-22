@@ -19,6 +19,9 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
+    
+    <h2 i18n:translate="title_order_status">Status</h2>
+    <p tal:content="context/status"></p>
 
     <h2 i18n:translate="title_personal_information">Personal Information</h2>
             
