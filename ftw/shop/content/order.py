@@ -11,6 +11,7 @@ from zope.component import getUtility
 
 from plone.registry.interfaces import IRegistry
 from ftw.shop.interfaces import IShopConfiguration
+from ftw.shop.config import ONLINE_PENDING_KEY
 
 OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -21,6 +22,12 @@ OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
             label=_(u'label_total', default=u"Total"),
             description=_(u"")
         ),
+    ),
+    
+    atapi.IntegerField(
+        'status',
+        required=True,
+        default = ONLINE_PENDING_KEY
     ),
 ))
 
