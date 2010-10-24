@@ -92,6 +92,9 @@
     handler=".content.shopcategory.object_initialized_handler"
     />
 
+  <adapter
+      factory="ftw.shop.mailer.MailHostAdapter"
+    />
   <!-- -*- extra stuff goes here -*- -->
   <i18n:registerTranslations directory="locales"/> 
 

@@ -5,6 +5,14 @@ from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 
 
+class IMailHostAdapter(Interface):
+    """Adapter to abstract Plone 3 and Plone 4 MailHosts
+    """
+    def send(self, messageText, mto=None, mfrom=None, subject=None, 
+             encode=None, immediate=False, charset=None, msg_type=None):
+        """Send mail.
+        """
+
 class IShopRoot(Interface):
     """Marker interface for shop root folder."""
 

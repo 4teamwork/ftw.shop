@@ -1,4 +1,3 @@
-from Acquisition import aq_inner
 from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
 from zope.component import getUtility
