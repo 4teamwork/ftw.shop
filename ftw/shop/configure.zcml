@@ -95,6 +95,11 @@
   <adapter
       factory="ftw.shop.mailer.MailHostAdapter"
     />
+
+  <adapter
+  factory=".converter.IntegerDataConverter"
+  />
+
   <!-- -*- extra stuff goes here -*- -->
   <i18n:registerTranslations directory="locales"/> 
 

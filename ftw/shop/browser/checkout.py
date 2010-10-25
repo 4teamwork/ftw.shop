@@ -46,7 +46,6 @@ class DefaultContactInfoStep(wizard.Step):
             self.fields['street1'].field.default = contact_information['street1']
             self.fields['street2'].field.default = contact_information['street2']
             self.fields['phone'].field.default = contact_information['phone']
-            import pdb; pdb.set_trace()
             self.fields['zipcode'].field.default = contact_information['zipcode']
             self.fields['city'].field.default = contact_information['city']
             self.fields['country'].field.default = contact_information['country']
