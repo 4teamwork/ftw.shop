@@ -29,16 +29,13 @@ class MailHostAdapter(object):
         """Send mail.
         """
         mhost = self.context.MailHost
-        
-        msg = message_from_string(msg_body.encode(charset))
-        msg.set_charset(charset)
-        msg['BCC']= Header(mbcc)
-
-        subtype = msg_type.split('/')[1]
 
         try:
             # Plone 4
+            msg = message_from_string(msg_body.encode(charset))
             msg.set_charset(charset)
+            msg['BCC']= Header(mbcc)
+
             mhost.send(msg,
                          mto=mto,
                          mfrom=mfrom,
@@ -49,6 +46,8 @@ class MailHostAdapter(object):
                          charset=charset)
         except TypeError:
             # Plone 3 or earlier
+            subtype = msg_type.split('/')[1]
+            
             mhost.secureSend(msg_body,
                              mto=mto,
                              mfrom=mfrom,
