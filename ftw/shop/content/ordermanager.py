@@ -1,21 +1,24 @@
-from AccessControl import ClassSecurityInfo
-from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
-from ftw.shop.config import PROJECTNAME
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY 
-from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
+import logging
 from DateTime import DateTime
 from email import message_from_string
 from email.Header import Header
 from email.Utils import formataddr
 
-from ftw.shop.interfaces import IMailHostAdapter
-
+from AccessControl import ClassSecurityInfo
+from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATBTreeFolder
 from Products.ATContentTypes.content.folder import ATBTreeFolderSchema
 from Products.CMFCore.utils import UniqueObject, getToolByName
-from zope.component import getMultiAdapter
-import logging
+from plone.registry.interfaces import IRegistry
+from zope.component import getMultiAdapter, getUtility
+
+from ftw.shop.config import PROJECTNAME
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
+from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
+from ftw.shop.interfaces import IMailHostAdapter
+from ftw.shop.interfaces import IShopConfiguration
+
 logger  = logging.getLogger('ftw.shop')
 
 schema = atapi.Schema((
@@ -110,31 +113,31 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         customer = order.getCustomerData()
         
         fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
-        mailTo = formataddr((fullname, customer.get('email')))
-        mailFrom = 'no_reply@4teamwork.ch'
-        mailSubject = '4teamwork Webshop'
 
-        # get values from properties
         ltool = getToolByName(self, 'portal_languages')
         lang = ltool.getPreferredLanguage()
-        properties = getToolByName(self, 'portal_properties', None)
-        shop_props = getattr(properties, 'shop_properties', None)
-        mailBcc = ''
-        if shop_props is not None:
-            mailFrom = shop_props.getProperty('mail_from', mailFrom)
-            mailBcc = shop_props.getProperty('mail_bcc', mailBcc)
-            mailSubject = shop_props.getProperty('mail_subject_%s' % lang, mailSubject)
+
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+
+        mailTo = formataddr((fullname, customer.get('email')))
+
+        if shop_config is not None:
+            mailFrom = shop_config.shop_email
+            mailBcc = getattr(shop_config, 'mail_bcc', '')
+            shop_name = shop_config.shop_name
+            mailSubject = getattr(shop_config, 'mail_subject_%s' % lang)
+            if not mailSubject:
+                mailSubject = '%s Webshop' % shop_name
 
         mhost = IMailHostAdapter(self)
         mail_view = getMultiAdapter((order,order.REQUEST), name=u'mail_view')
         msg_body = mail_view()
 
-        msg = message_from_string(msg_body.encode('utf-8'))
-        msg['BCC']= Header(mailBcc)
-        msg.set_charset('utf-8')
-        mhost.send(msg,
+        mhost.send(msg_body,
                      mto=mailTo,
                      mfrom=mailFrom,
+                     mbcc=mailBcc,
                      subject=mailSubject,
                      encode=None,
                      immediate=False,

@@ -8,9 +8,9 @@ from zope.viewlet.interfaces import IViewletManager
 class IMailHostAdapter(Interface):
     """Adapter to abstract Plone 3 and Plone 4 MailHosts
     """
-    def send(self, messageText, mto=None, mfrom=None, subject=None, 
+    def send(self, msg_body, mto=None, mfrom=None, mbcc=None, subject=None, 
              encode=None, immediate=False, charset=None, msg_type=None):
-        """Send mail.
+        """Abstract sending mail with Plone 3 and Plone 4.
         """
 
 class IShopRoot(Interface):
@@ -99,6 +99,21 @@ class IShopConfiguration(Interface):
             title=_(u"label_shop_email", default=u"Sender e-Mail Address"),
             required=True,
             default=u"webshop@example.org")
+
+    mail_bcc = schema.TextLine(
+            title=_(u"label_mail_bcc", default=u"BCC Address"),
+            required=False,
+            default=u"")
+
+    mail_subject_de = schema.TextLine(
+            title=_(u"label_mail_subject_de", default=u"Order Mail Subject (Deutsch)"),
+            required=False,
+            default=u"")
+
+    mail_subject_en = schema.TextLine(
+            title=_(u"label_mail_subject_en", default=u"Order Mail Subject (English"),
+            required=False,
+            default=u"")
 
     shop_phone = schema.TextLine(
             title=_(u"label_shop_phone", default=u"Shop Phone Number"),

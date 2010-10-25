@@ -24,7 +24,7 @@ class MailHostAdapter(object):
     def __init__(self, context):
         self.context = context
 
-    def send(self, messageText, mto=None, mfrom=None, subject=None, 
+    def send(self, msg_body, mto=None, mfrom=None, mbcc=None, subject=None, 
              encode=None, immediate=False, charset=None, msg_type=None):
         """Send mail.
         """
@@ -32,10 +32,12 @@ class MailHostAdapter(object):
         
         # msg can be the message with or without headers, or an
         # email.Message.Message object 
-        msg = messageText
-        msg_body = msg.as_string()
+        msg_body
         
-        mbcc = str(msg.get('BCC', None))
+        msg = message_from_string(msg_body.encode(charset))
+        msg.set_charset(charset)
+        msg['BCC']= Header(mbcc)
+
         subtype = msg_type.split('/')[1]
 
         try:
