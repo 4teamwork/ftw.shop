@@ -30,10 +30,6 @@ class MailHostAdapter(object):
         """
         mhost = self.context.MailHost
         
-        # msg can be the message with or without headers, or an
-        # email.Message.Message object 
-        msg_body
-        
         msg = message_from_string(msg_body.encode(charset))
         msg.set_charset(charset)
         msg['BCC']= Header(mbcc)
