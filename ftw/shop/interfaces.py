@@ -70,10 +70,10 @@ class IContactInformationStep(IWizardStep):
     
 class IPaymentProcessorChoiceStep(IWizardStep):
     """A wizard step asking to choose a payment processor"""
-    
-class IPaymentProcessorDetailsStep(IWizardStep):
-    """A wizard step asking for details regarding the payment processor"""
-    
+
+#class IPaymentProcessorDetailsStep(IWizardStep):
+#    """A wizard step asking for details regarding the payment processor"""
+
 class IPaymentProcessorStepGroup(IWizardStepGroup):
     """A wizard step group gathering contact information about the payment processor"""
     
@@ -140,15 +140,6 @@ class IDefaultPaymentProcessorChoice(Interface):
             title=_(u"label_payment_processor", default="Payment Processor"),
             vocabulary="ftw.shop.enabled_payment_processors",
             required=True)
-    
-class IDefaultPaymentProcessorDetails(Interface):
-    """Schema defining details for a chosen payment processor
-    """
-    details = schema.TextLine(
-            title=_(u"label_payment_processor_details", 
-                    default="Payment Processor Details"),
-            required=True)
-
 
 
 class IDefaultContactInformation(Interface):

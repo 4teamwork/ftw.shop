@@ -20,19 +20,42 @@ from ftw.shop.interfaces import IContactInformationStep
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
-from ftw.shop.interfaces import IPaymentProcessorDetailsStep
+#from ftw.shop.interfaces import IPaymentProcessorDetailsStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
 from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
-from ftw.shop.interfaces import IDefaultPaymentProcessorDetails
 
 
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
     prefix = 'contact_information'
     label = _(u"label_default_contact_info_step", default="Contact Information")
-    description = _(u'help_default_contact__info_step', default=u"")
+    description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
+
+    def __init__(self, context, request, wiz):
+        super(wizard.Step, self).__init__(context, request)
+        self.wizard = wiz
+        if SESSION_ADDRESS_KEY in request.SESSION.keys():
+            # Prefill the contact data form with values from session
+            contact_information = request.SESSION[SESSION_ADDRESS_KEY]
+            self.fields['title'].field.default = contact_information['title']
+            self.fields['firstname'].field.default = contact_information['firstname']
+            self.fields['lastname'].field.default = contact_information['lastname']
+            self.fields['email'].field.default = contact_information['email']
+            self.fields['street1'].field.default = contact_information['street1']
+            self.fields['street2'].field.default = contact_information['street2']
+            self.fields['phone'].field.default = contact_information['phone']
+            import pdb; pdb.set_trace()
+            self.fields['zipcode'].field.default = contact_information['zipcode']
+            self.fields['city'].field.default = contact_information['city']
+            self.fields['country'].field.default = contact_information['country']
+            self.fields['newsletter'].field.default = contact_information['newsletter']
+
+    def updateWidgets(self):
+        super(DefaultContactInfoStep, self).updateWidgets()
+        self.widgets['zipcode'].size = 5
+
 
 
 class DefaultContactInfoStepGroup(object):
@@ -50,6 +73,7 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     description = _(u'help_default_payment_processor_choice_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
     
+
 #class DefaultPaymentProcessorDetailsStep(wizard.Step):
 #    implements(IPaymentProcessorDetailsStep)
 #    prefix = 'step2'
@@ -93,6 +117,7 @@ class CheckoutWizard(wizard.Wizard):
         super(CheckoutWizard, self).__init__(context, request)
         self.context = context
         self.request = request
+
         
     def getSelectedPaymentProcessor(self):
         payment_processor = None

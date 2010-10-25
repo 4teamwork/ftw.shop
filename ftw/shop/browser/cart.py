@@ -13,7 +13,7 @@ from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.root import get_shop_root_object
 
 from ftw.shop.config import CART_KEY
-
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
 
 class CartView(BrowserView):
     """
@@ -124,6 +124,7 @@ class CartView(BrowserView):
         # store cart in session    
         cart_items[skuCode] = item
         session[CART_KEY] = cart_items
+        session['foobar'] = 'barfoo'
         
 
     def cart_items(self):
@@ -261,7 +262,15 @@ class CartView(BrowserView):
             return
         
         if not payment_processor.external:
+            #import pdb; pdb.set_trace()
+            customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
             self.request.SESSION.invalidate()
+
+            # Get a new session object, since the old one still returns
+            # stale data even though it has been invalidated
+            session = context.session_data_manager.getSessionData()
+            session[SESSION_ADDRESS_KEY] = customer_info
+
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:
