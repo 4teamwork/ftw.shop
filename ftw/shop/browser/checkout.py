@@ -1,3 +1,7 @@
+import base64
+import simplejson
+from datetime import datetime, timedelta
+
 from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
 from zope.component import getUtility
@@ -12,7 +16,7 @@ from z3c.form import field, button
 from collective.z3cform.wizard import wizard
 from plone.z3cform.layout import FormWrapper
 
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, COOKIE_ADDRESS_KEY
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IDefaultContactInformation
@@ -36,20 +40,25 @@ class DefaultContactInfoStep(wizard.Step):
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
-        if SESSION_ADDRESS_KEY in request.SESSION.keys():
-            # Prefill the contact data form with values from session
-            contact_information = request.SESSION[SESSION_ADDRESS_KEY]
-            self.fields['title'].field.default = contact_information['title']
-            self.fields['firstname'].field.default = contact_information['firstname']
-            self.fields['lastname'].field.default = contact_information['lastname']
-            self.fields['email'].field.default = contact_information['email']
-            self.fields['street1'].field.default = contact_information['street1']
-            self.fields['street2'].field.default = contact_information['street2']
-            self.fields['phone'].field.default = contact_information['phone']
-            self.fields['zipcode'].field.default = contact_information['zipcode']
-            self.fields['city'].field.default = contact_information['city']
-            self.fields['country'].field.default = contact_information['country']
-            self.fields['newsletter'].field.default = contact_information['newsletter']
+        PREFILL_FIELDS = ['title', 'firstname', 'lastname', 'email', 'street1',
+                          'street2', 'phone', 'zipcode', 'city', 'country', 
+                          'newsletter']
+        
+        if COOKIE_ADDRESS_KEY in request:
+            # Prefill contact data with values from cookie
+            cookie_data = simplejson.loads(base64.b64decode(request[COOKIE_ADDRESS_KEY]))
+            for key in cookie_data.keys():
+                if isinstance(cookie_data[key], basestring):
+                    cookie_data[key] = unicode(cookie_data[key])
+                    
+            for fieldname in PREFILL_FIELDS:
+                self.fields[fieldname].field.default = cookie_data[fieldname]
+            
+        elif SESSION_ADDRESS_KEY in request.SESSION.keys():
+            # Prefill contact data form with values from session
+            contact_info = request.SESSION[SESSION_ADDRESS_KEY]
+            for fieldname in PREFILL_FIELDS:
+                self.fields[fieldname].field.default = contact_info[fieldname]
 
     def updateWidgets(self):
         super(DefaultContactInfoStep, self).updateWidgets()
@@ -215,6 +224,13 @@ class CheckoutWizard(wizard.Wizard):
         self.request.SESSION['order_confirmation'] = True
         self.request.SESSION['payment_processor_choice'] = {}
         self.request.SESSION['payment_processor_choice'].update(self.session['payment_processor_choice'])
+
+        # Save contact information in a cookie to prefill form if customer returns
+        cookie_value = base64.b64encode(simplejson.dumps(self.session['contact_information']))
+        expiry_date = (datetime.now() + timedelta(days=90)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
+        self.request.RESPONSE.setCookie(COOKIE_ADDRESS_KEY, 
+                                        cookie_value, 
+                                        expires=expiry_date)
 
         self.request.SESSION[self.sessionKey] = {}
         self.sync()

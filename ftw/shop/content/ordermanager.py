@@ -106,7 +106,6 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         Can be used if initial sending of order mail failed for some reason.
         """
         order = getattr(self, str(orderid))
-        import pdb; pdb.set_trace()
         
         customer = order.getCustomerData()
         
