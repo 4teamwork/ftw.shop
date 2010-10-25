@@ -173,7 +173,7 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_phone_number', default=u'Phone number'),
             required=True)
 
-    zipcode = schema.Int(
+    zipcode = schema.TextLine(
             title=_(u'label_zipcode', default=u'Zip Code'),
             required=True)
 
