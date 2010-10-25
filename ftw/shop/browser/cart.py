@@ -262,7 +262,6 @@ class CartView(BrowserView):
             return
         
         if not payment_processor.external:
-            #import pdb; pdb.set_trace()
             customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
             self.request.SESSION.invalidate()
 

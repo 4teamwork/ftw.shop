@@ -95,11 +95,8 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         order.setCartData(cart_data)
         order.setTotal(cart_view.cart_total())
 
-        # now send a mail confirming the order
-        self.sendOrderMail(order_id)
-
         noSecurityManager()
-        
+
         return order_number
 
     security.declareProtected("Manage", 'sendOrderMail')
@@ -109,6 +106,7 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         Can be used if initial sending of order mail failed for some reason.
         """
         order = getattr(self, str(orderid))
+        import pdb; pdb.set_trace()
         
         customer = order.getCustomerData()
         
@@ -147,10 +145,15 @@ class OrderManager(UniqueObject, ATBTreeFolder):
 
     security.declareProtected("View", 'getOrderById')
     def getOrderById(self, order_id):
-        '''
-        Return an Order by its order id.
-        '''
+        """Return an Order by its order id.
+        """
+        return self._getOb(str(order_id), None)
 
+    security.declareProtected("View", 'getOrderByNumber')
+    def getOrderByNumber(self, order_number):
+        """Return an Order by its order number.
+        """
+        order_id = int(order_number[-4:])
         return self._getOb(str(order_id), None)
     
 
@@ -160,12 +163,5 @@ class OrderManager(UniqueObject, ATBTreeFolder):
         self.setNext_order_id(nextid)
         return currid
 
-def getRfcHeaderValue(value):
-    header = None
-    try:
-        header = Header(value, 'ascii')
-    except:
-        header = Header(value, 'iso-8859-1')
-    return str(header)
 
 atapi.registerType(OrderManager, PROJECTNAME)
