@@ -8,7 +8,7 @@ from zope.viewlet.interfaces import IViewletManager
 class IMailHostAdapter(Interface):
     """Adapter to abstract Plone 3 and Plone 4 MailHosts
     """
-    def send(self, msg_body, mto=None, mfrom=None, mbcc=None, subject=None, 
+    def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None, 
              encode=None, immediate=False, charset=None, msg_type=None):
         """Abstract sending mail with Plone 3 and Plone 4.
         """

@@ -24,7 +24,7 @@ class MailHostAdapter(object):
     def __init__(self, context):
         self.context = context
 
-    def send(self, msg_body, mto=None, mfrom=None, mbcc=None, subject=None, 
+    def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None, 
              encode=None, immediate=False, charset=None, msg_type=None):
         """Send mail.
         """
