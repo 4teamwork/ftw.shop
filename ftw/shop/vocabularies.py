@@ -42,7 +42,7 @@ def EnabledPaymentProcessors(context):
     payment_processors = getAdapters((context, None, context,), IPaymentProcessor)
     registry = getUtility(IRegistry)
     shop_config = registry.forInterface(IShopConfiguration)
-    
+
     processor_names = []
     processor_titles = []
     items = []
