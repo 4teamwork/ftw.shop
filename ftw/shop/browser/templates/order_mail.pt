@@ -6,9 +6,9 @@
       i18n:domain="ftw.shop">
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
-      tal:define="customer context/getCustomerData;
-                  cart context/getCartData;
-                  shop_config context/getShopConfig">
+      tal:define="customer context/customer_info;
+                  cart context/cart_contents;
+                  shop_config context/shop_config">
 
 <p>
     <span i18n:translate="txt_title">Dear</span>
@@ -17,7 +17,7 @@
 
 <p i18n:translate="txt_thankyou">
 Thank you for your order in our shop on the
-<span i18n:name="date" tal:replace="python:here.toLocalizedTime(context.ModificationDate(), long_format=0)"></span>
+<span i18n:name="date" tal:replace="context/date"></span>
 </p>
 
 <h3 i18n:translate="header_orderdetails">Details of your order</h3>
@@ -84,7 +84,7 @@ Thank you for your order in our shop on the
 
 <br/>
 <span i18n:translate="txt_total">Total amount of this order</span>:
-<b tal:content="context/getTotal" />
+<b tal:content="context/total" />
 <span i18n:translate="txt_vat">(incl. VAT)</span>
 <br />
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>

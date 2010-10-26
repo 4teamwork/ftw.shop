@@ -68,6 +68,14 @@
     permission="zope2.View"
     template="templates/order.pt"
     />
+    
+   <!-- Order Manager View --> 
+  <browser:page
+    for="*"
+    name="order_manager"
+    permission="zope2.View"
+    class=".ordermanager.OrderManagerView"
+    />
  
   <!-- mail template for order -->
   <browser:page

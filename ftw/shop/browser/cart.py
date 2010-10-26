@@ -11,9 +11,11 @@ from ftw.shop.exceptions import MissingCustomerInformation, \
     MissingOrderConfirmation
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.root import get_shop_root_object
-
+from ftw.shop.model.order import Order
 from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
+from ftw.shop.utils import create_session
+import transaction
 
 class CartView(BrowserView):
     """
@@ -249,9 +251,8 @@ class CartView(BrowserView):
         if not items:
             ptool.addPortalMessage(_(u'msg_no_cart', default=u"Can't proceed with empty cart."), 'error')
             self.request.response.redirect(url)
-            
-        omanager = getToolByName(context, 'portal_ordermanager')
-        order_id = ''
+
+        omanager = getMultiAdapter((context, self.request), name=u'order_manager')
         try:
             order_id = omanager.addOrder()
         except MissingCustomerInformation:
@@ -269,7 +270,9 @@ class CartView(BrowserView):
             # stale data even though it has been invalidated
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
-
+            
+            omanager = getMultiAdapter((context, self.request), name=u'order_manager')
+            omanager.sendOrderMail(order_id)
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:

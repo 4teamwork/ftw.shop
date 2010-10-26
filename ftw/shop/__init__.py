@@ -5,7 +5,7 @@ from zope.i18nmessageid import MessageFactory
 from ftw.shop import config
 
 from Products.Archetypes import atapi
-from Products.CMFCore import utils
+import Products.CMFCore.utils
 from Products.CMFCore.permissions import setDefaultRoles
 
 # Define a message factory for when this product is internationalised.
@@ -43,7 +43,7 @@ def initialize(context):
     # in the GenericSetup profile.
 
     for atype, constructor in zip(content_types, constructors):
-        utils.ContentInit('%s: %s' % (config.PROJECTNAME, atype.portal_type),
+        Products.CMFCore.utils.ContentInit('%s: %s' % (config.PROJECTNAME, atype.portal_type),
             content_types      = (atype,),
             permission         = config.ADD_PERMISSIONS[atype.portal_type],
             extra_constructors = (constructor,),

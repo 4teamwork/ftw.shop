@@ -1,7 +1,29 @@
 from Products.CMFCore.utils import getToolByName
+from z3c.saconfig import named_scoped_session
+from z3c.saconfig.interfaces import IScopedSession
+from zope.component import queryUtility
+
+from ftw.dictstorage.sql import DictStorageModel
+
+from ftw.shop.utils import create_session
+from ftw.shop.model.order import Order
 
 # The profile id of your package:
 PROFILE_ID = 'profile-ftw.shop:default'
+
+MODELS = [Order, DictStorageModel]
+
+def create_sql_tables():
+    """Creates the sql tables for the models.
+    """
+
+    session = create_session()
+    for model in MODELS:
+        getattr(model, 'metadata').create_all(session.bind)
+
+
+def FtwShopSessionName(object):
+    return named_scoped_session('ftw.shop')
 
 
 def import_various(context):
@@ -11,4 +33,5 @@ def import_various(context):
     if context.readDataFile('ftw_shop-default.txt') is None:
         return
     site = context.getSite()
-    pass
+    if queryUtility(IScopedSession, 'ftw.shop'):
+        create_sql_tables()
