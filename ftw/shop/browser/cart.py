@@ -270,7 +270,7 @@ class CartView(BrowserView):
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
             
-            omanager.sendOrderMail(order_id)
+            omanager.sendOrderMail(str(int(order_id[-4:])))
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:
