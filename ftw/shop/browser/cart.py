@@ -269,7 +269,8 @@ class CartView(BrowserView):
             # stale data even though it has been invalidated
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
-
+            
+            omanager.sendOrderMail(order_id)
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:
