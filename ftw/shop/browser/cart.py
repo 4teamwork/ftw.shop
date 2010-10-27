@@ -271,12 +271,8 @@ class CartView(BrowserView):
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
             
-<<<<<<< HEAD
-            omanager = getMultiAdapter((context, self.request), name=u'order_manager')
-            omanager.sendOrderMail(order_id)
-=======
             omanager.sendOrderMail(str(int(order_id[-4:])))
->>>>>>> master
+
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:
