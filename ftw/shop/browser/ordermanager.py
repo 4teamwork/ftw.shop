@@ -8,20 +8,15 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
-from plone.memoize import instance
 from Acquisition import aq_inner
-from AccessControl import ClassSecurityInfo
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
 import transaction
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
-from ftw.shop.config import CATEGORY_RELATIONSHIP
-from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.utils import create_session
 from ftw.shop.model.order import Order
-from ftw.shop.config import PROJECTNAME
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
@@ -72,7 +67,8 @@ class OrderManagerView(BrowserView):
 
         # calc order number
         now  = DateTime()
-        order_number = '%03d%s%04d' % (now.dayOfYear()+500, now.yy(), order_id )
+        order_prefix = '%03d%s%' % (now.dayOfYear() + 500, now.yy())
+        order_number = '%s04d' (order_prefix, order_id)
         order.title = order_number
  
         # store customer data
@@ -102,7 +98,7 @@ class OrderManagerView(BrowserView):
         
         fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
 
-        ltool = getToolByName(self, 'portal_languages')
+        ltool = getToolByName(self.context, 'portal_languages')
         lang = ltool.getPreferredLanguage()
 
         registry = getUtility(IRegistry)
