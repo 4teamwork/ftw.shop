@@ -68,7 +68,7 @@ class OrderManagerView(BrowserView):
         # calc order number
         now  = DateTime()
         order_prefix = '%03d%s' % (now.dayOfYear() + 500, now.yy())
-        order_number = '%s%04d' (order_prefix, order_id)
+        order_number = '%s%04d' % (order_prefix, order_id)
         order.title = order_number
  
         # store customer data
