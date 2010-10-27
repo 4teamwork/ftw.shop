@@ -28,7 +28,7 @@ def PaymentProcessors(context):
         processor_names.append(unicode(n))
         processor_titles.append(a.title)
         
-    for i in range(0, len(processor_names) - 1):
+    for i in range(0, len(processor_names)):
         items.append(tuple([processor_names[i], processor_titles[i]]))
         
     terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
@@ -50,7 +50,7 @@ def EnabledPaymentProcessors(context):
         processor_names.append(unicode(n))
         processor_titles.append(a.title)
 
-    for i in range(0, len(processor_names) - 1):
+    for i in range(0, len(processor_names)):
         if processor_names[i] in shop_config.enabled_payment_processors:
             items.append(tuple([processor_names[i], processor_titles[i]]))
     terms = [ SimpleTerm(value=pair[0], token=pair[0], title=pair[1]) for pair in items ]
