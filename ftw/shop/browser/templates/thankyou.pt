@@ -5,18 +5,6 @@
 
 	<metal:main fill-slot="main">
 		<tal:main-macro metal:define-macro="main">
-		
-		    <ul class="wizard-steps">    
-		        <li class="wizard-step-link" i18n:translate="label_customer_information">
-		            Customer Information
-		        </li>
-		        <li class="wizard-step-link" i18n:translate="label_summary">
-		            Summary
-		        </li>
-		        <li class="wizard-step-link selected" i18n:translate="label_confirmation">
-		            Confirmation
-		        </li>
-		    </ul>
 		    
 		    <h1 i18n:translate="msg_thank_you_title">Thank you!</h1>
 		
