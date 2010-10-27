@@ -35,7 +35,7 @@ class FancyRadioWidget(widget.HTMLInputWidget, SequenceWidget):
     """Input type radio widget implementation."""
     zope.interface.implementsOnly(IFancyRadioWidget)
 
-    klass = u'radio-widget'
+    klass = u'fancy-radio-widget'
     items = ()
 
     def isChecked(self, term):
