@@ -99,7 +99,7 @@ class InvoicePaymentProcessor(object):
     external = False
     url = None
     title = "Gegen Rechnung"
-    fancy_image = """<img src="http://www.spiel-ideen.ch/shop-spiel-ideen/Media/Shop/ShopTextMedia/pic-einzahlungsschein.gif" width="114" height="31"/>"""
+    fancy_image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
     fancy_label = """<em>Bezahlung gegen Rechnung</em>"""
     
     def __init__(self, context, request, foo):
