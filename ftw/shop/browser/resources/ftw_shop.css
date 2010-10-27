@@ -100,5 +100,10 @@ ul.wizard-steps li.selected {
 	color: #eee !important;
 }
 
+table.padded-table td, table.padded-table th {
+	padding-left: 10px;
+	padding-right: 10px
+}
+
 
 

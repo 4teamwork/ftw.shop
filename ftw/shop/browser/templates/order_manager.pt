@@ -8,9 +8,9 @@
 <body>
 
 <metal:main fill-slot="main">
-	<table>
+	<table class="padded-table">
 	<thead>
-		<th>ID</th><th>Title</th><th>Status</th><th>Total</th><th>Cart</th><th>Customer</th>
+		<th>ID</th><th>Title</th><th>Status</th><th>Total</th><th>Cart</th><th>Customer</th><th>Date</th>
 	</thead>
 	<tbody>
 		<tr tal:repeat="order view/getOrders">
@@ -21,6 +21,7 @@
 			<td><span tal:condition="order/cart_contents" tal:content="python:'%s items' % len(order.cart_contents)"/></td>
 			<td tal:define="customer string:${order/customer_info/firstname|nothing} ${order/customer_info/lastname|nothing}" 
 			    tal:content="customer"/>
+			<td tal:content="order/date"/>
 		</tr>
 	</tbody>
 	

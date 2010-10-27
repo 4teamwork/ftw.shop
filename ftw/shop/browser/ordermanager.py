@@ -1,5 +1,6 @@
 import logging
 from DateTime import DateTime
+from datetime import datetime
 from email import message_from_string
 from email.Header import Header
 from email.Utils import formataddr
@@ -70,6 +71,8 @@ class OrderManagerView(BrowserView):
         order_prefix = '%03d%s' % (now.dayOfYear() + 500, now.yy())
         order_number = '%s%04d' % (order_prefix, order_id)
         order.title = order_number
+        
+        order.date = datetime.now()
  
         # store customer data
         order.customer_info = customer_data
