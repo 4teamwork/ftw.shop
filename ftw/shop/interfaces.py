@@ -3,6 +3,7 @@ from plone.theme.interfaces import IDefaultPloneLayer
 from zope import schema
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
+from z3c.form.interfaces import ISequenceWidget
 
 
 class IMailHostAdapter(Interface):
@@ -195,3 +196,6 @@ class IDefaultContactInformation(Interface):
     comments = schema.Text(
             title=_(u'label_comments', default=u'Comments'),
             required=False)
+    
+class IFancyRadioWidget(ISequenceWidget):
+    """Radio widget with fancy labels."""

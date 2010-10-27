@@ -1,0 +1,122 @@
+===========
+RadioWidget
+===========
+
+The RadioWidget renders a radio input type field e.g. <input type="radio" />
+
+  >>> from zope.interface.verify import verifyClass
+  >>> from z3c.form import interfaces
+  >>> from z3c.form.browser import radio
+
+The RadioWidget is a widget:
+
+ >>> verifyClass(interfaces.IWidget, radio.RadioWidget)
+  True
+
+The widget can render a input field only by adapting a request:
+
+  >>> from z3c.form.testing import TestRequest
+  >>> request = TestRequest()
+  >>> widget = radio.RadioWidget(request)
+
+Set a name and id for the widget:
+
+  >>> widget.id = 'widget-id'
+  >>> widget.name = 'widget.name'
+
+Such a field provides IWidget:
+
+ >>> interfaces.IWidget.providedBy(widget)
+  True
+
+We also need to register the template for at least the widget and request:
+
+  >>> import os.path
+  >>> import zope.interface
+  >>> from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+  >>> from zope.pagetemplate.interfaces import IPageTemplate
+  >>> import z3c.form.browser
+  >>> import z3c.form.widget
+  >>> template = os.path.join(os.path.dirname(z3c.form.browser.__file__),
+  ...     'radio_input.pt')
+  >>> factory = z3c.form.widget.WidgetTemplateFactory(template)
+  >>> zope.component.provideAdapter(factory,
+  ...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+  ...     IPageTemplate, name='input')
+
+If we render the widget we only get the empty marker:
+
+  >>> print widget.render()
+  <input name="widget.name-empty-marker" type="hidden" value="1" />
+
+Let's provide some values for this widget. We can do this by defining a source
+providing ITerms. This source uses descriminators wich will fit for our setup.
+
+  >>> import zope.schema.interfaces
+  >>> import z3c.form.term
+  >>> from zc.sourcefactory.basic import BasicSourceFactory
+  >>> class YesNoSourceFactory(BasicSourceFactory):
+  ...     def getValues(self):
+  ...         return ['yes', 'no']
+  >>> class MyTerms(z3c.form.term.ChoiceTermsSource):
+  ...     def __init__(self, context, request, form, field, widget):
+  ...         self.terms = YesNoSourceFactory()
+  >>> zope.component.provideAdapter(z3c.form.term.BoolTerms,
+  ...     adapts=(zope.interface.Interface,
+  ...             interfaces.IFormLayer, zope.interface.Interface,
+  ...             zope.interface.Interface, interfaces.IRadioWidget))
+
+Now let's try if we get widget values:
+
+  >>> widget.update()
+  >>> print widget.render()
+  <span class="option">
+    <label for="widget-id-0">
+      <input type="radio" id="widget-id-0" name="widget.name:list"
+             class="radio-widget" value="true" />
+      <span class="label">yes</span>
+    </label>
+  </span><span class="option">
+    <label for="widget-id-1">
+      <input type="radio" id="widget-id-1" name="widget.name:list"
+             class="radio-widget" value="false" />
+      <span class="label">no</span>
+    </label>
+  </span>
+  <input name="widget.name-empty-marker" type="hidden" value="1" />
+
+If we set the value for the widget to ``yes``, we can se that the radio field
+get rendered with a checked flag:
+
+  >>> widget.value = 'true'
+  >>> widget.update()
+  >>> print widget.render()
+  <span class="option">
+    <label for="widget-id-0">
+      <input type="radio" id="widget-id-0" name="widget.name:list"
+             class="radio-widget" value="true" checked="checked" />
+      <span class="label">yes</span>
+    </label>
+  </span><span class="option">
+    <label for="widget-id-1">
+      <input type="radio" id="widget-id-1" name="widget.name:list"
+             class="radio-widget" value="false" />
+      <span class="label">no</span>
+    </label>
+  </span>
+  <input name="widget.name-empty-marker" type="hidden" value="1" />
+
+Check HIDDEN_MODE:
+
+  >>> template = os.path.join(os.path.dirname(z3c.form.browser.__file__),
+  ...     'radio_hidden.pt')
+  >>> factory = z3c.form.widget.WidgetTemplateFactory(template)
+  >>> zope.component.provideAdapter(factory,
+  ...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+  ...     IPageTemplate, name='hidden')
+
+  >>> widget.value = ['true']
+  >>> widget.mode = interfaces.HIDDEN_MODE
+  >>> print widget.render()
+  <input id="widget-id-0" name="widget.name:list" value="true" class="hidden-widget" type="hidden" />
+  

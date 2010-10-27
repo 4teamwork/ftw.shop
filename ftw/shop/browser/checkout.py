@@ -15,6 +15,7 @@ from plone.registry.interfaces import IRegistry
 from z3c.form import field, button
 from collective.z3cform.wizard import wizard
 from plone.z3cform.layout import FormWrapper
+from ftw.shop.browser.widgets.fancyradio import FancyRadioFieldWidget
 
 from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, COOKIE_ADDRESS_KEY
 from ftw.shop import shopMessageFactory as _
@@ -80,14 +81,7 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     label = _(u"label_default_payment_processor_choice_step", default="Payment Processor")
     description = _(u'help_default_payment_processor_choice_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
-    
-
-#class DefaultPaymentProcessorDetailsStep(wizard.Step):
-#    implements(IPaymentProcessorDetailsStep)
-#    prefix = 'step2'
-#    label = _(u"label_default_payment_processor_details_step", default="Payment Processor Details")
-#    description = _(u'help_default_payment_processor_details_step', default=u"")
-#    fields = field.Fields(IDefaultPaymentProcessorDetails)
+    fields['payment_processor'].widgetFactory = FancyRadioFieldWidget
 
 
 class DefaultPaymentProcessorStepGroup(object):
@@ -105,6 +99,8 @@ class InvoicePaymentProcessor(object):
     external = False
     url = None
     title = "Gegen Rechnung"
+    fancy_image = """<img src="http://www.spiel-ideen.ch/shop-spiel-ideen/Media/Shop/ShopTextMedia/pic-einzahlungsschein.gif" width="114" height="31"/>"""
+    fancy_label = """<em>Bezahlung gegen Rechnung</em>"""
     
     def __init__(self, context, request, foo):
         pass
