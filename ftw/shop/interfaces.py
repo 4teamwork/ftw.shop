@@ -123,7 +123,7 @@ class IShopConfiguration(Interface):
             title=_(u"label_enabled_payment_processors", 
                     default="Enabled Payment Processors"),
             required=False,
-            default=["ftw.shop.InvoicePaymentProcessor"],
+            default=[],
             value_type=schema.Choice(vocabulary="ftw.shop.payment_processors"),)
 
     contact_info_step_group = schema.Choice(

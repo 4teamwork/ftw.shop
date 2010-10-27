@@ -23,9 +23,9 @@
               <table>
               <thead>
               <tr>
-                <th></th><th></th><th>Price</th><th>Stock</th>
-                <th>SKU Code 
-                    <span class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                <th></th><th></th><th i18n:translate="label_price">Price</th><th i18n:translate="label_stock">Stock</th>
+                <th i18n:translate="label_sku_code_required">SKU code 
+                    <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
               </tr>
               </thead>
@@ -68,9 +68,9 @@
               <table>
               <thead>
               <tr>
-                <th></th><th></th><th>Price</th><th>Stock</th>
-                <th>SKU Code 
-                    <span class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                <th></th><th></th><th i18n:translate="label_price">Price</th><th i18n:translate="label_stock">Stock</th>
+                <th i18n:translate="label_sku_code_required">SKU code 
+                    <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
               </tr>
               </thead>

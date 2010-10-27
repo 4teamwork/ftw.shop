@@ -104,6 +104,7 @@ class InvoicePaymentProcessor(object):
     
     external = False
     url = None
+    title = "Gegen Rechnung"
     
     def __init__(self, context, request, foo):
         pass
