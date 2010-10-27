@@ -80,7 +80,7 @@
  
   <!-- mail template for order -->
   <browser:page
-    for="..interfaces.IShopOrder"
+    for="*"
     name="mail_view"
     permission="zope2.View"
     template="templates/order_mail.pt"

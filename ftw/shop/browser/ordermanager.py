@@ -115,8 +115,8 @@ class OrderManagerView(BrowserView):
                 mailSubject = '%s Webshop' % shop_name
 
         mhost = IMailHostAdapter(self.context)
-        mail_view = getMultiAdapter((order, self.context.REQUEST), name=u'mail_view')
-        msg_body = mail_view()
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST), name=u'mail_view')
+        msg_body = mail_view(order=order)
 
         mhost.send(msg_body,
                      mto=mailTo,
