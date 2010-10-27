@@ -8,6 +8,7 @@ from ftw.shop.interfaces import IShopOrder
 from zope.interface import implements
 from ftw.shop.config import ONLINE_PENDING_KEY
 from ftw.shop.interfaces import IShopConfiguration
+from decimal import Decimal, InvalidOperation
 
 Base = declarative_base()
 
@@ -38,6 +39,15 @@ class Order(Base):
         now = ZopeDateTime()
         order_number = '%03d%s%04d' % (now.dayOfYear()+500, now.yy(), order_id)
         return order_number
+    
+    def getTotal(self):
+        """Since SQLite doesn't support Decimal fields, trim the float it
+        returns to two decimal places and convert it to Decimal"""
+        f = self.total
+        try:
+            return Decimal(str(f)[:str(f).find('.') + 3])
+        except InvalidOperation:
+            return self.total
 
     def __repr__(self):
         return '<Order %s>' % self.order_id
