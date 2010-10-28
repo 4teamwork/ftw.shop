@@ -54,11 +54,13 @@
           </metal:block>
         </tbody>
       </table>
-
-      <p>&nbsp;</p>
       
       <tal:block tal:define="payment_processor view/wizard/getSelectedPaymentProcessor">
-      	<div tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
+	  <h2 i18n:translate="label_payment_processor">Payment Processor</h2>
+	  <img tal:replace="structure payment_processor/image" />
+	  <p tal:content="payment_processor/title"></p>
+      <p>&nbsp;</p>
+      <div i18n:translate="msg_external_redirect" tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
 	  </tal:block>    
 
 </tal:block>

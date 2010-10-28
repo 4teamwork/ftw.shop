@@ -354,6 +354,7 @@ msgid "label_order_review_step"
 msgstr "Bestellungsübersicht"
 
 #. Default: "Payment Processor"
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
 #: ./ftw/shop/interfaces.py:141
 msgid "label_payment_processor"
 msgstr "Zahlungsanbieter"
@@ -507,6 +508,11 @@ msgstr "Der Warenkorb wurde aktualisiert."
 #: ./ftw/shop/browser/manage_categories.py:24
 msgid "msg_categories_updated"
 msgstr "Kategorien wurden aktualisiert."
+
+#. Default: "You will now be redirected to an external site."
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:63
+msgid "msg_external_redirect"
+msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
 #. Default: "Added item to cart."
 #: ./ftw/shop/browser/cart.py:32

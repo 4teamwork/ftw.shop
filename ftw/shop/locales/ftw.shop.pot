@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-10-28 07:30+0000\n"
+"POT-Creation-Date: 2010-10-28 07:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -360,6 +360,7 @@ msgid "label_order_review_step"
 msgstr ""
 
 #. Default: "Payment Processor"
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
 #: ./ftw/shop/interfaces.py:141
 msgid "label_payment_processor"
 msgstr ""
@@ -512,6 +513,11 @@ msgstr ""
 #. Default: "Categories updated."
 #: ./ftw/shop/browser/manage_categories.py:24
 msgid "msg_categories_updated"
+msgstr ""
+
+#. Default: "You will now be redirected to an external site."
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:63
+msgid "msg_external_redirect"
 msgstr ""
 
 #. Default: "Added item to cart."
