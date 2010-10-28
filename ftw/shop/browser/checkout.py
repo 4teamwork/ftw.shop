@@ -13,6 +13,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.registry.interfaces import IRegistry
 
 from z3c.form import field, button
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from collective.z3cform.wizard import wizard
 from plone.z3cform.layout import FormWrapper
 from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
@@ -36,6 +37,7 @@ class DefaultContactInfoStep(wizard.Step):
     label = _(u"label_default_contact_info_step", default="Contact Information")
     description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
+    fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
 
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
