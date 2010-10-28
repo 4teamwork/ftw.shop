@@ -9,21 +9,19 @@ from zope.i18n import translate
 from zope.component import getAdapters
 
 from z3c.form import interfaces
-from z3c.form.widget import SequenceWidget, FieldWidget
+from z3c.form.widget import FieldWidget
 from z3c.form.browser import widget
+from z3c.form.browser.radio import RadioWidget
 
 from ftw.shop.interfaces import IPaymentProcessorWidget
 from ftw.shop.interfaces import IPaymentProcessor
 
-class PaymentProcessorWidget(widget.HTMLInputWidget, SequenceWidget):
+class PaymentProcessorWidget(RadioWidget):
     """Input type radio payment processor widget implementation."""
     zope.interface.implementsOnly(IPaymentProcessorWidget)
 
     klass = u'paymentprocessor-widget'
     items = ()
-
-    def isChecked(self, term):
-        return term.token in self.value
 
     def update(self):
         """See z3c.form.interfaces.IWidget."""

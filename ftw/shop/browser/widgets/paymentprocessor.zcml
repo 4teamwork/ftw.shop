@@ -16,17 +16,17 @@
       />
 
   <z3c:widgetTemplate
-      mode="display"
-      widget="ftw.shop.interfaces.IPaymentProcessorWidget"
-      layer="ftw.shop.interfaces.IFtwShopSpecific"
-      template="paymentprocessor_display.pt"
-      />
-
-  <z3c:widgetTemplate
       mode="input"
       widget="ftw.shop.interfaces.IPaymentProcessorWidget"
       layer="ftw.shop.interfaces.IFtwShopSpecific"
       template="paymentprocessor_input.pt"
+      />
+
+  <z3c:widgetTemplate
+      mode="display"
+      widget="ftw.shop.interfaces.IPaymentProcessorWidget"
+      layer="ftw.shop.interfaces.IFtwShopSpecific"
+      template="paymentprocessor_display.pt"
       />
 
   <z3c:widgetTemplate
