@@ -45,10 +45,10 @@
 	</span>
 	</td>
 	<td>
-		<span tal:replace="structure item/fancy_image">FancyImage</span>
+		<span tal:replace="structure item/image">FancyImage</span>
 	</td>
 	<td style="padding-bottom: 10px; padding-left: 15px">
-		<span class="fancy-label" tal:content="structure item/fancy_label">FancyLabel</span>
+		<span class="description" tal:content="structure item/description">Description</span>
 	</td>
 	</tr>
 	<input name="field-empty-marker" type="hidden" value="1"

@@ -3,37 +3,37 @@
     xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="z3c.form">
 
-  <class class=".fancyradio.FancyRadioWidget">
+  <class class=".paymentprocessor.PaymentProcessorWidget">
     <require
         permission="zope.Public"
-        interface="ftw.shop.interfaces.IFancyRadioWidget"
+        interface="ftw.shop.interfaces.IPaymentProcessorWidget"
         />
   </class>
 
   <adapter
-      factory=".fancyradio.FancyRadioFieldWidget"
+      factory=".paymentprocessor.PaymentProcessorFieldWidget"
       for="ftw.shop.interfaces.IFtwShopSpecific"
       />
 
   <z3c:widgetTemplate
       mode="display"
-      widget="ftw.shop.interfaces.IFancyRadioWidget"
+      widget="ftw.shop.interfaces.IPaymentProcessorWidget"
       layer="ftw.shop.interfaces.IFtwShopSpecific"
-      template="radio_display.pt"
+      template="paymentprocessor_display.pt"
       />
 
   <z3c:widgetTemplate
       mode="input"
-      widget="ftw.shop.interfaces.IFancyRadioWidget"
+      widget="ftw.shop.interfaces.IPaymentProcessorWidget"
       layer="ftw.shop.interfaces.IFtwShopSpecific"
-      template="radio_input.pt"
+      template="paymentprocessor_input.pt"
       />
 
   <z3c:widgetTemplate
       mode="hidden"
-      widget="ftw.shop.interfaces.IFancyRadioWidget"
+      widget="ftw.shop.interfaces.IPaymentProcessorWidget"
       layer="ftw.shop.interfaces.IFtwShopSpecific"
-      template="radio_hidden.pt"
+      template="paymentprocessor_hidden.pt"
       />
 
 </configure>

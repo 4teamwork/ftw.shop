@@ -1,25 +1,9 @@
-##############################################################################
-#
-# Copyright (c) 2007 Zope Foundation and Contributors.
-# All Rights Reserved.
-#
-# This software is subject to the provisions of the Zope Public License,
-# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
-# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
-# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
-# FOR A PARTICULAR PURPOSE.
-#
-##############################################################################
-"""Text Widget Implementation
-
-$Id: radio.py 78513 2007-07-31 23:03:47Z srichter $
+"""Payment Processor Widget Implementation
 """
 __docformat__ = "reStructuredText"
 
 import zope.component
 import zope.interface
-import zope.schema
 import zope.schema.interfaces
 from zope.i18n import translate
 from zope.component import getAdapters
@@ -28,14 +12,14 @@ from z3c.form import interfaces
 from z3c.form.widget import SequenceWidget, FieldWidget
 from z3c.form.browser import widget
 
-from ftw.shop.interfaces import IFancyRadioWidget
+from ftw.shop.interfaces import IPaymentProcessorWidget
 from ftw.shop.interfaces import IPaymentProcessor
 
-class FancyRadioWidget(widget.HTMLInputWidget, SequenceWidget):
-    """Input type radio widget implementation."""
-    zope.interface.implementsOnly(IFancyRadioWidget)
+class PaymentProcessorWidget(widget.HTMLInputWidget, SequenceWidget):
+    """Input type radio payment processor widget implementation."""
+    zope.interface.implementsOnly(IPaymentProcessorWidget)
 
-    klass = u'fancy-radio-widget'
+    klass = u'paymentprocessor-widget'
     items = ()
 
     def isChecked(self, term):
@@ -43,7 +27,7 @@ class FancyRadioWidget(widget.HTMLInputWidget, SequenceWidget):
 
     def update(self):
         """See z3c.form.interfaces.IWidget."""
-        super(FancyRadioWidget, self).update()
+        super(PaymentProcessorWidget, self).update()
         widget.addFieldClass(self)
         self.items = []
         payment_processors = dict(list(getAdapters((None, None, None), IPaymentProcessor)))
@@ -58,12 +42,12 @@ class FancyRadioWidget(widget.HTMLInputWidget, SequenceWidget):
             self.items.append(
                 {'id':id, 'name':self.name + ':list', 'value':term.token,
                  'label':label, 'checked':checked, 
-                 'fancy_image': payment_processors[term.token].fancy_image,
-                 'fancy_label': payment_processors[term.token].fancy_label})
+                 'image': payment_processors[term.token].image,
+                 'description': payment_processors[term.token].description})
 
 
 @zope.component.adapter(zope.schema.interfaces.IField, interfaces.IFormLayer)
 @zope.interface.implementer(interfaces.IFieldWidget)
-def FancyRadioFieldWidget(field, request):
-    """IFieldWidget factory for RadioWidget."""
-    return FieldWidget(field, FancyRadioWidget(request))
+def PaymentProcessorFieldWidget(field, request):
+    """IFieldWidget factory for PaymentProcessorWidget."""
+    return FieldWidget(field, PaymentProcessorWidget(request))

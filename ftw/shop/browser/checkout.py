@@ -15,7 +15,7 @@ from plone.registry.interfaces import IRegistry
 from z3c.form import field, button
 from collective.z3cform.wizard import wizard
 from plone.z3cform.layout import FormWrapper
-from ftw.shop.browser.widgets.fancyradio import FancyRadioFieldWidget
+from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 
 from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, COOKIE_ADDRESS_KEY
 from ftw.shop import shopMessageFactory as _
@@ -25,7 +25,6 @@ from ftw.shop.interfaces import IContactInformationStep
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
-#from ftw.shop.interfaces import IPaymentProcessorDetailsStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
 from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
@@ -81,7 +80,7 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     label = _(u"label_default_payment_processor_choice_step", default="Payment Processor")
     description = _(u'help_default_payment_processor_choice_step', default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
-    fields['payment_processor'].widgetFactory = FancyRadioFieldWidget
+    fields['payment_processor'].widgetFactory = PaymentProcessorFieldWidget
 
 
 class DefaultPaymentProcessorStepGroup(object):
@@ -99,8 +98,8 @@ class InvoicePaymentProcessor(object):
     external = False
     url = None
     title = "Gegen Rechnung"
-    fancy_image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
-    fancy_label = """<em>Bezahlung gegen Rechnung</em>"""
+    image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
+    description = """<em>Bezahlung gegen Rechnung</em>"""
     
     def __init__(self, context, request, foo):
         pass

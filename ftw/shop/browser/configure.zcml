@@ -4,7 +4,7 @@
     i18n_domain="ftw.shop">
 
   <include package="plone.app.contentmenu" />
-  <include package=".widgets" file="fancyradio.zcml"/>
+  <include package=".widgets" file="paymentprocessor.zcml"/>
 
 
   <!-- Shop Items --> 

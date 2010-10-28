@@ -197,5 +197,5 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_comments', default=u'Comments'),
             required=False)
     
-class IFancyRadioWidget(ISequenceWidget):
+class IPaymentProcessorWidget(ISequenceWidget):
     """Radio widget with fancy labels."""
