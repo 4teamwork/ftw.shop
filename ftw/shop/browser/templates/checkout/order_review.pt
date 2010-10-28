@@ -52,6 +52,10 @@
               <td tal:content="item/total"></td>
             </tr> 
           </metal:block>
+          <tr><td>&nbsp;</td></tr>
+          <tr>
+          <td><strong>Total</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
+          </tr>
         </tbody>
       </table>
       
@@ -60,7 +64,8 @@
 	  <img tal:replace="structure payment_processor/image" />
 	  <p tal:content="payment_processor/title"></p>
       <p>&nbsp;</p>
-      <div i18n:translate="msg_external_redirect" tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
+      <div i18n:translate="msg_external_redirect"
+           tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
 	  </tal:block>    
 
 </tal:block>
