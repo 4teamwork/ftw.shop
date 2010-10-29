@@ -13,7 +13,7 @@ from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.root import get_shop_root_object
 from ftw.shop.model.order import Order
 from ftw.shop.config import CART_KEY
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, ONACCOUNT_KEY
 from ftw.shop.utils import create_session
 import transaction
 
@@ -239,11 +239,14 @@ class CartView(BrowserView):
         url = context.absolute_url()
         
         # Get the payment processor selected by the customer
-        payment_processor = None
-        payment_processor_name = context.REQUEST.SESSION['payment_processor_choice']['payment_processor']
-        for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
-            if name == payment_processor_name:
-                payment_processor = adapter
+        if not 'payment_processor_choice' in context.REQUEST.SESSION.keys():
+            self.request.response.redirect('%s/checkout-wizard' % url)
+            return
+        else:
+            payment_processor_name = context.REQUEST.SESSION['payment_processor_choice']['payment_processor']
+            for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
+                if name == payment_processor_name:
+                    payment_processor = adapter
 
         
         # check if we have something in the cart
@@ -271,6 +274,13 @@ class CartView(BrowserView):
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
             
+            # Set correct status for payment by invoice
+            sa_session = create_session()
+            order = omanager.getOrders().filter_by(order_id=order_id).first()
+            order.status = ONACCOUNT_KEY
+            sa_session.add(order)
+            transaction.commit()
+                        
             omanager.sendOrderMail(order_id)
 
             self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
