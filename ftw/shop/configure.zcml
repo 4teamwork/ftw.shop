@@ -7,30 +7,31 @@
     xmlns:db="http://namespaces.zope.org/db"
     i18n_domain="ftw.shop">
 
-  <five:registerPackage package="." initialize=".initialize" />
+    <five:registerPackage package="." initialize=".initialize" />
 
-  <include package="plone.app.z3cform" />
-  <include package="plone.app.registry" />
-  <include package="z3c.saconfig" file="meta.zcml" />
+    <include package="archetypes.schemaextender" />
+    <include package="plone.app.z3cform" />
+    <include package="plone.app.registry" />
+    <include package="z3c.saconfig" file="meta.zcml" />
 
-  <!-- Include the sub-packages that use their own configure.zcml files. -->
-  <include package=".browser" />
-  <include package=".content" />
-  <include package=".portlets" />
-  
-   <!-- configure a sqlite DB -->
-   <db:engine name="ftw.shop.db"
+    <!-- Include the sub-packages that use their own configure.zcml files. -->
+    <include package=".browser" />
+    <include package=".content" />
+    <include package=".portlets" />
+
+    <!-- configure a sqlite DB -->
+    <db:engine name="ftw.shop.db"
               url="sqlite:///devdata.db" />
-   <db:session name="ftw.shop" engine="ftw.shop.db" />
+    <db:session name="ftw.shop" engine="ftw.shop.db" />
 
     <adapter
-        factory=".setuphandlers.FtwShopSessionName"
-        provides="ftw.dictstorage.interfaces.IConfig"
-        for="ftw.dictstorage.interfaces.ISQLAlchemy"
-        />
+      factory=".setuphandlers.FtwShopSessionName"
+      provides="ftw.dictstorage.interfaces.IConfig"
+      for="ftw.dictstorage.interfaces.ISQLAlchemy"
+      />
 
-  <!-- Register the installation GenericSetup extension profile -->
-  <genericsetup:registerProfile
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
       name="default"
       title="ftw.shop"
       directory="profiles/default"
@@ -38,27 +39,27 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <!-- Register "various" import step -->
-  <genericsetup:importStep
+    <!-- Register "various" import step -->
+    <genericsetup:importStep
       name="ftw.shop"
       title="ftw.shop special import handlers"
       description=""
       handler="ftw.shop.setuphandlers.import_various" 
       />
 
-  <include package="archetypes.schemaextender" />
 
-  <adapter 
+    <!-- Adapters for registering steps with checkout wizard -->
+    <adapter 
       name="ftw.shop.DefaultContactInformationStepGroup"
       factory="ftw.shop.browser.checkout.DefaultContactInfoStepGroup"
     />
 
-  <adapter 
+    <adapter 
       name="ftw.shop.DefaultPaymentProcessorStepGroup"
       factory="ftw.shop.browser.checkout.DefaultPaymentProcessorStepGroup"
     />
 
-  <adapter 
+    <adapter 
       name="ftw.shop.InvoicePaymentProcessor"
       factory="ftw.shop.browser.checkout.InvoicePaymentProcessor"
     />
@@ -66,48 +67,46 @@
 
     <!-- Contact Information Steps Vocabulary -->
     <utility
-        provides="zope.schema.interfaces.IVocabularyFactory"
-        name="ftw.shop.contact_info_step_groups"
-        component=".vocabularies.ContactInfoStepGroups"
-        />
-        
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.contact_info_step_groups"
+      component=".vocabularies.ContactInfoStepGroups"
+      />
+    
     <!-- Installed Payment Processors Vocabulary -->
     <utility
-        provides="zope.schema.interfaces.IVocabularyFactory"
-        name="ftw.shop.payment_processors"
-        component=".vocabularies.PaymentProcessors"
-        />
-        
-    <!-- ENABLED Payment Processors Vocabulary -->
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.payment_processors"
+      component=".vocabularies.PaymentProcessors"
+      />
+    
+    <!-- Enabled Payment Processors Vocabulary -->
     <utility
-        provides="zope.schema.interfaces.IVocabularyFactory"
-        name="ftw.shop.enabled_payment_processors"
-        component=".vocabularies.EnabledPaymentProcessors"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.enabled_payment_processors"
+      component=".vocabularies.EnabledPaymentProcessors"
         />
-        
-        
-  <adapter 
+
+    <adapter 
       name="ftw.shop.extender.ShopItemExtender"
       factory="ftw.shop.extender.ShopItemExtender"
       />
 
-  <subscriber
-    for=".interfaces.IShopItem
-         Products.Archetypes.interfaces.IObjectInitializedEvent"
-    handler=".content.shopitem.object_initialized_handler"
-    />
+    <subscriber
+      for=".interfaces.IShopItem
+           Products.Archetypes.interfaces.IObjectInitializedEvent"
+      handler=".content.shopitem.object_initialized_handler"
+      />
 
-  <subscriber
-    for=".interfaces.IShopCategory
-         Products.Archetypes.interfaces.IObjectInitializedEvent"
-    handler=".content.shopcategory.object_initialized_handler"
-    />
+    <subscriber
+      for=".interfaces.IShopCategory
+           Products.Archetypes.interfaces.IObjectInitializedEvent"
+      handler=".content.shopcategory.object_initialized_handler"
+      />
 
-  <adapter
+    <adapter
       factory="ftw.shop.mailer.MailHostAdapter"
     />
 
-  <!-- -*- extra stuff goes here -*- -->
-  <i18n:registerTranslations directory="locales"/> 
+    <i18n:registerTranslations directory="locales"/> 
 
 </configure>

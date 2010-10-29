@@ -1,12 +1,8 @@
-from archetypes.schemaextender.field import ExtensionField
-from archetypes.schemaextender.interfaces import ISchemaExtender
-
 from zope.component import adapts
 from zope.interface import implements
 
-from ftw.shop import shopMessageFactory as _
-from ftw.shop.interfaces import IShopItem
-
+from archetypes.schemaextender.field import ExtensionField
+from archetypes.schemaextender.interfaces import ISchemaExtender
 from Products.Archetypes import atapi
 
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
@@ -21,16 +17,20 @@ else:
     from Products.Archetypes.atapi import FixedPointField
     from Products.Archetypes.atapi import registerType
 
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.interfaces import IShopItem
+
 
 class ExtStringField(ExtensionField, StringField):
     """A string field."""
-    
+
+
 class ExtFixedPointField(ExtensionField, FixedPointField):
     """A fixed point field."""
-    
+
+
 class ExtLinesField(ExtensionField, LinesField):
     """A lines field."""
-
 
 
 class ShopItemExtender(object):
@@ -40,7 +40,7 @@ class ShopItemExtender(object):
     implements(ISchemaExtender)
     adapts(IShopItem)
 
-    
+
     fields = [
         ExtFixedPointField('price',
             default = "0.00",
@@ -61,19 +61,21 @@ class ShopItemExtender(object):
                 description = _(u"desc_sku_code", default=u""),
             ),
         ),
-        
+
         ExtStringField('variation1_attribute',
             required = 0,
             widget = atapi.StringWidget(
-                label = _(u"label_variation1_attr", default=u"Variation 1 Attribute"),
+                label = _(u"label_variation1_attr",
+                          default=u"Variation 1 Attribute"),
                 description = _(u"desc_variation1_attr", default=u""),
             ),
         ),
-        
+
         ExtLinesField('variation1_values',
             required = 0,
             widget = atapi.LinesWidget(
-                label = _(u"label_variation1_values", default=u"Variation 1 Values"),
+                label = _(u"label_variation1_values",
+                          default=u"Variation 1 Values"),
                 description = _(u"desc_variation1_values", default=u""),
             ),
         ),
@@ -82,20 +84,22 @@ class ShopItemExtender(object):
         ExtStringField('variation2_attribute',
             required = 0,
             widget = atapi.StringWidget(
-                label = _(u"label_variation2_attr", default=u"Variation 2 Attribute"),
+                label = _(u"label_variation2_attr",
+                          default=u"Variation 2 Attribute"),
                 description = _(u"desc_variation2_attr", default=u""),
             ),
         ),
-        
-        
+
+
         ExtLinesField('variation2_values',
             required = 0,
             widget = atapi.LinesWidget(
-                label = _(u"label_variation2_values", default=u"Variation 2 Values"),
+                label = _(u"label_variation2_values",
+                          default=u"Variation 2 Values"),
                 description = _(u"desc_variation2_values", default=u""),
             ),
         ),
-         
+
     ]
 
     def __init__(self, context):

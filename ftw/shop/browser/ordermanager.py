@@ -1,26 +1,23 @@
-import logging
 from DateTime import DateTime
 from datetime import datetime
-from email import message_from_string
-from email.Header import Header
 from email.Utils import formataddr
 
+import transaction
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import noSecurityManager
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
-from zope.component import getMultiAdapter
-from Acquisition import aq_inner
-from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
-import transaction
 from plone.registry.interfaces import IRegistry
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 
-from ftw.shop.utils import create_session
-from ftw.shop.model.order import Order
 from ftw.shop.config import SESSION_ADDRESS_KEY
-from ftw.shop.exceptions import MissingCustomerInformation, MissingOrderConfirmation
+from ftw.shop.model.order import Order
+from ftw.shop.exceptions import MissingCustomerInformation
+from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
+from ftw.shop.utils import create_session
 
 
 class OrderManagerView(BrowserView):
@@ -28,7 +25,7 @@ class OrderManagerView(BrowserView):
     """
 
     __call__ = ViewPageTemplateFile('templates/order_manager.pt')
-    
+
     def getOrders(self):
         sa_session = create_session()
         orders = sa_session.query(Order)
@@ -41,38 +38,39 @@ class OrderManagerView(BrowserView):
         session = self.context.REQUEST.SESSION
 
         # check for cart
-        cart_view = getMultiAdapter((self, self.context.REQUEST), name=u'cart_view')
+        cart_view = getMultiAdapter((self, self.context.REQUEST),
+                                    name=u'cart_view')
         cart_data = cart_view.cart_items()
-       
+
         # check for customer data
         customer_data = session.get(SESSION_ADDRESS_KEY, {})
         if not customer_data:
             raise MissingCustomerInformation
-        
+
         # check for order confirmation
         if not session.get('order_confirmation', None):
             raise MissingOrderConfirmation
-        
+
         # change security context to owner
         user = self.context.getWrappedOwner()
         newSecurityManager(self.context.REQUEST, user)
-        
+
         # create Order
         sa_session = create_session()
         order = Order()
         sa_session.add(order)
         transaction.commit()
-        
+
         order_id = order.order_id
 
         # calc order number
-        now  = DateTime()
+        now = DateTime()
         order_prefix = '%03d%s' % (now.dayOfYear() + 500, now.yy())
         order_number = '%s%04d' % (order_prefix, order_id)
         order.title = order_number
-        
+
         order.date = datetime.now()
- 
+
         # store customer data
         for key in customer_data.keys():
             try:
@@ -83,14 +81,13 @@ class OrderManagerView(BrowserView):
         # store cart in order
         order.cart_contents = cart_data
         order.total = cart_view.cart_total()
-        
+
         sa_session.add(order)
         transaction.commit()
 
         noSecurityManager()
 
         return order_id
-
 
     def sendOrderMail(self, order_id):
         """
@@ -100,7 +97,8 @@ class OrderManagerView(BrowserView):
         sa_session = create_session()
         order = sa_session.query(Order).filter_by(order_id=order_id).first()
 
-        fullname = "%s %s" % (order.customer_firstname ,order.customer_lastname)
+        fullname = "%s %s" % (order.customer_firstname,
+                              order.customer_lastname)
 
         ltool = getToolByName(self.context, 'portal_languages')
         lang = ltool.getPreferredLanguage()
@@ -120,7 +118,8 @@ class OrderManagerView(BrowserView):
                 mailSubject = '%s Webshop' % shop_name
 
         mhost = IMailHostAdapter(self.context)
-        mail_view = getMultiAdapter((self.context, self.context.REQUEST), name=u'mail_view')
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'mail_view')
         msg_body = mail_view(order=order)
 
         mhost.send(msg_body,
@@ -140,10 +139,13 @@ class OrderManagerView(BrowserView):
             shop_name = shop_config.shop_name
             mailFrom = formataddr((shop_name, shop_config.shop_email))
             mailBcc = getattr(shop_config, 'mail_bcc', '')
-            mailSubject = '[%s] Order %s by %s' % (shop_name, order_id, fullname)
+            mailSubject = '[%s] Order %s by %s' % (shop_name,
+                                                   order_id,
+                                                   fullname)
 
         mhost = IMailHostAdapter(self.context)
-        mail_view = getMultiAdapter((self.context, self.context.REQUEST), name=u'mail_view')
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'mail_view')
         msg_body = mail_view(order=order)
 
         mhost.send(msg_body,

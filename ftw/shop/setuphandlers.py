@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from z3c.saconfig import named_scoped_session
 from z3c.saconfig.interfaces import IScopedSession
 from zope.component import queryUtility
@@ -6,10 +5,11 @@ from zope.component import queryUtility
 from ftw.shop.utils import create_session
 from ftw.shop.model.order import Order
 
-# The profile id of your package:
+# The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
 
 MODELS = [Order]
+
 
 def create_sql_tables():
     """Creates the sql tables for the models.
@@ -30,6 +30,6 @@ def import_various(context):
     # Only run step if a flag file is present
     if context.readDataFile('ftw_shop-default.txt') is None:
         return
-    site = context.getSite()
+
     if queryUtility(IScopedSession, 'ftw.shop'):
         create_sql_tables()

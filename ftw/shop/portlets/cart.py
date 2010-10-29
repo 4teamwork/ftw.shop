@@ -1,17 +1,16 @@
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.portlets.portlets import base
+from plone.portlets.interfaces import IPortletDataProvider
 from zope.interface import implements
 from zope.component import getMultiAdapter
 
-from plone.app.portlets.portlets import base
-from plone.portlets.interfaces import IPortletDataProvider
-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.memoize.instance import memoize 
-
 from ftw.shop import shopMessageFactory as _
+
 
 class ICartPortlet(IPortletDataProvider):
     """A portlet that displays the shopping cart
     """
+
 
 class Assignment(base.Assignment):
     """Portlet assignment.
@@ -45,20 +44,21 @@ class Renderer(base.Renderer):
 
     def __init__(self, context, request, view, manager, data):
         base.Renderer.__init__(self, context, request, view, manager, data)
-        
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+
+        portal_state = getMultiAdapter((self.context, self.request),
+                                       name=u'plone_portal_state')
         self.navroot_url = portal_state.navigation_root_url()
-        
-    @property 
+
+    @property
     def available(self):
         return True
 
 
 class AddForm(base.NullAddForm):
-    label = _(u"label_add_cart_portlet", 
+    label = _(u"label_add_cart_portlet",
               default=u"Add Shopping Cart Portlet")
-    description = _(u"help_add_cart_portlet", 
-                    default=u"This portlet displays the shopping cart contents.")
+    description = _(u"help_add_cart_portlet",
+                default=u"This portlet displays the shopping cart contents.")
 
     def create(self):
         return Assignment()

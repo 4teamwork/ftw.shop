@@ -4,8 +4,7 @@
     i18n_domain="ftw.shop">
 
   <!-- configure your content components here -->
-  
-  <!-- -*- extra stuff goes here -*- -->
+
   <class class=".shopcategory.ShopCategory">
     <require
         permission="zope2.View"
@@ -30,7 +29,7 @@
   <adapter
       provides="..interfaces.IVariationConfig"
       for="..interfaces.IShopItem"
-      factory=".variations.VariationConfig" />
-
+      factory=".variations.VariationConfig"
+      />
 
 </configure>

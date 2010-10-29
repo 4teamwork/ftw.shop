@@ -1,6 +1,6 @@
-from zope.formlib import form
-
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.z3cform.layout import wrap_form
+from zope.formlib import form
 
 try:
     # plone.app.registry 1.0b1
@@ -14,7 +14,6 @@ except ImportError:
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
 
-from plone.app.z3cform.layout import wrap_form
 
 class ShopConfigurationForm(RegistryEditForm):
     """Configuration form for the ftw.shop configlet

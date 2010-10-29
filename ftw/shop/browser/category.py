@@ -1,11 +1,12 @@
+from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getMultiAdapter
 from plone.memoize import instance
-from Acquisition import aq_inner
+from zope.component import getMultiAdapter
+
 from ftw.shop.config import CATEGORY_RELATIONSHIP
 from ftw.shop.interfaces import IVariationConfig
-from Products.CMFCore.utils import getToolByName
 
 
 class CategoryView(BrowserView):
@@ -13,11 +14,10 @@ class CategoryView(BrowserView):
     """
 
     __call__ = ViewPageTemplateFile('templates/category.pt')
-    
+
     single_item_template = ViewPageTemplateFile('templates/listing/single_item.pt')
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
-
 
     def dummyitems(self):
         return []
@@ -27,13 +27,13 @@ class CategoryView(BrowserView):
         """
         return [item for item in self.category_contents
                 if item.portal_type == 'ShopItem']
-        
+
     def single_item(self, item):
         return self.single_item_template(item=item)
 
     def one_variation(self, item):
         return self.one_variation_template(item=item)
-    
+
     def two_variations(self, item):
         return self.two_variations_template(item=item)
 
@@ -75,7 +75,6 @@ class CategoryView(BrowserView):
                     hasVariations = has_variations))
         return results
 
-
     @property
     @instance.memoize
     def categories(self):
@@ -109,15 +108,15 @@ class CategoryView(BrowserView):
         contents.sort(lambda x, y: cmp(x.getRankForCategory(context),
                         y.getRankForCategory(context)))
         return contents
-    
+
     def manage_categories(self):
-        return getMultiAdapter((self.context, self.request), 'manage_categories')
-    
+        return getMultiAdapter((self.context, self.request),
+                               'manage_categories')
+
+
 class CategoryCompactView(CategoryView):
     """Compact view for a category. Shows all contained items and categories.
     """
-    
+
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
-
-

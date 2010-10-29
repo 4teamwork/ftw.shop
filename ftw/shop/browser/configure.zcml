@@ -155,13 +155,6 @@
     class=".manage_categories.ManageCategories"
     permission="zope2.View" 
     />
- 
-<!--   <browser:page -->
-<!--    for="*"-->
-<!--    name="manage_categories" -->
-<!--    class=".manage_categories.ManageCategories"-->
-<!--    permission="zope2.View"-->
-<!--    />-->
 
   <browser:page
     for="*"
@@ -186,19 +179,19 @@
   />
 
   <browser:page
-      for="*"
-      name="initialize-shop-structure"
-      class=".initialize.InitShopStructure"
-      permission="zope.Public"
+    for="*"
+    name="initialize-shop-structure"
+    class=".initialize.InitShopStructure"
+    permission="zope.Public"
   />
 
-	<browser:page
-	    for="*"
-	    name="list_all_categories"
-	    class=".manage_categories.ManageCategories"
-	    attribute="list_all_categories"
-	    permission="zope2.View"
-	/>
+  <browser:page
+    for="*"
+    name="list_all_categories"
+    class=".manage_categories.ManageCategories"
+    attribute="list_all_categories"
+    permission="zope2.View"
+  />
 
   <browser:page
     for="*"
@@ -206,14 +199,13 @@
     template="templates/thankyou.pt"
     permission="zope2.View"
   />
-  
+
     <browser:page
     for="*"
     name="external-payment-processor"
     permission="zope2.View"
     class=".checkout.ExternalPaymentProcessorView"
     />
-    
 
   <browser:resourceDirectory
     name='ftw-shop-resources'

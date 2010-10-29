@@ -1,14 +1,12 @@
-from zope.interface import implements
-from zope.component import adapts
-from zope.annotation.interfaces import IAnnotations
-
 from decimal import Decimal
 
-from ftw.shop.interfaces import IVariationConfig, IShopItem
-
 from persistent.mapping import PersistentMapping
-from zope.component import getUtility
 from plone.i18n.normalizer.interfaces import IIDNormalizer
+from zope.annotation.interfaces import IAnnotations
+from zope.interface import implements
+from zope.component import adapts, getUtility
+
+from ftw.shop.interfaces import IVariationConfig, IShopItem
 
 
 class VariationConfig(object):
@@ -33,7 +31,6 @@ class VariationConfig(object):
         """
         return self.context.UID()
 
-
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
         """
@@ -55,12 +52,6 @@ class VariationConfig(object):
             return values
         else:
             return []
-        
-#        value_string = getattr(self.context, 'variation1_values', None)
-#        if value_string:
-#            return [v.strip() for v in value_string.split(',')]
-#        else:
-#            return []
 
     def getVariation2Values(self):
         """Returns the values for the second level variation,
@@ -71,11 +62,6 @@ class VariationConfig(object):
             return values
         else:
             return []
-#        value_string = getattr(self.context, 'variation2_values', None)
-#        if value_string:
-#            return [v.strip() for v in value_string.split(',')]
-#        else:
-#            return []
 
     def getVariationAttributes(self):
         """Returns a list of the two variation attributes,
@@ -99,7 +85,8 @@ class VariationConfig(object):
             variation_key = normalizer.normalize(var1_attr)
         else:
             # We have two levels of variation
-            variation_key = normalizer.normalize("%s-%s" % (var1_attr, var2_attr))
+            variation_key = normalizer.normalize(
+                                    "%s-%s" % (var1_attr, var2_attr))
         var_data = variation_dict.get(variation_key, None)
         if var_data is not None and field in var_data.keys():
             if not var_data[field] == "":
@@ -129,8 +116,8 @@ class VariationConfig(object):
         else:
             for var1_value in self.getVariation1Values():
                 for var2_value in self.getVariation2Values():
-                    vkey = normalizer.normalize("%s-%s" % (var1_value, var2_value))
+                    vkey = normalizer.normalize(
+                                    "%s-%s" % (var1_value, var2_value))
                     if vkey == variation_key:
                         return "%s-%s" % (var1_value, var2_value)
         return None
-        

@@ -1,47 +1,50 @@
+from decimal import Decimal
 import simplejson
-from zope.component import getAdapters, getMultiAdapter
-from ftw.shop.interfaces import IPaymentProcessor
+
+import transaction
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from decimal import Decimal
-from ftw.shop import shopMessageFactory as _
-from ftw.shop.exceptions import MissingCustomerInformation, \
-    MissingOrderConfirmation
-from ftw.shop.interfaces import IVariationConfig
-from ftw.shop.root import get_shop_root_object
-from ftw.shop.model.order import Order
+from zope.component import getAdapters, getMultiAdapter
+
 from ftw.shop.config import CART_KEY
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, ONACCOUNT_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
+from ftw.shop.exceptions import MissingCustomerInformation
+from ftw.shop.exceptions import MissingOrderConfirmation
+from ftw.shop.interfaces import IVariationConfig
+from ftw.shop.interfaces import IPaymentProcessor
+from ftw.shop.root import get_shop_root_object
 from ftw.shop.utils import create_session
-import transaction
+from ftw.shop import shopMessageFactory as _
+
 
 class CartView(BrowserView):
     """
     """
     portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
-    
-    def addtocart_ajax(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
-        """ Add item to cart, return portlet HTML and translated status message
+
+    def addtocart_ajax(self, skuCode=None, quantity=1,
+                       var1choice=None, var2choice=None):
+        """ Add item to cart, return portlet HTML and translated status
+        message
         """
         self._addtocart(skuCode, quantity, var1choice, var2choice)
         translate = self.context.translate
-        
+
         status_msg_label = _(u'msg_label_info', default=u"Information")
         status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
         status_message = """
             <dt>%s</dt>
             <dd>%s</dd>
-        """ % (translate(status_msg_label), 
+        """ % (translate(status_msg_label),
                translate(status_msg_text))
-        
 
-        return simplejson.dumps(dict(portlet_html=self.portlet_template(), 
+        return simplejson.dumps(dict(portlet_html=self.portlet_template(),
                     status_message=status_message))
 
-
-    def addtocart(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
+    def addtocart(self, skuCode=None, quantity=1,
+                  var1choice=None, var2choice=None):
         """ add item to cart and redirect to referer
         """
         context = aq_inner(self.context)
@@ -55,10 +58,11 @@ class CartView(BrowserView):
 
         # add portal message
         ptool = getToolByName(context, 'plone_utils')
-        ptool.addPortalMessage(_(u'msg_item_added', default=u'Added item to cart.'), 'info')
+        ptool.addPortalMessage(_(u'msg_item_added',
+                                 default=u'Added item to cart.'), 'info')
 
-
-    def _addtocart(self, skuCode=None, quantity=1, var1choice=None, var2choice=None):
+    def _addtocart(self, skuCode=None, quantity=1,
+                   var1choice=None, var2choice=None):
         """ add item to cart
         """
         context = aq_inner(self.context)
@@ -67,10 +71,12 @@ class CartView(BrowserView):
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
-        
+
         if not skuCode:
             # We got no skuCode, so look it up by variation key
-            skuCode = varConf.getVariationData(var1choice, var2choice, 'skuCode')
+            skuCode = varConf.getVariationData(var1choice,
+                                               var2choice,
+                                               'skuCode')
 
         item = cart_items.get(skuCode, None)
 
@@ -86,7 +92,7 @@ class CartView(BrowserView):
                     variation_key = vkey
                     break
 
-            variation_pretty_name = varConf.getPrettyName(variation_key) 
+            variation_pretty_name = varConf.getPrettyName(variation_key)
             item_title = '%s - %s' % (context.Title(), variation_pretty_name)
             price = Decimal(variation_dict[variation_key]['price'])
             # add item to cart
@@ -94,17 +100,17 @@ class CartView(BrowserView):
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
-                        'quantity':quantity,
+                        'quantity': quantity,
                         'price': str(price),
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
                         'variation_key': variation_key,
-                }    
+                }
             # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
-                
+
         else:
             price = Decimal(context.Schema().getField('price').get(context))
             # add item to cart
@@ -112,22 +118,21 @@ class CartView(BrowserView):
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
-                        'quantity':quantity,
+                        'quantity': quantity,
                         'price': str(price),
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
-                }    
+                }
             # item already in cart, update quantitiy
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
 
 
-        # store cart in session    
+        # store cart in session
         cart_items[skuCode] = item
         session[CART_KEY] = cart_items
         session['foobar'] = 'barfoo'
-        
 
     def cart_items(self):
         """ get content of shopping cart
@@ -150,57 +155,62 @@ class CartView(BrowserView):
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
-        
-        if cart_items.has_key(skuCode):
+
+        if skuCode in cart_items:
             del cart_items[skuCode]
-            
-        session[CART_KEY] = cart_items  
+
+        session[CART_KEY] = cart_items
 
     def update_item(self, skuCode, quantity):
         """ update the quantity of an item.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
-        
-        if cart_items.has_key(skuCode):
+
+        if skuCode in cart_items:
             item = cart_items[skuCode]
             item['quantity'] = int(quantity)
             item['total'] = str(Decimal(item['price']) * item['quantity'])
             cart_items[skuCode] = item
-            
+
         session[CART_KEY] = cart_items
-        
+
     def cart_update(self):
         """ update cart contents.
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
-        
+
         # first delete items with quantity 0
         del_items = []
         for skuCode in self.cart_items().keys():
             try:
-                quantity = int(float(self.request.get('quantity_%s' % skuCode)))
-                if quantity == 0:
+                qty = int(float(self.request.get('quantity_%s' % skuCode)))
+                if qty == 0:
                     del_items.append(skuCode)
             except ValueError:
-                ptool.addPortalMessage(_(u'msg_cart_invalidvalue', default=u"Invalid Values specified. Cart was not updated."), 'error')
-                referer = self.request.get('HTTP_REFERER', context.absolute_url())
+                ptool.addPortalMessage(
+                    _(u'msg_cart_invalidvalue',
+                      default=u"Invalid Values specified. Cart not updated."),
+                    'error')
+                referer = self.request.get('HTTP_REFERER',
+                                           context.absolute_url())
                 self.request.response.redirect(referer)
                 return
         for skuCode in del_items:
             self.remove_item(skuCode)
-        
-        # now update quantities    
-        for skuCode,item in self.cart_items().items():
+
+        # now update quantities
+        for skuCode, item in self.cart_items().items():
             quantity = int(float(self.request.get('quantity_%s' % skuCode)))
             if quantity != item['quantity'] and quantity != 0:
                 self.update_item(skuCode, quantity)
 
-        ptool.addPortalMessage(_(u'msg_cart_updated', default=u"Cart updated."), 'info')
+        ptool.addPortalMessage(_(u'msg_cart_updated',
+                                 default=u"Cart updated."), 'info')
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
-        return 
+        return
 
     def cart_remove(self):
         """ remove an item from cart.
@@ -210,52 +220,58 @@ class CartView(BrowserView):
         skuCode = self.request.get('skuCode')
         if skuCode:
             self.remove_item(skuCode)
-            ptool.addPortalMessage(_(u'msg_cart_updated', default=u"Cart updated."), 'info')
-            
+            ptool.addPortalMessage(_(u'msg_cart_updated',
+                                     default=u"Cart updated."), 'info')
+
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
-        return 
-        
-        
+        return
+
     def cart_delete(self):
         """ remove all items from cart.
         """
         session = self.request.SESSION
         session[CART_KEY] = {}
-        
+
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
-        ptool.addPortalMessage(_(u'msg_cart_emptied', default=u"Cart emptied."), 'info')
+        ptool.addPortalMessage(_(u'msg_cart_emptied',
+                                 default=u"Cart emptied."), 'info')
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
         return
-    
-        
+
     def checkout(self):
         """ process checkout
         """
         context = aq_inner(self.context)
+        session = context.REQUEST.SESSION
         ptool = getToolByName(context, 'plone_utils')
         url = context.absolute_url()
-        
+
         # Get the payment processor selected by the customer
-        if not 'payment_processor_choice' in context.REQUEST.SESSION.keys():
+        if not 'payment_processor_choice' in session.keys():
             self.request.response.redirect('%s/checkout-wizard' % url)
             return
         else:
-            payment_processor_name = context.REQUEST.SESSION['payment_processor_choice']['payment_processor']
-            for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
+            payment_processor_name = session.get(
+                'payment_processor_choice').get('payment_processor')
+            for name, adapter in getAdapters((context, None, context),
+                                             IPaymentProcessor):
                 if name == payment_processor_name:
                     payment_processor = adapter
 
-        
+
         # check if we have something in the cart
         items = self.cart_items()
         if not items:
-            ptool.addPortalMessage(_(u'msg_no_cart', default=u"Can't proceed with empty cart."), 'error')
+            ptool.addPortalMessage(_(u'msg_no_cart',
+                            default=u"Can't proceed with empty cart."),
+                'error')
             self.request.response.redirect(url)
 
-        omanager = getMultiAdapter((context, self.request), name=u'order_manager')
+        omanager = getMultiAdapter((context, self.request),
+                                   name=u'order_manager')
         try:
             order_id = omanager.addOrder()
         except MissingCustomerInformation:
@@ -264,7 +280,7 @@ class CartView(BrowserView):
         except MissingOrderConfirmation:
             self.request.response.redirect('%s/checkout-wizard' % url)
             return
-        
+
         if not payment_processor.external:
             customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
             self.request.SESSION.invalidate()
@@ -273,17 +289,18 @@ class CartView(BrowserView):
             # stale data even though it has been invalidated
             session = context.session_data_manager.getSessionData()
             session[SESSION_ADDRESS_KEY] = customer_info
-            
+
             # Set correct status for payment by invoice
             sa_session = create_session()
             order = omanager.getOrders().filter_by(order_id=order_id).first()
             order.status = ONACCOUNT_KEY
             sa_session.add(order)
             transaction.commit()
-                        
+
             omanager.sendOrderMail(order_id)
 
-            self.request.response.redirect('%s/thankyou?order_id=%s' % (url, order_id))
+            self.request.response.redirect(
+                        '%s/thankyou?order_id=%s' % (url, order_id))
             return
         else:
             #self.request.SESSION.invalidate()
@@ -292,7 +309,6 @@ class CartView(BrowserView):
             pp_launch_page = payment_processor.launch_page
             self.request.response.redirect('%s/%s' % (url, pp_launch_page))
             return
-            
 
     def shop_url(self):
         """ return the root url of the shop folder.

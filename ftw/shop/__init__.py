@@ -2,17 +2,17 @@
 """
 
 from zope.i18nmessageid import MessageFactory
-from ftw.shop import config
-
 from Products.Archetypes import atapi
 import Products.CMFCore.utils
-from Products.CMFCore.permissions import setDefaultRoles
+
+from ftw.shop import config
 
 # Define a message factory for when this product is internationalised.
 # This will be imported with the special name "_" in most modules. Strings
 # like _(u"message") will then be extracted by i18n tools for translation.
 
 shopMessageFactory = MessageFactory('ftw.shop')
+
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
@@ -43,8 +43,9 @@ def initialize(context):
     # in the GenericSetup profile.
 
     for atype, constructor in zip(content_types, constructors):
-        Products.CMFCore.utils.ContentInit('%s: %s' % (config.PROJECTNAME, atype.portal_type),
-            content_types      = (atype,),
-            permission         = config.ADD_PERMISSIONS[atype.portal_type],
-            extra_constructors = (constructor,),
+        Products.CMFCore.utils.ContentInit(
+            '%s: %s' % (config.PROJECTNAME, atype.portal_type),
+            content_types = (atype, ),
+            permission = config.ADD_PERMISSIONS[atype.portal_type],
+            extra_constructors = (constructor, ),
             ).initialize(context)

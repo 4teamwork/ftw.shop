@@ -2,24 +2,20 @@ import base64
 import simplejson
 from datetime import datetime, timedelta
 
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.z3cform.wizard import wizard
+from plone.registry.interfaces import IRegistry
+from plone.z3cform.layout import FormWrapper
+from z3c.form import field, button
+from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
+from zope.app.pagetemplate import viewpagetemplatefile as zvptf
+from zope.interface import implements, Interface
 from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
 from zope.component import getUtility
-from zope.app.pagetemplate import viewpagetemplatefile
-from zope.interface import implements, Interface
 
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.registry.interfaces import IRegistry
-
-from z3c.form import field, button
-from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
-from collective.z3cform.wizard import wizard
-from plone.z3cform.layout import FormWrapper
-from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
-
-from ftw.shop.config import SESSION_ADDRESS_KEY, SESSION_ORDERS_KEY, COOKIE_ADDRESS_KEY
-from ftw.shop import shopMessageFactory as _
+from ftw.shop.config import SESSION_ADDRESS_KEY, COOKIE_ADDRESS_KEY
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IDefaultContactInformation
 from ftw.shop.interfaces import IContactInformationStep
@@ -27,14 +23,16 @@ from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
-
 from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
+from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
+from ftw.shop import shopMessageFactory as _
 
 
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
     prefix = 'contact_information'
-    label = _(u"label_default_contact_info_step", default="Contact Information")
+    label = _(u"label_default_contact_info_step",
+              default="Contact Information")
     description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
     fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
@@ -42,20 +40,21 @@ class DefaultContactInfoStep(wizard.Step):
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
-        PREFILL_FIELDS = ['title', 'firstname', 'lastname', 'email', 'street1',
-                          'street2', 'phone', 'zipcode', 'city', 'country', 
-                          'newsletter']
-        
+        PREFILL_FIELDS = ['title', 'firstname', 'lastname', 'email',
+                          'street1', 'street2', 'phone', 'zipcode',
+                          'city', 'country', 'newsletter']
+
         if COOKIE_ADDRESS_KEY in request:
             # Prefill contact data with values from cookie
-            cookie_data = simplejson.loads(base64.b64decode(request[COOKIE_ADDRESS_KEY]))
+            cookie_data = simplejson.loads(base64.b64decode(
+                                    request[COOKIE_ADDRESS_KEY]))
             for key in cookie_data.keys():
                 if isinstance(cookie_data[key], basestring):
                     cookie_data[key] = unicode(cookie_data[key])
-                    
+
             for fieldname in PREFILL_FIELDS:
                 self.fields[fieldname].field.default = cookie_data[fieldname]
-            
+
         elif SESSION_ADDRESS_KEY in request.SESSION.keys():
             # Prefill contact data form with values from session
             contact_info = request.SESSION[SESSION_ADDRESS_KEY]
@@ -67,20 +66,22 @@ class DefaultContactInfoStep(wizard.Step):
         self.widgets['zipcode'].size = 5
 
 
-
 class DefaultContactInfoStepGroup(object):
     implements(IContactInformationStepGroup)
     adapts(Interface, Interface, Interface)
-    steps = (DefaultContactInfoStep,)
-    
+    steps = (DefaultContactInfoStep, )
+
     def __init__(self, context, request, foo):
         pass
+
 
 class DefaultPaymentProcessorChoiceStep(wizard.Step):
     implements(IPaymentProcessorChoiceStep)
     prefix = 'payment_processor_choice'
-    label = _(u"label_default_payment_processor_choice_step", default="Payment Processor")
-    description = _(u'help_default_payment_processor_choice_step', default=u"")
+    label = _(u"label_default_payment_processor_choice_step",
+              default="Payment Processor")
+    description = _(u'help_default_payment_processor_choice_step',
+                    default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
     fields['payment_processor'].widgetFactory = PaymentProcessorFieldWidget
 
@@ -88,21 +89,22 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
 class DefaultPaymentProcessorStepGroup(object):
     implements(IPaymentProcessorStepGroup)
     adapts(Interface, Interface, Interface)
-    steps = (DefaultPaymentProcessorChoiceStep,)
-    
+    steps = (DefaultPaymentProcessorChoiceStep, )
+
     def __init__(self, context, request, foo):
         pass
-    
+
+
 class InvoicePaymentProcessor(object):
     implements(IPaymentProcessor)
     adapts(Interface, Interface, Interface)
-    
+
     external = False
     url = None
     title = "Gegen Rechnung"
     image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
     description = """<em>Bezahlung gegen Rechnung</em>"""
-    
+
     def __init__(self, context, request, foo):
         pass
 
@@ -111,57 +113,60 @@ class OrderReviewStep(wizard.Step):
     prefix = 'step3'
     label = _(u'label_order_review_step', default="Order Review")
     description = _(u'help_order_review_step', default=u'')
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout/order_review.pt')
-
+    index = zvptf.ViewPageTemplateFile('templates/checkout/order_review.pt')
 
 
 class CheckoutWizard(wizard.Wizard):
     label = _(u"label_checkout_wizard", default="Checkout")
-    index = viewpagetemplatefile.ViewPageTemplateFile('templates/checkout-wizard.pt')
+    index = zvptf.ViewPageTemplateFile('templates/checkout-wizard.pt')
 
     def __init__(self, context, request):
         super(CheckoutWizard, self).__init__(context, request)
         self.context = context
         self.request = request
 
-        
     def getSelectedPaymentProcessor(self):
         payment_processor = None
         try:
-            payment_processor_name = self.session['payment_processor_choice']['payment_processor']
+            pp_name = self.session.get(
+                    'payment_processor_choice').get('payment_processor')
         except KeyError:
-            payment_processor_name = self.request.SESSION['payment_processor_choice']['payment_processor']
-        for name, adapter in getAdapters((self.context, None, self.context,), IPaymentProcessor):
-            if name == payment_processor_name:
+            pp_name = self.request.SESSION.get(
+                    'payment_processor_choice').get('payment_processor')
+        for name, adapter in getAdapters((self.context, None, self.context),
+                                         IPaymentProcessor):
+            if name == pp_name:
                 payment_processor = adapter
         return payment_processor
-        
+
     @property
     def steps(self):
         contact_info_steps = ()
-        contact_info_step_groups = getAdapters((self.context, self.request, self,), IContactInformationStepGroup)
-        payment_processor_step_groups = getAdapters((self.context, self.request, self,), IPaymentProcessorStepGroup)
+        contact_info_step_groups = getAdapters(
+                                        (self.context, self.request, self),
+                                        IContactInformationStepGroup)
+        payment_processor_step_groups = getAdapters(
+                                        (self.context, self.request, self),
+                                        IPaymentProcessorStepGroup)
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IShopConfiguration)
         selected_contact_info_step_group = settings.contact_info_step_group
-        
+
         for name, step_group_adapter in contact_info_step_groups:
             if name == selected_contact_info_step_group:
                 contact_info_steps = step_group_adapter.steps
-                
-        selected_payment_processor_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"        
+
+        selected_pp_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"
         for name, step_group_adapter in payment_processor_step_groups:
-            if name == selected_payment_processor_step_group:
+            if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps
-                
+
 
         return contact_info_steps + payment_processor_steps + (OrderReviewStep, )
 
-
     @button.buttonAndHandler(_(u'btn_back', default="Back"),
                              name='back',
-                             condition=lambda form:not form.onFirstStep)
-
+                             condition=lambda form: not form.onFirstStep)
     def handleBack(self, action):
         data, errors = self.currentStep.extractData()
         if errors:
@@ -183,7 +188,7 @@ class CheckoutWizard(wizard.Wizard):
 
     @button.buttonAndHandler(_(u'btn_continue', default='Next'),
                              name='continue',
-                             condition=lambda form:not form.onLastStep)
+                             condition=lambda form: not form.onLastStep)
     def handleContinue(self, action):
         data, errors = self.currentStep.extractData()
         if errors:
@@ -203,9 +208,9 @@ class CheckoutWizard(wizard.Wizard):
             # do not redirect.
             self.updateActions()
 
-    @button.buttonAndHandler(_(u'btn_finish',default='Finish'),
-                             name='finish',
-                             condition=lambda form:form.allStepsFinished or form.onLastStep)
+    @button.buttonAndHandler(_(u'btn_finish', default='Finish'),
+             name='finish',
+             condition=lambda form: form.allStepsFinished or form.onLastStep)
     def handleFinish(self, action):
         data, errors = self.currentStep.extractData()
         if errors:
@@ -216,29 +221,35 @@ class CheckoutWizard(wizard.Wizard):
             self.finished = True
         self.currentStep.applyChanges(data)
         self.finish()
-        
+
         self.request.SESSION[SESSION_ADDRESS_KEY] = {}
-        self.request.SESSION[SESSION_ADDRESS_KEY].update(self.session['contact_information'])
+        self.request.SESSION[SESSION_ADDRESS_KEY].update(
+                                        self.session['contact_information'])
         self.request.SESSION['order_confirmation'] = True
         self.request.SESSION['payment_processor_choice'] = {}
-        self.request.SESSION['payment_processor_choice'].update(self.session['payment_processor_choice'])
+        self.request.SESSION['payment_processor_choice'].update(
+                                    self.session['payment_processor_choice'])
 
-        # Save contact information in a cookie to prefill form if customer returns
-        cookie_value = base64.b64encode(simplejson.dumps(self.session['contact_information']))
-        expiry_date = (datetime.now() + timedelta(days=90)).strftime("%a, %d-%b-%Y %H:%M:%S GMT")
-        self.request.RESPONSE.setCookie(COOKIE_ADDRESS_KEY, 
-                                        cookie_value, 
+        # Save contact information in a cookie in order to prefill
+        # form if customer returns
+        cookie_value = base64.b64encode(simplejson.dumps(
+                                        self.session['contact_information']))
+        expiry_date = (datetime.now() + timedelta(days=90)).strftime(
+                                                "%a, %d-%b-%Y %H:%M:%S GMT")
+        self.request.RESPONSE.setCookie(COOKIE_ADDRESS_KEY,
+                                        cookie_value,
                                         expires=expiry_date)
 
         self.request.SESSION[self.sessionKey] = {}
         self.sync()
-        
+
         pp = self.getSelectedPaymentProcessor()
         if pp.external:
             self.request.SESSION['external-processor-url'] = pp.url
             self.request.SESSION['external-processor-url'] = "http://localhost:8077/"
 
         self.request.response.redirect('checkout')
+
 
 class CheckoutView(FormWrapper):
     #layout = ViewPageTemplateFile("templates/layout.pt")
@@ -249,6 +260,7 @@ class CheckoutView(FormWrapper):
         cart_view = getMultiAdapter((context, request), name='cart_view')
         request['cart_view'] = cart_view
         FormWrapper.__init__(self, context, request)
+
 
 class ExternalPaymentProcessorView(BrowserView):
     """Redirects to an external payment processor

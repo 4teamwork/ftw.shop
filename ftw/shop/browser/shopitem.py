@@ -1,12 +1,14 @@
+from decimal import Decimal
+
+from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Acquisition import aq_inner
 from Products.statusmessages.interfaces import IStatusMessage
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+from zope.component import getUtility
+
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
-from decimal import Decimal
-from zope.component import getUtility
-from plone.i18n.normalizer.interfaces import IIDNormalizer
 
 
 class ShopItemView(BrowserView):
@@ -14,7 +16,7 @@ class ShopItemView(BrowserView):
     """
 
     __call__ = ViewPageTemplateFile('templates/shopitem.pt')
-    
+
     single_item_template = ViewPageTemplateFile('templates/listing/single_item.pt')
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
@@ -25,14 +27,13 @@ class ShopItemView(BrowserView):
         """
         context = aq_inner(self.context)
         return [context]
-    
-    
+
     def single_item(self, item):
         return self.single_item_template(item=item)
 
     def one_variation(self, item):
         return self.one_variation_template(item=item)
-    
+
     def two_variations(self, item):
         return self.two_variations_template(item=item)
 
@@ -85,10 +86,9 @@ class ShopItemView(BrowserView):
 class ShopCompactItemView(ShopItemView):
     """Compact view for a shop item
     """
-    
+
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
-
 
 
 class EditVariationsView(BrowserView):
@@ -113,7 +113,8 @@ class EditVariationsView(BrowserView):
             variation_config.updateVariationConfig(edited_var_data)
 
             IStatusMessage(self.request).addStatusMessage(
-                _(u'msg_variations_saved', default=u"Variations saved."), type="info")
+                _(u'msg_variations_saved',
+                  default=u"Variations saved."), type="info")
             self.request.RESPONSE.redirect(self.context.absolute_url())
 
         return self.template()
@@ -126,9 +127,9 @@ class EditVariationsView(BrowserView):
         variation_config = IVariationConfig(self.context)
         variation_data = {}
         normalizer = getUtility(IIDNormalizer)
-        
+
         # TODO: Refactor this to avoid code duplication
-        
+
         if len(variation_config.getVariationAttributes()) == 1:
             for var1_value in variation_config.getVariation1Values():
                 variation_key = normalizer.normalize(var1_value)

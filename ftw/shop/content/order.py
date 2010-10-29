@@ -1,7 +1,5 @@
 from AccessControl import ClassSecurityInfo
-from ftw.shop import shopMessageFactory as _
-from ftw.shop.config import PROJECTNAME
-from ftw.shop.interfaces import IShopOrder
+
 from persistent.mapping import PersistentMapping
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content import base
@@ -12,6 +10,9 @@ from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.config import ONLINE_PENDING_KEY
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.config import PROJECTNAME
+from ftw.shop.interfaces import IShopOrder
 
 OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
@@ -23,7 +24,7 @@ OrderSchema = ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"")
         ),
     ),
-    
+
     atapi.IntegerField(
         'status',
         required=True,
@@ -37,7 +38,7 @@ class ShopOrder(base.ATCTContent):
     """
     implements(IShopOrder)
     security = ClassSecurityInfo()
-    meta_type = 'ShopOrder' 
+    meta_type = 'ShopOrder'
     schema = OrderSchema
 
     def setCustomerData(self, data):
@@ -46,7 +47,7 @@ class ShopOrder(base.ATCTContent):
     def getCustomerData(self):
         if hasattr(self, '_customer_data'):
             return self._customer_data
-        
+
     def getShopConfig(self):
         registry = getUtility(IRegistry)
         shop_config = registry.forInterface(IShopConfiguration)
@@ -54,11 +55,11 @@ class ShopOrder(base.ATCTContent):
 
     def setCartData(self, data):
         self._cart_data = PersistentMapping(data)
-        
+
     def getCartData(self):
         if hasattr(self, '_cart_data'):
             return self._cart_data
-    
+
     def getOrderNumber(self):
         return self.Title() or self.getId()
 

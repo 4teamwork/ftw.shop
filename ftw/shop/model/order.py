@@ -1,17 +1,20 @@
+from decimal import Decimal, InvalidOperation
 from DateTime import DateTime as ZopeDateTime
-from zope.component import getUtility
+
 from plone.registry.interfaces import IRegistry
 from sqlalchemy import Column, Integer, Unicode, Numeric, PickleType, DateTime
 from sqlalchemy import Boolean
 from sqlalchemy.ext.declarative import declarative_base
+from zope.interface import implements
+from zope.component import getUtility
 
 from ftw.shop.interfaces import IShopOrder
-from zope.interface import implements
-from ftw.shop.config import ONLINE_PENDING_KEY
 from ftw.shop.interfaces import IShopConfiguration
-from decimal import Decimal, InvalidOperation
+from ftw.shop.config import ONLINE_PENDING_KEY
+
 
 Base = declarative_base()
+
 
 class Order(Base):
     """Order model
@@ -43,18 +46,17 @@ class Order(Base):
     customer_newsletter = Column(Boolean)
     customer_comments = Column(Unicode)
 
-
     def shop_config(self):
         registry = getUtility(IRegistry)
         shop_config = registry.forInterface(IShopConfiguration)
         return shop_config
-    
+
     def getOrderNumber(self):
         order_id = self.order_id
         now = ZopeDateTime()
         order_number = '%03d%s%04d' % (now.dayOfYear()+500, now.yy(), order_id)
         return order_number
-    
+
     def getTotal(self):
         """Since SQLite doesn't support Decimal fields, trim the float it
         returns to two decimal places and convert it to Decimal. If that
