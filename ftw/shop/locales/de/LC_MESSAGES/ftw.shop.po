@@ -177,7 +177,7 @@ msgid "desc_variation2_values"
 msgstr ""
 
 #. Default: "Details of your order"
-#: ./ftw/shop/browser/templates/order_mail.pt:24
+#: ./ftw/shop/browser/templates/order_mail.pt:23
 msgid "header_orderdetails"
 msgstr "Einzelheiten zu Ihrer Bestellung"
 
@@ -223,6 +223,11 @@ msgstr "Warenkorb-Portlet hinzufügen"
 msgid "label_article_no"
 msgstr "Artikel-Nr."
 
+#. Default: "Cart"
+#: ./ftw/shop/browser/templates/order_manager.pt:17
+msgid "label_cart"
+msgstr "Warenkorb"
+
 #. Default: "Cart Contents"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:30
 msgid "label_cart_contents"
@@ -263,6 +268,16 @@ msgstr "Kontaktinformations-Schritt"
 #: ./ftw/shop/interfaces.py:186
 msgid "label_country"
 msgstr "Land"
+
+#. Default: "Customer"
+#: ./ftw/shop/browser/templates/order_manager.pt:18
+msgid "label_customer"
+msgstr "Kunde"
+
+#. Default: "Date"
+#: ./ftw/shop/browser/templates/order_manager.pt:19
+msgid "label_date"
+msgstr "Datum"
 
 #. Default: "Contact Information"
 #: ./ftw/shop/browser/checkout.py:37
@@ -326,12 +341,12 @@ msgstr ""
 #. Default: "Order Mail Subject (Deutsch)"
 #: ./ftw/shop/interfaces.py:110
 msgid "label_mail_subject_de"
-msgstr ""
+msgstr "Bestellungsmail-Betreff (Deutsch)"
 
-#. Default: "Order Mail Subject (English"
+#. Default: "Order Mail Subject (English)"
 #: ./ftw/shop/interfaces.py:115
 msgid "label_mail_subject_en"
-msgstr ""
+msgstr "Bestellungsmail-Betreff (Englisch)"
 
 #. Default: "More"
 #: ./ftw/shop/browser/templates/category.pt:55
@@ -353,8 +368,13 @@ msgstr "Nein"
 msgid "label_order_review_step"
 msgstr "Bestellungsübersicht"
 
+#. Default: "Title"
+#: ./ftw/shop/browser/templates/order_manager.pt:14
+msgid "label_order_title"
+msgstr "Titel"
+
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:63
 #: ./ftw/shop/interfaces.py:141
 msgid "label_payment_processor"
 msgstr "Zahlungsanbieter"
@@ -510,7 +530,7 @@ msgid "msg_categories_updated"
 msgstr "Kategorien wurden aktualisiert."
 
 #. Default: "You will now be redirected to an external site."
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:63
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:67
 msgid "msg_external_redirect"
 msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
@@ -525,7 +545,7 @@ msgid "msg_label_info"
 msgstr "Information"
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:252
+#: ./ftw/shop/browser/cart.py:255
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 
@@ -579,7 +599,7 @@ msgid "txt_contact"
 msgstr "Bei Fragen kontaktieren Sie uns bitte: Telefon ${phone}, E-Mail ${email}"
 
 #. Default: "Your order number is"
-#: ./ftw/shop/browser/templates/order_mail.pt:26
+#: ./ftw/shop/browser/templates/order_mail.pt:25
 msgid "txt_ordernumber"
 msgstr "Ihre Bestellnummer ist"
 
@@ -594,12 +614,12 @@ msgid "txt_subscribe_newsletter"
 msgstr "Newsletter bestellen"
 
 #. Default: "Thank you for your order in our shop on the ${date}"
-#: ./ftw/shop/browser/templates/order_mail.pt:21
+#: ./ftw/shop/browser/templates/order_mail.pt:20
 msgid "txt_thankyou"
 msgstr "Danke für Ihre Bestellung am ${date}"
 
 #. Default: "Dear"
-#: ./ftw/shop/browser/templates/order_mail.pt:15
+#: ./ftw/shop/browser/templates/order_mail.pt:14
 msgid "txt_title"
 msgstr "Sehr geehrte/r"
 

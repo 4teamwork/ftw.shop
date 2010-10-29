@@ -112,7 +112,7 @@ class IShopConfiguration(Interface):
             default=u"")
 
     mail_subject_en = schema.TextLine(
-            title=_(u"label_mail_subject_en", default=u"Order Mail Subject (English"),
+            title=_(u"label_mail_subject_en", default=u"Order Mail Subject (English)"),
             required=False,
             default=u"")
 

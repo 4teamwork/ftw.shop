@@ -137,9 +137,9 @@ class OrderManagerView(BrowserView):
         mailTo = formataddr(("Shop Owner", shop_config.shop_email))
 
         if shop_config is not None:
-            mailFrom = shop_config.shop_email
-            mailBcc = getattr(shop_config, 'mail_bcc', '')
             shop_name = shop_config.shop_name
+            mailFrom = formataddr((shop_name, shop_config.shop_email))
+            mailBcc = getattr(shop_config, 'mail_bcc', '')
             mailSubject = '[%s] Order %s by %s' % (shop_name, order_id, fullname)
 
         mhost = IMailHostAdapter(self.context)
