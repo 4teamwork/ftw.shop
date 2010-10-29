@@ -108,6 +108,7 @@ class OrderManagerView(BrowserView):
         registry = getUtility(IRegistry)
         shop_config = registry.forInterface(IShopConfiguration)
 
+        # Send order confirmation mail to customer
         mailTo = formataddr((fullname, order.customer_email))
 
         if shop_config is not None:
@@ -117,6 +118,29 @@ class OrderManagerView(BrowserView):
             mailSubject = getattr(shop_config, 'mail_subject_%s' % lang)
             if not mailSubject:
                 mailSubject = '%s Webshop' % shop_name
+
+        mhost = IMailHostAdapter(self.context)
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST), name=u'mail_view')
+        msg_body = mail_view(order=order)
+
+        mhost.send(msg_body,
+                     mto=mailTo,
+                     mfrom=mailFrom,
+                     mbcc=mailBcc,
+                     subject=mailSubject,
+                     encode=None,
+                     immediate=False,
+                     msg_type='text/html',
+                     charset='utf8')
+
+        # Send mail to shop owner about the order
+        mailTo = formataddr(("Shop Owner", shop_config.shop_email))
+
+        if shop_config is not None:
+            mailFrom = shop_config.shop_email
+            mailBcc = getattr(shop_config, 'mail_bcc', '')
+            shop_name = shop_config.shop_name
+            mailSubject = '[%s] Order %s by %s' % (shop_name, order_id, fullname)
 
         mhost = IMailHostAdapter(self.context)
         mail_view = getMultiAdapter((self.context, self.context.REQUEST), name=u'mail_view')
