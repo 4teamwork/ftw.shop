@@ -13,6 +13,7 @@ from zope.component import getUtility, getMultiAdapter
 
 from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.model.order import Order
+from ftw.shop.model.cartitems import CartItems
 from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.interfaces import IMailHostAdapter
@@ -70,6 +71,8 @@ class OrderManagerView(BrowserView):
         order.title = order_number
 
         order.date = datetime.now()
+        sa_session.add(order)
+        transaction.commit()
 
         # store customer data
         for key in customer_data.keys():
@@ -78,7 +81,18 @@ class OrderManagerView(BrowserView):
             except AttributeError:
                 pass
 
+        # FIXME: sku_code doesn't get saved on cart_items
         # store cart in order
+        for skuCode in cart_data.keys():
+            cart_items = CartItems()
+            sa_session.add(cart_items)
+            cart_items.skuCode = skuCode
+            cart_items.quantity = cart_data[skuCode]['quantity']
+            cart_items.order_id = order.order_id
+            cart_items.order = order
+            sa_session.add(cart_items)
+
+
         order.cart_contents = cart_data
         order.total = cart_view.cart_total()
 

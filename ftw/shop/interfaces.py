@@ -39,6 +39,10 @@ class IShopOrder(Interface):
     """A shop order
     """
 
+class ICartItem(Interface):
+    """A shop item that has been added to the cart and is part of an order
+    """
+
 
 class IMailHostAdapter(Interface):
     """Adapter to abstract Plone 3 and Plone 4 MailHosts

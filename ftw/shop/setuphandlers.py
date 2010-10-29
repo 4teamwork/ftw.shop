@@ -4,11 +4,12 @@ from zope.component import queryUtility
 
 from ftw.shop.utils import create_session
 from ftw.shop.model.order import Order
+from ftw.shop.model.cartitems import CartItems
 
 # The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
 
-MODELS = [Order]
+MODELS = [Order, CartItems]
 
 
 def create_sql_tables():

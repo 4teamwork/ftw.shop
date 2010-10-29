@@ -15,6 +15,7 @@
 		<th>Status</th>
 		<th>Total</th>
 		<th i18n:translate="label_cart">Cart</th>
+		<th>NewCart</th>
 		<th i18n:translate="label_customer">Customer</th>
 		<th i18n:translate="label_date">Date</th>
 	</thead>
@@ -25,6 +26,7 @@
 			<td tal:content="order/status"/>
 			<td tal:content="order/getTotal"/>
 			<td><span tal:condition="order/cart_contents" tal:content="python:'%s items' % len(order.cart_contents)"/></td>
+			<td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code"></span></tal:block></td>
 			<td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
 			    tal:content="customer"/>
 			<td tal:content="order/date"/>
