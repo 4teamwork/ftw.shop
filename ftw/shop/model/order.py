@@ -2,6 +2,7 @@ from DateTime import DateTime as ZopeDateTime
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
 from sqlalchemy import Column, Integer, Unicode, Numeric, PickleType, DateTime
+from sqlalchemy import Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
 from ftw.shop.interfaces import IShopOrder
@@ -24,9 +25,23 @@ class Order(Base):
     title = Column(Unicode)
     status = Column(Integer, default=ONLINE_PENDING_KEY)
     total = Column(Numeric)
+    date = Column(DateTime)
+
     cart_contents = Column(PickleType)
     customer_info = Column(PickleType)
-    date = Column(DateTime)
+
+    customer_title = Column(Unicode)
+    customer_firstname = Column(Unicode)
+    customer_lastname = Column(Unicode)
+    customer_email = Column(Unicode)
+    customer_street1 = Column(Unicode)
+    customer_street2 = Column(Unicode)
+    customer_phone = Column(Unicode)
+    customer_zipcode = Column(Unicode)
+    customer_city = Column(Unicode)
+    customer_country = Column(Unicode)
+    customer_newsletter = Column(Boolean)
+    customer_comments = Column(Unicode)
 
 
     def shop_config(self):
@@ -42,7 +57,8 @@ class Order(Base):
     
     def getTotal(self):
         """Since SQLite doesn't support Decimal fields, trim the float it
-        returns to two decimal places and convert it to Decimal"""
+        returns to two decimal places and convert it to Decimal. If that
+        fails, return the total as-is."""
         f = self.total
         try:
             return Decimal(str(f)[:str(f).find('.') + 3])

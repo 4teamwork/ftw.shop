@@ -7,13 +7,12 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="order options/order;
-      			  customer order/customer_info;
                   cart order/cart_contents;
                   shop_config order/shop_config">
 
 <p>
     <span i18n:translate="txt_title">Dear</span>
-    <span tal:replace="customer/firstname"></span> <span tal:replace="customer/lastname"></span>
+    <span tal:replace="order/customer_firstname"></span> <span tal:replace="order/customer_lastname"></span>
 </p>
 
 <p i18n:translate="txt_thankyou">
@@ -23,44 +22,45 @@ Thank you for your order in our shop on the
 
 <h3 i18n:translate="header_orderdetails">Details of your order</h3>
 
-<span i18n:translate="txt_ordernumber">Your order number is</span>: <span tal:replace="order/getOrderNumber"></span>
+<span i18n:translate="txt_ordernumber">Your order number is</span>: 
+<span tal:replace="order/getOrderNumber"></span>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
     
     <p>
-        <span tal:replace="customer/title" /><br />
+        <span tal:replace="order/customer_title" /><br />
         
-        <span tal:replace="customer/firstname" />
-        <span tal:replace="customer/lastname" /><br />
+        <span tal:replace="order/customer_firstname" />
+        <span tal:replace="order/customer_lastname" /><br />
         
-        <span tal:replace="customer/street1" /><br />
+        <span tal:replace="order/customer_street1" /><br />
         
-        <tal:block condition="customer/street2">
-            <span tal:replace="customer/street2" /><br />
+        <tal:block condition="order/customer_street2">
+            <span tal:replace="order/customer_street2" /><br />
         </tal:block>
         
-        <span tal:replace="customer/zipcode" />
-        <span tal:replace="customer/city" />                
+        <span tal:replace="order/customer_zipcode" />
+        <span tal:replace="order/customer_city" />
     </p>
 
     <p>
         <span i18n:translate="label_email">Email</span>:
-        <span tal:replace="customer/email" />
+        <span tal:replace="order/customer_email" />
         
-        <tal:block condition="customer/phone">
+        <tal:block condition="order/customer_phone">
             <br /><span i18n:translate="label_phone">Phone</span>:
-            <span tal:replace="customer/phone"></span>
+            <span tal:replace="order/customer_phone"></span>
         </tal:block>
     </p>
     <p>
-    <tal:block condition="customer/newsletter">
+    <tal:block condition="order/customer_newsletter">
         <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
     </tal:block>
     </p>
     
-    <p tal:condition="customer/comments">
+    <p tal:condition="order/customer_comments">
          <span i18n:translate="label_details_comments">Comments</span>:
-         <span tal:replace="customer/comments" />            
+         <span tal:replace="order/customer_comments" />
     </p>
     
 <h4 i18n:translate="header_ordereditems">Ordered items</h4>

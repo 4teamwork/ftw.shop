@@ -35,9 +35,8 @@ class OrderManagerView(BrowserView):
         return orders
 
     def addOrder(self):
-        '''
-        Add a new Order and returns the order id.
-        '''
+        """Add a new Order and return the order id.
+        """
 
         session = self.context.REQUEST.SESSION
 
@@ -75,7 +74,11 @@ class OrderManagerView(BrowserView):
         order.date = datetime.now()
  
         # store customer data
-        order.customer_info = customer_data
+        for key in customer_data.keys():
+            try:
+                setattr(order, 'customer_%s' % key, customer_data[key])
+            except AttributeError:
+                pass
 
         # store cart in order
         order.cart_contents = cart_data
@@ -96,10 +99,8 @@ class OrderManagerView(BrowserView):
         """
         sa_session = create_session()
         order = sa_session.query(Order).filter_by(order_id=order_id).first()
-        
-        customer = order.customer_info
-        
-        fullname = "%s %s" % (customer.get('firstname'),customer.get('lastname'))
+
+        fullname = "%s %s" % (order.customer_firstname ,order.customer_lastname)
 
         ltool = getToolByName(self.context, 'portal_languages')
         lang = ltool.getPreferredLanguage()
@@ -107,7 +108,7 @@ class OrderManagerView(BrowserView):
         registry = getUtility(IRegistry)
         shop_config = registry.forInterface(IShopConfiguration)
 
-        mailTo = formataddr((fullname, customer.get('email')))
+        mailTo = formataddr((fullname, order.customer_email))
 
         if shop_config is not None:
             mailFrom = shop_config.shop_email
