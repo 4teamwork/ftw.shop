@@ -299,10 +299,11 @@ class CartView(BrowserView):
 
             # Set correct status for payment by invoice
             sa_session = create_session()
-            order = omanager.getOrders().filter_by(order_id=order_id).first()
-            order.status = ONACCOUNT_KEY
-            sa_session.add(order)
-            transaction.commit()
+            #order = omanager.getOrders().filter_by(order_id=order_id).first()
+            order = omanager.getOrder(order_id)
+            order['status'] = ONACCOUNT_KEY
+            #sa_session.add(order)
+            #transaction.commit()
 
             omanager.sendOrderMail(order_id)
 

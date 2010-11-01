@@ -24,6 +24,11 @@ class IShopItem(Interface):
 class IShopCategory(Interface):
     """A category for shop items
     """
+    
+
+class IOrderStorage(Interface):
+    """A local utility which stores the shop orders
+    """
 
 
 class IVariationConfig(Interface):

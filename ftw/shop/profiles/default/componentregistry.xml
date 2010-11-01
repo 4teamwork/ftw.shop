@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<componentregistry>
+	<utilities>
+		<utility 
+		  interface="ftw.shop.interfaces.IOrderStorage"
+		  factory="ftw.shop.storage.OrderStorage" />
+	</utilities>
+</componentregistry>

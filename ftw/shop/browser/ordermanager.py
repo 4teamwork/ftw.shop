@@ -11,7 +11,7 @@ from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility, getMultiAdapter
 
-from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
 from ftw.shop.model.order import Order
 from ftw.shop.model.cartitems import CartItems
 from ftw.shop.exceptions import MissingCustomerInformation
@@ -19,6 +19,7 @@ from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
+from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.utils import create_session
 
 
@@ -32,6 +33,15 @@ class OrderManagerView(BrowserView):
         sa_session = create_session()
         orders = sa_session.query(Order)
         return orders
+
+    def getOrder(self, order_id):
+        order_storage = getUtility(IOrderStorage)
+        order = order_storage.get(order_id)
+        return order
+    
+    def getOrderStorage(self):
+        order_storage = getUtility(IOrderStorage)
+        return order_storage
 
     def addOrder(self):
         """Add a new Order and return the order id.
@@ -60,50 +70,70 @@ class OrderManagerView(BrowserView):
         # change security context to owner
         user = self.context.getWrappedOwner()
         newSecurityManager(self.context.REQUEST, user)
+        
+        order_dict = {}
+        order_dict['status'] = ONLINE_PENDING_KEY
+        order_dict['date'] = datetime.now()
+        order_dict['customer_data'] = customer_data
+        order_dict['total'] = cart_view.cart_total()
+        order_dict['cart'] = cart_view.cart_items()
 
-        # create Order
-        sa_session = create_session()
-        order = Order()
-        sa_session.add(order)
-        sa_session.flush()
-
-        order_id = order.order_id
+        order_storage = getUtility(IOrderStorage)
+        order_id = order_storage.addDataRow(order_dict)
 
         # calc order number
         now = DateTime()
         order_prefix = '%03d%s' % (now.dayOfYear() + 500, now.yy())
         order_number = '%s%04d' % (order_prefix, order_id)
-        order.title = order_number
 
-        order.date = datetime.now()
-        sa_session.add(order)
-        sa_session.flush()
-
-        # store customer data
-        for key in customer_data.keys():
-            try:
-                setattr(order, 'customer_%s' % key, customer_data[key])
-            except AttributeError:
-                pass
-
-        # store cart in order
-        for skuCode in cart_data.keys():
-            cart_items = CartItems()
-            sa_session.add(cart_items)
-            sa_session.flush()
-            cart_items.sku_code = skuCode
-            cart_items.quantity = cart_data[skuCode]['quantity']
-            cart_items.title = cart_data[skuCode]['title']
-            cart_items.price = cart_data[skuCode]['price']
-            cart_items.total = cart_data[skuCode]['total']
-            cart_items.order_id = order.order_id
-            cart_items.order = order
-            sa_session.flush()
-
-        order.total = cart_view.cart_total()
-
-        sa_session.add(order)
-        sa_session.flush()
+        
+        stored_order = order_storage.get(order_id)
+        stored_order['title'] = order_number
+        
+#        
+#        # create Order
+#        sa_session = create_session()
+#        order = Order()
+#        sa_session.add(order)
+#        sa_session.flush()
+#
+#        order_id = order.order_id
+#
+#        # calc order number
+#        now = DateTime()
+#        order_prefix = '%03d%s' % (now.dayOfYear() + 500, now.yy())
+#        order_number = '%s%04d' % (order_prefix, order_id)
+#        order.title = order_number
+#
+#        order.date = datetime.now()
+#        sa_session.add(order)
+#        sa_session.flush()
+#
+#        # store customer data
+#        for key in customer_data.keys():
+#            try:
+#                setattr(order, 'customer_%s' % key, customer_data[key])
+#            except AttributeError:
+#                pass
+#
+#        # store cart in order
+#        for skuCode in cart_data.keys():
+#            cart_items = CartItems()
+#            sa_session.add(cart_items)
+#            sa_session.flush()
+#            cart_items.sku_code = skuCode
+#            cart_items.quantity = cart_data[skuCode]['quantity']
+#            cart_items.title = cart_data[skuCode]['title']
+#            cart_items.price = cart_data[skuCode]['price']
+#            cart_items.total = cart_data[skuCode]['total']
+#            cart_items.order_id = order.order_id
+#            cart_items.order = order
+#            sa_session.flush()
+#
+#        order.total = cart_view.cart_total()
+#
+#        sa_session.add(order)
+#        sa_session.flush()
 
         noSecurityManager()
 
@@ -114,11 +144,13 @@ class OrderManagerView(BrowserView):
         Send order confirmation mail of the order with the specified order_id.
         Can be used if initial sending of order mail failed for some reason.
         """
-        sa_session = create_session()
-        order = sa_session.query(Order).filter_by(order_id=order_id).first()
+        #sa_session = create_session()
+        #order = sa_session.query(Order).filter_by(order_id=order_id).first()
+        order_storage = getUtility(IOrderStorage)
+        order = order_storage.get(order_id)
 
-        fullname = "%s %s" % (order.customer_firstname,
-                              order.customer_lastname)
+        fullname = "%s %s" % (order['customer']['firstname'],
+                              order['customer']['lastname'])
 
         ltool = getToolByName(self.context, 'portal_languages')
         lang = ltool.getPreferredLanguage()
@@ -127,7 +159,7 @@ class OrderManagerView(BrowserView):
         shop_config = registry.forInterface(IShopConfiguration)
 
         # Send order confirmation mail to customer
-        mailTo = formataddr((fullname, order.customer_email))
+        mailTo = formataddr((fullname, order['customer']['email']))
 
         if shop_config is not None:
             mailFrom = shop_config.shop_email
