@@ -11,6 +11,9 @@ from ftw.shop.interfaces import IShopConfiguration
 
 
 def ContactInfoStepGroups(context):
+    """Returns a vocabulary of the registered StepGroups for the
+    contact information StepGroup
+    """
     # context is the portal config options, whose context is the portal
     contact_info_step_groups = getAdapters((context, None, context),
                                            IContactInformationStepGroup)
@@ -21,6 +24,8 @@ def ContactInfoStepGroups(context):
 
 
 def PaymentProcessors(context):
+    """Returns a vocabulary of the registered PaymentProcessors
+    """
     # context is the portal config options, whose context is the portal
     payment_processors = getAdapters((context, None, context),
                                      IPaymentProcessor)
@@ -45,6 +50,9 @@ def PaymentProcessors(context):
 
 
 def EnabledPaymentProcessors(context):
+    """Returns a vocabulary of the PaymentProcessors that have been enabled
+    in the shop configuration.
+    """
     # context is the portal config options, whose context is the portal
     registry = getUtility(IRegistry)
     shop_config = registry.forInterface(IShopConfiguration)
