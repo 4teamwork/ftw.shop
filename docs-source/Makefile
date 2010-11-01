@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = /home/lukas/Plone/ftw.shop-env/plone4.0/bin/zopepy /home/lukas/Plone/ftw.shop-env/plone4.0/bin/sphinx-build
+SPHINXBUILD   = ../../../bin/zopepy ../../../bin/sphinx-build
 PAPER         =
 BUILDDIR      = _build
 
