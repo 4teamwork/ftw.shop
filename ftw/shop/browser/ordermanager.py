@@ -88,12 +88,13 @@ class OrderManagerView(BrowserView):
             sa_session.flush()
             cart_items.sku_code = skuCode
             cart_items.quantity = cart_data[skuCode]['quantity']
+            cart_items.title = cart_data[skuCode]['title']
+            cart_items.price = cart_data[skuCode]['price']
+            cart_items.total = cart_data[skuCode]['total']
             cart_items.order_id = order.order_id
             cart_items.order = order
             sa_session.flush()
 
-
-        order.cart_contents = cart_data
         order.total = cart_view.cart_total()
 
         sa_session.add(order)

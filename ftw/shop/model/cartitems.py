@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Unicode
+from sqlalchemy import Column, Integer, Unicode, Numeric
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
@@ -23,5 +23,8 @@ class CartItems(Base):
     order_id = Column(Integer, ForeignKey(Order.order_id))
     sku_code = Column(Unicode)
     quantity = Column(Integer)
+    title = Column(Unicode)
+    price = Column(Numeric)
+    total = Column(Numeric)
     
     order = relationship(Order, backref=backref('cartitems', order_by=id))

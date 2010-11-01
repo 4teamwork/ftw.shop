@@ -30,9 +30,6 @@ class Order(Base):
     total = Column(Numeric)
     date = Column(DateTime)
 
-    cart_contents = Column(PickleType)
-    customer_info = Column(PickleType)
-
     customer_title = Column(Unicode)
     customer_firstname = Column(Unicode)
     customer_lastname = Column(Unicode)

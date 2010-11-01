@@ -7,7 +7,6 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="order options/order;
-                  cart order/cart_contents;
                   shop_config order/shop_config">
 
 <p>
@@ -74,8 +73,8 @@ Thank you for your order in our shop on the
        <th i18n:translate="cart_header_total">Total</th>
    </tr>
 
-   <tr tal:repeat="item python:cart.values()">
-     <td tal:content="item/skucode"/>
+   <tr tal:repeat="item order/cartitems">
+     <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
      <td tal:content="item/price"/>
