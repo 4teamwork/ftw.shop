@@ -7,6 +7,20 @@
     xmlns:db="http://namespaces.zope.org/db"
     i18n_domain="ftw.shop">
 
+    <permission
+     id="ftw.shop.AddShopCategory"
+     title="ftw.shop: Add Shop Category"
+     />
+
+    <permission
+     id="ftw.shop.AddShopItem"
+     title="ftw.shop: Add Shop Item"
+     />
+    <permission
+     id="ftw.shop.AddOrder"
+     title="ftw.shop: Add Order"
+     />
+
     <five:registerPackage package="." initialize=".initialize" />
 
     <include package="archetypes.schemaextender" />
@@ -23,12 +37,6 @@
     <db:engine name="ftw.shop.db"
               url="sqlite:///devdata.db" />
     <db:session name="ftw.shop" engine="ftw.shop.db" />
-
-    <adapter
-      factory=".setuphandlers.FtwShopSessionName"
-      provides="ftw.dictstorage.interfaces.IConfig"
-      for="ftw.dictstorage.interfaces.ISQLAlchemy"
-      />
 
     <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
@@ -107,6 +115,7 @@
       factory="ftw.shop.mailer.MailHostAdapter"
     />
 
-    <i18n:registerTranslations directory="locales"/> 
+    <i18n:registerTranslations directory="locales"/>
+
 
 </configure>
