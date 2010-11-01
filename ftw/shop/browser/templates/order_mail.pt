@@ -78,13 +78,13 @@ Thank you for your order in our shop on the
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
      <td tal:content="item/price"/>
-     <td tal:content="item/total"/>
+     <td tal:content="item/getTotal"/>
    </tr>
 </table>
 
 <br/>
 <span i18n:translate="txt_total">Total amount of this order</span>:
-<b tal:content="order/total" />
+<b tal:content="order/getTotal" />
 <span i18n:translate="txt_vat">(incl. VAT)</span>
 <br />
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>

@@ -1,3 +1,5 @@
+from decimal import Decimal, InvalidOperation
+
 from sqlalchemy import Column, Integer, Unicode, Numeric
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -28,3 +30,13 @@ class CartItems(Base):
     total = Column(Numeric)
     
     order = relationship(Order, backref=backref('cartitems', order_by=id))
+    
+    def getTotal(self):
+        """Since SQLite doesn't support Decimal fields, trim the float it
+        returns to two decimal places and convert it to Decimal. If that
+        fails, return the total as-is."""
+        f = self.total
+        try:
+            return Decimal(str(f)[:str(f).find('.') + 3])
+        except InvalidOperation:
+            return self.total
