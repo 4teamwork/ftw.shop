@@ -20,7 +20,10 @@ from ftw.shop import shopMessageFactory as _
 
 
 class CartView(BrowserView):
-    """
+    """Handles the customer's shopping cart and stores it in the user's
+    session.
+    This view is responsible for adding, updating and removing items from 
+    the cart, as well as calculating the current cart total.
     """
     portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
 
@@ -45,7 +48,10 @@ class CartView(BrowserView):
 
     def addtocart(self, skuCode=None, quantity=1,
                   var1choice=None, var2choice=None):
-        """ add item to cart and redirect to referer
+        """Add item to cart and redirect to referer.
+
+        The item must be identified by either its skuCode if it is an item
+        without variations, or by its variation key.
         """
         context = aq_inner(self.context)
 
@@ -63,7 +69,7 @@ class CartView(BrowserView):
 
     def _addtocart(self, skuCode=None, quantity=1,
                    var1choice=None, var2choice=None):
-        """ add item to cart
+        """ Add item to cart
         """
         context = aq_inner(self.context)
         varConf = IVariationConfig(self.context)
@@ -135,14 +141,14 @@ class CartView(BrowserView):
         session['foobar'] = 'barfoo'
 
     def cart_items(self):
-        """ get content of shopping cart
+        """Get all items currently contained in shopping cart
         """
         session = self.request.SESSION
         items = session.get(CART_KEY, {})
         return items
 
     def cart_total(self):
-        """
+        """Return the cart's total as a string
         """
         items = self.cart_items()
         total = Decimal('0.00')
@@ -151,7 +157,7 @@ class CartView(BrowserView):
         return str(total)
 
     def remove_item(self, skuCode):
-        """ remove item by skuCode from cart.
+        """Remove item from cart by skuCode.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
@@ -162,7 +168,7 @@ class CartView(BrowserView):
         session[CART_KEY] = cart_items
 
     def update_item(self, skuCode, quantity):
-        """ update the quantity of an item.
+        """Update the quantity of an item.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
@@ -176,7 +182,7 @@ class CartView(BrowserView):
         session[CART_KEY] = cart_items
 
     def cart_update(self):
-        """ update cart contents.
+        """Update cart contents.
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
@@ -213,7 +219,7 @@ class CartView(BrowserView):
         return
 
     def cart_remove(self):
-        """ remove an item from cart.
+        """Remove an item from cart.
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
@@ -228,7 +234,7 @@ class CartView(BrowserView):
         return
 
     def cart_delete(self):
-        """ remove all items from cart.
+        """Remove all items from cart.
         """
         session = self.request.SESSION
         session[CART_KEY] = {}
@@ -242,7 +248,7 @@ class CartView(BrowserView):
         return
 
     def checkout(self):
-        """ process checkout
+        """Process checkout
         """
         context = aq_inner(self.context)
         session = context.REQUEST.SESSION
@@ -311,7 +317,7 @@ class CartView(BrowserView):
             return
 
     def shop_url(self):
-        """ return the root url of the shop folder.
+        """Return the root url of the shop folder.
         """
         context = aq_inner(self.context)
         shop_root = get_shop_root_object(context)

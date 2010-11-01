@@ -25,7 +25,8 @@ class MailHostAdapter(object):
 
     def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None,
              encode=None, immediate=False, charset=None, msg_type=None):
-        """Send mail.
+        """Sends a message defined at least by its message body and the
+        destination address.
         """
         mhost = self.context.MailHost
 

@@ -81,7 +81,6 @@ class OrderManagerView(BrowserView):
             except AttributeError:
                 pass
 
-        # FIXME: sku_code doesn't get saved on cart_items
         # store cart in order
         for skuCode in cart_data.keys():
             cart_items = CartItems()
