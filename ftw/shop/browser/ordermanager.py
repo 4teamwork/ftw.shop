@@ -60,7 +60,7 @@ class OrderManagerView(BrowserView):
         sa_session = create_session()
         order = Order()
         sa_session.add(order)
-        transaction.commit()
+        sa_session.flush()
 
         order_id = order.order_id
 
@@ -72,7 +72,7 @@ class OrderManagerView(BrowserView):
 
         order.date = datetime.now()
         sa_session.add(order)
-        transaction.commit()
+        sa_session.flush()
 
         # store customer data
         for key in customer_data.keys():
@@ -85,18 +85,19 @@ class OrderManagerView(BrowserView):
         for skuCode in cart_data.keys():
             cart_items = CartItems()
             sa_session.add(cart_items)
-            cart_items.skuCode = skuCode
+            sa_session.flush()
+            cart_items.sku_code = skuCode
             cart_items.quantity = cart_data[skuCode]['quantity']
             cart_items.order_id = order.order_id
             cart_items.order = order
-            sa_session.add(cart_items)
+            sa_session.flush()
 
 
         order.cart_contents = cart_data
         order.total = cart_view.cart_total()
 
         sa_session.add(order)
-        transaction.commit()
+        sa_session.flush()
 
         noSecurityManager()
 
