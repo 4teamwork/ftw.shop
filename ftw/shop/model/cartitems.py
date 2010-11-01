@@ -12,6 +12,15 @@ from ftw.shop.model.order import Order
 
 Base = declarative_base()
 
+def to_decimal(number):
+    """Since SQLite doesn't support Decimal fields, trim the float it
+    returns to two decimal places and convert it to Decimal. If that
+    fails, return the total as-is."""
+    try:
+        return Decimal(str(number)[:str(number).find('.') + 3])
+    except InvalidOperation:
+        return number
+    
 
 class CartItems(Base):
     """Cart contents model
@@ -31,12 +40,12 @@ class CartItems(Base):
     
     order = relationship(Order, backref=backref('cartitems', order_by=id))
     
+    def getPrice(self):
+        """Return the price converted to a Decimal
+        """
+        return to_decimal(self.price)
+    
     def getTotal(self):
-        """Since SQLite doesn't support Decimal fields, trim the float it
-        returns to two decimal places and convert it to Decimal. If that
-        fails, return the total as-is."""
-        f = self.total
-        try:
-            return Decimal(str(f)[:str(f).find('.') + 3])
-        except InvalidOperation:
-            return self.total
+        """Return the total converted to a Decimal
+        """
+        return to_decimal(self.total)
