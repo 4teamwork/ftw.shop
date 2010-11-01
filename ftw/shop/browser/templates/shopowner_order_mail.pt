@@ -23,6 +23,7 @@
 <span i18n:translate="label_order_status">Order Status</span>: 
 <span tal:replace="order/status"></span><br/>
 
+<hr/>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
     
@@ -89,6 +90,7 @@
 <br />
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
+<hr/>
 
 </body>
 </html>
