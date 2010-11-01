@@ -16,6 +16,7 @@ from ftw.shop.model.order import Order
 from ftw.shop.model.cartitems import CartItems
 from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingOrderConfirmation
+from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.utils import create_session
@@ -51,6 +52,10 @@ class OrderManagerView(BrowserView):
         # check for order confirmation
         if not session.get('order_confirmation', None):
             raise MissingOrderConfirmation
+
+        # check for payment processor
+        if not session.get('payment_processor_choice', None):
+            raise MissingPaymentProcessor
 
         # change security context to owner
         user = self.context.getWrappedOwner()

@@ -2,7 +2,7 @@ from decimal import Decimal, InvalidOperation
 from DateTime import DateTime as ZopeDateTime
 
 from plone.registry.interfaces import IRegistry
-from sqlalchemy import Column, Integer, Unicode, Numeric, PickleType, DateTime
+from sqlalchemy import Column, Integer, Unicode, Numeric, DateTime
 from sqlalchemy import Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from zope.interface import implements

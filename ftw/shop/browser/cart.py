@@ -12,6 +12,7 @@ from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingOrderConfirmation
+from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.root import get_shop_root_object
@@ -255,19 +256,6 @@ class CartView(BrowserView):
         ptool = getToolByName(context, 'plone_utils')
         url = context.absolute_url()
 
-        # Get the payment processor selected by the customer
-        if not 'payment_processor_choice' in session.keys():
-            self.request.response.redirect('%s/checkout-wizard' % url)
-            return
-        else:
-            payment_processor_name = session.get(
-                'payment_processor_choice').get('payment_processor')
-            for name, adapter in getAdapters((context, None, context),
-                                             IPaymentProcessor):
-                if name == payment_processor_name:
-                    payment_processor = adapter
-
-
         # check if we have something in the cart
         items = self.cart_items()
         if not items:
@@ -278,6 +266,8 @@ class CartView(BrowserView):
 
         omanager = getMultiAdapter((context, self.request),
                                    name=u'order_manager')
+
+        # Check we got all the data we need from the wizard
         try:
             order_id = omanager.addOrder()
         except MissingCustomerInformation:
@@ -286,6 +276,17 @@ class CartView(BrowserView):
         except MissingOrderConfirmation:
             self.request.response.redirect('%s/checkout-wizard' % url)
             return
+        except MissingPaymentProcessor:
+            self.request.response.redirect('%s/checkout-wizard' % url)
+            return
+
+        # Get the payment processor selected by the customer
+        payment_processor_name = session.get(
+            'payment_processor_choice').get('payment_processor')
+        for name, adapter in getAdapters((context, None, context),
+                                         IPaymentProcessor):
+            if name == payment_processor_name:
+                payment_processor = adapter
 
         if not payment_processor.external:
             customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
