@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>browser.cart — The customer’s shopping cart &mdash; ftw.shop v1.0dev documentation</title>
+    <link rel="stylesheet" href="_static/plone.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0dev',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
+    <link rel="up" title="Browser Views" href="browser.html" />
+    <link rel="next" title="browser.category — Shop Category views" href="browser.category.html" />
+    <link rel="prev" title="Browser Views" href="browser.html" />
+<script language="javascript">
+//<![CDATA[
+
+Documentation.addTranslations({"locale": "fr", "plural_expr": "(n > 1)", "messages": {"See the definition": "Voir la d\u00e9finition"}});
+
+// See http://disqus.disqus.com/general_integration_help/
+var disqus_developer = 1;
+if (document.location.protocol == 'http:') {
+    disqus_developer = 0;
+}
+
+// Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
+$(document).ready(function () {
+
+    // Style of .. verisonmodified:: , .. versionadded:: ...
+    $('p:has(span.versionmodified)').addClass('p-versionmodified');
+
+    // Style of the TOC tree
+    $('ul:has(li.toctree-l1)').addClass('toctree');
+
+    // Decorate links to other sites
+    //$('a[class~=external]').attr('target', '_blank');
+
+    // Glossary terms
+    $('em.xref').attr('title', _('See the definition'));
+
+    // We need to have all <pre> in a <div class="highlight"> to mimic pygments
+    // to work around a pygments (?) bug
+    var suffixes = {cfg: null, python:null};
+    for (var suffix in suffixes) {
+        var pattern = 'div.highlight-' + suffix + ' > pre';
+        $(pattern).wrap('<div class="highlight" />');
+    }
+    return true;
+});
+//]]>
+</script>
+
+  </head>
+  <body>
+<!--[if lte IE 6]>
+<style type="text/css">
+#ie6msg{border:3px solid #090; margin:8px 0; background:#cfc; color:#000;}
+#ie6msg h4{margin:8px; padding:0;}
+#ie6msg p{margin:8px; padding:0;}
+#ie6msg p a.getie8{font-weight:bold; color:#006;}
+#ie6msg p a.ie6expl{font-weight:normal; color:#006;}
+</style>
+<div id="ie6msg">
+<h4>Did you know that your browser is out of date?</h4>
+<p>If the layout of this site seems ugly, that's because you're actually using
+an outdated browser. And we wont put any effort to provide a nice layout to IE6
+users.</p>
+<p>To get the best possible experience using our website we recommend that you
+upgrade your browser to a newer version. The current version
+is <a class="getie8"
+href="http://upgradeie.s3.amazonaws.com/eng/index.html">Internet Explorer
+8</a>. The upgrade is free. If you're using a PC at work you should contact your
+IT administrator.</p>
+<p>If you want to you may also try some other popular Internet browsers
+like <a class="ie6expl"
+href="http://getfirefox.com">Firefox</a>, <a class="ie6expl"
+href="http://www.google.com/chrome">Chrome</a>, <a class="ie6expl"
+href="http://www.opera.com">Opera</a>, or <a class="ie6expl"
+href="http://www.apple.com/safari/download/">Safari</a></p>
+</div>
+<![endif]-->
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="browser.category.html" title="browser.category — Shop Category views"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="browser.html" title="Browser Views"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference Documentation</a> &raquo;</li>
+          <li><a href="browser.html" accesskey="U">Browser Views</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-browser.cart">
+<h1><tt class="xref docutils literal"><span class="pre">browser.cart</span></tt> &#8212; The customer&#8217;s shopping cart<a class="headerlink" href="#module-browser.cart" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="browser.cart.CartView">
+<em class="property">class </em><tt class="descclassname">browser.cart.</tt><tt class="descname">CartView</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="headerlink" href="#browser.cart.CartView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the customer&#8217;s shopping cart and stores it in the user&#8217;s
+session.
+This view is responsible for adding, updating and removing items from 
+the cart, as well as calculating the current cart total.</p>
+<dl class="method">
+<dt id="browser.cart.CartView.addtocart">
+<tt class="descname">addtocart</tt><big>(</big><em>skuCode=None</em>, <em>quantity=1</em>, <em>var1choice=None</em>, <em>var2choice=None</em><big>)</big><a class="headerlink" href="#browser.cart.CartView.addtocart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add item to cart and redirect to referer.</p>
+<p>The item must be identified by either its skuCode if it is an item
+without variations, or by its variation key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.addtocart_ajax">
+<tt class="descname">addtocart_ajax</tt><big>(</big><em>skuCode=None</em>, <em>quantity=1</em>, <em>var1choice=None</em>, <em>var2choice=None</em><big>)</big><a class="headerlink" href="#browser.cart.CartView.addtocart_ajax" title="Permalink to this definition">¶</a></dt>
+<dd>Add item to cart, return portlet HTML and translated status
+message</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.cart_delete">
+<tt class="descname">cart_delete</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.cart_delete" title="Permalink to this definition">¶</a></dt>
+<dd>Remove all items from cart.</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.cart_items">
+<tt class="descname">cart_items</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.cart_items" title="Permalink to this definition">¶</a></dt>
+<dd>Get all items currently contained in shopping cart</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.cart_remove">
+<tt class="descname">cart_remove</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.cart_remove" title="Permalink to this definition">¶</a></dt>
+<dd>Remove an item from cart.</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.cart_total">
+<tt class="descname">cart_total</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.cart_total" title="Permalink to this definition">¶</a></dt>
+<dd>Return the cart&#8217;s total as a string</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.cart_update">
+<tt class="descname">cart_update</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.cart_update" title="Permalink to this definition">¶</a></dt>
+<dd>Update cart contents.</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.checkout">
+<tt class="descname">checkout</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.checkout" title="Permalink to this definition">¶</a></dt>
+<dd>Process checkout</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.remove_item">
+<tt class="descname">remove_item</tt><big>(</big><em>skuCode</em><big>)</big><a class="headerlink" href="#browser.cart.CartView.remove_item" title="Permalink to this definition">¶</a></dt>
+<dd>Remove item from cart by skuCode.</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.shop_url">
+<tt class="descname">shop_url</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.cart.CartView.shop_url" title="Permalink to this definition">¶</a></dt>
+<dd>Return the root url of the shop folder.</dd></dl>
+
+<dl class="method">
+<dt id="browser.cart.CartView.update_item">
+<tt class="descname">update_item</tt><big>(</big><em>skuCode</em>, <em>quantity</em><big>)</big><a class="headerlink" href="#browser.cart.CartView.update_item" title="Permalink to this definition">¶</a></dt>
+<dd>Update the quantity of an item.</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
+</a></p>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="browser.html"
+                                  title="previous chapter">Browser Views</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="browser.category.html"
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">browser.category</span></tt> &#8212; Shop Category views</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/browser.cart.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="browser.category.html" title="browser.category — Shop Category views"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="browser.html" title="Browser Views"
+             >previous</a> |</li>
+        <li><a href="index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference Documentation</a> &raquo;</li>
+          <li><a href="browser.html" >Browser Views</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+      &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+    </div>
+
+
+  </body>
+</html>
