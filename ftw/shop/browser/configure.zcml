@@ -78,12 +78,20 @@
     class=".ordermanager.OrderManagerView"
     />
  
-  <!-- mail template for order -->
+  <!-- mail template for order confirmation to customer -->
   <browser:page
     for="*"
     name="mail_view"
     permission="zope2.View"
     template="templates/order_mail.pt"
+    />
+    
+  <!-- mail template for order notification to shop owner -->
+  <browser:page
+    for="*"
+    name="shopowner_mail_view"
+    permission="zope2.View"
+    template="templates/shopowner_order_mail.pt"
     />
 
   <browser:page 

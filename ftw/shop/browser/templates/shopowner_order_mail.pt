@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="ftw.shop">
+
+<body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
+      tal:define="order options/order;
+                  shop_config order/shop_config">
+
+<p>
+    <span i18n:translate="txt_shopowner_greeting">Hello, <br/>
+    a customer has placed an order in your Webshop:</span>
+</p>
+    
+<p> Customer: <span tal:replace="order/customer_firstname"></span> <span tal:replace="order/customer_lastname"></span>
+    Date: <span tal:replace="order/date"></span>
+    Order Status: <span tal:replace="order/status"></span>
+</p>
+
+<h3 i18n:translate="header_shopowner_orderdetails">Details of the order</h3>
+
+<span i18n:translate="txt__shopowner_ordernumber">Order number</span>: 
+<span tal:replace="order/getOrderNumber"></span>
+
+<h4 i18n:translate="title_personal_information">Personal Information</h4>
+    
+    <p>
+        <span tal:replace="order/customer_title" /><br />
+        
+        <span tal:replace="order/customer_firstname" />
+        <span tal:replace="order/customer_lastname" /><br />
+        
+        <span tal:replace="order/customer_street1" /><br />
+        
+        <tal:block condition="order/customer_street2">
+            <span tal:replace="order/customer_street2" /><br />
+        </tal:block>
+        
+        <span tal:replace="order/customer_zipcode" />
+        <span tal:replace="order/customer_city" />
+    </p>
+
+    <p>
+        <span i18n:translate="label_email">Email</span>:
+        <span tal:replace="order/customer_email" />
+        
+        <tal:block condition="order/customer_phone">
+            <br /><span i18n:translate="label_phone">Phone</span>:
+            <span tal:replace="order/customer_phone"></span>
+        </tal:block>
+    </p>
+    <p>
+    <tal:block condition="order/customer_newsletter">
+        <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
+    </tal:block>
+    </p>
+    
+    <p tal:condition="order/customer_comments">
+         <span i18n:translate="label_details_comments">Comments</span>:
+         <span tal:replace="order/customer_comments" />
+    </p>
+    
+<h4 i18n:translate="header_ordereditems">Ordered items</h4>
+
+<table border="1" cellspacing="0" cellpadding="2">
+   <tr>
+       <th i18n:translate="label_article_no">Article number</th>
+       <th i18n:translate="cart_header_product">Product</th>
+       <th i18n:translate="cart_header_quantity">Quantity</th>
+       <th i18n:translate="cart_header_price">Price</th>
+       <th i18n:translate="cart_header_total">Total</th>
+   </tr>
+
+   <tr tal:repeat="item order/cartitems">
+     <td tal:content="item/sku_code"/>
+     <td tal:content="item/title"/>
+     <td tal:content="item/quantity"/>
+     <td tal:content="item/getPrice"/>
+     <td tal:content="item/getTotal"/>
+   </tr>
+</table>
+
+<br/>
+<span i18n:translate="txt_total">Total amount of this order</span>:
+<b tal:content="order/getTotal" />
+<span i18n:translate="txt_vat">(incl. VAT)</span>
+<br />
+<span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
+
+
+</body>
+</html>

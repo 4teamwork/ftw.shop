@@ -23,7 +23,10 @@ def to_decimal(number):
     
 
 class CartItems(Base):
-    """Cart contents model
+    """Cart items model.
+    This class represents one or more items with the same skuCode that are
+    part of an order. An order therefore holds several of these CartItems
+    objects, one for every unique item type.
     """
 
     implements(ICartItem)

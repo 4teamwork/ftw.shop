@@ -159,9 +159,9 @@ class OrderManagerView(BrowserView):
                                                    fullname)
 
         mhost = IMailHostAdapter(self.context)
-        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
-                                    name=u'mail_view')
-        msg_body = mail_view(order=order)
+        shopowner_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'shopowner_mail_view')
+        msg_body = shopowner_mail_view(order=order)
 
         mhost.send(msg_body,
                      mto=mailTo,
