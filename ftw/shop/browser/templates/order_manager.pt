@@ -27,7 +27,7 @@
 			<td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code" /><span tal:content="string:(${item_set/quantity})" /><br/></tal:block></td>
 			<td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
 			    tal:content="customer"/>
-			<td tal:content="order/date"/>
+			<td tal:content="python: order.date.strftime('%Y-%m-%d %H:%M')"/>
 		</tr>
 	</tbody>
 	
