@@ -7,7 +7,7 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="order options/order;
-                  shop_config order/shop_config">
+                  shop_config options/shop_config">
 
 <p>
     <span i18n:translate="txt_shopowner_greeting">Hello, <br/>
@@ -17,7 +17,7 @@
 <h3 i18n:translate="header_shopowner_orderdetails">Details of the order</h3>
 
 <span i18n:translate="txt_shopowner_ordernumber">Order number</span>: 
-<span tal:replace="order/getOrderNumber"></span><br/>
+<span tal:replace="order/title"></span><br/>
 <span i18n:translate="label_date">Date</span>: 
 <span tal:replace="order/date"></span><br/>
 <span i18n:translate="label_order_status">Order Status</span>: 

@@ -1,5 +1,3 @@
-from decimal import Decimal, InvalidOperation
-
 from sqlalchemy import Column, Integer, Unicode, Numeric
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -8,19 +6,10 @@ from zope.interface import implements
 
 from ftw.shop.interfaces import ICartItem
 from ftw.shop.model.order import Order
-
+from ftw.shop.utils import to_decimal
 
 Base = declarative_base()
 
-def to_decimal(number):
-    """Since SQLite doesn't support Decimal fields, trim the float it
-    returns to two decimal places and convert it to Decimal. If that
-    fails, return the total as-is."""
-    try:
-        return Decimal(str(number)[:str(number).find('.') + 3])
-    except InvalidOperation:
-        return number
-    
 
 class CartItems(Base):
     """Cart items model.

@@ -11,6 +11,7 @@ from zope.component import getUtility
 from ftw.shop.interfaces import IShopOrder
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.config import ONLINE_PENDING_KEY
+from ftw.shop.utils import to_decimal
 
 
 Base = declarative_base()
@@ -43,26 +44,12 @@ class Order(Base):
     customer_newsletter = Column(Boolean)
     customer_comments = Column(Unicode)
 
-    def shop_config(self):
-        registry = getUtility(IRegistry)
-        shop_config = registry.forInterface(IShopConfiguration)
-        return shop_config
-
-    def getOrderNumber(self):
-        order_id = self.order_id
-        now = ZopeDateTime()
-        order_number = '%03d%s%04d' % (now.dayOfYear()+500, now.yy(), order_id)
-        return order_number
 
     def getTotal(self):
         """Since SQLite doesn't support Decimal fields, trim the float it
         returns to two decimal places and convert it to Decimal. If that
         fails, return the total as-is."""
-        f = self.total
-        try:
-            return Decimal(str(f)[:str(f).find('.') + 3])
-        except InvalidOperation:
-            return self.total
+        return to_decimal(self.total)
 
     def __repr__(self):
         return '<Order %s>' % self.order_id

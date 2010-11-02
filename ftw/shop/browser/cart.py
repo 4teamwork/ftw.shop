@@ -1,7 +1,6 @@
 from decimal import Decimal
 import simplejson
 
-import transaction
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -16,7 +15,6 @@ from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.root import get_shop_root_object
-from ftw.shop.utils import create_session
 from ftw.shop import shopMessageFactory as _
 
 
@@ -298,12 +296,9 @@ class CartView(BrowserView):
             session[SESSION_ADDRESS_KEY] = customer_info
 
             # Set correct status for payment by invoice
-            sa_session = create_session()
-            #order = omanager.getOrders().filter_by(order_id=order_id).first()
+
             order = omanager.getOrder(order_id)
-            order['status'] = ONACCOUNT_KEY
-            #sa_session.add(order)
-            #transaction.commit()
+            order.status = ONACCOUNT_KEY
 
             omanager.sendOrderMail(order_id)
 

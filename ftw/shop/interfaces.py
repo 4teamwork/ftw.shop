@@ -24,11 +24,6 @@ class IShopItem(Interface):
 class IShopCategory(Interface):
     """A category for shop items
     """
-    
-
-class IOrderStorage(Interface):
-    """A local utility which stores the shop orders
-    """
 
 
 class IVariationConfig(Interface):
@@ -57,6 +52,26 @@ class IMailHostAdapter(Interface):
              encode=None, immediate=False, charset=None, msg_type=None):
         """Abstract sending mail with Plone 3 and Plone 4.
         """
+
+
+# ------------ Storage related interfaces -------------
+
+class IOrderStorage(Interface):
+    """A local utility which stores the shop orders
+    """
+    
+    def createOrder(self):
+        pass
+    
+    def getOrder(self, order_id):
+        pass
+
+    def getAllOrders(self):
+        pass
+    
+    def flush(self):
+        pass
+
 
 
 # ------------ Checkout Wizard related interfaces -------------

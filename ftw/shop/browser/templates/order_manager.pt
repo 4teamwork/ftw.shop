@@ -8,8 +8,6 @@
 <body>
 
 <metal:main fill-slot="main">
-<p>Order Storage:</p>
-<p tal:content="python: view.getOrderStorage().get(1)"></p>
 	<table class="padded-table">
 	<thead>
 		<th>ID</th>
@@ -46,5 +44,3 @@
 </metal:main>
 </body>
 </html>
-        
-        
