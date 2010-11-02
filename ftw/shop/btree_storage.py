@@ -80,6 +80,7 @@ class CartItems(object):
 
 class BTreeOrderStorage(Persistent):
     implements(IOrderStorage)
+    title = u"BTree Storage"
     
     def __init__(self):
         self._orderStorage = BTreeImplementation()

@@ -179,6 +179,14 @@ class IShopConfiguration(Interface):
                             vocabulary="ftw.shop.payment_processors"),
                             )
 
+    order_storage = schema.Choice(
+            title=_(u"label_order_storage",
+                    default="Order Storage method"),
+            required=True,
+            default=u'ftw.shop.BTreeOrderStorage',
+            vocabulary="ftw.shop.order_storage_vocabulary"
+            )
+
     contact_info_step_group = schema.Choice(
             title=_(u"label_contact_info_step_group",
                     default="Contact Information Step Group"),

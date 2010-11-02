@@ -11,8 +11,7 @@ Session = named_scoped_session('ftw.shop')
 class SQLOrderStorage(object):
     implements(IOrderStorage)
     
-    def __init__(self):
-        pass
+    title = u"SQLAlchemy Storage"
 
     def getOrder(self, id):
         db_session = Session()

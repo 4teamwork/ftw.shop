@@ -19,26 +19,32 @@ from ftw.shop.interfaces import IOrderStorage
 
 
 class OrderManagerView(BrowserView):
-    """Lists orders stored with SQLAlchemy
+    """Lists orders stored in a IOrderStorage
     """
+    
+    def __init__(self, context, request):
+        registry = getUtility(IRegistry)
+        self.shop_config = registry.forInterface(IShopConfiguration)
+        self.order_storage_name = self.shop_config.order_storage
+        super(OrderManagerView, self).__init__(context, request)
 
     __call__ = ViewPageTemplateFile('templates/order_manager.pt')
 
     def getOrders(self):
         order_storage = getUtility(IOrderStorage, 
-                                   name="ftw.shop.SQLOrderStorage")
+                                   name=self.order_storage_name)
         orders = order_storage.getAllOrders()
         return orders
 
     def getOrder(self, order_id):
         order_storage = getUtility(IOrderStorage, 
-                                   name="ftw.shop.SQLOrderStorage")
+                                   name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
         return order
     
     def getOrderStorage(self):
         order_storage = getUtility(IOrderStorage, 
-                                   name="ftw.shop.SQLOrderStorage")
+                                   name=self.order_storage_name)
         return order_storage
 
     def addOrder(self):
@@ -70,7 +76,7 @@ class OrderManagerView(BrowserView):
         newSecurityManager(self.context.REQUEST, user)
 
         order_storage = getUtility(IOrderStorage, 
-                                   name="ftw.shop.SQLOrderStorage")
+                                   name=self.order_storage_name)
         order_id = order_storage.createOrder(status=ONLINE_PENDING_KEY,
                                              date=datetime.now(),
                                              customer_data=customer_data,
@@ -89,7 +95,7 @@ class OrderManagerView(BrowserView):
         """
 
         order_storage = getUtility(IOrderStorage, 
-                                   name="ftw.shop.SQLOrderStorage")
+                                   name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
 
         fullname = "%s %s" % (order.customer_firstname,

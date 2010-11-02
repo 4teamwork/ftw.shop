@@ -1,11 +1,12 @@
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
-from zope.component import getAdapters, getUtility
+from zope.component import getAdapters, getUtility, getUtilitiesFor
 from zope.interface import directlyProvides
 from plone.registry.interfaces import IRegistry
 
 from ftw.shop.interfaces import IContactInformationStepGroup
+from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
 
@@ -75,4 +76,30 @@ def EnabledPaymentProcessors(context):
                          title=pair[1]) for pair in items]
 
     directlyProvides(EnabledPaymentProcessors, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+
+def OrderStorageVocabulary(context):
+    """Returns a vocabulary of the currently registered utilities 
+    that implement IOrderStorage.
+    """
+    # context is the portal config options, whose context is the portal
+    order_storages = getUtilitiesFor(IOrderStorage)
+    storage_names = []
+    storage_titles = []
+    items = []
+
+    for n, a in order_storages:
+        storage_names.append(unicode(n))
+        storage_titles.append(a.title)
+
+    for i in range(0, len(storage_names)):
+        items.append(tuple([storage_names[i], storage_titles[i]]))
+
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+
+    directlyProvides(OrderStorageVocabulary, IVocabularyFactory)
+
     return vocabulary.SimpleVocabulary(terms)

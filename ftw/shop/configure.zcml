@@ -92,7 +92,14 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="ftw.shop.enabled_payment_processors"
       component=".vocabularies.EnabledPaymentProcessors"
-        />
+      />
+
+    <!-- Order Storages Vocabulary -->
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.order_storage_vocabulary"
+      component=".vocabularies.OrderStorageVocabulary"
+      />
 
     <adapter 
       name="ftw.shop.extender.ShopItemExtender"

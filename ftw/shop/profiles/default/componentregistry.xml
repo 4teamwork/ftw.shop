@@ -4,7 +4,7 @@
 		<utility 
 		  interface="ftw.shop.interfaces.IOrderStorage"
 		  factory="ftw.shop.btree_storage.BTreeOrderStorage"
-		  name="ftw.shop.SQLOrderStorage"
+		  name="ftw.shop.BTreeOrderStorage"
 		/>
 
 		<utility 
