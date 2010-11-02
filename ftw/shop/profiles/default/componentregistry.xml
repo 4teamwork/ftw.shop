@@ -6,11 +6,5 @@
 		  factory="ftw.shop.btree_storage.BTreeOrderStorage"
 		  name="ftw.shop.BTreeOrderStorage"
 		/>
-
-		<utility 
-		  interface="ftw.shop.interfaces.IOrderStorage"
-		  factory="ftw.shop.sql_storage.SQLOrderStorage"
-		  name="ftw.shop.SQLOrderStorage"
-		/>
 	</utilities>
 </componentregistry>
