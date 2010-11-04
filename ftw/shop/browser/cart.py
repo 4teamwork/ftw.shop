@@ -286,7 +286,9 @@ class CartView(BrowserView):
             if name == payment_processor_name:
                 payment_processor = adapter
 
-        if not payment_processor.external:
+        if not payment_processor_name or not payment_processor.external:
+            # No payment processor step at all or payment by invoice
+
             customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
             self.request.SESSION.invalidate()
 
@@ -296,7 +298,6 @@ class CartView(BrowserView):
             session[SESSION_ADDRESS_KEY] = customer_info
 
             # Set correct status for payment by invoice
-
             order = omanager.getOrder(order_id)
             order.status = ONACCOUNT_KEY
 

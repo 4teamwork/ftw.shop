@@ -7,7 +7,7 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
-from zope.component import getUtility, getMultiAdapter
+from zope.component import getUtility, getMultiAdapter, getAdapters
 
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
@@ -16,6 +16,7 @@ from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
+from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
 
 class OrderManagerView(BrowserView):
@@ -68,7 +69,17 @@ class OrderManagerView(BrowserView):
             raise MissingOrderConfirmation
 
         # check for payment processor
-        if not session.get('payment_processor_choice', None):
+        payment_processor_step_groups = getAdapters(
+                                        (self.context, self.request, self),
+                                        IPaymentProcessorStepGroup)
+        
+        selected_pp_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"
+        for name, step_group_adapter in payment_processor_step_groups:
+            if name == selected_pp_step_group:
+                payment_processor_steps = step_group_adapter.steps
+                
+        if not len(payment_processor_steps) == 0 \
+            and not session.get('payment_processor_choice', None):
             raise MissingPaymentProcessor
 
         # change security context to owner

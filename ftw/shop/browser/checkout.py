@@ -127,12 +127,18 @@ class CheckoutWizard(wizard.Wizard):
 
     def getSelectedPaymentProcessor(self):
         payment_processor = None
+        if 'payment_processor_choice' not in self.session.keys():
+            return None
         try:
             pp_name = self.session.get(
                     'payment_processor_choice').get('payment_processor')
         except KeyError:
-            pp_name = self.request.SESSION.get(
-                    'payment_processor_choice').get('payment_processor')
+            try:
+                pp_name = self.request.SESSION.get(
+                        'payment_processor_choice').get('payment_processor')
+            except KeyError:
+                # No payment processor step activated
+                pp_name = "none"
         for name, adapter in getAdapters((self.context, None, self.context),
                                          IPaymentProcessor):
             if name == pp_name:
@@ -227,7 +233,8 @@ class CheckoutWizard(wizard.Wizard):
                                         self.session['contact_information'])
         self.request.SESSION['order_confirmation'] = True
         self.request.SESSION['payment_processor_choice'] = {}
-        self.request.SESSION['payment_processor_choice'].update(
+        if 'payment_processor_choice' in self.session.keys():
+            self.request.SESSION['payment_processor_choice'].update(
                                     self.session['payment_processor_choice'])
 
         # Save contact information in a cookie in order to prefill
@@ -244,7 +251,7 @@ class CheckoutWizard(wizard.Wizard):
         self.sync()
 
         pp = self.getSelectedPaymentProcessor()
-        if pp.external:
+        if pp is not None and pp.external:
             self.request.SESSION['external-processor-url'] = pp.url
             self.request.SESSION['external-processor-url'] = "http://localhost:8077/"
 
