@@ -33,10 +33,14 @@ def setup_product():
 
     # Load the ZCML configuration for the example.tests package.
     # This can of course use <include /> to include other packages.
-
+    
     fiveconfigure.debug_mode = True
     import ftw.shop
+    import collective.remove.kss
+    
     zcml.load_config('configure.zcml', ftw.shop)
+    zcml.load_config('configure.zcml', collective.remove.kss)
+    
     fiveconfigure.debug_mode = False
 
     # We need to tell the testing framework that these products
@@ -50,7 +54,8 @@ def setup_product():
     # We may also need to load dependencies, e.g.:
     #   ztc.installPackage('borg.localrole')
 
-    ztc.installPackage('ftw.shop')
+    ztc.installPackage('ftw.shop')    
+    
 
 # The order here is important: We first call the (deferred) function
 # which installs the products we need for this product. Then, we let
@@ -59,7 +64,7 @@ def setup_product():
 setup_product()
 ptc.setupPloneSite(products=['ftw.shop'])
 
-class TestCase(ptc.PloneTestCase):
+class FtwShopTestCase(ptc.PloneTestCase):
     """We use this base class for all the tests in this package. If
     necessary, we can put common utility or setup code in here. This
     applies to unit test cases.
