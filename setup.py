@@ -56,6 +56,7 @@ setup(name='ftw.shop',
       zip_safe=False,
       install_requires=[
         'setuptools',
+        'archetypes.schemaextender',
         'plone.app.z3cform',
         'collective.z3cform.wizard',
         'collective.remove.kss',
