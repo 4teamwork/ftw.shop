@@ -2,23 +2,9 @@ from z3c.saconfig import named_scoped_session
 from z3c.saconfig.interfaces import IScopedSession
 from zope.component import queryUtility
 
-from ftw.shop.utils import create_session
-from ftw.shop.model.order import Order
-from ftw.shop.model.cartitems import CartItems
 
 # The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
-
-MODELS = [Order, CartItems]
-
-
-def create_sql_tables():
-    """Creates the sql tables for the models.
-    """
-
-    session = create_session()
-    for model in MODELS:
-        getattr(model, 'metadata').create_all(session.bind)
 
 
 def FtwShopSessionName(object):
@@ -31,6 +17,4 @@ def import_various(context):
     # Only run step if a flag file is present
     if context.readDataFile('ftw_shop-default.txt') is None:
         return
-
-    if queryUtility(IScopedSession, 'ftw.shop'):
-        create_sql_tables()
+    pass
