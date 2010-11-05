@@ -88,14 +88,15 @@ class CartView(BrowserView):
 
         item_title = context.Title()
         quantity = int(quantity)
+        
+        # If available, get supplier name and email address
+        supplier_name = ''
+        supplier_email = ''
         if context.getField('supplier') is not None:
             supplier = context.getField('supplier').get(context)
             if supplier is not None:
                 supplier_name = supplier.getField('title').get(supplier)
                 supplier_email = supplier.getField('email').get(supplier)
-            else:
-                supplier_name = ''
-                supplier_email = ''
 
         has_variations = varConf.hasVariations()
         if has_variations:
