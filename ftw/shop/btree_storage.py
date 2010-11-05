@@ -64,6 +64,8 @@ class CartItems(object):
         self.title = None
         self.price = None
         self.total = None
+        self.supplier_name = None
+        self.supplier_email = None
         
         self.order = None
 
@@ -136,6 +138,8 @@ class BTreeOrderStorage(Persistent):
             cart_items.title = cart_data[sku_code]['title']
             cart_items.price = cart_data[sku_code]['price']
             cart_items.total = cart_data[sku_code]['total']
+            cart_items.supplier_name = cart_data[sku_code]['supplier_name']
+            cart_items.supplier_email = cart_data[sku_code]['supplier_email']
             cart_items.order_id = order_id
             cart_items.order = new_order
             all_cart_items.append(cart_items)

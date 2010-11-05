@@ -72,6 +72,7 @@ class CartView(BrowserView):
         """
         context = aq_inner(self.context)
         varConf = IVariationConfig(self.context)
+        catalog = getToolByName(context, 'portal_catalog')
 
         # get current items in cart
         session = self.request.SESSION
@@ -87,6 +88,14 @@ class CartView(BrowserView):
 
         item_title = context.Title()
         quantity = int(quantity)
+        if context.getField('supplier') is not None:
+            supplier = context.getField('supplier').get(context)
+            if supplier is not None:
+                supplier_name = supplier.getField('title').get(supplier)
+                supplier_email = supplier.getField('email').get(supplier)
+            else:
+                supplier_name = ''
+                supplier_email = ''
 
         has_variations = varConf.hasVariations()
         if has_variations:
@@ -102,6 +111,7 @@ class CartView(BrowserView):
             price = Decimal(variation_dict[variation_key]['price'])
             # add item to cart
             if item is None:
+
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
@@ -109,6 +119,8 @@ class CartView(BrowserView):
                         'price': str(price),
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
+                        'supplier_name': supplier_name,
+                        'supplier_email': supplier_email,
                         'variation_key': variation_key,
                 }
             # item already in cart, update quantity
@@ -127,6 +139,8 @@ class CartView(BrowserView):
                         'price': str(price),
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
+                        'supplier_name': supplier_name,
+                        'supplier_email': supplier_email,
                 }
             # item already in cart, update quantitiy
             else:
@@ -287,7 +301,7 @@ class CartView(BrowserView):
                 payment_processor = adapter
 
         if not payment_processor_name or not payment_processor.external:
-            # No payment processor step at all or payment by invoice
+            # No payment processor step at all OR payment by invoice
 
             customer_info = self.request.SESSION[SESSION_ADDRESS_KEY]
             self.request.SESSION.invalidate()

@@ -145,22 +145,59 @@ class OrderManagerView(BrowserView):
                      msg_type='text/html',
                      charset='utf8')
 
-        # Send mail to shop owner about the order
-        mailTo = formataddr(("Shop Owner", shop_config.shop_email))
+        # Send mail to supplier(s) and shop owner about the order
 
-        if shop_config is not None:
-            shop_name = shop_config.shop_name
-            mailFrom = formataddr((shop_name, shop_config.shop_email))
-            mailBcc = getattr(shop_config, 'mail_bcc', '')
-            mailSubject = '[%s] Order %s by %s' % (shop_name,
-                                                   order_id,
-                                                   fullname)
+        suppliers = []
+        for item_type in order.cartitems:
+            if not (item_type.supplier_name == '' \
+                or item_type.supplier_email == ''):
+                suppliers.append((item_type.supplier_name, item_type.supplier_email))
+        unique_suppliers = set(suppliers)
+        for supplier in unique_suppliers:
+            self._send_supplier_mail(supplier, order)
+
+#        mailTo = formataddr(("Shop Owner", shop_config.shop_email))
+#
+#        if shop_config is not None:
+#            shop_name = shop_config.shop_name
+#            mailFrom = formataddr((shop_name, shop_config.shop_email))
+#            mailBcc = getattr(shop_config, 'mail_bcc', '')
+#            mailSubject = '[%s] Order %s by %s' % (shop_name,
+#                                                   order_id,
+#                                                   fullname)
+
+#        mhost = IMailHostAdapter(self.context)
+#        shopowner_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+#                                    name=u'shopowner_mail_view')
+#        msg_body = shopowner_mail_view(order=order,
+#                                       shop_config=shop_config)
+#
+#        mhost.send(msg_body,
+#                     mto=mailTo,
+#                     mfrom=mailFrom,
+#                     mbcc=mailBcc,
+#                     subject=mailSubject,
+#                     encode=None,
+#                     immediate=False,
+#                     msg_type='text/html',
+#                     charset='utf8')
+        return
+
+    def _send_supplier_mail(self, supplier, order):
+        mailTo = formataddr(supplier)
+        fullname = "%s %s" % (order.customer_firstname, order.customer_lastname)
+        shop_name = self.shop_config.shop_name
+        mailFrom = formataddr((shop_name, self.shop_config.shop_email))
+        mailBcc = getattr(self.shop_config, 'mail_bcc', '')
+        mailSubject = '[%s] Order %s by %s' % (shop_name,
+                                               order.order_id,
+                                               fullname)
 
         mhost = IMailHostAdapter(self.context)
-        shopowner_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
-                                    name=u'shopowner_mail_view')
-        msg_body = shopowner_mail_view(order=order,
-                                       shop_config=shop_config)
+        supplier_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'supplier_mail_view')
+        msg_body = supplier_mail_view(order=order,
+                                       shop_config=self.shop_config)
 
         mhost.send(msg_body,
                      mto=mailTo,
@@ -171,4 +208,3 @@ class OrderManagerView(BrowserView):
                      immediate=False,
                      msg_type='text/html',
                      charset='utf8')
-        return

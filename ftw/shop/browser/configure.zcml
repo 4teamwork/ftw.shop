@@ -94,6 +94,14 @@
     template="templates/shopowner_order_mail.pt"
     />
 
+  <!-- mail template for order notification to supplier -->
+  <browser:page
+    for="*"
+    name="supplier_mail_view"
+    permission="zope2.View"
+    template="templates/supplier_order_mail.pt"
+    />
+
   <browser:page 
     for="*" 
     name="cart_view" 
