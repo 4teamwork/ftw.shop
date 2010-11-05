@@ -132,6 +132,10 @@ class IOrderReviewStep(IWizardStep):
     """
 
 
+class IOrderReviewStepGroup(IWizardStepGroup):
+    """A wizard step group for the order review step(s)
+    """
+
 # ------------------ Configuration Schemata -----------------------------
 
 class IShopConfiguration(Interface):

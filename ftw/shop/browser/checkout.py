@@ -24,6 +24,8 @@ from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
+from ftw.shop.interfaces import IOrderReviewStep
+from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 from ftw.shop import shopMessageFactory as _
 
@@ -109,11 +111,24 @@ class InvoicePaymentProcessor(object):
         pass
 
 
-class OrderReviewStep(wizard.Step):
-    prefix = 'step3'
+class DefaultOrderReviewStep(wizard.Step):
+    implements(IOrderReviewStep)
+    prefix = 'order-review'
     label = _(u'label_order_review_step', default="Order Review")
     description = _(u'help_order_review_step', default=u'')
     index = zvptf.ViewPageTemplateFile('templates/checkout/order_review.pt')
+
+    def __init__(self, context, request, wiz):
+        super(wizard.Step, self).__init__(context, request)
+        self.wizard = wiz
+
+class DefaultOrderReviewStepGroup(object):
+    implements(IOrderReviewStepGroup)
+    adapts(Interface, Interface, Interface)
+    steps = (DefaultOrderReviewStep, )
+
+    def __init__(self, context, request, foo):
+        pass
 
 
 class CheckoutWizard(wizard.Wizard):
@@ -154,6 +169,9 @@ class CheckoutWizard(wizard.Wizard):
         payment_processor_step_groups = getAdapters(
                                         (self.context, self.request, self),
                                         IPaymentProcessorStepGroup)
+        order_review_step_groups = getAdapters(
+                                        (self.context, self.request, self),
+                                        IOrderReviewStepGroup)
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IShopConfiguration)
         selected_contact_info_step_group = settings.contact_info_step_group
@@ -167,8 +185,13 @@ class CheckoutWizard(wizard.Wizard):
             if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps
 
+        selected_order_review_step_group = "ftw.shop.DefaultOrderReviewStepGroup"
+        for name, step_group_adapter in order_review_step_groups:
+            if name == selected_order_review_step_group:
+                order_review_steps = step_group_adapter.steps
 
-        return contact_info_steps + payment_processor_steps + (OrderReviewStep, )
+        return contact_info_steps + payment_processor_steps + order_review_steps
+
 
     @button.buttonAndHandler(_(u'btn_back', default="Back"),
                              name='back',

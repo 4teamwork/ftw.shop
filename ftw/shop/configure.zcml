@@ -65,6 +65,11 @@
       factory="ftw.shop.browser.checkout.InvoicePaymentProcessor"
     />
 
+    <adapter
+      name="ftw.shop.DefaultOrderReviewStepGroup"
+      factory="ftw.shop.browser.checkout.DefaultOrderReviewStepGroup"
+    />
+
 
     <!-- Contact Information Steps Vocabulary -->
     <utility
