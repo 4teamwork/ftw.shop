@@ -19,9 +19,6 @@ class CategoryView(BrowserView):
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
 
-    def dummyitems(self):
-        return []
-
     def getItems(self):
         """Returns a list of ShopItems directly contained in this category
         """
