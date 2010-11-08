@@ -8,13 +8,7 @@ from ftw.shop.tests.base import FtwShopTestCase
 class TestSetup(FtwShopTestCase):
     
     def afterSetUp(self):
-        self.workflow = getToolByName(self.portal, 'portal_workflow')
-        self.acl_users = getToolByName(self.portal, 'acl_users')
-        self.types = getToolByName(self.portal, 'portal_types')
-
-        self.setRoles(('Manager',))
-        self.portal.invokeFactory("ShopCategory", "shop")
-        self.setRoles(('Member',))
+        super(TestSetup, self).afterSetUp()
 
     def test_add_shop_type_permissisons(self):
         # The API of the permissionsOfRole() function sucks - it is bound too
@@ -55,11 +49,6 @@ class TestSetup(FtwShopTestCase):
         zope.event.notify(event)
         
         self.failUnless(self.portal.shop in item.listCategories())
-
-
-        
-
-
 
 
 

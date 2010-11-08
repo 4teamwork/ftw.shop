@@ -5,14 +5,16 @@ Plone's products are loaded, and a Plone site will be created. This
 happens at module level, which makes it faster to run each test, but
 slows down test runner startup.
 """
+from decimal import Decimal
 
 from Products.Five import zcml
 from Products.Five import fiveconfigure
-
+from Products.CMFCore.utils import getToolByName
 from Testing import ZopeTestCase as ztc
-
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
+
+from ftw.shop.interfaces import IVariationConfig
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
 # in Products/. Instead, we have to use a statement such as:
@@ -69,6 +71,84 @@ class FtwShopTestCase(ptc.PloneTestCase):
     necessary, we can put common utility or setup code in here. This
     applies to unit test cases.
     """
+
+    def afterSetUp(self):
+        # Set up sessioning objects
+        ztc.utils.setupCoreSessions(self.app)
+
+        self.workflow = getToolByName(self.portal, 'portal_workflow')
+        self.acl_users = getToolByName(self.portal, 'acl_users')
+        self.types = getToolByName(self.portal, 'portal_types')
+
+        self.setRoles(('Manager',))
+
+        # Create a root shop category
+        self.portal.invokeFactory("ShopCategory", "shop")
+
+        # Create a Shop Item with no variations
+        self.portal.shop.invokeFactory('ShopItem', 'movie')
+        self.movie = self.portal.shop['movie']
+        self.movie.getField('skuCode').set(self.movie, "12345")
+        self.movie.getField('price').set(self.movie, "7.15")
+        self.movie.getField('title').set(self.movie, "A Movie")
+        self.movie.getField('description').set(self.movie, "A Shop Item with no variations")
+
+        self.movie_vc = IVariationConfig(self.movie)
+
+        # Create a Shop Item with one variation
+        self.portal.shop.invokeFactory('ShopItem', 'book')
+        self.book = self.portal.shop['book']
+        self.book.getField('title').set(self.book, 'Professional Plone Development')
+        self.book.getField('description').set(self.book, 'A Shop Item with one variation')
+        self.book.getField('variation1_attribute').set(self.book, 'Cover')
+        self.book.getField('variation1_values').set(self.book, ['Hardcover', 'Paperback'])
+
+        self.book_vc = IVariationConfig(self.book)
+        book_var_dict = {
+        'hardcover': {'active': True, 'price': Decimal('1.00'), 'stock': 1, 'skuCode': 'b11'},
+        'paperback': {'active': True, 'price': Decimal('2.00'), 'stock': 2, 'skuCode': 'b22'},
+        }
+        self.book_vc.updateVariationConfig(book_var_dict)
+
+        # Create a Shop Item with two variations
+        self.portal.shop.invokeFactory('ShopItem', 't-shirt')
+        self.tshirt = self.portal.shop['t-shirt']
+        self.tshirt.getField('title').set(self.tshirt, 'A T-Shirt')
+        self.tshirt.getField('description').set(self.tshirt, 'A Shop Item with two variations')
+        self.tshirt.getField('variation1_attribute').set(self.tshirt, 'Color')
+        self.tshirt.getField('variation1_values').set(self.tshirt, ['Red', 'Green', 'Blue'])
+        self.tshirt.getField('variation2_attribute').set(self.tshirt, 'Size')
+        self.tshirt.getField('variation2_values').set(self.tshirt, ['S', 'M', 'L', 'XL'])
+
+        self.tshirt_vc = IVariationConfig(self.tshirt)
+        tshirt_var_dict = {
+        'red-s': {'active': True, 'price': Decimal('1.00'), 'stock': 1, 'skuCode': '11'},
+        'red-m': {'active': True, 'price': Decimal('2.00'), 'stock': 2, 'skuCode': '22'},
+        'red-l': {'active': True, 'price': Decimal('3.00'), 'stock': 3, 'skuCode': '33'},
+        'green-s': {'active': True, 'price': Decimal('4.00'), 'stock': 4, 'skuCode': '44'},
+        'green-m': {'active': True, 'price': Decimal('5.00'), 'stock': 5, 'skuCode': '55'},
+        'green-l': {'active': True, 'price': Decimal('6.00'), 'stock': 6, 'skuCode': '66'},
+        'blue-s': {'active': True, 'price': Decimal('7.00'), 'stock': 7, 'skuCode': '77'},
+        'blue-m': {'active': True, 'price': Decimal('8.00'), 'stock': 8, 'skuCode': '88'},
+        'blue-l': {'active': True, 'price': Decimal('9.00'), 'stock': 9, 'skuCode': '99'},
+        }
+        self.tshirt_vc.updateVariationConfig(tshirt_var_dict)
+
+        self.setRoles(('Member',))
+
+
+    class Session(dict):
+        def set(self, key, value):
+            self[key] = value
+
+        def invalidate(self):
+            self.clear()
+
+
+    def _setup(self):
+        ptc.PloneTestCase._setup(self)
+        self.app.REQUEST['SESSION'] = self.Session()
+
 
 class FunctionalTestCase(ptc.FunctionalTestCase):
     """We use this class for functional integration tests that use
