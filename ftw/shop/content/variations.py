@@ -99,7 +99,7 @@ class VariationConfig(object):
         elif field == 'stock':
             return 0
         elif field == 'skuCode':
-            return ""
+            return self.context.skuCode
         else:
             return None
 
