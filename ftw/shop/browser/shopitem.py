@@ -69,7 +69,7 @@ class ShopItemView(BrowserView):
                     url = item.absolute_url(),
                     imageTag = tag,
                     variants = None,
-                    order_number = skuCode,
+                    skuCode = skuCode,
                     price = price,
                     varConf = varConf,
                     hasVariations = has_variations))

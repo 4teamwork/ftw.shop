@@ -66,7 +66,7 @@ class CategoryView(BrowserView):
                     url = item.absolute_url(),
                     imageTag = tag,
                     variants = None,
-                    order_number = skuCode,
+                    skuCode = skuCode,
                     price = price,
                     varConf = varConf,
                     hasVariations = has_variations))
@@ -106,9 +106,10 @@ class CategoryView(BrowserView):
                         y.getRankForCategory(context)))
         return contents
 
-    def manage_categories(self):
-        return getMultiAdapter((self.context, self.request),
-                               'manage_categories')
+#    TODO: Check if still needed and replace with edit_categories
+#    def manage_categories(self):
+#        return getMultiAdapter((self.context, self.request),
+#                               'manage_categories')
 
 
 class CategoryCompactView(CategoryView):

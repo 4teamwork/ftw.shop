@@ -7,11 +7,11 @@
                         <th colspan="2" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
-                        <td tal:content="item/order_number" />
+                        <td tal:content="item/skuCode" />
                         <td tal:content="item/price" />
                         <td>
                             <form tal:attributes="action string:${item/url}/addtocart">
-                                <input type="hidden" name="skuCode" tal:attributes="value item/order_number"/>
+                                <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
                                 <input type="text" size="2" name="quantity:int" value="1"/>
                                 <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
                             </form>
