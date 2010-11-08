@@ -10,9 +10,12 @@ from decimal import Decimal
 from Products.Five import zcml
 from Products.Five import fiveconfigure
 from Products.CMFCore.utils import getToolByName
+import zope.event
+from Products.Archetypes.event import ObjectInitializedEvent
 from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
+
 
 from ftw.shop.interfaces import IVariationConfig
 
@@ -93,6 +96,10 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.movie.getField('title').set(self.movie, "A Movie")
         self.movie.getField('description').set(self.movie, "A Shop Item with no variations")
 
+        # Fire ObjectInitializedEvent to add item to containing category
+        event = ObjectInitializedEvent(self.movie, self.portal.REQUEST)
+        zope.event.notify(event)
+
         self.movie_vc = IVariationConfig(self.movie)
 
         # Create a Shop Item with one variation
@@ -102,6 +109,10 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.book.getField('description').set(self.book, 'A Shop Item with one variation')
         self.book.getField('variation1_attribute').set(self.book, 'Cover')
         self.book.getField('variation1_values').set(self.book, ['Hardcover', 'Paperback'])
+
+        # Fire ObjectInitializedEvent to add item to containing category
+        event = ObjectInitializedEvent(self.book, self.portal.REQUEST)
+        zope.event.notify(event)
 
         self.book_vc = IVariationConfig(self.book)
         book_var_dict = {
@@ -118,7 +129,11 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.tshirt.getField('variation1_attribute').set(self.tshirt, 'Color')
         self.tshirt.getField('variation1_values').set(self.tshirt, ['Red', 'Green', 'Blue'])
         self.tshirt.getField('variation2_attribute').set(self.tshirt, 'Size')
-        self.tshirt.getField('variation2_values').set(self.tshirt, ['S', 'M', 'L', 'XL'])
+        self.tshirt.getField('variation2_values').set(self.tshirt, ['S', 'M', 'L'])
+
+        # Fire ObjectInitializedEvent to add item to containing category
+        event = ObjectInitializedEvent(self.tshirt, self.portal.REQUEST)
+        zope.event.notify(event)
 
         self.tshirt_vc = IVariationConfig(self.tshirt)
         tshirt_var_dict = {
@@ -133,6 +148,14 @@ class FtwShopTestCase(ptc.PloneTestCase):
         'blue-l': {'active': True, 'price': Decimal('9.00'), 'stock': 9, 'skuCode': '99'},
         }
         self.tshirt_vc.updateVariationConfig(tshirt_var_dict)
+
+        # Create a subcategory below the shop root
+        self.portal.shop.invokeFactory("ShopCategory", "subcategory")
+        self.subcategory = self.portal.shop.subcategory
+
+        # Fire ObjectInitializedEvent to add category to containing category
+        event = ObjectInitializedEvent(self.subcategory, self.portal.REQUEST)
+        zope.event.notify(event)
 
         self.setRoles(('Member',))
 

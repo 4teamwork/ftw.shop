@@ -36,7 +36,7 @@ class TestVariations(FtwShopTestCase):
         tshirt_var2_values = self.tshirt_vc.getVariation2Values()
         self.assertEquals(movie_var2_values, [])
         self.assertEquals(book_var2_values, [])
-        self.assertEquals(tshirt_var2_values, ('S', 'M', 'L', 'XL'))
+        self.assertEquals(tshirt_var2_values, ('S', 'M', 'L'))
 
     def test_get_variation_attributes(self):
         movie_var_attrs = self.movie_vc.getVariationAttributes()
