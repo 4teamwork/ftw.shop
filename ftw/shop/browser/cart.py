@@ -36,10 +36,9 @@ class CartView(BrowserView):
 
         status_msg_label = _(u'msg_label_info', default=u"Information")
         status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
-        status_message = """
-            <dt>%s</dt>
-            <dd>%s</dd>
-        """ % (translate(status_msg_label),
+        status_message = """\
+<dt>%s</dt>
+<dd>%s</dd>""" % (translate(status_msg_label),
                translate(status_msg_text))
 
         return simplejson.dumps(dict(portlet_html=self.portlet_template(),
@@ -152,7 +151,6 @@ class CartView(BrowserView):
         # store cart in session
         cart_items[skuCode] = item
         session[CART_KEY] = cart_items
-        session['foobar'] = 'barfoo'
 
     def cart_items(self):
         """Get all items currently contained in shopping cart
@@ -208,7 +206,7 @@ class CartView(BrowserView):
                 qty = int(float(self.request.get('quantity_%s' % skuCode)))
                 if qty == 0:
                     del_items.append(skuCode)
-            except ValueError:
+            except (ValueError, TypeError):
                 ptool.addPortalMessage(
                     _(u'msg_cart_invalidvalue',
                       default=u"Invalid Values specified. Cart not updated."),
