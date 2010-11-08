@@ -19,13 +19,6 @@
         />
   </class>
 
-  <class class=".order.ShopOrder">
-    <require
-        permission="zope2.View"
-        interface="..interfaces.IShopOrder"
-        />
-  </class>
-
   <adapter
       provides="..interfaces.IVariationConfig"
       for="..interfaces.IShopItem"
