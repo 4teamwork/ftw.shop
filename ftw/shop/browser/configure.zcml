@@ -238,4 +238,9 @@
     file="resources/shop.js"
     />
 
+  <browser:resource
+    name="shop_config.js"
+    file="resources/shop_config.js"
+    />
+
 </configure>
