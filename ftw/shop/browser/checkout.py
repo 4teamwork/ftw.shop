@@ -173,19 +173,22 @@ class CheckoutWizard(wizard.Wizard):
                                         (self.context, self.request, self),
                                         IOrderReviewStepGroup)
         registry = getUtility(IRegistry)
-        settings = registry.forInterface(IShopConfiguration)
-        selected_contact_info_step_group = settings.contact_info_step_group
+        shop_config = registry.forInterface(IShopConfiguration)
 
+        # Get steps for selected Contact Info Step Group
+        selected_contact_info_step_group = shop_config.contact_info_step_group
         for name, step_group_adapter in contact_info_step_groups:
             if name == selected_contact_info_step_group:
                 contact_info_steps = step_group_adapter.steps
 
-        selected_pp_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"
+        # Get steps for selected Payment Processor Step Group
+        selected_pp_step_group = shop_config.payment_processor_step_group
         for name, step_group_adapter in payment_processor_step_groups:
             if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps
 
-        selected_order_review_step_group = "ftw.shop.DefaultOrderReviewStepGroup"
+        # Get steps for selected Order Review Step Group
+        selected_order_review_step_group = shop_config.order_review_step_group
         for name, step_group_adapter in order_review_step_groups:
             if name == selected_order_review_step_group:
                 order_review_steps = step_group_adapter.steps

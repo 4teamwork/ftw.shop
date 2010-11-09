@@ -174,6 +174,12 @@ class IShopConfiguration(Interface):
                     default=u"Shop Phone Number"),
             required=False)
 
+    payment_processor_step_group = schema.Choice(
+            title=_(u"label_payment_processor_step_group",
+                    default="Payment Processor Step Group"),
+            vocabulary="ftw.shop.payment_processor_step_groups",
+            required=True)
+
     enabled_payment_processors = schema.List(
             title=_(u"label_enabled_payment_processors",
                     default="Enabled Payment Processors"),

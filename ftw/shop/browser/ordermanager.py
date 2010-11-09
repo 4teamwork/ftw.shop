@@ -54,6 +54,9 @@ class OrderManagerView(BrowserView):
 
         session = self.context.REQUEST.SESSION
 
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+
         # check for cart
         cart_view = getMultiAdapter((self, self.context.REQUEST),
                                     name=u'cart_view')
@@ -73,7 +76,7 @@ class OrderManagerView(BrowserView):
                                         (self.context, self.request, self),
                                         IPaymentProcessorStepGroup)
         
-        selected_pp_step_group = "ftw.shop.DefaultPaymentProcessorStepGroup"
+        selected_pp_step_group = shop_config.payment_processor_step_group
         for name, step_group_adapter in payment_processor_step_groups:
             if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps

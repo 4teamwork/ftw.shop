@@ -7,6 +7,7 @@ from plone.registry.interfaces import IRegistry
 
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
+from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
@@ -34,6 +35,18 @@ def OrderReviewStepGroups(context):
 
     step_names = set(map(unicode, [n for n, a in order_review_step_groups]))
     directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary.fromValues(step_names)
+
+def PaymentProcessorStepGroups(context):
+    """Returns a vocabulary of the registered StepGroups for the
+    payment processor StepGroup
+    """
+    # context is the portal config options, whose context is the portal
+    payment_processor_step_groups = getAdapters((context, None, context),
+                                           IPaymentProcessorStepGroup)
+
+    step_names = set(map(unicode, [n for n, a in payment_processor_step_groups]))
+    directlyProvides(PaymentProcessorStepGroups, IVocabularyFactory)
     return vocabulary.SimpleVocabulary.fromValues(step_names)
 
 

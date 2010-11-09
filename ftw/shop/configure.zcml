@@ -84,6 +84,13 @@
       name="ftw.shop.order_review_step_groups"
       component=".vocabularies.OrderReviewStepGroups"
       />
+
+    <!-- Payment Processor StepGroups Vocabulary -->
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.payment_processor_step_groups"
+      component=".vocabularies.PaymentProcessorStepGroups"
+      />
     
     <!-- Installed Payment Processors Vocabulary -->
     <utility
