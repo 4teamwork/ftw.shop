@@ -178,6 +178,7 @@ class IShopConfiguration(Interface):
             title=_(u"label_payment_processor_step_group",
                     default="Payment Processor Step Group"),
             vocabulary="ftw.shop.payment_processor_step_groups",
+            default=u"ftw.shop.DefaultPaymentProcessorStepGroup",
             required=True)
 
     enabled_payment_processors = schema.List(
@@ -201,12 +202,14 @@ class IShopConfiguration(Interface):
             title=_(u"label_contact_info_step_group",
                     default="Contact Information Step Group"),
             vocabulary="ftw.shop.contact_info_step_groups",
+            default=u"ftw.shop.DefaultContactInformationStepGroup",
             required=True)
 
     order_review_step_group = schema.Choice(
             title=_(u"label_order_review_step_group",
                     default="Order Review Step Group"),
             vocabulary="ftw.shop.order_review_step_groups",
+            default=u"ftw.shop.DefaultOrderReviewStepGroup",
             required=True)
 
 
