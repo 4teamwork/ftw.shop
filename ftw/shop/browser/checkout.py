@@ -35,6 +35,8 @@ class DefaultContactInfoStep(wizard.Step):
     prefix = 'contact_information'
     label = _(u"label_default_contact_info_step",
               default="Contact Information")
+    title = _(u"title_default_contact_info_step",
+              default="Default Contact Information")
     description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
     fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
@@ -71,6 +73,8 @@ class DefaultContactInfoStep(wizard.Step):
 class DefaultContactInfoStepGroup(object):
     implements(IContactInformationStepGroup)
     adapts(Interface, Interface, Interface)
+    title = _(u"title_default_contact_info_step_group",
+              default="Default Contact Information")
     steps = (DefaultContactInfoStep, )
 
     def __init__(self, context, request, foo):
@@ -82,6 +86,8 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     prefix = 'payment_processor_choice'
     label = _(u"label_default_payment_processor_choice_step",
               default="Payment Processor")
+    title = _(u"title_default_payment_processor_step",
+              default="Default Payment Processor Choice")
     description = _(u'help_default_payment_processor_choice_step',
                     default=u"")
     fields = field.Fields(IDefaultPaymentProcessorChoice)
@@ -91,6 +97,8 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
 class DefaultPaymentProcessorStepGroup(object):
     implements(IPaymentProcessorStepGroup)
     adapts(Interface, Interface, Interface)
+    title = _(u"title_default_payment_processor_step_group",
+              default="Default Payment Processor Choice")
     steps = (DefaultPaymentProcessorChoiceStep, )
 
     def __init__(self, context, request, foo):
@@ -115,6 +123,8 @@ class DefaultOrderReviewStep(wizard.Step):
     implements(IOrderReviewStep)
     prefix = 'order-review'
     label = _(u'label_order_review_step', default="Order Review")
+    title = _(u"title_default_order_review_step",
+              default="Default Order Review Step")
     description = _(u'help_order_review_step', default=u'')
     index = zvptf.ViewPageTemplateFile('templates/checkout/order_review.pt')
 
@@ -125,6 +135,8 @@ class DefaultOrderReviewStep(wizard.Step):
 class DefaultOrderReviewStepGroup(object):
     implements(IOrderReviewStepGroup)
     adapts(Interface, Interface, Interface)
+    title = _(u"title_default_order_review_step_group",
+              default="Default Order Review Step Group")
     steps = (DefaultOrderReviewStep, )
 
     def __init__(self, context, request, foo):

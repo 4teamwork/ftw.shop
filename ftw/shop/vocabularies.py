@@ -19,11 +19,25 @@ def ContactInfoStepGroups(context):
     """
     # context is the portal config options, whose context is the portal
     contact_info_step_groups = getAdapters((context, None, context),
-                                           IContactInformationStepGroup)
+                                     IContactInformationStepGroup)
+    step_group_names = []
+    step_group_titles = []
+    items = []
 
-    step_names = set(map(unicode, [n for n, a in contact_info_step_groups]))
+    for n, a in contact_info_step_groups:
+        step_group_names.append(unicode(n))
+        step_group_titles.append(a.title)
+
+    for i in range(0, len(step_group_names)):
+        items.append(tuple([step_group_names[i], step_group_titles[i]]))
+
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
-    return vocabulary.SimpleVocabulary.fromValues(step_names)
+
+    return vocabulary.SimpleVocabulary(terms)
 
 def OrderReviewStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
@@ -31,11 +45,25 @@ def OrderReviewStepGroups(context):
     """
     # context is the portal config options, whose context is the portal
     order_review_step_groups = getAdapters((context, None, context),
-                                           IOrderReviewStepGroup)
+                                     IOrderReviewStepGroup)
+    step_group_names = []
+    step_group_titles = []
+    items = []
 
-    step_names = set(map(unicode, [n for n, a in order_review_step_groups]))
+    for n, a in order_review_step_groups:
+        step_group_names.append(unicode(n))
+        step_group_titles.append(a.title)
+
+    for i in range(0, len(step_group_names)):
+        items.append(tuple([step_group_names[i], step_group_titles[i]]))
+
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+
     directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
-    return vocabulary.SimpleVocabulary.fromValues(step_names)
+
+    return vocabulary.SimpleVocabulary(terms)
 
 def PaymentProcessorStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
@@ -43,11 +71,25 @@ def PaymentProcessorStepGroups(context):
     """
     # context is the portal config options, whose context is the portal
     payment_processor_step_groups = getAdapters((context, None, context),
-                                           IPaymentProcessorStepGroup)
+                                     IPaymentProcessorStepGroup)
+    step_group_names = []
+    step_group_titles = []
+    items = []
 
-    step_names = set(map(unicode, [n for n, a in payment_processor_step_groups]))
+    for n, a in payment_processor_step_groups:
+        step_group_names.append(unicode(n))
+        step_group_titles.append(a.title)
+
+    for i in range(0, len(step_group_names)):
+        items.append(tuple([step_group_names[i], step_group_titles[i]]))
+
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+
     directlyProvides(PaymentProcessorStepGroups, IVocabularyFactory)
-    return vocabulary.SimpleVocabulary.fromValues(step_names)
+
+    return vocabulary.SimpleVocabulary(terms)
 
 
 def PaymentProcessors(context):

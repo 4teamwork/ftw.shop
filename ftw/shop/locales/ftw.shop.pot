@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-09 09:29+0000\n"
+"POT-Creation-Date: 2010-11-09 10:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -70,17 +70,17 @@ msgid "Variations"
 msgstr ""
 
 #. Default: "Back"
-#: ./ftw/shop/browser/checkout.py:199
+#: ./ftw/shop/browser/checkout.py:211
 msgid "btn_back"
 msgstr ""
 
 #. Default: "Next"
-#: ./ftw/shop/browser/checkout.py:221
+#: ./ftw/shop/browser/checkout.py:233
 msgid "btn_continue"
 msgstr ""
 
 #. Default: "Finish"
-#: ./ftw/shop/browser/checkout.py:243
+#: ./ftw/shop/browser/checkout.py:255
 msgid "btn_finish"
 msgstr ""
 
@@ -206,11 +206,11 @@ msgstr ""
 msgid "help_add_cart_portlet"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:38
+#: ./ftw/shop/browser/checkout.py:40
 msgid "help_default_contact_info_step"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:85
+#: ./ftw/shop/browser/checkout.py:91
 msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "help_newsletter"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:118
+#: ./ftw/shop/browser/checkout.py:128
 msgid "help_order_review_step"
 msgstr ""
 
@@ -256,7 +256,7 @@ msgid "label_checkout"
 msgstr ""
 
 #. Default: "Checkout"
-#: ./ftw/shop/browser/checkout.py:135
+#: ./ftw/shop/browser/checkout.py:147
 msgid "label_checkout_wizard"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgid "label_default_contact_info_step"
 msgstr ""
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/checkout.py:83
+#: ./ftw/shop/browser/checkout.py:87
 msgid "label_default_payment_processor_choice_step"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgid "label_no"
 msgstr ""
 
 #. Default: "Order Review"
-#: ./ftw/shop/browser/checkout.py:117
+#: ./ftw/shop/browser/checkout.py:125
 msgid "label_order_review_step"
 msgstr ""
 
@@ -619,6 +619,36 @@ msgstr ""
 #. Default: "Cart"
 #: ./ftw/shop/portlets/cart.pt:6
 msgid "portletheader_cart"
+msgstr ""
+
+#. Default: "Default Contact Information"
+#: ./ftw/shop/browser/checkout.py:38
+msgid "title_default_contact_info_step"
+msgstr ""
+
+#. Default: "Default Contact Information"
+#: ./ftw/shop/browser/checkout.py:76
+msgid "title_default_contact_info_step_group"
+msgstr ""
+
+#. Default: "Default Order Review Step"
+#: ./ftw/shop/browser/checkout.py:126
+msgid "title_default_order_review_step"
+msgstr ""
+
+#. Default: "Default Order Review Step Group"
+#: ./ftw/shop/browser/checkout.py:138
+msgid "title_default_order_review_step_group"
+msgstr ""
+
+#. Default: "Default Payment Processor Choice"
+#: ./ftw/shop/browser/checkout.py:89
+msgid "title_default_payment_processor_step"
+msgstr ""
+
+#. Default: "Default Payment Processor Choice"
+#: ./ftw/shop/browser/checkout.py:100
+msgid "title_default_payment_processor_step_group"
 msgstr ""
 
 #. Default: "Personal Information"
