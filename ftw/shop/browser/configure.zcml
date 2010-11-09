@@ -176,7 +176,7 @@
     for="*"
     name="checkout-wizard"
     class=".checkout.CheckoutView"
-    permission= "zope.Public"
+    permission= "zope2.View"
   />
 
   <browser:page
@@ -198,7 +198,7 @@
     for="*"
     name="initialize-shop-structure"
     class=".initialize.InitShopStructure"
-    permission="zope.Public"
+    permission="zope2.View"
   />
 
   <browser:page

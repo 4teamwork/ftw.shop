@@ -5,7 +5,7 @@
 
   <class class=".paymentprocessor.PaymentProcessorWidget">
     <require
-        permission="zope.Public"
+        permission="zope2.View"
         interface="ftw.shop.interfaces.IPaymentProcessorWidget"
         />
   </class>
