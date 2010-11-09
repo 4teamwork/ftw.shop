@@ -77,6 +77,13 @@
       name="ftw.shop.contact_info_step_groups"
       component=".vocabularies.ContactInfoStepGroups"
       />
+
+    <!-- Order Review Steps Vocabulary -->
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.order_review_step_groups"
+      component=".vocabularies.OrderReviewStepGroups"
+      />
     
     <!-- Installed Payment Processors Vocabulary -->
     <utility

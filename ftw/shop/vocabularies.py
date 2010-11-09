@@ -6,6 +6,7 @@ from zope.interface import directlyProvides
 from plone.registry.interfaces import IRegistry
 
 from ftw.shop.interfaces import IContactInformationStepGroup
+from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
@@ -21,6 +22,18 @@ def ContactInfoStepGroups(context):
 
     step_names = set(map(unicode, [n for n, a in contact_info_step_groups]))
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary.fromValues(step_names)
+
+def OrderReviewStepGroups(context):
+    """Returns a vocabulary of the registered StepGroups for the
+    order review StepGroup
+    """
+    # context is the portal config options, whose context is the portal
+    order_review_step_groups = getAdapters((context, None, context),
+                                           IOrderReviewStepGroup)
+
+    step_names = set(map(unicode, [n for n, a in order_review_step_groups]))
+    directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
     return vocabulary.SimpleVocabulary.fromValues(step_names)
 
 

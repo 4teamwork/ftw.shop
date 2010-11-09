@@ -197,6 +197,12 @@ class IShopConfiguration(Interface):
             vocabulary="ftw.shop.contact_info_step_groups",
             required=True)
 
+    order_review_step_group = schema.Choice(
+            title=_(u"label_order_review_step_group",
+                    default="Order Review Step Group"),
+            vocabulary="ftw.shop.order_review_step_groups",
+            required=True)
+
 
 class IDefaultContactInformation(Interface):
     """Schema defining a common contact address form
