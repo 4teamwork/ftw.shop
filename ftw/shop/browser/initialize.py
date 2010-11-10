@@ -23,7 +23,7 @@ class InitShopStructure(BrowserView):
         portal = portal_url.getPortalObject()
         shop = getattr(portal, 'shop', None)
         if not shop:
-            portal.invokeFactory('ShopCategory', 'shop', title='Shop')
+            portal.invokeFactory('Folder', 'shop', title='Shop')
             shop = portal.shop
 
         if not IShopRoot.providedBy(shop):
@@ -40,4 +40,11 @@ class InitShopStructure(BrowserView):
         ptool.addPortalMessage(_(u'msg_shop_initialized',
                                  default=u"Shop structure initialized."),
                                'info')
-        self.request.response.redirect(portal.absolute_url() + '/shop-configuration')
+        # redirect to referer
+        referer = self.request.get('HTTP_REFERER', portal.absolute_url())
+        if not referer == '':
+            self.request.response.redirect(referer)
+        else:
+            self.request.response.redirect(portal.absolute_url())
+        return
+
