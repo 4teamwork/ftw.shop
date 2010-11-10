@@ -96,7 +96,7 @@
                 </tbody>
               </table>
             </fieldset>
-            <input type="submit">
+            <input type="submit" name="form.button.save" value="Save">
             <input type="hidden" name="form.submitted:boolean" value="True" />
           </form>
 
