@@ -151,7 +151,7 @@ class EditVariationsView(BrowserView):
                 data['stock'] = int(form.get("%s-stock" % variation_key))
                 data['skuCode'] = form.get("%s-skuCode" % variation_key)
 
-                # At this point the form has already been validated,
+                # At this point the form has already been validated,
                 # so uniqueness of sku codes is ensured
                 data['hasUniqueSKU'] = True
                 variation_data[variation_key] = data
@@ -178,7 +178,7 @@ class EditVariationsView(BrowserView):
                     data['stock'] = int(form.get("%s-stock" % variation_key))
                     data['skuCode'] = form.get("%s-skuCode" % variation_key)
                     
-                    # At this point the form has already been validated,
+                    # At this point the form has already been validated,
                     # so uniqueness of sku codes is ensured
                     data['hasUniqueSKU'] = True
                     variation_data[variation_key] = data
