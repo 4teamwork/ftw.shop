@@ -27,9 +27,10 @@
 								<label>Menge</label>
 								<input name="quantity:int" type="text" value="1" size="2" />
 								
-						         <span tal:condition="not: varConf/isValid">
-	                                      Not buyable: <a href="" tal:attributes="href string:${item/url}/edit_variations">Edit variations</a>
-	                             </span>
+                                <span tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
+                                 Not buyable: <a href="" i18n:name="edit_variations" i18n:translate="label_edit_variations" 
+                                 tal:attributes="href string:${item/url}/edit_variations">Edit variations</a>
+                                </span>
                                          
 								<input tal:condition="varConf/isValid" 
 									   name="addtocart" class="compact" type="submit" value="Add to cart" />

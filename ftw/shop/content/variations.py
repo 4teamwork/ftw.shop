@@ -128,9 +128,10 @@ class VariationConfig(object):
     def isValid(self):
         var_dict = self.getVariationDict()
         variation_states = []
+        
         for key in var_dict:
             variation_states.append(var_dict[key].get('hasUniqueSKU', False))
-        if False in variation_states:
+        if False in variation_states or variation_states == []:
             return False
         else:
             return True
