@@ -19,14 +19,18 @@
                                 <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
                                              skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
                                              price python:varConf.getVariationData(varValue1, varValue2, 'price');
-                                             stock python:varConf.getVariationData(varValue1, varValue2, 'stock')"
+                                             stock python:varConf.getVariationData(varValue1, varValue2, 'stock');
+                                             hasUniqueSKU python:varConf.getVariationData(varValue1, varValue2, 'hasUniqueSKU')"
                                     tal:condition="active">
                                     <td tal:content="varValue2">S</td>
                                     <td><span tal:content="price"/></td>
                                     <td><span tal:content="stock"/></td>
                                     <td><span tal:content="skuCode"/></td>
                                     <td>
-                                        <form tal:attributes="action string:${item/url}/addtocart">
+                                    	<span tal:condition="not: hasUniqueSKU">
+                                         Not buyable: <a href="" tal:attributes="href string:${item/url}/edit_variations">Edit variations</a>
+                                         </span>
+                                        <form tal:condition="hasUniqueSKU" tal:attributes="action string:${item/url}/addtocart">
                                             <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                             <input type="text" size="2" name="quantity:int" value="1"/>
                                             <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />

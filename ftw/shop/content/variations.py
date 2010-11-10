@@ -91,6 +91,7 @@ class VariationConfig(object):
         if var_data is not None and field in var_data.keys():
             if not var_data[field] == "":
                 return var_data[field]
+
         # Return a default value appropriate for the field type
         if field == 'active':
             return True
@@ -100,6 +101,8 @@ class VariationConfig(object):
             return 0
         elif field == 'skuCode':
             return self.context.skuCode
+        elif field == 'hasUniqueSKU':
+            return False
         else:
             return None
 
@@ -121,3 +124,13 @@ class VariationConfig(object):
                     if vkey == variation_key:
                         return "%s-%s" % (var1_value, var2_value)
         return None
+    
+    def isValid(self):
+        var_dict = self.getVariationDict()
+        variation_states = []
+        for key in var_dict:
+            variation_states.append(var_dict[key].get('hasUniqueSKU', False))
+        if False in variation_states:
+            return False
+        else:
+            return True
