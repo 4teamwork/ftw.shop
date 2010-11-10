@@ -1,0 +1,300 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>content.variations &mdash; ftw.shop v1.0dev documentation</title>
+    <link rel="stylesheet" href="../../_static/plone.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ftw.shop v1.0dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<script language="javascript">
+//<![CDATA[
+
+Documentation.addTranslations({"locale": "fr", "plural_expr": "(n > 1)", "messages": {"See the definition": "Voir la d\u00e9finition"}});
+
+// See http://disqus.disqus.com/general_integration_help/
+var disqus_developer = 1;
+if (document.location.protocol == 'http:') {
+    disqus_developer = 0;
+}
+
+// Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
+$(document).ready(function () {
+
+    // Style of .. verisonmodified:: , .. versionadded:: ...
+    $('p:has(span.versionmodified)').addClass('p-versionmodified');
+
+    // Style of the TOC tree
+    $('ul:has(li.toctree-l1)').addClass('toctree');
+
+    // Decorate links to other sites
+    //$('a[class~=external]').attr('target', '_blank');
+
+    // Glossary terms
+    $('em.xref').attr('title', _('See the definition'));
+
+    // We need to have all <pre> in a <div class="highlight"> to mimic pygments
+    // to work around a pygments (?) bug
+    var suffixes = {cfg: null, python:null};
+    for (var suffix in suffixes) {
+        var pattern = 'div.highlight-' + suffix + ' > pre';
+        $(pattern).wrap('<div class="highlight" />');
+    }
+    return true;
+});
+//]]>
+</script>
+
+  </head>
+  <body>
+<!--[if lte IE 6]>
+<style type="text/css">
+#ie6msg{border:3px solid #090; margin:8px 0; background:#cfc; color:#000;}
+#ie6msg h4{margin:8px; padding:0;}
+#ie6msg p{margin:8px; padding:0;}
+#ie6msg p a.getie8{font-weight:bold; color:#006;}
+#ie6msg p a.ie6expl{font-weight:normal; color:#006;}
+</style>
+<div id="ie6msg">
+<h4>Did you know that your browser is out of date?</h4>
+<p>If the layout of this site seems ugly, that's because you're actually using
+an outdated browser. And we wont put any effort to provide a nice layout to IE6
+users.</p>
+<p>To get the best possible experience using our website we recommend that you
+upgrade your browser to a newer version. The current version
+is <a class="getie8"
+href="http://upgradeie.s3.amazonaws.com/eng/index.html">Internet Explorer
+8</a>. The upgrade is free. If you're using a PC at work you should contact your
+IT administrator.</p>
+<p>If you want to you may also try some other popular Internet browsers
+like <a class="ie6expl"
+href="http://getfirefox.com">Firefox</a>, <a class="ie6expl"
+href="http://www.google.com/chrome">Chrome</a>, <a class="ie6expl"
+href="http://www.opera.com">Opera</a>, or <a class="ie6expl"
+href="http://www.apple.com/safari/download/">Safari</a></p>
+</div>
+<![endif]-->
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for content.variations</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">from</span> <span class="nn">persistent.mapping</span> <span class="kn">import</span> <span class="n">PersistentMapping</span>
+<span class="kn">from</span> <span class="nn">plone.i18n.normalizer.interfaces</span> <span class="kn">import</span> <span class="n">IIDNormalizer</span>
+<span class="kn">from</span> <span class="nn">zope.annotation.interfaces</span> <span class="kn">import</span> <span class="n">IAnnotations</span>
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
+<span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">adapts</span><span class="p">,</span> <span class="n">getUtility</span>
+
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IVariationConfig</span><span class="p">,</span> <span class="n">IShopItem</span>
+
+
+<div class="viewcode-block" id="VariationConfig"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig">[docs]</a><span class="k">class</span> <span class="nc">VariationConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An Adapter for storing variation configurations on ShopItems</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">implements</span><span class="p">(</span><span class="n">IVariationConfig</span><span class="p">)</span>
+    <span class="n">adapts</span><span class="p">(</span><span class="n">IShopItem</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span> <span class="o">=</span> <span class="n">IAnnotations</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+
+<div class="viewcode-block" id="VariationConfig.hasVariations"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.hasVariations">[docs]</a>    <span class="k">def</span> <span class="nf">hasVariations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Determines if the item has variations or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">Schema</span><span class="p">()</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="s">&#39;variation1_attribute&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">field</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getItemUID"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getItemUID">[docs]</a>    <span class="k">def</span> <span class="nf">getItemUID</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the ShopItem&#39;s UID</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">UID</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getVariationDict"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariationDict">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a nested dict with the variation config for the item</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;variations&#39;</span><span class="p">,</span> <span class="n">PersistentMapping</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.updateVariationConfig"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.updateVariationConfig">[docs]</a>    <span class="k">def</span> <span class="nf">updateVariationConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates the stored variation config with changes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;variations&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="s">&#39;variations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PersistentMapping</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="s">&#39;variations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getVariation1Values"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariation1Values">[docs]</a>    <span class="k">def</span> <span class="nf">getVariation1Values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the values for the top level variation,</span>
+<span class="sd">        e.g. [&#39;Red&#39;, &#39;Green&#39;, &#39;Blue&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="s">&#39;variation1_values&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">values</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getVariation2Values"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariation2Values">[docs]</a>    <span class="k">def</span> <span class="nf">getVariation2Values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the values for the second level variation,</span>
+<span class="sd">        e.g. [&#39;S&#39;, &#39;M&#39;, &#39;L&#39;, &#39;XL&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="s">&#39;variation2_values&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">values</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getVariationAttributes"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariationAttributes">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationAttributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list of the two variation attributes,</span>
+<span class="sd">        e.g. [&#39;Color&#39;, &#39;Size&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">variation_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;variation1_attribute&#39;</span><span class="p">,</span> <span class="s">&#39;variation2_attribute&#39;</span><span class="p">]:</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">Schema</span><span class="p">()</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">):</span>
+                <span class="n">variation_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">variation_attributes</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getVariationData"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariationData">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var1_attr</span><span class="p">,</span> <span class="n">var2_attr</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the data for one specific variation instance&#39;s field</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">variation_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVariationDict</span><span class="p">()</span>
+        <span class="n">normalizer</span> <span class="o">=</span> <span class="n">getUtility</span><span class="p">(</span><span class="n">IIDNormalizer</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">var2_attr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c"># We only have one variation</span>
+            <span class="n">variation_key</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">var1_attr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># We have two levels of variation</span>
+            <span class="n">variation_key</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                    <span class="s">&quot;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var1_attr</span><span class="p">,</span> <span class="n">var2_attr</span><span class="p">))</span>
+        <span class="n">var_data</span> <span class="o">=</span> <span class="n">variation_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">variation_key</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">var_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">var_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">var_data</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">var_data</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+
+        <span class="c"># Return a default value appropriate for the field type</span>
+        <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;active&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;price&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">.</span><span class="si">%02d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">price</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;stock&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;skuCode&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">skuCode</span>
+        <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;hasUniqueSKU&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="VariationConfig.getPrettyName"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getPrettyName">[docs]</a>    <span class="k">def</span> <span class="nf">getPrettyName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variation_key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the human facing name for a variation,</span>
+<span class="sd">        e.g. &#39;Green-XXL&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">normalizer</span> <span class="o">=</span> <span class="n">getUtility</span><span class="p">(</span><span class="n">IIDNormalizer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getVariationAttributes</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">var1_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVariation1Values</span><span class="p">():</span>
+                <span class="n">vkey</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">var1_value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vkey</span> <span class="o">==</span> <span class="n">variation_key</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">var1_value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">var1_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVariation1Values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">var2_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVariation2Values</span><span class="p">():</span>
+                    <span class="n">vkey</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                    <span class="s">&quot;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var1_value</span><span class="p">,</span> <span class="n">var2_value</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">vkey</span> <span class="o">==</span> <span class="n">variation_key</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var1_value</span><span class="p">,</span> <span class="n">var2_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    </div>
+<div class="viewcode-block" id="VariationConfig.isValid"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.isValid">[docs]</a>    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">var_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVariationDict</span><span class="p">()</span>
+        <span class="n">variation_states</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">var_dict</span><span class="p">:</span>
+            <span class="n">variation_states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;hasUniqueSKU&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">False</span> <span class="ow">in</span> <span class="n">variation_states</span> <span class="ow">or</span> <span class="n">variation_states</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo"><a href="../../index.html"><img src="../../_static/plone-icon-64.png" />
+</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+
+
+  </body>
+</html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Portlets" href="portlets.html" />
@@ -97,8 +99,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="portlets.html" title="Portlets"
              accesskey="P">previous</a> |</li>
@@ -115,41 +117,42 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-portlets.cart">
-<h1><tt class="xref docutils literal"><span class="pre">portlets.cart</span></tt><a class="headerlink" href="#module-portlets.cart" title="Permalink to this headline">¶</a></h1>
+<span id="portlets-cart"></span><h1><a class="reference internal" href="#module-portlets.cart" title="portlets.cart"><tt class="xref py py-mod docutils literal"><span class="pre">portlets.cart</span></tt></a><a class="headerlink" href="#module-portlets.cart" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="portlets.cart.AddForm">
-<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">AddForm</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="headerlink" href="#portlets.cart.AddForm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">AddForm</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="reference internal" href="_modules/portlets/cart.html#AddForm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.AddForm" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="portlets.cart.AddForm.create">
-<tt class="descname">create</tt><big>(</big><big>)</big><a class="headerlink" href="#portlets.cart.AddForm.create" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">create</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/portlets/cart.html#AddForm.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.AddForm.create" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="portlets.cart.Assignment">
-<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">Assignment</tt><a class="headerlink" href="#portlets.cart.Assignment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">Assignment</tt><a class="reference internal" href="_modules/portlets/cart.html#Assignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.Assignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Portlet assignment.</p>
 <p>This is what is actually managed through the portlets UI and associated
 with columns.</p>
 <dl class="attribute">
 <dt id="portlets.cart.Assignment.title">
-<tt class="descname">title</tt><a class="headerlink" href="#portlets.cart.Assignment.title" title="Permalink to this definition">¶</a></dt>
-<dd>This property is used to give the title of the portlet in the
-&#8220;manage portlets&#8221; screen.</dd></dl>
+<tt class="descname">title</tt><a class="reference internal" href="_modules/portlets/cart.html#Assignment.title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.Assignment.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is used to give the title of the portlet in the
+&#8220;manage portlets&#8221; screen.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="portlets.cart.Renderer">
-<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">Renderer</tt><big>(</big><em>context</em>, <em>request</em>, <em>view</em>, <em>manager</em>, <em>data</em><big>)</big><a class="headerlink" href="#portlets.cart.Renderer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">portlets.cart.</tt><tt class="descname">Renderer</tt><big>(</big><em>context</em>, <em>request</em>, <em>view</em>, <em>manager</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/portlets/cart.html#Renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.Renderer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Portlet renderer.</p>
 <p>This is registered in configure.zcml. The referenced page template is
 rendered, and the implicit variable &#8216;view&#8217; will refer to an instance
 of this class. Other methods can be added and referenced in the template.</p>
 <dl class="attribute">
 <dt id="portlets.cart.Renderer.available">
-<tt class="descname">available</tt><a class="headerlink" href="#portlets.cart.Renderer.available" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">available</tt><a class="reference internal" href="_modules/portlets/cart.html#Renderer.available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#portlets.cart.Renderer.available" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -165,27 +168,27 @@ of this class. Other methods can be added and referenced in the template.</p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="portlets.html"
-                                  title="previous chapter">Portlets</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/portlets.cart.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="portlets.html"
+                        title="previous chapter">Portlets</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/portlets.cart.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -197,7 +200,7 @@ of this class. Other methods can be added and referenced in the template.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="portlets.html" title="Portlets"
@@ -209,8 +212,8 @@ of this class. Other methods can be added and referenced in the template.</p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

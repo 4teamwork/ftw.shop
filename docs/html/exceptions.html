@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Package Globals" href="globals.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="extender.html" title="extender — SchemaExtender implementation of Shop Items"
              accesskey="N">next</a> |</li>
@@ -119,16 +121,27 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-ftw.shop.exceptions">
-<h1><tt class="xref docutils literal"><span class="pre">exceptions</span></tt> &#8212; Exceptions defined by ftw.shop<a class="headerlink" href="#module-ftw.shop.exceptions" title="Permalink to this headline">¶</a></h1>
+<span id="exceptions-exceptions-defined-by-ftw-shop"></span><h1><tt class="xref py py-mod docutils literal"><span class="pre">exceptions</span></tt> &#8212; Exceptions defined by ftw.shop<a class="headerlink" href="#module-ftw.shop.exceptions" title="Permalink to this headline">¶</a></h1>
 <dl class="exception">
 <dt id="ftw.shop.exceptions.MissingCustomerInformation">
-<em class="property">exception </em><tt class="descclassname">ftw.shop.exceptions.</tt><tt class="descname">MissingCustomerInformation</tt><a class="headerlink" href="#ftw.shop.exceptions.MissingCustomerInformation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">exception </em><tt class="descclassname">ftw.shop.exceptions.</tt><tt class="descname">MissingCustomerInformation</tt><a class="reference internal" href="_modules/ftw/shop/exceptions.html#MissingCustomerInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.exceptions.MissingCustomerInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets raised if trying to add an order when customer information has
+not been supplied yet.</p>
+</dd></dl>
 
 <dl class="exception">
 <dt id="ftw.shop.exceptions.MissingOrderConfirmation">
-<em class="property">exception </em><tt class="descclassname">ftw.shop.exceptions.</tt><tt class="descname">MissingOrderConfirmation</tt><a class="headerlink" href="#ftw.shop.exceptions.MissingOrderConfirmation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">exception </em><tt class="descclassname">ftw.shop.exceptions.</tt><tt class="descname">MissingOrderConfirmation</tt><a class="reference internal" href="_modules/ftw/shop/exceptions.html#MissingOrderConfirmation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.exceptions.MissingOrderConfirmation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets raised if trying to add an order but the customer hasn&#8217;t confirmed
+the order in the review step yet.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="ftw.shop.exceptions.MissingPaymentProcessor">
+<em class="property">exception </em><tt class="descclassname">ftw.shop.exceptions.</tt><tt class="descname">MissingPaymentProcessor</tt><a class="reference internal" href="_modules/ftw/shop/exceptions.html#MissingPaymentProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.exceptions.MissingPaymentProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets raised if trying to add an order but the customer hasn&#8217;t selected
+a payment processor yet.</p>
+</dd></dl>
 
 </div>
 
@@ -141,30 +154,30 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="mailer.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">mailer</span></tt> &#8212; MailHost abstraction for Plone 3 backwards compatiblity</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="extender.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">extender</span></tt> &#8212; SchemaExtender implementation of Shop Items</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/exceptions.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mailer.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">mailer</span></tt> &#8212; MailHost abstraction for Plone 3 backwards compatiblity</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extender.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">extender</span></tt> &#8212; SchemaExtender implementation of Shop Items</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/exceptions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -176,7 +189,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="extender.html" title="extender — SchemaExtender implementation of Shop Items"
@@ -191,8 +204,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

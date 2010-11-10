@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Browser Views" href="browser.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="browser.checkout.html" title="browser.checkout — Checkout wizard related functionality"
              accesskey="N">next</a> |</li>
@@ -119,61 +121,54 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-browser.category">
-<h1><tt class="xref docutils literal"><span class="pre">browser.category</span></tt> &#8212; Shop Category views<a class="headerlink" href="#module-browser.category" title="Permalink to this headline">¶</a></h1>
+<span id="browser-category-shop-category-views"></span><h1><a class="reference internal" href="#module-browser.category" title="browser.category"><tt class="xref py py-mod docutils literal"><span class="pre">browser.category</span></tt></a> &#8212; Shop Category views<a class="headerlink" href="#module-browser.category" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="browser.category.CategoryCompactView">
-<em class="property">class </em><tt class="descclassname">browser.category.</tt><tt class="descname">CategoryCompactView</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="headerlink" href="#browser.category.CategoryCompactView" title="Permalink to this definition">¶</a></dt>
-<dd>Compact view for a category. Shows all contained items and categories.</dd></dl>
+<em class="property">class </em><tt class="descclassname">browser.category.</tt><tt class="descname">CategoryCompactView</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryCompactView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryCompactView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compact view for a category. Shows all contained items and categories.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="browser.category.CategoryView">
-<em class="property">class </em><tt class="descclassname">browser.category.</tt><tt class="descname">CategoryView</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="headerlink" href="#browser.category.CategoryView" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">browser.category.</tt><tt class="descname">CategoryView</tt><big>(</big><em>context</em>, <em>request</em><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Default view for a category. Shows all contained items and categories.</p>
 <dl class="attribute">
 <dt id="browser.category.CategoryView.categories">
-<tt class="descname">categories</tt><a class="headerlink" href="#browser.category.CategoryView.categories" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">categories</tt><a class="reference internal" href="_modules/browser/category.html#CategoryView.categories"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.categories" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="browser.category.CategoryView.category_contents">
-<tt class="descname">category_contents</tt><a class="headerlink" href="#browser.category.CategoryView.category_contents" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="browser.category.CategoryView.dummyitems">
-<tt class="descname">dummyitems</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.category.CategoryView.dummyitems" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">category_contents</tt><a class="reference internal" href="_modules/browser/category.html#CategoryView.category_contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.category_contents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="browser.category.CategoryView.getItemDatas">
-<tt class="descname">getItemDatas</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.category.CategoryView.getItemDatas" title="Permalink to this definition">¶</a></dt>
-<dd>Returns a dictionary of an item&#8217;s properties to be used in
+<tt class="descname">getItemDatas</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView.getItemDatas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.getItemDatas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of an item&#8217;s properties to be used in
 templates. If the item has variations, the variation config is
-also included.</dd></dl>
+also included.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="browser.category.CategoryView.getItems">
-<tt class="descname">getItems</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.category.CategoryView.getItems" title="Permalink to this definition">¶</a></dt>
-<dd>Returns a list of ShopItems directly contained in this category</dd></dl>
-
-<dl class="method">
-<dt id="browser.category.CategoryView.manage_categories">
-<tt class="descname">manage_categories</tt><big>(</big><big>)</big><a class="headerlink" href="#browser.category.CategoryView.manage_categories" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descname">getItems</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView.getItems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.getItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of ShopItems directly contained in this category</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="browser.category.CategoryView.one_variation">
-<tt class="descname">one_variation</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#browser.category.CategoryView.one_variation" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">one_variation</tt><big>(</big><em>item</em><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView.one_variation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.one_variation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="browser.category.CategoryView.single_item">
-<tt class="descname">single_item</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#browser.category.CategoryView.single_item" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">single_item</tt><big>(</big><em>item</em><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView.single_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.single_item" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="browser.category.CategoryView.two_variations">
-<tt class="descname">two_variations</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#browser.category.CategoryView.two_variations" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">two_variations</tt><big>(</big><em>item</em><big>)</big><a class="reference internal" href="_modules/browser/category.html#CategoryView.two_variations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.category.CategoryView.two_variations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -189,30 +184,30 @@ also included.</dd></dl>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="browser.cart.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">browser.cart</span></tt> &#8212; The customer&#8217;s shopping cart</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="browser.checkout.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">browser.checkout</span></tt> &#8212; Checkout wizard related functionality</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/browser.category.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="browser.cart.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">browser.cart</span></tt> &#8212; The customer&#8217;s shopping cart</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="browser.checkout.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">browser.checkout</span></tt> &#8212; Checkout wizard related functionality</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/browser.category.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -224,7 +219,7 @@ also included.</dd></dl>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="browser.checkout.html" title="browser.checkout — Checkout wizard related functionality"
@@ -239,8 +234,8 @@ also included.</dd></dl>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

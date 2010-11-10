@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Reference Documentation" href="reference.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="content.categorizeable.html" title="content.categorizeable"
              accesskey="N">next</a> |</li>
@@ -120,12 +122,14 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
   <div class="section" id="content-types">
 <h1>Content Types<a class="headerlink" href="#content-types" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
+<div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference external" href="content.categorizeable.html"><tt class="docutils literal"><span class="pre">content.categorizeable</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="content.shopcategory.html"><tt class="docutils literal"><span class="pre">content.shopcategory</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="content.shopitem.html"><tt class="docutils literal"><span class="pre">content.shopitem</span></tt></a></li>
-<li class="toctree-l1"><a class="reference external" href="content.variations.html"><tt class="docutils literal"><span class="pre">content.variations</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="content.categorizeable.html"><tt class="docutils literal"><span class="pre">content.categorizeable</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="content.shopcategory.html"><tt class="docutils literal"><span class="pre">content.shopcategory</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="content.shopitem.html"><tt class="docutils literal"><span class="pre">content.shopitem</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="content.variations.html"><tt class="docutils literal"><span class="pre">content.variations</span></tt></a></li>
 </ul>
+</div>
 </div>
 
 
@@ -137,30 +141,30 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="browser.shopitem.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">browser.shopitem</span></tt> &#8212; Shop Item views</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="content.categorizeable.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">content.categorizeable</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/content.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="browser.shopitem.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">browser.shopitem</span></tt> &#8212; Shop Item views</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="content.categorizeable.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">content.categorizeable</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/content.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -172,7 +176,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="content.categorizeable.html" title="content.categorizeable"
@@ -186,8 +190,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

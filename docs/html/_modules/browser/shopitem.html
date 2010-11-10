@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>browser.shopitem &mdash; ftw.shop v1.0dev documentation</title>
+    <link rel="stylesheet" href="../../_static/plone.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ftw.shop v1.0dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<script language="javascript">
+//<![CDATA[
+
+Documentation.addTranslations({"locale": "fr", "plural_expr": "(n > 1)", "messages": {"See the definition": "Voir la d\u00e9finition"}});
+
+// See http://disqus.disqus.com/general_integration_help/
+var disqus_developer = 1;
+if (document.location.protocol == 'http:') {
+    disqus_developer = 0;
+}
+
+// Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
+$(document).ready(function () {
+
+    // Style of .. verisonmodified:: , .. versionadded:: ...
+    $('p:has(span.versionmodified)').addClass('p-versionmodified');
+
+    // Style of the TOC tree
+    $('ul:has(li.toctree-l1)').addClass('toctree');
+
+    // Decorate links to other sites
+    //$('a[class~=external]').attr('target', '_blank');
+
+    // Glossary terms
+    $('em.xref').attr('title', _('See the definition'));
+
+    // We need to have all <pre> in a <div class="highlight"> to mimic pygments
+    // to work around a pygments (?) bug
+    var suffixes = {cfg: null, python:null};
+    for (var suffix in suffixes) {
+        var pattern = 'div.highlight-' + suffix + ' > pre';
+        $(pattern).wrap('<div class="highlight" />');
+    }
+    return true;
+});
+//]]>
+</script>
+
+  </head>
+  <body>
+<!--[if lte IE 6]>
+<style type="text/css">
+#ie6msg{border:3px solid #090; margin:8px 0; background:#cfc; color:#000;}
+#ie6msg h4{margin:8px; padding:0;}
+#ie6msg p{margin:8px; padding:0;}
+#ie6msg p a.getie8{font-weight:bold; color:#006;}
+#ie6msg p a.ie6expl{font-weight:normal; color:#006;}
+</style>
+<div id="ie6msg">
+<h4>Did you know that your browser is out of date?</h4>
+<p>If the layout of this site seems ugly, that's because you're actually using
+an outdated browser. And we wont put any effort to provide a nice layout to IE6
+users.</p>
+<p>To get the best possible experience using our website we recommend that you
+upgrade your browser to a newer version. The current version
+is <a class="getie8"
+href="http://upgradeie.s3.amazonaws.com/eng/index.html">Internet Explorer
+8</a>. The upgrade is free. If you're using a PC at work you should contact your
+IT administrator.</p>
+<p>If you want to you may also try some other popular Internet browsers
+like <a class="ie6expl"
+href="http://getfirefox.com">Firefox</a>, <a class="ie6expl"
+href="http://www.google.com/chrome">Chrome</a>, <a class="ie6expl"
+href="http://www.opera.com">Opera</a>, or <a class="ie6expl"
+href="http://www.apple.com/safari/download/">Safari</a></p>
+</div>
+<![endif]-->
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for browser.shopitem</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+
+<span class="kn">from</span> <span class="nn">Acquisition</span> <span class="kn">import</span> <span class="n">aq_inner</span>
+<span class="kn">from</span> <span class="nn">Products.Five.browser</span> <span class="kn">import</span> <span class="n">BrowserView</span>
+<span class="kn">from</span> <span class="nn">Products.Five.browser.pagetemplatefile</span> <span class="kn">import</span> <span class="n">ViewPageTemplateFile</span>
+<span class="kn">from</span> <span class="nn">Products.statusmessages.interfaces</span> <span class="kn">import</span> <span class="n">IStatusMessage</span>
+<span class="kn">from</span> <span class="nn">plone.i18n.normalizer.interfaces</span> <span class="kn">import</span> <span class="n">IIDNormalizer</span>
+<span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">getUtility</span>
+
+<span class="kn">from</span> <span class="nn">ftw.shop</span> <span class="kn">import</span> <span class="n">shopMessageFactory</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IVariationConfig</span>
+
+
+<div class="viewcode-block" id="ShopItemView"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView">[docs]</a><span class="k">class</span> <span class="nc">ShopItemView</span><span class="p">(</span><span class="n">BrowserView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Default view for a shop item</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__call__</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/shopitem.pt&#39;</span><span class="p">)</span>
+
+    <span class="n">single_item_template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/listing/single_item.pt&#39;</span><span class="p">)</span>
+    <span class="n">one_variation_template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/listing/one_variation.pt&#39;</span><span class="p">)</span>
+    <span class="n">two_variations_template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/listing/two_variations.pt&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ShopItemView.getItems"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.getItems">[docs]</a>    <span class="k">def</span> <span class="nf">getItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a list with this item as its only element,</span>
+<span class="sd">        so the listing viewlet can treat it like a list of items</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">aq_inner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">context</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="ShopItemView.single_item"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.single_item">[docs]</a>    <span class="k">def</span> <span class="nf">single_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">single_item_template</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShopItemView.one_variation"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.one_variation">[docs]</a>    <span class="k">def</span> <span class="nf">one_variation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">one_variation_template</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShopItemView.two_variations"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.two_variations">[docs]</a>    <span class="k">def</span> <span class="nf">two_variations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">two_variations_template</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShopItemView.getItemDatas"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.getItemDatas">[docs]</a>    <span class="k">def</span> <span class="nf">getItemDatas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns a dictionary of an item&#39;s properties to be used in</span>
+<span class="sd">        templates. If the item has variations, the variation config is</span>
+<span class="sd">        also included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">getItems</span><span class="p">():</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">portal_type</span> <span class="o">==</span> <span class="s">&#39;ShopItem&#39;</span><span class="p">)</span>
+            <span class="n">varConf</span> <span class="o">=</span> <span class="n">IVariationConfig</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+            <span class="n">has_variations</span> <span class="o">=</span> <span class="n">varConf</span><span class="o">.</span><span class="n">hasVariations</span><span class="p">()</span>
+
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">if</span> <span class="n">has_variations</span><span class="p">:</span>
+                <span class="n">skuCode</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">varConf</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="n">skuCode</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">Schema</span><span class="p">()</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="s">&#39;skuCode&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">Schema</span><span class="p">()</span><span class="o">.</span><span class="n">getField</span><span class="p">(</span><span class="s">&#39;price&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="s">&#39;tile&#39;</span><span class="p">)</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">title</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">Title</span><span class="p">(),</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">Description</span><span class="p">(),</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">absolute_url</span><span class="p">(),</span>
+                    <span class="n">imageTag</span> <span class="o">=</span> <span class="n">tag</span><span class="p">,</span>
+                    <span class="n">variants</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="n">skuCode</span> <span class="o">=</span> <span class="n">skuCode</span><span class="p">,</span>
+                    <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="p">,</span>
+                    <span class="n">varConf</span> <span class="o">=</span> <span class="n">varConf</span><span class="p">,</span>
+                    <span class="n">hasVariations</span> <span class="o">=</span> <span class="n">has_variations</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">results</span>
+</div>
+<div class="viewcode-block" id="ShopItemView.getVariationsConfig"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopItemView.getVariationsConfig">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationsConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the variation config for the item currently being viewed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">aq_inner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">variation_config</span> <span class="o">=</span> <span class="n">IVariationConfig</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">variation_config</span>
+
+</div></div>
+<div class="viewcode-block" id="ShopCompactItemView"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.ShopCompactItemView">[docs]</a><span class="k">class</span> <span class="nc">ShopCompactItemView</span><span class="p">(</span><span class="n">ShopItemView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compact view for a shop item</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">one_variation_template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/listing/one_variation_compact.pt&#39;</span><span class="p">)</span>
+    <span class="n">two_variations_template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/listing/two_variations_compact.pt&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="EditVariationsView"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.EditVariationsView">[docs]</a><span class="k">class</span> <span class="nc">EditVariationsView</span><span class="p">(</span><span class="n">BrowserView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;View for editing ShopItem Variations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/edit_variations.pt&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Self-submitting form that displays ShopItem Variations</span>
+<span class="sd">        and updates them</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">form</span>
+
+        <span class="c"># Make sure we had a proper form submit, not just a GET request</span>
+        <span class="n">submitted</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;form.submitted&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">submitted</span><span class="p">:</span>
+            <span class="n">variation_config</span> <span class="o">=</span> <span class="n">IVariationConfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+
+            <span class="n">edited_var_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_edit_variations_form</span><span class="p">()</span>
+            <span class="n">variation_config</span><span class="o">.</span><span class="n">updateVariationConfig</span><span class="p">(</span><span class="n">edited_var_data</span><span class="p">)</span>
+
+            <span class="n">IStatusMessage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">addStatusMessage</span><span class="p">(</span>
+                <span class="n">_</span><span class="p">(</span><span class="s">u&#39;msg_variations_saved&#39;</span><span class="p">,</span>
+                  <span class="n">default</span><span class="o">=</span><span class="s">u&quot;Variations saved.&quot;</span><span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">RESPONSE</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">absolute_url</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_parse_edit_variations_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Parses the form the user submitted when editing variations,</span>
+<span class="sd">        and returns a dictionary that contains the variation data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">form</span>
+        <span class="n">variation_config</span> <span class="o">=</span> <span class="n">IVariationConfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">variation_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">normalizer</span> <span class="o">=</span> <span class="n">getUtility</span><span class="p">(</span><span class="n">IIDNormalizer</span><span class="p">)</span>
+
+        <span class="c"># TODO: Refactor this to avoid code duplication</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">variation_config</span><span class="o">.</span><span class="n">getVariationAttributes</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">var1_value</span> <span class="ow">in</span> <span class="n">variation_config</span><span class="o">.</span><span class="n">getVariation1Values</span><span class="p">():</span>
+                <span class="n">variation_key</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">var1_value</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">data</span><span class="p">[</span><span class="s">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-active&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
+                <span class="c"># TODO: Handle decimal correctly</span>
+                <span class="n">price</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-price&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+                    <span class="c"># Create a tuple of ints from string</span>
+                    <span class="n">digits</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))])</span> <span class="o">+</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">digits</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">price</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+                        <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;0.00&quot;</span><span class="p">)</span>
+
+                <span class="n">data</span><span class="p">[</span><span class="s">&#39;stock&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-stock&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
+                <span class="n">data</span><span class="p">[</span><span class="s">&#39;skuCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-skuCode&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
+
+                <span class="c"># At this point the form has already been validated,</span>
+                <span class="c"># so uniqueness of sku codes is ensured</span>
+                <span class="n">data</span><span class="p">[</span><span class="s">&#39;hasUniqueSKU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="n">variation_data</span><span class="p">[</span><span class="n">variation_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">var1_value</span> <span class="ow">in</span> <span class="n">variation_config</span><span class="o">.</span><span class="n">getVariation1Values</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">var2_value</span> <span class="ow">in</span> <span class="n">variation_config</span><span class="o">.</span><span class="n">getVariation2Values</span><span class="p">():</span>
+                    <span class="n">variation_key</span> <span class="o">=</span> <span class="n">normalizer</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span>
+                                        <span class="s">&quot;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">var1_value</span><span class="p">,</span> <span class="n">var2_value</span><span class="p">))</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;active&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-active&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
+                    <span class="c"># TODO: Handle decimal correctly</span>
+                    <span class="n">price</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-price&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">p</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+                        <span class="c"># Create a tuple of ints from string</span>
+                        <span class="n">digits</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">))])</span> <span class="o">+</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">digits</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">price</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+                            <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;0.00&quot;</span><span class="p">)</span>
+
+                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;stock&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-stock&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
+                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;skuCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-skuCode&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
+                    
+                    <span class="c"># At this point the form has already been validated,</span>
+                    <span class="c"># so uniqueness of sku codes is ensured</span>
+                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;hasUniqueSKU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="n">variation_data</span><span class="p">[</span><span class="n">variation_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="n">variation_data</span>
+
+<div class="viewcode-block" id="EditVariationsView.getVariationsConfig"><a class="viewcode-back" href="../../browser.shopitem.html#browser.shopitem.EditVariationsView.getVariationsConfig">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationsConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the variation config for the item being edited</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">aq_inner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">variation_config</span> <span class="o">=</span> <span class="n">IVariationConfig</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">variation_config</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo"><a href="../../index.html"><img src="../../_static/plone-icon-64.png" />
+</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+
+
+  </body>
+</html>

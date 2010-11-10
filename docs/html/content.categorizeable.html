@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Content Types" href="content.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="content.shopcategory.html" title="content.shopcategory"
              accesskey="N">next</a> |</li>
@@ -119,35 +121,40 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-content.categorizeable">
-<h1><tt class="xref docutils literal"><span class="pre">content.categorizeable</span></tt><a class="headerlink" href="#module-content.categorizeable" title="Permalink to this headline">¶</a></h1>
+<span id="content-categorizeable"></span><h1><a class="reference internal" href="#module-content.categorizeable" title="content.categorizeable"><tt class="xref py py-mod docutils literal"><span class="pre">content.categorizeable</span></tt></a><a class="headerlink" href="#module-content.categorizeable" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="content.categorizeable.Categorizeable">
-<em class="property">class </em><tt class="descclassname">content.categorizeable.</tt><tt class="descname">Categorizeable</tt><a class="headerlink" href="#content.categorizeable.Categorizeable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">content.categorizeable.</tt><tt class="descname">Categorizeable</tt><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mixin class for categorizeable objects</p>
 <dl class="method">
 <dt id="content.categorizeable.Categorizeable.addToCategory">
-<tt class="descname">addToCategory</tt><big>(</big><em>category</em><big>)</big><a class="headerlink" href="#content.categorizeable.Categorizeable.addToCategory" title="Permalink to this definition">¶</a></dt>
-<dd>Add the object to a category.</dd></dl>
+<tt class="descname">addToCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.addToCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.addToCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the object to a category.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="content.categorizeable.Categorizeable.getRankForCategory">
-<tt class="descname">getRankForCategory</tt><big>(</big><em>category</em><big>)</big><a class="headerlink" href="#content.categorizeable.Categorizeable.getRankForCategory" title="Permalink to this definition">¶</a></dt>
-<dd>Get the object&#8217;s rank for the specified category</dd></dl>
+<tt class="descname">getRankForCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.getRankForCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.getRankForCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the object&#8217;s rank for the specified category</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="content.categorizeable.Categorizeable.listCategories">
-<tt class="descname">listCategories</tt><big>(</big><big>)</big><a class="headerlink" href="#content.categorizeable.Categorizeable.listCategories" title="Permalink to this definition">¶</a></dt>
-<dd>List the categories where the object is registered.</dd></dl>
+<tt class="descname">listCategories</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.listCategories"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.listCategories" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the categories where the object is registered.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="content.categorizeable.Categorizeable.removeFromCategory">
-<tt class="descname">removeFromCategory</tt><big>(</big><em>category</em><big>)</big><a class="headerlink" href="#content.categorizeable.Categorizeable.removeFromCategory" title="Permalink to this definition">¶</a></dt>
-<dd>Remove the object from a category.</dd></dl>
+<tt class="descname">removeFromCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.removeFromCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.removeFromCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the object from a category.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="content.categorizeable.Categorizeable.setRankForCategory">
-<tt class="descname">setRankForCategory</tt><big>(</big><em>category</em>, <em>rank</em><big>)</big><a class="headerlink" href="#content.categorizeable.Categorizeable.setRankForCategory" title="Permalink to this definition">¶</a></dt>
-<dd>Set the object&#8217;s rank for the specified category</dd></dl>
+<tt class="descname">setRankForCategory</tt><big>(</big><em>category</em>, <em>rank</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.setRankForCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.setRankForCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the object&#8217;s rank for the specified category</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -162,30 +169,30 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="content.html"
-                                  title="previous chapter">Content Types</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="content.shopcategory.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">content.shopcategory</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/content.categorizeable.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="content.html"
+                        title="previous chapter">Content Types</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="content.shopcategory.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">content.shopcategory</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/content.categorizeable.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -197,7 +204,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="content.shopcategory.html" title="content.shopcategory"
@@ -212,8 +219,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

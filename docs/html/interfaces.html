@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Package Globals" href="globals.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="vocabularies.html" title="vocabularies"
              accesskey="N">next</a> |</li>
@@ -119,7 +121,332 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-interfaces">
-<h1><tt class="xref docutils literal"><span class="pre">interfaces</span></tt> &#8212; Interfaces defined by ftw.shop<a class="headerlink" href="#module-interfaces" title="Permalink to this headline">¶</a></h1>
+<span id="interfaces-interfaces-defined-by-ftw-shop"></span><h1><a class="reference internal" href="#module-interfaces" title="interfaces"><tt class="xref py py-mod docutils literal"><span class="pre">interfaces</span></tt></a> &#8212; Interfaces defined by ftw.shop<a class="headerlink" href="#module-interfaces" title="Permalink to this headline">¶</a></h1>
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IShopRoot">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IShopRoot</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IShopRoot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IShopRoot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marker interface for shop root folder.</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IBuyable">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IBuyable</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IBuyable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IBuyable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marker interface for marking items as buyable.</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IShopItem">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IShopItem</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IShopItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IShopItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple shop item</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IShopCategory">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IShopCategory</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IShopCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IShopCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>A category for shop items</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IVariationConfig">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IVariationConfig</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IVariationConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IVariationConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>A component which provides variation configurations.</p>
+<dl class="method">
+<dt id="interfaces.IVariationConfig.getVariations">
+<tt class="descname">getVariations</tt><big>(</big><em>self</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IVariationConfig.getVariations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IVariationConfig.getVariations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the variations stored on a ShopItem.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IShopOrder">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IShopOrder</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IShopOrder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IShopOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>A shop order</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.ICartItem">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">ICartItem</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#ICartItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.ICartItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>A shop item that has been added to the cart and is part of an order</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IMailHostAdapter">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IMailHostAdapter</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IMailHostAdapter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IMailHostAdapter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adapter to abstract Plone 3 and Plone 4 MailHosts</p>
+<dl class="method">
+<dt id="interfaces.IMailHostAdapter.send">
+<tt class="descname">send</tt><big>(</big><em>self</em>, <em>msg_body</em>, <em>mto</em>, <em>mfrom=None</em>, <em>mbcc=None</em>, <em>subject=None</em>, <em>encode=None</em>, <em>immediate=False</em>, <em>charset=None</em>, <em>msg_type=None</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IMailHostAdapter.send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IMailHostAdapter.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract sending mail with Plone 3 and Plone 4.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IOrderStorage">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IOrderStorage</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IOrderStorage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IOrderStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A local utility which stores the shop orders</p>
+<dl class="method">
+<dt id="interfaces.IOrderStorage.getAllOrders">
+<tt class="descname">getAllOrders</tt><big>(</big><em>self</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IOrderStorage.getAllOrders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IOrderStorage.getAllOrders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="interfaces.IOrderStorage.createOrder">
+<tt class="descname">createOrder</tt><big>(</big><em>self</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IOrderStorage.createOrder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IOrderStorage.createOrder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="interfaces.IOrderStorage.getOrder">
+<tt class="descname">getOrder</tt><big>(</big><em>self</em>, <em>order_id</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IOrderStorage.getOrder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IOrderStorage.getOrder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="interfaces.IOrderStorage.flush">
+<tt class="descname">flush</tt><big>(</big><em>self</em><big>)</big><a class="reference internal" href="_modules/interfaces.html#IOrderStorage.flush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#interfaces.IOrderStorage.flush" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IWizardStep">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IWizardStep</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IWizardStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IWizardStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wizard step</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IWizardStepGroup">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IWizardStepGroup</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IWizardStepGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IWizardStepGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wizard step group</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IPaymentProcessor">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IPaymentProcessor</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IPaymentProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IPaymentProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A payment processor</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IContactInformationStepGroup">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IContactInformationStepGroup</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IContactInformationStepGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IContactInformationStepGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStepGroup" title="ftw.shop.interfaces.IWizardStepGroup"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStepGroup</span></tt></a></p>
+<p>A wizard step group gathering contact information about the customer</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IContactInformationStep">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IContactInformationStep</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IContactInformationStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IContactInformationStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStep" title="ftw.shop.interfaces.IWizardStep"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStep</span></tt></a></p>
+<p>A wizard step gathering contact information about the customer</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IPaymentProcessorChoiceStep">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IPaymentProcessorChoiceStep</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IPaymentProcessorChoiceStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IPaymentProcessorChoiceStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStep" title="ftw.shop.interfaces.IWizardStep"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStep</span></tt></a></p>
+<p>A wizard step asking to choose a payment processor</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IDefaultPaymentProcessorChoice">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IDefaultPaymentProcessorChoice</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IDefaultPaymentProcessorChoice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IDefaultPaymentProcessorChoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema defining a customer choice from enabled payment processors</p>
+<dl class="attribute">
+<dt id="interfaces.IDefaultPaymentProcessorChoice.payment_processor">
+<tt class="descname">payment_processor</tt><a class="headerlink" href="#interfaces.IDefaultPaymentProcessorChoice.payment_processor" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_payment_processor</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IPaymentProcessorWidget">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IPaymentProcessorWidget</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IPaymentProcessorWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IPaymentProcessorWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <tt class="xref py py-class docutils literal"><span class="pre">z3c.form.interfaces.IRadioWidget</span></tt></p>
+<p>Radio widget with fancy labels.</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IPaymentProcessorStepGroup">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IPaymentProcessorStepGroup</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IPaymentProcessorStepGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IPaymentProcessorStepGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStepGroup" title="ftw.shop.interfaces.IWizardStepGroup"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStepGroup</span></tt></a></p>
+<p>A wizard step group gathering contact information about the payment
+processor</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IOrderReviewStep">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IOrderReviewStep</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IOrderReviewStep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IOrderReviewStep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStep" title="ftw.shop.interfaces.IWizardStep"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStep</span></tt></a></p>
+<p>A wizard step asking the customer to review the order and payment
+details and confirm the order.</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IOrderReviewStepGroup">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IOrderReviewStepGroup</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IOrderReviewStepGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IOrderReviewStepGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <a class="reference internal" href="#ftw.shop.interfaces.IWizardStepGroup" title="ftw.shop.interfaces.IWizardStepGroup"><tt class="xref py py-class docutils literal"><span class="pre">ftw.shop.interfaces.IWizardStepGroup</span></tt></a></p>
+<p>A wizard step group for the order review step(s)</p>
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IShopConfiguration">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IShopConfiguration</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IShopConfiguration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IShopConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>This interface defines the ftw.shop configlet.</p>
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.mail_subject_de">
+<tt class="descname">mail_subject_de</tt><a class="headerlink" href="#interfaces.IShopConfiguration.mail_subject_de" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_mail_subject_de</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.shop_email">
+<tt class="descname">shop_email</tt><a class="headerlink" href="#interfaces.IShopConfiguration.shop_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_shop_email</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.enabled_payment_processors">
+<tt class="descname">enabled_payment_processors</tt><a class="headerlink" href="#interfaces.IShopConfiguration.enabled_payment_processors" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_enabled_payment_processors</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.order_review_step_group">
+<tt class="descname">order_review_step_group</tt><a class="headerlink" href="#interfaces.IShopConfiguration.order_review_step_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_order_review_step_group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.mail_subject_en">
+<tt class="descname">mail_subject_en</tt><a class="headerlink" href="#interfaces.IShopConfiguration.mail_subject_en" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_mail_subject_en</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.shop_phone">
+<tt class="descname">shop_phone</tt><a class="headerlink" href="#interfaces.IShopConfiguration.shop_phone" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_shop_phone</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.mail_bcc">
+<tt class="descname">mail_bcc</tt><a class="headerlink" href="#interfaces.IShopConfiguration.mail_bcc" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_mail_bcc</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.shop_name">
+<tt class="descname">shop_name</tt><a class="headerlink" href="#interfaces.IShopConfiguration.shop_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_shop_name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.contact_info_step_group">
+<tt class="descname">contact_info_step_group</tt><a class="headerlink" href="#interfaces.IShopConfiguration.contact_info_step_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_contact_info_step_group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.payment_processor_step_group">
+<tt class="descname">payment_processor_step_group</tt><a class="headerlink" href="#interfaces.IShopConfiguration.payment_processor_step_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_payment_processor_step_group</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IShopConfiguration.order_storage">
+<tt class="descname">order_storage</tt><a class="headerlink" href="#interfaces.IShopConfiguration.order_storage" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_order_storage</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IDefaultContactInformation">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IDefaultContactInformation</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IDefaultContactInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IDefaultContactInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schema defining a common contact address form</p>
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.city">
+<tt class="descname">city</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.city" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_city</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.newsletter">
+<tt class="descname">newsletter</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.newsletter" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_newsletter</p>
+<p>help_newsletter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.firstname">
+<tt class="descname">firstname</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.firstname" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_firstname</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.title">
+<tt class="descname">title</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_title</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.lastname">
+<tt class="descname">lastname</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.lastname" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_lastname</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.street2">
+<tt class="descname">street2</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.street2" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_street2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.zipcode">
+<tt class="descname">zipcode</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.zipcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_zipcode</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.comments">
+<tt class="descname">comments</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_comments</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.phone">
+<tt class="descname">phone</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.phone" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_phone_number</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.street1">
+<tt class="descname">street1</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.street1" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_street</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.country">
+<tt class="descname">country</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.country" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_country</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="interfaces.IDefaultContactInformation.email">
+<tt class="descname">email</tt><a class="headerlink" href="#interfaces.IDefaultContactInformation.email" title="Permalink to this definition">¶</a></dt>
+<dd><p>label_email</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="interface">
+<dt id="ftw.shop.interfaces.IFtwShopSpecific">
+<em class="property">interface </em><tt class="descclassname">ftw.shop.interfaces.</tt><tt class="descname">IFtwShopSpecific</tt><a class="reference internal" href="_modules/ftw/shop/interfaces.html#IFtwShopSpecific"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ftw.shop.interfaces.IFtwShopSpecific" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends: <tt class="xref py py-class docutils literal"><span class="pre">plone.theme.interfaces.IDefaultPloneLayer</span></tt></p>
+<p>Marker interface for a zope 3 browser layer.</p>
+</dd></dl>
+
 </div>
 
 
@@ -131,30 +458,30 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="extender.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">extender</span></tt> &#8212; SchemaExtender implementation of Shop Items</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="vocabularies.html"
-                                  title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">vocabularies</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/interfaces.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="extender.html"
+                        title="previous chapter"><tt class="docutils literal"><span class="pre">extender</span></tt> &#8212; SchemaExtender implementation of Shop Items</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="vocabularies.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">vocabularies</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/interfaces.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -166,7 +493,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="vocabularies.html" title="vocabularies"
@@ -181,8 +508,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

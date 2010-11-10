@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Content Types" href="content.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="content.variations.html" title="content.variations"
              accesskey="N">next</a> |</li>
@@ -119,302 +121,527 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-content.shopitem">
-<h1><tt class="xref docutils literal"><span class="pre">content.shopitem</span></tt><a class="headerlink" href="#module-content.shopitem" title="Permalink to this headline">¶</a></h1>
+<span id="content-shopitem"></span><h1><a class="reference internal" href="#module-content.shopitem" title="content.shopitem"><tt class="xref py py-mod docutils literal"><span class="pre">content.shopitem</span></tt></a><a class="headerlink" href="#module-content.shopitem" title="Permalink to this headline">¶</a></h1>
 <p>Definition of the Shop Item content type</p>
 <dl class="class">
 <dt id="content.shopitem.ShopItem">
-<em class="property">class </em><tt class="descclassname">content.shopitem.</tt><tt class="descname">ShopItem</tt><big>(</big><em>oid</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">content.shopitem.</tt><tt class="descname">ShopItem</tt><big>(</big><em>oid</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/content/shopitem.html#ShopItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.shopitem.ShopItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>A simple shop item</p>
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Contributors__roles__">
 <tt class="descname">Contributors__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Contributors__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Creators__roles__">
 <tt class="descname">Creators__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Creators__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Description__roles__">
 <tt class="descname">Description__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Description__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Language__roles__">
 <tt class="descname">Language__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Language__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Rights__roles__">
 <tt class="descname">Rights__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Rights__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Subject__roles__">
 <tt class="descname">Subject__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Subject__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.Title__roles__">
 <tt class="descname">Title__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.Title__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.allowDiscussion__roles__">
 <tt class="descname">allowDiscussion__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.allowDiscussion__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.created__roles__">
 <tt class="descname">created__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.created__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.editIsDiscussable__roles__">
 <tt class="descname">editIsDiscussable__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.editIsDiscussable__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getEffectiveDate__roles__">
 <tt class="descname">getEffectiveDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getEffectiveDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getExcludeFromNav__roles__">
 <tt class="descname">getExcludeFromNav__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getExcludeFromNav__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getExpirationDate__roles__">
 <tt class="descname">getExpirationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getExpirationDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getId__roles__">
 <tt class="descname">getId__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getId__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getLocation__roles__">
 <tt class="descname">getLocation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getLocation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getPresentation__roles__">
 <tt class="descname">getPresentation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getPresentation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawContributors__roles__">
 <tt class="descname">getRawContributors__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawContributors__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawCreation_date">
+<tt class="descname">getRawCreation_date</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawCreation_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawCreation_date__roles__">
 <tt class="descname">getRawCreation_date__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawCreation_date__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawCreators__roles__">
 <tt class="descname">getRawCreators__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawCreators__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawDescription__roles__">
 <tt class="descname">getRawDescription__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawDescription__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawEffectiveDate">
+<tt class="descname">getRawEffectiveDate</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawEffectiveDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawEffectiveDate__roles__">
 <tt class="descname">getRawEffectiveDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawEffectiveDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawExcludeFromNav">
+<tt class="descname">getRawExcludeFromNav</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawExcludeFromNav" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawExcludeFromNav__roles__">
 <tt class="descname">getRawExcludeFromNav__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawExcludeFromNav__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawExpirationDate">
+<tt class="descname">getRawExpirationDate</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawExpirationDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawExpirationDate__roles__">
 <tt class="descname">getRawExpirationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawExpirationDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawId__roles__">
 <tt class="descname">getRawId__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawId__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawLanguage__roles__">
 <tt class="descname">getRawLanguage__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawLanguage__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawLocation__roles__">
 <tt class="descname">getRawLocation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawLocation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawModification_date">
+<tt class="descname">getRawModification_date</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawModification_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawModification_date__roles__">
 <tt class="descname">getRawModification_date__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawModification_date__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawPresentation">
+<tt class="descname">getRawPresentation</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawPresentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawPresentation__roles__">
 <tt class="descname">getRawPresentation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawPresentation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawRelatedItems__roles__">
 <tt class="descname">getRawRelatedItems__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawRelatedItems__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawRights__roles__">
 <tt class="descname">getRawRights__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawRights__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawSubject__roles__">
 <tt class="descname">getRawSubject__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawSubject__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.getRawTableContents">
+<tt class="descname">getRawTableContents</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.getRawTableContents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default Edit Accessor.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawTableContents__roles__">
 <tt class="descname">getRawTableContents__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawTableContents__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawText__roles__">
 <tt class="descname">getRawText__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawText__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRawTitle__roles__">
 <tt class="descname">getRawTitle__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRawTitle__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getRelatedItems__roles__">
 <tt class="descname">getRelatedItems__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getRelatedItems__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getTableContents__roles__">
 <tt class="descname">getTableContents__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getTableContents__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.getText__roles__">
 <tt class="descname">getText__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.getText__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.isDiscussable__roles__">
 <tt class="descname">isDiscussable__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.isDiscussable__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.modified__roles__">
 <tt class="descname">modified__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.modified__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setContributors__roles__">
 <tt class="descname">setContributors__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setContributors__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setCreationDate">
+<tt class="descname">setCreationDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setCreationDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setCreationDate__roles__">
 <tt class="descname">setCreationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setCreationDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setCreators__roles__">
 <tt class="descname">setCreators__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setCreators__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setDescription__roles__">
 <tt class="descname">setDescription__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setDescription__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setEffectiveDate">
+<tt class="descname">setEffectiveDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setEffectiveDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setEffectiveDate__roles__">
 <tt class="descname">setEffectiveDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setEffectiveDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setExcludeFromNav">
+<tt class="descname">setExcludeFromNav</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setExcludeFromNav" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setExcludeFromNav__roles__">
 <tt class="descname">setExcludeFromNav__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setExcludeFromNav__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setExpirationDate">
+<tt class="descname">setExpirationDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setExpirationDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setExpirationDate__roles__">
 <tt class="descname">setExpirationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setExpirationDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setId__roles__">
 <tt class="descname">setId__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setId__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setLanguage__roles__">
 <tt class="descname">setLanguage__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setLanguage__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setLocation__roles__">
 <tt class="descname">setLocation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setLocation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setModificationDate">
+<tt class="descname">setModificationDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setModificationDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setModificationDate__roles__">
 <tt class="descname">setModificationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setModificationDate__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setPresentation">
+<tt class="descname">setPresentation</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setPresentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setPresentation__roles__">
 <tt class="descname">setPresentation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setPresentation__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setRelatedItems__roles__">
 <tt class="descname">setRelatedItems__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setRelatedItems__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setRights__roles__">
 <tt class="descname">setRights__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setRights__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setSubject__roles__">
 <tt class="descname">setSubject__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setSubject__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTableContents">
+<tt class="descname">setTableContents</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTableContents" title="Permalink to this definition">¶</a></dt>
+<dd><p>LinguaPlone Default Mutator.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setTableContents__roles__">
 <tt class="descname">setTableContents__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTableContents__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setText__roles__">
 <tt class="descname">setText__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setText__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="content.shopitem.ShopItem.setTitle__roles__">
 <tt class="descname">setTitle__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTitle__roles__" title="Permalink to this definition">¶</a></dt>
-<dd>PermissionRole C implementation</dd></dl>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationCreation_date">
+<tt class="descname">setTranslationCreation_date</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationCreation_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationCreation_date__roles__">
+<tt class="descname">setTranslationCreation_date__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationCreation_date__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationEffectiveDate">
+<tt class="descname">setTranslationEffectiveDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationEffectiveDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationEffectiveDate__roles__">
+<tt class="descname">setTranslationEffectiveDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationEffectiveDate__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationExcludeFromNav">
+<tt class="descname">setTranslationExcludeFromNav</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationExcludeFromNav" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationExcludeFromNav__roles__">
+<tt class="descname">setTranslationExcludeFromNav__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationExcludeFromNav__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationExpirationDate">
+<tt class="descname">setTranslationExpirationDate</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationExpirationDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationExpirationDate__roles__">
+<tt class="descname">setTranslationExpirationDate__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationExpirationDate__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationModification_date">
+<tt class="descname">setTranslationModification_date</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationModification_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationModification_date__roles__">
+<tt class="descname">setTranslationModification_date__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationModification_date__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationPresentation">
+<tt class="descname">setTranslationPresentation</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationPresentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationPresentation__roles__">
+<tt class="descname">setTranslationPresentation__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationPresentation__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="content.shopitem.ShopItem.setTranslationTableContents">
+<tt class="descname">setTranslationTableContents</tt><big>(</big><em>value</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationTableContents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delegated Mutator.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="content.shopitem.ShopItem.setTranslationTableContents__roles__">
+<tt class="descname">setTranslationTableContents__roles__</tt><a class="headerlink" href="#content.shopitem.ShopItem.setTranslationTableContents__roles__" title="Permalink to this definition">¶</a></dt>
+<dd><p>PermissionRole C implementation</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="content.shopitem.object_initialized_handler">
-<tt class="descclassname">content.shopitem.</tt><tt class="descname">object_initialized_handler</tt><big>(</big><em>context</em>, <em>event</em><big>)</big><a class="headerlink" href="#content.shopitem.object_initialized_handler" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">content.shopitem.</tt><tt class="descname">object_initialized_handler</tt><big>(</big><em>context</em>, <em>event</em><big>)</big><a class="reference internal" href="_modules/content/shopitem.html#object_initialized_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.shopitem.object_initialized_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>&#64;param context: Zope object for which the event was fired for.
 Usually this is Plone content object.</p>
 <p>&#64;param event: Subclass of event.</p>
@@ -431,30 +658,30 @@ Usually this is Plone content object.</p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="content.shopcategory.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">content.shopcategory</span></tt></a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="content.variations.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">content.variations</span></tt></a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/content.shopitem.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="content.shopcategory.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">content.shopcategory</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="content.variations.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">content.variations</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/content.shopitem.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -466,7 +693,7 @@ Usually this is Plone content object.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="content.variations.html" title="content.variations"
@@ -481,8 +708,8 @@ Usually this is Plone content object.</p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,12 +13,13 @@
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
         VERSION:     '1.0dev',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
     <link rel="up" title="Package Globals" href="globals.html" />
@@ -98,8 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="interfaces.html" title="interfaces — Interfaces defined by ftw.shop"
              accesskey="N">next</a> |</li>
@@ -119,30 +121,33 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <div class="body">
             
   <div class="section" id="module-extender">
-<h1><tt class="xref docutils literal"><span class="pre">extender</span></tt> &#8212; SchemaExtender implementation of Shop Items<a class="headerlink" href="#module-extender" title="Permalink to this headline">¶</a></h1>
+<span id="extender-schemaextender-implementation-of-shop-items"></span><h1><a class="reference internal" href="#module-extender" title="extender"><tt class="xref py py-mod docutils literal"><span class="pre">extender</span></tt></a> &#8212; SchemaExtender implementation of Shop Items<a class="headerlink" href="#module-extender" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="extender.ExtFixedPointField">
-<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtFixedPointField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#extender.ExtFixedPointField" title="Permalink to this definition">¶</a></dt>
-<dd>A fixed point field.</dd></dl>
+<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtFixedPointField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/extender.html#ExtFixedPointField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#extender.ExtFixedPointField" title="Permalink to this definition">¶</a></dt>
+<dd><p>A fixed point field.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="extender.ExtLinesField">
-<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtLinesField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#extender.ExtLinesField" title="Permalink to this definition">¶</a></dt>
-<dd>A lines field.</dd></dl>
+<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtLinesField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/extender.html#ExtLinesField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#extender.ExtLinesField" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lines field.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="extender.ExtStringField">
-<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtStringField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#extender.ExtStringField" title="Permalink to this definition">¶</a></dt>
-<dd>A string field.</dd></dl>
+<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ExtStringField</tt><big>(</big><em>name=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/extender.html#ExtStringField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#extender.ExtStringField" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string field.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="extender.ShopItemExtender">
-<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ShopItemExtender</tt><big>(</big><em>context</em><big>)</big><a class="headerlink" href="#extender.ShopItemExtender" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">extender.</tt><tt class="descname">ShopItemExtender</tt><big>(</big><em>context</em><big>)</big><a class="reference internal" href="_modules/extender.html#ShopItemExtender"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#extender.ShopItemExtender" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extends the base type ShopItem with fields <cite>price</cite>
 and <cite>skuCode</cite>.</p>
 <dl class="method">
 <dt id="extender.ShopItemExtender.getFields">
-<tt class="descname">getFields</tt><big>(</big><big>)</big><a class="headerlink" href="#extender.ShopItemExtender.getFields" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">getFields</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/extender.html#ShopItemExtender.getFields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#extender.ShopItemExtender.getFields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -158,30 +163,30 @@ and <cite>skuCode</cite>.</p>
 <p class="logo"><a href="index.html"><img src="_static/plone-icon-64.png" />
 </a></p>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="exceptions.html"
-                                  title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">exceptions</span></tt> &#8212; Exceptions defined by ftw.shop</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="interfaces.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">interfaces</span></tt> &#8212; Interfaces defined by ftw.shop</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="_sources/extender.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="exceptions.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">exceptions</span></tt> &#8212; Exceptions defined by ftw.shop</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="interfaces.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">interfaces</span></tt> &#8212; Interfaces defined by ftw.shop</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/extender.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -193,7 +198,7 @@ and <cite>skuCode</cite>.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="modindex.html" title="Global Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="interfaces.html" title="interfaces — Interfaces defined by ftw.shop"
@@ -208,8 +213,8 @@ and <cite>skuCode</cite>.</p>
     </div>
 
     <div class="footer">
-      &copy; Copyright 2010, Lukas Graf.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.7.
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
     </div>
 
 

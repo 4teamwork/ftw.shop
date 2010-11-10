@@ -1,0 +1,476 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>browser.checkout &mdash; ftw.shop v1.0dev documentation</title>
+    <link rel="stylesheet" href="../../_static/plone.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="ftw.shop v1.0dev documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<script language="javascript">
+//<![CDATA[
+
+Documentation.addTranslations({"locale": "fr", "plural_expr": "(n > 1)", "messages": {"See the definition": "Voir la d\u00e9finition"}});
+
+// See http://disqus.disqus.com/general_integration_help/
+var disqus_developer = 1;
+if (document.location.protocol == 'http:') {
+    disqus_developer = 0;
+}
+
+// Some HTML/CSS transforms we can't do in pure CSS (waiting for CSS3 support)
+$(document).ready(function () {
+
+    // Style of .. verisonmodified:: , .. versionadded:: ...
+    $('p:has(span.versionmodified)').addClass('p-versionmodified');
+
+    // Style of the TOC tree
+    $('ul:has(li.toctree-l1)').addClass('toctree');
+
+    // Decorate links to other sites
+    //$('a[class~=external]').attr('target', '_blank');
+
+    // Glossary terms
+    $('em.xref').attr('title', _('See the definition'));
+
+    // We need to have all <pre> in a <div class="highlight"> to mimic pygments
+    // to work around a pygments (?) bug
+    var suffixes = {cfg: null, python:null};
+    for (var suffix in suffixes) {
+        var pattern = 'div.highlight-' + suffix + ' > pre';
+        $(pattern).wrap('<div class="highlight" />');
+    }
+    return true;
+});
+//]]>
+</script>
+
+  </head>
+  <body>
+<!--[if lte IE 6]>
+<style type="text/css">
+#ie6msg{border:3px solid #090; margin:8px 0; background:#cfc; color:#000;}
+#ie6msg h4{margin:8px; padding:0;}
+#ie6msg p{margin:8px; padding:0;}
+#ie6msg p a.getie8{font-weight:bold; color:#006;}
+#ie6msg p a.ie6expl{font-weight:normal; color:#006;}
+</style>
+<div id="ie6msg">
+<h4>Did you know that your browser is out of date?</h4>
+<p>If the layout of this site seems ugly, that's because you're actually using
+an outdated browser. And we wont put any effort to provide a nice layout to IE6
+users.</p>
+<p>To get the best possible experience using our website we recommend that you
+upgrade your browser to a newer version. The current version
+is <a class="getie8"
+href="http://upgradeie.s3.amazonaws.com/eng/index.html">Internet Explorer
+8</a>. The upgrade is free. If you're using a PC at work you should contact your
+IT administrator.</p>
+<p>If you want to you may also try some other popular Internet browsers
+like <a class="ie6expl"
+href="http://getfirefox.com">Firefox</a>, <a class="ie6expl"
+href="http://www.google.com/chrome">Chrome</a>, <a class="ie6expl"
+href="http://www.opera.com">Opera</a>, or <a class="ie6expl"
+href="http://www.apple.com/safari/download/">Safari</a></p>
+</div>
+<![endif]-->
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for browser.checkout</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">simplejson</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="kn">from</span> <span class="nn">Products.Five.browser</span> <span class="kn">import</span> <span class="n">BrowserView</span>
+<span class="kn">from</span> <span class="nn">Products.Five.browser.pagetemplatefile</span> <span class="kn">import</span> <span class="n">ViewPageTemplateFile</span>
+<span class="kn">from</span> <span class="nn">collective.z3cform.wizard</span> <span class="kn">import</span> <span class="n">wizard</span>
+<span class="kn">from</span> <span class="nn">plone.registry.interfaces</span> <span class="kn">import</span> <span class="n">IRegistry</span>
+<span class="kn">from</span> <span class="nn">plone.z3cform.layout</span> <span class="kn">import</span> <span class="n">FormWrapper</span>
+<span class="kn">from</span> <span class="nn">z3c.form</span> <span class="kn">import</span> <span class="n">field</span><span class="p">,</span> <span class="n">button</span>
+<span class="kn">from</span> <span class="nn">z3c.form.browser.checkbox</span> <span class="kn">import</span> <span class="n">SingleCheckBoxFieldWidget</span>
+<span class="kn">from</span> <span class="nn">zope.app.pagetemplate</span> <span class="kn">import</span> <span class="n">viewpagetemplatefile</span> <span class="k">as</span> <span class="n">zvptf</span>
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span><span class="p">,</span> <span class="n">Interface</span>
+<span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">getMultiAdapter</span><span class="p">,</span> <span class="n">adapts</span>
+<span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">getAdapters</span>
+<span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">getUtility</span>
+
+<span class="kn">from</span> <span class="nn">ftw.shop.config</span> <span class="kn">import</span> <span class="n">SESSION_ADDRESS_KEY</span><span class="p">,</span> <span class="n">COOKIE_ADDRESS_KEY</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IShopConfiguration</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IDefaultContactInformation</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IContactInformationStep</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IContactInformationStepGroup</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IPaymentProcessor</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IPaymentProcessorChoiceStep</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IPaymentProcessorStepGroup</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IDefaultPaymentProcessorChoice</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IOrderReviewStep</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IOrderReviewStepGroup</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.browser.widgets.paymentprocessor</span> <span class="kn">import</span> <span class="n">PaymentProcessorFieldWidget</span>
+<span class="kn">from</span> <span class="nn">ftw.shop</span> <span class="kn">import</span> <span class="n">shopMessageFactory</span> <span class="k">as</span> <span class="n">_</span>
+
+
+<div class="viewcode-block" id="DefaultContactInfoStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultContactInfoStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IContactInformationStep</span><span class="p">)</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;contact_information&#39;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;label_default_contact_info_step&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Contact Information&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_contact_info_step&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Contact Information&quot;</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;help_default_contact_info_step&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">u&quot;&quot;</span><span class="p">)</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">Fields</span><span class="p">(</span><span class="n">IDefaultContactInformation</span><span class="p">)</span>
+    <span class="n">fields</span><span class="p">[</span><span class="s">&#39;newsletter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">widgetFactory</span> <span class="o">=</span> <span class="n">SingleCheckBoxFieldWidget</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">wiz</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wizard</span> <span class="o">=</span> <span class="n">wiz</span>
+        <span class="n">PREFILL_FIELDS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;firstname&#39;</span><span class="p">,</span> <span class="s">&#39;lastname&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span>
+                          <span class="s">&#39;street1&#39;</span><span class="p">,</span> <span class="s">&#39;street2&#39;</span><span class="p">,</span> <span class="s">&#39;phone&#39;</span><span class="p">,</span> <span class="s">&#39;zipcode&#39;</span><span class="p">,</span>
+                          <span class="s">&#39;city&#39;</span><span class="p">,</span> <span class="s">&#39;country&#39;</span><span class="p">,</span> <span class="s">&#39;newsletter&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">COOKIE_ADDRESS_KEY</span> <span class="ow">in</span> <span class="n">request</span><span class="p">:</span>
+            <span class="c"># Prefill contact data with values from cookie</span>
+            <span class="n">cookie_data</span> <span class="o">=</span> <span class="n">simplejson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span>
+                                    <span class="n">request</span><span class="p">[</span><span class="n">COOKIE_ADDRESS_KEY</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cookie_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">basestring</span><span class="p">):</span>
+                    <span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="n">PREFILL_FIELDS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">cookie_data</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+
+        <span class="k">elif</span> <span class="n">SESSION_ADDRESS_KEY</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="c"># Prefill contact data form with values from session</span>
+            <span class="n">contact_info</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="n">SESSION_ADDRESS_KEY</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="n">PREFILL_FIELDS</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">contact_info</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DefaultContactInfoStep.updateWidgets"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStep.updateWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">updateWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DefaultContactInfoStep</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updateWidgets</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="s">&#39;zipcode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">5</span>
+
+</div></div>
+<div class="viewcode-block" id="DefaultContactInfoStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultContactInfoStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IContactInformationStepGroup</span><span class="p">)</span>
+    <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_contact_info_step_group&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Contact Information&quot;</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultContactInfoStep</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="DefaultPaymentProcessorChoiceStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultPaymentProcessorChoiceStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultPaymentProcessorChoiceStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IPaymentProcessorChoiceStep</span><span class="p">)</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;payment_processor_choice&#39;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;label_default_payment_processor_choice_step&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Payment Processor&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_payment_processor_step&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Payment Processor Choice&quot;</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;help_default_payment_processor_choice_step&#39;</span><span class="p">,</span>
+                    <span class="n">default</span><span class="o">=</span><span class="s">u&quot;&quot;</span><span class="p">)</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">Fields</span><span class="p">(</span><span class="n">IDefaultPaymentProcessorChoice</span><span class="p">)</span>
+    <span class="n">fields</span><span class="p">[</span><span class="s">&#39;payment_processor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">widgetFactory</span> <span class="o">=</span> <span class="n">PaymentProcessorFieldWidget</span>
+
+</div>
+<div class="viewcode-block" id="DefaultPaymentProcessorStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultPaymentProcessorStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultPaymentProcessorStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IPaymentProcessorStepGroup</span><span class="p">)</span>
+    <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_payment_processor_step_group&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Payment Processor Choice&quot;</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultPaymentProcessorChoiceStep</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="InvoicePaymentProcessor"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.InvoicePaymentProcessor">[docs]</a><span class="k">class</span> <span class="nc">InvoicePaymentProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IPaymentProcessor</span><span class="p">)</span>
+    <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
+
+    <span class="n">external</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Gegen Rechnung&quot;</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;&lt;img src=&quot;++resource++ftw-shop-resources/einzahlungsschein.png&quot; /&gt;&quot;&quot;&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;&lt;em&gt;Bezahlung gegen Rechnung&lt;/em&gt;&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="DefaultOrderReviewStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultOrderReviewStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultOrderReviewStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IOrderReviewStep</span><span class="p">)</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;order-review&#39;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;label_order_review_step&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;Order Review&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_order_review_step&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Order Review Step&quot;</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;help_order_review_step&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">u&#39;&#39;</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">zvptf</span><span class="o">.</span><span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/checkout/order_review.pt&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">wiz</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wizard</span> <span class="o">=</span> <span class="n">wiz</span>
+</div>
+<div class="viewcode-block" id="DefaultOrderReviewStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultOrderReviewStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultOrderReviewStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IOrderReviewStepGroup</span><span class="p">)</span>
+    <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_order_review_step_group&quot;</span><span class="p">,</span>
+              <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Order Review Step Group&quot;</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultOrderReviewStep</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="CheckoutWizard"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.CheckoutWizard">[docs]</a><span class="k">class</span> <span class="nc">CheckoutWizard</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Wizard</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;label_checkout_wizard&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;Checkout&quot;</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">zvptf</span><span class="o">.</span><span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/checkout-wizard.pt&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CheckoutWizard</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+
+<div class="viewcode-block" id="CheckoutWizard.getSelectedPaymentProcessor"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.CheckoutWizard.getSelectedPaymentProcessor">[docs]</a>    <span class="k">def</span> <span class="nf">getSelectedPaymentProcessor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">payment_processor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="s">&#39;payment_processor_choice&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pp_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="s">&#39;payment_processor_choice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;payment_processor&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pp_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                        <span class="s">&#39;payment_processor_choice&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;payment_processor&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="c"># No payment processor step activated</span>
+                <span class="n">pp_name</span> <span class="o">=</span> <span class="s">&quot;none&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="n">getAdapters</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">),</span>
+                                         <span class="n">IPaymentProcessor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">pp_name</span><span class="p">:</span>
+                <span class="n">payment_processor</span> <span class="o">=</span> <span class="n">adapter</span>
+        <span class="k">return</span> <span class="n">payment_processor</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="CheckoutWizard.steps"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.CheckoutWizard.steps">[docs]</a>    <span class="k">def</span> <span class="nf">steps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">contact_info_steps</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="n">contact_info_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">(</span>
+                                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
+                                        <span class="n">IContactInformationStepGroup</span><span class="p">)</span>
+        <span class="n">payment_processor_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">(</span>
+                                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
+                                        <span class="n">IPaymentProcessorStepGroup</span><span class="p">)</span>
+        <span class="n">order_review_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">(</span>
+                                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="p">),</span>
+                                        <span class="n">IOrderReviewStepGroup</span><span class="p">)</span>
+        <span class="n">registry</span> <span class="o">=</span> <span class="n">getUtility</span><span class="p">(</span><span class="n">IRegistry</span><span class="p">)</span>
+        <span class="n">shop_config</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">forInterface</span><span class="p">(</span><span class="n">IShopConfiguration</span><span class="p">)</span>
+
+        <span class="c"># Get steps for selected Contact Info Step Group</span>
+        <span class="n">selected_contact_info_step_group</span> <span class="o">=</span> <span class="n">shop_config</span><span class="o">.</span><span class="n">contact_info_step_group</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step_group_adapter</span> <span class="ow">in</span> <span class="n">contact_info_step_groups</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">selected_contact_info_step_group</span><span class="p">:</span>
+                <span class="n">contact_info_steps</span> <span class="o">=</span> <span class="n">step_group_adapter</span><span class="o">.</span><span class="n">steps</span>
+
+        <span class="c"># Get steps for selected Payment Processor Step Group</span>
+        <span class="n">selected_pp_step_group</span> <span class="o">=</span> <span class="n">shop_config</span><span class="o">.</span><span class="n">payment_processor_step_group</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step_group_adapter</span> <span class="ow">in</span> <span class="n">payment_processor_step_groups</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">selected_pp_step_group</span><span class="p">:</span>
+                <span class="n">payment_processor_steps</span> <span class="o">=</span> <span class="n">step_group_adapter</span><span class="o">.</span><span class="n">steps</span>
+
+        <span class="c"># Get steps for selected Order Review Step Group</span>
+        <span class="n">selected_order_review_step_group</span> <span class="o">=</span> <span class="n">shop_config</span><span class="o">.</span><span class="n">order_review_step_group</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">step_group_adapter</span> <span class="ow">in</span> <span class="n">order_review_step_groups</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">selected_order_review_step_group</span><span class="p">:</span>
+                <span class="n">order_review_steps</span> <span class="o">=</span> <span class="n">step_group_adapter</span><span class="o">.</span><span class="n">steps</span>
+
+        <span class="k">return</span> <span class="n">contact_info_steps</span> <span class="o">+</span> <span class="n">payment_processor_steps</span> <span class="o">+</span> <span class="n">order_review_steps</span>
+
+</div>
+    <span class="nd">@button.buttonAndHandler</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;btn_back&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;Back&quot;</span><span class="p">),</span>
+                             <span class="n">name</span><span class="o">=</span><span class="s">&#39;back&#39;</span><span class="p">,</span>
+                             <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">form</span><span class="p">:</span> <span class="ow">not</span> <span class="n">form</span><span class="o">.</span><span class="n">onFirstStep</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handleBack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">extractData</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+            <span class="n">errorMessage</span> <span class="o">=</span><span class="s">&#39;&lt;ul&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">errorMessage</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">):</span>
+                    <span class="n">errorMessage</span> <span class="o">+=</span> <span class="s">&#39;&lt;li&gt;&#39;</span> <span class="o">+</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span> <span class="o">+</span> <span class="s">&#39;&lt;/li&gt;&#39;</span>
+            <span class="n">errorMessage</span> <span class="o">+=</span> <span class="s">&#39;&lt;/ul&gt;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">errorMessage</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">applyChanges</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateCurrentStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="c"># Back can change the conditions for the finish button,</span>
+            <span class="c"># so we need to reconstruct the button actions, since we</span>
+            <span class="c"># do not redirect.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateActions</span><span class="p">()</span>
+
+    <span class="nd">@button.buttonAndHandler</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;btn_continue&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;Next&#39;</span><span class="p">),</span>
+                             <span class="n">name</span><span class="o">=</span><span class="s">&#39;continue&#39;</span><span class="p">,</span>
+                             <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">form</span><span class="p">:</span> <span class="ow">not</span> <span class="n">form</span><span class="o">.</span><span class="n">onLastStep</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handleContinue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">extractData</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+            <span class="n">errorMessage</span> <span class="o">=</span><span class="s">&#39;&lt;ul&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">errorMessage</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">):</span>
+                    <span class="n">errorMessage</span> <span class="o">+=</span> <span class="s">&#39;&lt;li&gt;&#39;</span> <span class="o">+</span> <span class="n">error</span><span class="o">.</span><span class="n">message</span> <span class="o">+</span> <span class="s">&#39;&lt;/li&gt;&#39;</span>
+            <span class="n">errorMessage</span> <span class="o">+=</span> <span class="s">&#39;&lt;/ul&gt;&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">errorMessage</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">applyChanges</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateCurrentStep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">currentIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="c"># Proceed can change the conditions for the finish button,</span>
+            <span class="c"># so we need to reconstruct the button actions, since we</span>
+            <span class="c"># do not redirect.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updateActions</span><span class="p">()</span>
+
+    <span class="nd">@button.buttonAndHandler</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s">u&#39;btn_finish&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&#39;Finish&#39;</span><span class="p">),</span>
+             <span class="n">name</span><span class="o">=</span><span class="s">&#39;finish&#39;</span><span class="p">,</span>
+             <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">form</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">allStepsFinished</span> <span class="ow">or</span> <span class="n">form</span><span class="o">.</span><span class="n">onLastStep</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">handleFinish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">extractData</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formErrorsMessage</span>
+            <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">successMessage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finished</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentStep</span><span class="o">.</span><span class="n">applyChanges</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="n">SESSION_ADDRESS_KEY</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="n">SESSION_ADDRESS_KEY</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;contact_information&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="s">&#39;order_confirmation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="s">&#39;payment_processor_choice&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s">&#39;payment_processor_choice&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="s">&#39;payment_processor_choice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;payment_processor_choice&#39;</span><span class="p">])</span>
+
+        <span class="c"># Save contact information in a cookie in order to prefill</span>
+        <span class="c"># form if customer returns</span>
+        <span class="n">cookie_value</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">simplejson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s">&#39;contact_information&#39;</span><span class="p">]))</span>
+        <span class="n">expiry_date</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+                                                <span class="s">&quot;%a, </span><span class="si">%d</span><span class="s">-%b-%Y %H:%M:%S GMT&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">RESPONSE</span><span class="o">.</span><span class="n">setCookie</span><span class="p">(</span><span class="n">COOKIE_ADDRESS_KEY</span><span class="p">,</span>
+                                        <span class="n">cookie_value</span><span class="p">,</span>
+                                        <span class="n">expires</span><span class="o">=</span><span class="n">expiry_date</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sessionKey</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+
+        <span class="n">pp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSelectedPaymentProcessor</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">pp</span><span class="o">.</span><span class="n">external</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="s">&#39;external-processor-url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">url</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="s">&#39;external-processor-url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8077/&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s">&#39;checkout&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="CheckoutView"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.CheckoutView">[docs]</a><span class="k">class</span> <span class="nc">CheckoutView</span><span class="p">(</span><span class="n">FormWrapper</span><span class="p">):</span>
+    <span class="c">#layout = ViewPageTemplateFile(&quot;templates/layout.pt&quot;)</span>
+    <span class="c">#index = layout</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">CheckoutWizard</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">cart_view</span> <span class="o">=</span> <span class="n">getMultiAdapter</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;cart_view&#39;</span><span class="p">)</span>
+        <span class="n">request</span><span class="p">[</span><span class="s">&#39;cart_view&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cart_view</span>
+        <span class="n">FormWrapper</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ExternalPaymentProcessorView"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.ExternalPaymentProcessorView">[docs]</a><span class="k">class</span> <span class="nc">ExternalPaymentProcessorView</span><span class="p">(</span><span class="n">BrowserView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Redirects to an external payment processor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__call__</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/checkout/external.pt&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<p class="logo"><a href="../../index.html"><img src="../../_static/plone-icon-64.png" />
+</a></p>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2010, Lukas Graf.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+
+
+  </body>
+</html>
