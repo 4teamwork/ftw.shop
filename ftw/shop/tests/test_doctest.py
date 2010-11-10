@@ -1,9 +1,6 @@
 import unittest
 import doctest
 
-from zope.testing import doctestunit
-from zope.component import testing, eventtesting
-
 from Testing import ZopeTestCase as ztc
 
 from ftw.shop.tests import base

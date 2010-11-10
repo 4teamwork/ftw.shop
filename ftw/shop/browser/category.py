@@ -3,7 +3,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize import instance
-from zope.component import getMultiAdapter
 
 from ftw.shop.config import CATEGORY_RELATIONSHIP
 from ftw.shop.interfaces import IVariationConfig

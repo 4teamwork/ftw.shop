@@ -1,6 +1,3 @@
-from zope.component import queryUtility
-
-
 # The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
 

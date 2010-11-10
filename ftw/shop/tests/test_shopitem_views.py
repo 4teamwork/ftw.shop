@@ -1,12 +1,10 @@
 import unittest
-import simplejson
 from decimal import Decimal
+
 from zope.component import getMultiAdapter
-from Products.CMFCore.utils import getToolByName
+
 from ftw.shop.tests.base import FtwShopTestCase
-from ftw.shop.config import SESSION_ADDRESS_KEY
-import zope.event
-from Products.Archetypes.event import ObjectInitializedEvent
+
 
 
 class TestShopItemViews(FtwShopTestCase):
