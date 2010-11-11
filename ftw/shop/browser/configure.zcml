@@ -103,7 +103,7 @@
     />
 
   <browser:page 
-    for="*" 
+    for="*"
     name="cart_view" 
     class=".cart.CartView" 
     permission="zope2.View" 
@@ -126,7 +126,7 @@
     />
 
   <browser:page 
-    for="..interfaces.IShopRoot" 
+    for="*"
     name="checkout" 
     class=".cart.CartView" 
     attribute="checkout" 
@@ -134,7 +134,7 @@
     />
 
   <browser:page 
-    for="..interfaces.IShopRoot"
+    for="*"
     name="cart_update" 
     class=".cart.CartView" 
     attribute="cart_update" 
@@ -142,7 +142,7 @@
     />    
 
   <browser:page 
-    for="..interfaces.IShopRoot"
+    for="*"
     name="cart_delete" 
     class=".cart.CartView" 
     attribute="cart_delete" 
@@ -150,7 +150,7 @@
     />
 
   <browser:page 
-    for="..interfaces.IShopRoot" 
+    for="*"
     name="cart_remove" 
     class=".cart.CartView" 
     attribute="cart_remove" 
@@ -159,14 +159,14 @@
 
   <!-- cart edit page -->
   <browser:page 
-    for="..interfaces.IShopRoot" 
+    for="*"
     name="cart_edit" 
     template="templates/cart_edit.pt" 
     permission="zope2.View" 
     />
 
   <browser:page 
-    for="*" 
+    for="*"
     name="edit_categories" 
     class=".manage_categories.ManageCategories"
     permission="zope2.View" 
