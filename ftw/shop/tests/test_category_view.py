@@ -10,7 +10,7 @@ class TestCategoryView(FtwShopTestCase):
     def afterSetUp(self):
         super(TestCategoryView, self).afterSetUp()
         
-        self.category_view = getMultiAdapter((self.portal.shop, 
+        self.category_view = getMultiAdapter((self.portal.shop.products, 
                                  self.portal.REQUEST), 
                                  name='view')
 

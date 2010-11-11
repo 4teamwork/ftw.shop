@@ -35,20 +35,20 @@ class TestSetup(FtwShopTestCase):
 
     def test_shop_item_creation(self):
         self.setRoles(('Manager',))
-        self.portal.shop.invokeFactory('ShopItem', 'test-item')
+        self.portal.shop.products.invokeFactory('ShopItem', 'test-item')
         self.setRoles(('Member',))
-        self.failUnless(self.portal.shop['test-item'].id == 'test-item')
+        self.failUnless(self.portal.shop.products['test-item'].id == 'test-item')
 
     def test_shop_item_default_category(self):
         self.setRoles(('Manager',))
-        self.portal.shop.invokeFactory('ShopItem', 'test-item')
-        item = self.portal.shop['test-item']
+        self.portal.shop.products.invokeFactory('ShopItem', 'test-item')
+        item = self.portal.shop.products['test-item']
         self.setRoles(('Member',))
 
         event = ObjectInitializedEvent(item, self.portal.REQUEST)
         zope.event.notify(event)
         
-        self.failUnless(self.portal.shop in item.listCategories())
+        self.failUnless(self.portal.shop.products in item.listCategories())
 
 
 

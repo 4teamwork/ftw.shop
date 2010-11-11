@@ -85,12 +85,15 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         self.setRoles(('Manager',))
 
-        # Create a root shop category
-        self.portal.invokeFactory("ShopCategory", "shop")
+        # Create a root shop folder
+        self.portal.invokeFactory("Folder", "shop")
+
+        # Create a shop category
+        self.portal.shop.invokeFactory("ShopCategory", "products")
 
         # Create a Shop Item with no variations
-        self.portal.shop.invokeFactory('ShopItem', 'movie')
-        self.movie = self.portal.shop['movie']
+        self.portal.shop.products.invokeFactory('ShopItem', 'movie')
+        self.movie = self.portal.shop.products['movie']
         self.movie.getField('skuCode').set(self.movie, "12345")
         self.movie.getField('price').set(self.movie, "7.15")
         self.movie.getField('title').set(self.movie, "A Movie")
@@ -103,8 +106,8 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.movie_vc = IVariationConfig(self.movie)
 
         # Create a Shop Item with one variation
-        self.portal.shop.invokeFactory('ShopItem', 'book')
-        self.book = self.portal.shop['book']
+        self.portal.shop.products.invokeFactory('ShopItem', 'book')
+        self.book = self.portal.shop.products['book']
         self.book.getField('title').set(self.book, 'Professional Plone Development')
         self.book.getField('description').set(self.book, 'A Shop Item with one variation')
         self.book.getField('variation1_attribute').set(self.book, 'Cover')
@@ -130,8 +133,8 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.book_vc.updateVariationConfig(book_var_dict)
 
         # Create a Shop Item with two variations
-        self.portal.shop.invokeFactory('ShopItem', 't-shirt')
-        self.tshirt = self.portal.shop['t-shirt']
+        self.portal.shop.products.invokeFactory('ShopItem', 't-shirt')
+        self.tshirt = self.portal.shop.products['t-shirt']
         self.tshirt.getField('title').set(self.tshirt, 'A T-Shirt')
         self.tshirt.getField('description').set(self.tshirt, 'A Shop Item with two variations')
         self.tshirt.getField('variation1_attribute').set(self.tshirt, 'Color')
@@ -158,8 +161,8 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.tshirt_vc.updateVariationConfig(tshirt_var_dict)
 
         # Create a subcategory below the shop root
-        self.portal.shop.invokeFactory("ShopCategory", "subcategory")
-        self.subcategory = self.portal.shop.subcategory
+        self.portal.shop.products.invokeFactory("ShopCategory", "subcategory")
+        self.subcategory = self.portal.shop.products.subcategory
 
         # Fire ObjectInitializedEvent to add category to containing category
         event = ObjectInitializedEvent(self.subcategory, self.portal.REQUEST)
