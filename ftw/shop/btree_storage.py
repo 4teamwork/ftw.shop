@@ -1,11 +1,10 @@
 from DateTime import DateTime
-
-from zope.interface import implements
-from persistent import Persistent
-
-from Products.CMFCore.permissions import ModifyPortalContent
+from decimal import Decimal
 
 from AccessControl import ClassSecurityInfo
+from persistent import Persistent
+from Products.CMFCore.permissions import ModifyPortalContent
+from zope.interface import implements
 
 from BTrees.IOBTree import IOBTree
 try:
@@ -116,9 +115,10 @@ class BTreeOrderStorage(Persistent):
         new_order = Order()
         new_order.status = status
         new_order.date = date
-        new_order.total = total
+        new_order.total = Decimal(total)
         
         order_id = self._addDataRow(new_order)
+        new_order.order_id = order_id
 
         # calc order number
         now = DateTime()
@@ -136,8 +136,8 @@ class BTreeOrderStorage(Persistent):
             cart_items.sku_code = sku_code
             cart_items.quantity = cart_data[sku_code]['quantity']
             cart_items.title = cart_data[sku_code]['title']
-            cart_items.price = cart_data[sku_code]['price']
-            cart_items.total = cart_data[sku_code]['total']
+            cart_items.price = Decimal(cart_data[sku_code]['price'])
+            cart_items.total = Decimal(cart_data[sku_code]['total'])
             cart_items.supplier_name = cart_data[sku_code]['supplier_name']
             cart_items.supplier_email = cart_data[sku_code]['supplier_email']
             cart_items.order_id = order_id
@@ -145,7 +145,6 @@ class BTreeOrderStorage(Persistent):
             all_cart_items.append(cart_items)
             
         new_order.cartitems = all_cart_items
-            
         return order_id
     
     def flush(self):

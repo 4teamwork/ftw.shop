@@ -1,5 +1,6 @@
 import unittest
 import simplejson
+from decimal import Decimal
 
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
@@ -176,7 +177,7 @@ class TestCart(FtwShopTestCase):
         cart.checkout()
         
         order = omanager.getOrders()[0]
-        self.assertEquals(order.total, '7.15')
+        self.assertEquals(order.total, Decimal('7.15'))
         self.assertEquals(order.status, 3)
         self.assertEquals(order.customer_firstname, "Hugo")
         self.assertEquals(order.customer_lastname, "Boss")      
