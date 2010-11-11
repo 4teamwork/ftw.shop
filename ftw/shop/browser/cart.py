@@ -1,7 +1,7 @@
 from decimal import Decimal
 import simplejson
 
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -65,6 +65,27 @@ class CartView(BrowserView):
         ptool.addPortalMessage(_(u'msg_item_added',
                                  default=u'Added item to cart.'), 'info')
 
+
+    def _get_supplier(self, context):
+        """If available, get supplier name and email address
+        """
+        supplier_name = ''
+        supplier_email = ''
+        # First see if parent cateogry has a supplier defined
+        parent_category = aq_parent(context)
+        if parent_category.getField('supplier') is not None:
+            category_supplier = parent_category.getField('supplier').get(parent_category)
+            if category_supplier is not None:
+                supplier_name = category_supplier.getField('title').get(category_supplier)
+                supplier_email = category_supplier.getField('email').get(category_supplier)
+        # If item itself has a supplier, override parent category supplier
+        if context.getField('supplier') is not None:
+            supplier = context.getField('supplier').get(context)
+            if supplier is not None:
+                supplier_name = supplier.getField('title').get(supplier)
+                supplier_email = supplier.getField('email').get(supplier)
+        return supplier_name, supplier_email
+
     def _addtocart(self, skuCode=None, quantity=1,
                    var1choice=None, var2choice=None):
         """ Add item to cart
@@ -88,14 +109,7 @@ class CartView(BrowserView):
         item_title = context.Title()
         quantity = int(quantity)
         
-        # If available, get supplier name and email address
-        supplier_name = ''
-        supplier_email = ''
-        if context.getField('supplier') is not None:
-            supplier = context.getField('supplier').get(context)
-            if supplier is not None:
-                supplier_name = supplier.getField('title').get(supplier)
-                supplier_email = supplier.getField('email').get(supplier)
+        supplier_name, supplier_email = self._get_supplier(context)
 
         has_variations = varConf.hasVariations()
         if has_variations:
