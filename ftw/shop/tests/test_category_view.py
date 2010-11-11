@@ -93,6 +93,19 @@ class TestCategoryView(FtwShopTestCase):
                            self.tshirt, 
                            self.subcategory])
 
+    def test_category_contents_ordering(self):
+        self.tshirt.setRankForCategory(self.portal.shop.products, 10)
+        self.movie.setRankForCategory(self.portal.shop.products, 20)
+        self.book.setRankForCategory(self.portal.shop.products, 30)
+        self.subcategory.setRankForCategory(self.portal.shop.products, 40)
+
+        category_contents = self.category_view.category_contents
+        self.assertEquals(category_contents, 
+                          [self.tshirt, 
+                           self.movie, 
+                           self.book, 
+                           self.subcategory])
+
 
 def test_suite():
     suite = unittest.TestSuite()
