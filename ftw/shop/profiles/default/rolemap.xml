@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rolemap>
   <permissions>
-    <!-- -*- extra stuff goes here -*- -->
+
     <permission name="ftw.shop: Add Shop Category" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
@@ -10,8 +10,6 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
-    <permission name="ftw.shop: Add Order" acquire="False">
-      <role name="Manager" />
-    </permission>
+
   </permissions>
 </rolemap>

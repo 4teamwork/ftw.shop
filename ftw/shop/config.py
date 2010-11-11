@@ -7,7 +7,6 @@ PROJECTNAME = 'ftw.shop'
 ADD_PERMISSIONS = {
     'ShopCategory': 'ftw.shop: Add Shop Category',
     'ShopItem': 'ftw.shop: Add Shop Item',
-    'ShopOrder': 'ftw.shop: Add Order',
 }
 
 CURRENCIES = DisplayList((
