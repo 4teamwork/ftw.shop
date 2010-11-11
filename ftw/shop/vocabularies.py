@@ -13,6 +13,27 @@ from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
 
 
+
+def create_terms_from_adapters(adapters):
+    """Returns a list of terms to be used to create a vocabulary,
+    including a nice human readable title if defined for the adapter
+    """
+    adapter_names = []
+    adapter_titles = []
+    items = []
+    for name, adapter in adapters:
+        adapter_names.append(unicode(name))
+        title = getattr(adapter, 'title', name)
+        adapter_titles.append(title)
+
+    for i in range(0, len(adapter_names)):
+        items.append(tuple([adapter_names[i], adapter_titles[i]]))
+
+    terms = [SimpleTerm(value=pair[0],
+            token=pair[0],
+            title=pair[1]) for pair in items]
+    return terms
+
 def ContactInfoStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
     contact information StepGroup
@@ -20,23 +41,9 @@ def ContactInfoStepGroups(context):
     # context is the portal config options, whose context is the portal
     contact_info_step_groups = getAdapters((context, None, context),
                                      IContactInformationStepGroup)
-    step_group_names = []
-    step_group_titles = []
-    items = []
-
-    for n, a in contact_info_step_groups:
-        step_group_names.append(unicode(n))
-        step_group_titles.append(a.title)
-
-    for i in range(0, len(step_group_names)):
-        items.append(tuple([step_group_names[i], step_group_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(contact_info_step_groups)
 
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
-
     return vocabulary.SimpleVocabulary(terms)
 
 def OrderReviewStepGroups(context):
@@ -46,23 +53,9 @@ def OrderReviewStepGroups(context):
     # context is the portal config options, whose context is the portal
     order_review_step_groups = getAdapters((context, None, context),
                                      IOrderReviewStepGroup)
-    step_group_names = []
-    step_group_titles = []
-    items = []
-
-    for n, a in order_review_step_groups:
-        step_group_names.append(unicode(n))
-        step_group_titles.append(a.title)
-
-    for i in range(0, len(step_group_names)):
-        items.append(tuple([step_group_names[i], step_group_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(order_review_step_groups)
 
     directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
-
     return vocabulary.SimpleVocabulary(terms)
 
 def PaymentProcessorStepGroups(context):
@@ -72,20 +65,7 @@ def PaymentProcessorStepGroups(context):
     # context is the portal config options, whose context is the portal
     payment_processor_step_groups = getAdapters((context, None, context),
                                      IPaymentProcessorStepGroup)
-    step_group_names = []
-    step_group_titles = []
-    items = []
-
-    for n, a in payment_processor_step_groups:
-        step_group_names.append(unicode(n))
-        step_group_titles.append(a.title)
-
-    for i in range(0, len(step_group_names)):
-        items.append(tuple([step_group_names[i], step_group_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(payment_processor_step_groups)
 
     directlyProvides(PaymentProcessorStepGroups, IVocabularyFactory)
 
@@ -98,20 +78,7 @@ def PaymentProcessors(context):
     # context is the portal config options, whose context is the portal
     payment_processors = getAdapters((context, None, context),
                                      IPaymentProcessor)
-    processor_names = []
-    processor_titles = []
-    items = []
-
-    for n, a in payment_processors:
-        processor_names.append(unicode(n))
-        processor_titles.append(a.title)
-
-    for i in range(0, len(processor_names)):
-        items.append(tuple([processor_names[i], processor_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(payment_processors)
 
     directlyProvides(PaymentProcessors, IVocabularyFactory)
 
@@ -127,21 +94,10 @@ def EnabledPaymentProcessors(context):
     shop_config = registry.forInterface(IShopConfiguration)
     payment_processors = getAdapters((context, None, context),
                                      IPaymentProcessor)
-    processor_names = []
-    processor_titles = []
-    items = []
-
-    for n, a in payment_processors:
-        processor_names.append(unicode(n))
-        processor_titles.append(a.title)
-
-    for i in range(0, len(processor_names)):
-        if processor_names[i] in shop_config.enabled_payment_processors:
-            items.append(tuple([processor_names[i], processor_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(payment_processors)
+    for term in terms:
+        if term.value not in shop_config.enabled_payment_processors:
+            terms.remove(term)
 
     directlyProvides(EnabledPaymentProcessors, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
@@ -153,21 +109,7 @@ def OrderStorageVocabulary(context):
     """
     # context is the portal config options, whose context is the portal
     order_storages = getUtilitiesFor(IOrderStorage)
-    storage_names = []
-    storage_titles = []
-    items = []
-
-    for n, a in order_storages:
-        storage_names.append(unicode(n))
-        storage_titles.append(a.title)
-
-    for i in range(0, len(storage_names)):
-        items.append(tuple([storage_names[i], storage_titles[i]]))
-
-    terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+    terms = create_terms_from_adapters(order_storages)
 
     directlyProvides(OrderStorageVocabulary, IVocabularyFactory)
-
     return vocabulary.SimpleVocabulary(terms)
