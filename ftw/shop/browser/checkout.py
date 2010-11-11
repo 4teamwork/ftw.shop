@@ -283,6 +283,7 @@ class CheckoutWizard(wizard.Wizard):
                                                 "%a, %d-%b-%Y %H:%M:%S GMT")
         self.request.RESPONSE.setCookie(COOKIE_ADDRESS_KEY,
                                         cookie_value,
+                                        path='/',
                                         expires=expiry_date)
 
         self.request.SESSION[self.sessionKey] = {}
