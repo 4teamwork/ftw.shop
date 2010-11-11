@@ -1,0 +1,68 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.shop">
+
+  <browser:page
+    for="..interfaces.IShopItem" 
+    name="addtocart" 
+    class=".cart.CartView" 
+    attribute="addtocart" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="..interfaces.IShopItem"
+    name="addtocart_ajax"
+    class=".cart.CartView"
+    attribute="addtocart_ajax"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="cart_delete" 
+    class=".cart.CartView" 
+    attribute="cart_delete" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="cart_edit" 
+    template="templates/cart_edit.pt" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="cart_update" 
+    class=".cart.CartView" 
+    attribute="cart_update" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="cart_remove" 
+    class=".cart.CartView" 
+    attribute="cart_remove" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="*"
+    name="cart_view"
+    class=".cart.CartView" 
+    permission="zope2.View" 
+    />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="checkout" 
+    class=".cart.CartView" 
+    attribute="checkout" 
+    permission="zope2.View" 
+    />
+
+</configure>
