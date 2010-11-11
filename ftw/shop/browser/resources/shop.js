@@ -54,19 +54,20 @@
 
 
             // Only show matching item variation depending on user selection
-            jq("select").change(function () {
+            jq(".variation-toplevel-group select").change(function () {
                   var varkey;
-                  if (jq("select[name=var2choice]").length == 0) {
+                  var v2select = jq(this).parents("form").find("select[name=var2choice]");
+                  if (v2select.length == 0) {
                       // We only have one variation
-                      varkey = jq("select[name=var1choice] option:selected").attr("value"); 
+                      varkey = jq(this).parent().find("select[name=var1choice] option:selected").attr("value"); 
                   }
                   else {
                       // We've got two variations
-                      varkey = jq("select[name=var1choice] option:selected").attr("value") + "-" + 
-                               jq("select[name=var2choice] option:selected").attr("value"); 
+                      varkey = jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + 
+                      		   jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value"); 
                   }
-                      jq("table#itemDataTable tr").hide();
-                      jq("table#itemDataTable tr").each( function() {
+                      jq(this).parents(".variation-toplevel-group").find("table#itemDataTable tr").hide();
+                      jq(this).parents(".variation-toplevel-group").find("table#itemDataTable tr").each( function() {
                             if (varkey == jq(this).attr("id")) {
                                 jq(this).show();
                                 }
