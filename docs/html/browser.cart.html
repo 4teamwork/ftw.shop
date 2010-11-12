@@ -200,6 +200,77 @@ message</p>
 
 </dd></dl>
 
+<p>Registration in <cite>cart.zcml</cite>:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span>
+    <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+    <span class="na">xmlns:browser=</span><span class="s">&quot;http://namespaces.zope.org/browser&quot;</span>
+    <span class="na">i18n_domain=</span><span class="s">&quot;ftw.shop&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopItem&quot;</span> 
+    <span class="na">name=</span><span class="s">&quot;addtocart&quot;</span> 
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">attribute=</span><span class="s">&quot;addtocart&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopItem&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;addtocart_ajax&quot;</span>
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span>
+    <span class="na">attribute=</span><span class="s">&quot;addtocart_ajax&quot;</span>
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopRoot&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;cart_delete&quot;</span> 
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">attribute=</span><span class="s">&quot;cart_delete&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopRoot&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;cart_edit&quot;</span> 
+    <span class="na">template=</span><span class="s">&quot;templates/cart_edit.pt&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopRoot&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;cart_update&quot;</span> 
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">attribute=</span><span class="s">&quot;cart_update&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopRoot&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;cart_remove&quot;</span> 
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">attribute=</span><span class="s">&quot;cart_remove&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;*&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;cart_view&quot;</span>
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;browser:page</span>
+    <span class="na">for=</span><span class="s">&quot;..interfaces.IShopRoot&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;checkout&quot;</span> 
+    <span class="na">class=</span><span class="s">&quot;.cart.CartView&quot;</span> 
+    <span class="na">attribute=</span><span class="s">&quot;checkout&quot;</span> 
+    <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span> 
+    <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
 </div>
 
 

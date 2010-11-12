@@ -5,3 +5,8 @@
       :members:
       :undoc-members:
 
+
+Registration in `cart.zcml`:
+
+.. literalinclude:: ../ftw/shop/browser/cart.zcml
+ :language: xml

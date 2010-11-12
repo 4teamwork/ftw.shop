@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview: module code &mdash; ftw.shop v1.0dev documentation</title>
+    <title>root &mdash; ftw.shop v1.0dev documentation</title>
     <link rel="stylesheet" href="../_static/plone.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
 <script language="javascript">
 //<![CDATA[
 
@@ -99,7 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li> 
+        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
   
@@ -109,30 +111,25 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="browser/cart.html">browser.cart</a></li>
-<li><a href="browser/category.html">browser.category</a></li>
-<li><a href="browser/checkout.html">browser.checkout</a></li>
-<li><a href="browser/controlpanel.html">browser.controlpanel</a></li>
-<li><a href="browser/initialize.html">browser.initialize</a></li>
-<li><a href="browser/manage_categories.html">browser.manage_categories</a></li>
-<li><a href="browser/shopitem.html">browser.shopitem</a></li>
-<li><a href="btree_storage.html">btree_storage</a></li>
-<li><a href="content/categorizeable.html">content.categorizeable</a></li>
-<li><a href="content/shopcategory.html">content.shopcategory</a></li>
-<li><a href="content/shopitem.html">content.shopitem</a></li>
-<li><a href="content/variations.html">content.variations</a></li>
-<li><a href="extender.html">extender</a></li>
-<li><a href="ftw/shop/exceptions.html">ftw.shop.exceptions</a></li>
-<li><a href="ftw/shop/interfaces.html">ftw.shop.interfaces</a></li>
-<li><a href="interfaces.html">interfaces</a></li>
-<li><a href="mailer.html">mailer</a></li>
-<li><a href="portlets/cart.html">portlets.cart</a></li>
-<li><a href="root.html">root</a></li>
-<li><a href="setuphandlers.html">setuphandlers</a></li>
-<li><a href="utils.html">utils</a></li>
-<li><a href="vocabularies.html">vocabularies</a></li>
-</ul>
+  <h1>Source code for root</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">Acquisition</span> <span class="kn">import</span> <span class="n">aq_inner</span><span class="p">,</span> <span class="n">aq_parent</span>
+<span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IShopRoot</span>
+<span class="kn">from</span> <span class="nn">plone.app.layout.navigation.interfaces</span> <span class="kn">import</span> <span class="n">INavigationRoot</span>
+<span class="kn">from</span> <span class="nn">Products.CMFCore.interfaces</span> <span class="kn">import</span> <span class="n">ISiteRoot</span>
+
+
+<div class="viewcode-block" id="get_shop_root_object"><a class="viewcode-back" href="../root.html#root.get_shop_root_object">[docs]</a><span class="k">def</span> <span class="nf">get_shop_root_object</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; return the shop root object.</span>
+<span class="sd">        if no shop root is defined, return the navigation root or the site</span>
+<span class="sd">        root.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">aq_inner</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">IShopRoot</span><span class="o">.</span><span class="n">providedBy</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> \
+          <span class="ow">and</span> <span class="ow">not</span> <span class="n">INavigationRoot</span><span class="o">.</span><span class="n">providedBy</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> \
+          <span class="ow">and</span> <span class="ow">not</span> <span class="n">ISiteRoot</span><span class="o">.</span><span class="n">providedBy</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">aq_parent</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span></div>
+</pre></div>
 
           </div>
         </div>
@@ -168,7 +165,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li> 
+        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
 

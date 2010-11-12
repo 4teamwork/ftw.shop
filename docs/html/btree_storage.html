@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>content.categorizeable &mdash; ftw.shop v1.0dev documentation</title>
+    <title>btree_storage — BTree Storage for Orders &mdash; ftw.shop v1.0dev documentation</title>
     <link rel="stylesheet" href="_static/plone.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="index.html" />
-    <link rel="up" title="Content Types" href="content.html" />
-    <link rel="next" title="content.shopcategory" href="content.shopcategory.html" />
-    <link rel="prev" title="Content Types" href="content.html" />
+    <link rel="up" title="Package Globals" href="globals.html" />
+    <link rel="next" title="config — Common configuration constants" href="config.html" />
+    <link rel="prev" title="Package Globals" href="globals.html" />
 <script language="javascript">
 //<![CDATA[
 
@@ -103,14 +103,14 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="content.shopcategory.html" title="content.shopcategory"
+          <a href="config.html" title="config — Common configuration constants"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="content.html" title="Content Types"
+          <a href="globals.html" title="Package Globals"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
           <li><a href="reference.html" >Reference Documentation</a> &raquo;</li>
-          <li><a href="content.html" accesskey="U">Content Types</a> &raquo;</li> 
+          <li><a href="globals.html" accesskey="U">Package Globals</a> &raquo;</li> 
       </ul>
     </div>
   
@@ -120,49 +120,65 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-content.categorizeable">
-<span id="content-categorizeable"></span><h1><a class="reference internal" href="#module-content.categorizeable" title="content.categorizeable"><tt class="xref py py-mod docutils literal"><span class="pre">content.categorizeable</span></tt></a><a class="headerlink" href="#module-content.categorizeable" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-btree_storage">
+<span id="btree-storage-btree-storage-for-orders"></span><h1><a class="reference internal" href="#module-btree_storage" title="btree_storage"><tt class="xref py py-mod docutils literal"><span class="pre">btree_storage</span></tt></a> &#8212; BTree Storage for Orders<a class="headerlink" href="#module-btree_storage" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="content.categorizeable.Categorizeable">
-<em class="property">class </em><tt class="descclassname">content.categorizeable.</tt><tt class="descname">Categorizeable</tt><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mixin class for categorizeable objects</p>
-<dl class="method">
-<dt id="content.categorizeable.Categorizeable.addToCategory">
-<tt class="descname">addToCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.addToCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.addToCategory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add the object to a category.</p>
+<dt id="btree_storage.BTreeOrderStorage">
+<em class="property">class </em><tt class="descclassname">btree_storage.</tt><tt class="descname">BTreeOrderStorage</tt><a class="reference internal" href="_modules/btree_storage.html#BTreeOrderStorage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.BTreeOrderStorage" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="btree_storage.BTreeOrderStorage.createOrder">
+<tt class="descname">createOrder</tt><big>(</big><em>status=None</em>, <em>date=None</em>, <em>customer_data=None</em>, <em>cart_data=None</em>, <em>total=None</em><big>)</big><a class="reference internal" href="_modules/btree_storage.html#BTreeOrderStorage.createOrder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.BTreeOrderStorage.createOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>a wrapper for the _addDataRow method</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="content.categorizeable.Categorizeable.getRankForCategory">
-<tt class="descname">getRankForCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.getRankForCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.getRankForCategory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the object&#8217;s rank for the specified category</p>
+<dt id="btree_storage.BTreeOrderStorage.flush">
+<tt class="descname">flush</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/btree_storage.html#BTreeOrderStorage.flush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.BTreeOrderStorage.flush" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="btree_storage.BTreeOrderStorage.getAllOrders">
+<tt class="descname">getAllOrders</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/btree_storage.html#BTreeOrderStorage.getAllOrders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.BTreeOrderStorage.getAllOrders" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="btree_storage.BTreeOrderStorage.getOrder">
+<tt class="descname">getOrder</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="_modules/btree_storage.html#BTreeOrderStorage.getOrder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.BTreeOrderStorage.getOrder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="btree_storage.CartItems">
+<em class="property">class </em><tt class="descclassname">btree_storage.</tt><tt class="descname">CartItems</tt><a class="reference internal" href="_modules/btree_storage.html#CartItems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.CartItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cart items model.</p>
+<dl class="method">
+<dt id="btree_storage.CartItems.getPrice">
+<tt class="descname">getPrice</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/btree_storage.html#CartItems.getPrice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.CartItems.getPrice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the price converted to a Decimal</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="content.categorizeable.Categorizeable.listCategories">
-<tt class="descname">listCategories</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.listCategories"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.listCategories" title="Permalink to this definition">¶</a></dt>
-<dd><p>List the categories where the object is registered.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="content.categorizeable.Categorizeable.removeFromCategory">
-<tt class="descname">removeFromCategory</tt><big>(</big><em>category</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.removeFromCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.removeFromCategory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove the object from a category.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="content.categorizeable.Categorizeable.setRankForCategory">
-<tt class="descname">setRankForCategory</tt><big>(</big><em>category</em>, <em>rank</em><big>)</big><a class="reference internal" href="_modules/content/categorizeable.html#Categorizeable.setRankForCategory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#content.categorizeable.Categorizeable.setRankForCategory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the object&#8217;s rank for the specified category</p>
+<dt id="btree_storage.CartItems.getTotal">
+<tt class="descname">getTotal</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/btree_storage.html#CartItems.getTotal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.CartItems.getTotal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total converted to a Decimal</p>
 </dd></dl>
 
 </dd></dl>
 
-<p><a class="reference internal" href="#content.categorizeable.Categorizeable" title="content.categorizeable.Categorizeable"><tt class="xref py py-class docutils literal"><span class="pre">Categorizeable</span></tt></a> is a Mixin Class that&#8217;s being used to make ShopItems (as well as ShopCategories) categorizeable. Any Content Type that inherits
-from <a class="reference internal" href="#content.categorizeable.Categorizeable" title="content.categorizeable.Categorizeable"><tt class="xref py py-class docutils literal"><span class="pre">Categorizeable</span></tt></a> can be assigned to one or more Categories. Those assignments are stored as references on the Content Type.</p>
-<p>By default, when a ShopItem is created it&#8217;s automatically added to its containing Category, so every ShopItem is at least assigned to one category.</p>
-<p>For more fine grained control over the order in which a Categories contents are listed, one can define the <cite>rank</cite> of an Item in a specific Category.
-When the listing is being generated, the items will be ordered by their respective ranks, where a low rank puts the item at the top of the listing and vice-versa.</p>
+<dl class="class">
+<dt id="btree_storage.Order">
+<em class="property">class </em><tt class="descclassname">btree_storage.</tt><tt class="descname">Order</tt><a class="reference internal" href="_modules/btree_storage.html#Order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.Order" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="btree_storage.Order.getTotal">
+<tt class="descname">getTotal</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/btree_storage.html#Order.getTotal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#btree_storage.Order.getTotal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Since SQLite doesn&#8217;t support Decimal fields, trim the float it
+returns to two decimal places and convert it to Decimal. If that
+fails, return the total as-is.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -175,14 +191,14 @@ When the listing is being generated, the items will be ordered by their respecti
 </a></p>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="content.html"
-                        title="previous chapter">Content Types</a></p>
+  <p class="topless"><a href="globals.html"
+                        title="previous chapter">Package Globals</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="content.shopcategory.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">content.shopcategory</span></tt></a></p>
+  <p class="topless"><a href="config.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">config</span></tt> &#8212; Common configuration constants</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/content.categorizeable.txt"
+    <li><a href="_sources/btree_storage.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -212,14 +228,14 @@ When the listing is being generated, the items will be ordered by their respecti
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="content.shopcategory.html" title="content.shopcategory"
+          <a href="config.html" title="config — Common configuration constants"
              >next</a> |</li>
         <li class="right" >
-          <a href="content.html" title="Content Types"
+          <a href="globals.html" title="Package Globals"
              >previous</a> |</li>
         <li><a href="index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
           <li><a href="reference.html" >Reference Documentation</a> &raquo;</li>
-          <li><a href="content.html" >Content Types</a> &raquo;</li> 
+          <li><a href="globals.html" >Package Globals</a> &raquo;</li> 
       </ul>
     </div>
 

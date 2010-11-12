@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview: module code &mdash; ftw.shop v1.0dev documentation</title>
+    <title>setuphandlers &mdash; ftw.shop v1.0dev documentation</title>
     <link rel="stylesheet" href="../_static/plone.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="ftw.shop v1.0dev documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" />
 <script language="javascript">
 //<![CDATA[
 
@@ -99,7 +100,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li> 
+        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>
   
@@ -109,30 +111,18 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="browser/cart.html">browser.cart</a></li>
-<li><a href="browser/category.html">browser.category</a></li>
-<li><a href="browser/checkout.html">browser.checkout</a></li>
-<li><a href="browser/controlpanel.html">browser.controlpanel</a></li>
-<li><a href="browser/initialize.html">browser.initialize</a></li>
-<li><a href="browser/manage_categories.html">browser.manage_categories</a></li>
-<li><a href="browser/shopitem.html">browser.shopitem</a></li>
-<li><a href="btree_storage.html">btree_storage</a></li>
-<li><a href="content/categorizeable.html">content.categorizeable</a></li>
-<li><a href="content/shopcategory.html">content.shopcategory</a></li>
-<li><a href="content/shopitem.html">content.shopitem</a></li>
-<li><a href="content/variations.html">content.variations</a></li>
-<li><a href="extender.html">extender</a></li>
-<li><a href="ftw/shop/exceptions.html">ftw.shop.exceptions</a></li>
-<li><a href="ftw/shop/interfaces.html">ftw.shop.interfaces</a></li>
-<li><a href="interfaces.html">interfaces</a></li>
-<li><a href="mailer.html">mailer</a></li>
-<li><a href="portlets/cart.html">portlets.cart</a></li>
-<li><a href="root.html">root</a></li>
-<li><a href="setuphandlers.html">setuphandlers</a></li>
-<li><a href="utils.html">utils</a></li>
-<li><a href="vocabularies.html">vocabularies</a></li>
-</ul>
+  <h1>Source code for setuphandlers</h1><div class="highlight"><pre>
+<span class="c"># The profile id of our package:</span>
+<span class="n">PROFILE_ID</span> <span class="o">=</span> <span class="s">&#39;profile-ftw.shop:default&#39;</span>
+
+<div class="viewcode-block" id="import_various"><a class="viewcode-back" href="../setuphandlers.html#setuphandlers.import_various">[docs]</a><span class="k">def</span> <span class="nf">import_various</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Import step for configuration that is not handled in xml files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Only run step if a flag file is present</span>
+    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">readDataFile</span><span class="p">(</span><span class="s">&#39;ftw_shop-default.txt&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">pass</span></div>
+</pre></div>
 
           </div>
         </div>
@@ -168,7 +158,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li> 
+        <li><a href="../index.html">ftw.shop v1.0dev documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
 

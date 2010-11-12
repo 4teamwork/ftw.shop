@@ -118,6 +118,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 
 <span class="kn">from</span> <span class="nn">Products.Five.browser</span> <span class="kn">import</span> <span class="n">BrowserView</span>
 <span class="kn">from</span> <span class="nn">Products.Five.browser.pagetemplatefile</span> <span class="kn">import</span> <span class="n">ViewPageTemplateFile</span>
+<span class="kn">from</span> <span class="nn">Products.CMFCore.utils</span> <span class="kn">import</span> <span class="n">getToolByName</span>
 <span class="kn">from</span> <span class="nn">collective.z3cform.wizard</span> <span class="kn">import</span> <span class="n">wizard</span>
 <span class="kn">from</span> <span class="nn">plone.registry.interfaces</span> <span class="kn">import</span> <span class="n">IRegistry</span>
 <span class="kn">from</span> <span class="nn">plone.z3cform.layout</span> <span class="kn">import</span> <span class="n">FormWrapper</span>
@@ -143,7 +144,16 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <span class="kn">from</span> <span class="nn">ftw.shop.browser.widgets.paymentprocessor</span> <span class="kn">import</span> <span class="n">PaymentProcessorFieldWidget</span>
 <span class="kn">from</span> <span class="nn">ftw.shop</span> <span class="kn">import</span> <span class="n">shopMessageFactory</span> <span class="k">as</span> <span class="n">_</span>
 
+<div class="viewcode-block" id="BaseStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.BaseStepGroup">[docs]</a><span class="k">class</span> <span class="nc">BaseStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
+        <span class="k">pass</span>
 
+</div>
+<div class="viewcode-block" id="BasePaymentProcessor"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.BasePaymentProcessor">[docs]</a><span class="k">class</span> <span class="nc">BasePaymentProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">dummy</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div>
 <div class="viewcode-block" id="DefaultContactInfoStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultContactInfoStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
     <span class="n">implements</span><span class="p">(</span><span class="n">IContactInformationStep</span><span class="p">)</span>
     <span class="n">prefix</span> <span class="o">=</span> <span class="s">&#39;contact_information&#39;</span>
@@ -154,13 +164,30 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="n">description</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;help_default_contact_info_step&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">u&quot;&quot;</span><span class="p">)</span>
     <span class="n">fields</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">Fields</span><span class="p">(</span><span class="n">IDefaultContactInformation</span><span class="p">)</span>
     <span class="n">fields</span><span class="p">[</span><span class="s">&#39;newsletter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">widgetFactory</span> <span class="o">=</span> <span class="n">SingleCheckBoxFieldWidget</span>
+    <span class="n">prefill_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;firstname&#39;</span><span class="p">,</span> <span class="s">&#39;lastname&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span>
+                      <span class="s">&#39;street1&#39;</span><span class="p">,</span> <span class="s">&#39;street2&#39;</span><span class="p">,</span> <span class="s">&#39;phone&#39;</span><span class="p">,</span> <span class="s">&#39;zipcode&#39;</span><span class="p">,</span>
+                      <span class="s">&#39;city&#39;</span><span class="p">,</span> <span class="s">&#39;country&#39;</span><span class="p">,</span> <span class="s">&#39;newsletter&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">wiz</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wizard</span> <span class="o">=</span> <span class="n">wiz</span>
-        <span class="n">PREFILL_FIELDS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;firstname&#39;</span><span class="p">,</span> <span class="s">&#39;lastname&#39;</span><span class="p">,</span> <span class="s">&#39;email&#39;</span><span class="p">,</span>
-                          <span class="s">&#39;street1&#39;</span><span class="p">,</span> <span class="s">&#39;street2&#39;</span><span class="p">,</span> <span class="s">&#39;phone&#39;</span><span class="p">,</span> <span class="s">&#39;zipcode&#39;</span><span class="p">,</span>
-                          <span class="s">&#39;city&#39;</span><span class="p">,</span> <span class="s">&#39;country&#39;</span><span class="p">,</span> <span class="s">&#39;newsletter&#39;</span><span class="p">]</span>
+
+        <span class="c"># if user is authenticated:</span>
+        <span class="c"># prefill form from portal_memberdata</span>
+        <span class="n">mt</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#39;portal_membership&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mt</span><span class="o">.</span><span class="n">isAnonymousUser</span><span class="p">():</span>
+            <span class="n">member</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">getAuthenticatedMember</span><span class="p">()</span>
+            <span class="n">fullname</span> <span class="o">=</span> <span class="n">member</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;fullname&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fullname</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">firstname</span><span class="p">,</span> <span class="n">lastname</span> <span class="o">=</span> <span class="n">fullname</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">firstname</span> <span class="o">=</span> <span class="n">lastname</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+            <span class="n">email</span> <span class="o">=</span> <span class="n">member</span><span class="o">.</span><span class="n">getProperty</span><span class="p">(</span><span class="s">&#39;email&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;firstname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">firstname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;lastname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">lastname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s">&#39;email&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+
 
         <span class="k">if</span> <span class="n">COOKIE_ADDRESS_KEY</span> <span class="ow">in</span> <span class="n">request</span><span class="p">:</span>
             <span class="c"># Prefill contact data with values from cookie</span>
@@ -170,29 +197,34 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">basestring</span><span class="p">):</span>
                     <span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">cookie_data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 
-            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="n">PREFILL_FIELDS</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">cookie_data</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefill_fields</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">cookie_data</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
 
         <span class="k">elif</span> <span class="n">SESSION_ADDRESS_KEY</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="c"># Prefill contact data form with values from session</span>
             <span class="n">contact_info</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="n">SESSION_ADDRESS_KEY</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="n">PREFILL_FIELDS</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">contact_info</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">fieldname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefill_fields</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">contact_info</span><span class="p">[</span><span class="n">fieldname</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
 
 <div class="viewcode-block" id="DefaultContactInfoStep.updateWidgets"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStep.updateWidgets">[docs]</a>    <span class="k">def</span> <span class="nf">updateWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DefaultContactInfoStep</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updateWidgets</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="s">&#39;zipcode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">5</span>
 
 </div></div>
-<div class="viewcode-block" id="DefaultContactInfoStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultContactInfoStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultContactInfoStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultContactInfoStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultContactInfoStepGroup</span><span class="p">(</span><span class="n">BaseStepGroup</span><span class="p">):</span>
     <span class="n">implements</span><span class="p">(</span><span class="n">IContactInformationStepGroup</span><span class="p">)</span>
     <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_contact_info_step_group&quot;</span><span class="p">,</span>
               <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Contact Information&quot;</span><span class="p">)</span>
     <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultContactInfoStep</span><span class="p">,</span> <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="DefaultPaymentProcessorChoiceStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultPaymentProcessorChoiceStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultPaymentProcessorChoiceStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
@@ -208,18 +240,15 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="n">fields</span><span class="p">[</span><span class="s">&#39;payment_processor&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">widgetFactory</span> <span class="o">=</span> <span class="n">PaymentProcessorFieldWidget</span>
 
 </div>
-<div class="viewcode-block" id="DefaultPaymentProcessorStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultPaymentProcessorStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultPaymentProcessorStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultPaymentProcessorStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultPaymentProcessorStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultPaymentProcessorStepGroup</span><span class="p">(</span><span class="n">BaseStepGroup</span><span class="p">):</span>
     <span class="n">implements</span><span class="p">(</span><span class="n">IPaymentProcessorStepGroup</span><span class="p">)</span>
     <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_payment_processor_step_group&quot;</span><span class="p">,</span>
               <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Payment Processor Choice&quot;</span><span class="p">)</span>
     <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultPaymentProcessorChoiceStep</span><span class="p">,</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
-        <span class="k">pass</span>
-
 </div>
-<div class="viewcode-block" id="InvoicePaymentProcessor"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.InvoicePaymentProcessor">[docs]</a><span class="k">class</span> <span class="nc">InvoicePaymentProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="InvoicePaymentProcessor"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.InvoicePaymentProcessor">[docs]</a><span class="k">class</span> <span class="nc">InvoicePaymentProcessor</span><span class="p">(</span><span class="n">BasePaymentProcessor</span><span class="p">):</span>
     <span class="n">implements</span><span class="p">(</span><span class="n">IPaymentProcessor</span><span class="p">)</span>
     <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
 
@@ -228,9 +257,6 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Gegen Rechnung&quot;</span>
     <span class="n">image</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;&lt;img src=&quot;++resource++ftw-shop-resources/einzahlungsschein.png&quot; /&gt;&quot;&quot;&quot;</span>
     <span class="n">description</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;&lt;em&gt;Bezahlung gegen Rechnung&lt;/em&gt;&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="DefaultOrderReviewStep"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultOrderReviewStep">[docs]</a><span class="k">class</span> <span class="nc">DefaultOrderReviewStep</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">):</span>
@@ -246,15 +272,12 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
         <span class="nb">super</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Step</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">wizard</span> <span class="o">=</span> <span class="n">wiz</span>
 </div>
-<div class="viewcode-block" id="DefaultOrderReviewStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultOrderReviewStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultOrderReviewStepGroup</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="DefaultOrderReviewStepGroup"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.DefaultOrderReviewStepGroup">[docs]</a><span class="k">class</span> <span class="nc">DefaultOrderReviewStepGroup</span><span class="p">(</span><span class="n">BaseStepGroup</span><span class="p">):</span>
     <span class="n">implements</span><span class="p">(</span><span class="n">IOrderReviewStepGroup</span><span class="p">)</span>
     <span class="n">adapts</span><span class="p">(</span><span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">,</span> <span class="n">Interface</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&quot;title_default_order_review_step_group&quot;</span><span class="p">,</span>
               <span class="n">default</span><span class="o">=</span><span class="s">&quot;Default Order Review Step Group&quot;</span><span class="p">)</span>
     <span class="n">steps</span> <span class="o">=</span> <span class="p">(</span><span class="n">DefaultOrderReviewStep</span><span class="p">,</span> <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">foo</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="CheckoutWizard"><a class="viewcode-back" href="../../browser.checkout.html#browser.checkout.CheckoutWizard">[docs]</a><span class="k">class</span> <span class="nc">CheckoutWizard</span><span class="p">(</span><span class="n">wizard</span><span class="o">.</span><span class="n">Wizard</span><span class="p">):</span>

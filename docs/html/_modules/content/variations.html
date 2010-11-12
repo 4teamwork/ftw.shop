@@ -114,11 +114,11 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
   <h1>Source code for content.variations</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
 
-<span class="kn">from</span> <span class="nn">persistent.mapping</span> <span class="kn">import</span> <span class="n">PersistentMapping</span>
 <span class="kn">from</span> <span class="nn">plone.i18n.normalizer.interfaces</span> <span class="kn">import</span> <span class="n">IIDNormalizer</span>
 <span class="kn">from</span> <span class="nn">zope.annotation.interfaces</span> <span class="kn">import</span> <span class="n">IAnnotations</span>
 <span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
 <span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">adapts</span><span class="p">,</span> <span class="n">getUtility</span>
+<span class="kn">from</span> <span class="nn">zc.dict</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 
 <span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IVariationConfig</span><span class="p">,</span> <span class="n">IShopItem</span>
 
@@ -148,13 +148,13 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <div class="viewcode-block" id="VariationConfig.getVariationDict"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariationDict">[docs]</a>    <span class="k">def</span> <span class="nf">getVariationDict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns a nested dict with the variation config for the item</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;variations&#39;</span><span class="p">,</span> <span class="n">PersistentMapping</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;variations&#39;</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">())</span>
 </div>
 <div class="viewcode-block" id="VariationConfig.updateVariationConfig"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.updateVariationConfig">[docs]</a>    <span class="k">def</span> <span class="nf">updateVariationConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates the stored variation config with changes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;variations&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="s">&#39;variations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PersistentMapping</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="s">&#39;variations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">[</span><span class="s">&#39;variations&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="VariationConfig.getVariation1Values"><a class="viewcode-back" href="../../content.variations.html#content.variations.VariationConfig.getVariation1Values">[docs]</a>    <span class="k">def</span> <span class="nf">getVariation1Values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
