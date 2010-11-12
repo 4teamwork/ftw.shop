@@ -18,7 +18,7 @@
       <element value="Image"/>
  </property>   
   <property name="allow_discussion">False</property>
-  <property name="default_view">view</property>
+  <property name="default_view">compact_view</property>
   <property name="view_methods">
     <element value="view" />
     <element value="compact_view" />
