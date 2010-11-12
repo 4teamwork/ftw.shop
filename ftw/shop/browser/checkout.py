@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from collective.z3cform.wizard import wizard
 from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import FormWrapper
@@ -48,6 +49,23 @@ class DefaultContactInfoStep(wizard.Step):
                           'street1', 'street2', 'phone', 'zipcode',
                           'city', 'country', 'newsletter']
 
+        # if user is authenticated:
+        # prefill form from portal_memberdata
+        mt = getToolByName(context, 'portal_membership')
+        if not mt.isAnonymousUser():
+            member = mt.getAuthenticatedMember()
+            fullname = member.getProperty('fullname')
+            if fullname.find(' '):
+                firstname, lastname = fullname.rsplit(' ', 1)
+            else:
+                firstname = lastname = ''
+            email = member.getProperty('email')
+
+            self.fields['firstname'].field.default = unicode(firstname)
+            self.fields['lastname'].field.default = unicode(lastname)
+            self.fields['email'].field.default = unicode(email)
+
+
         if COOKIE_ADDRESS_KEY in request:
             # Prefill contact data with values from cookie
             cookie_data = simplejson.loads(base64.b64decode(
@@ -64,6 +82,7 @@ class DefaultContactInfoStep(wizard.Step):
             contact_info = request.SESSION[SESSION_ADDRESS_KEY]
             for fieldname in PREFILL_FIELDS:
                 self.fields[fieldname].field.default = contact_info[fieldname]
+        
 
     def updateWidgets(self):
         super(DefaultContactInfoStep, self).updateWidgets()
