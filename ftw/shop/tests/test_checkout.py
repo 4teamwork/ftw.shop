@@ -79,9 +79,7 @@ class TestCheckout(FtwShopTestCase):
         for key in MOCK_CUSTOMER.keys():
             self.assertEquals(step.fields[key].field.default,
                               MOCK_CUSTOMER[key])
-            
-        step.updateWidgets()
-        self.assertEquals(step.widgets['zipcode'].size, 5)
+
 
 
 
