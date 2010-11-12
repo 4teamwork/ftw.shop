@@ -30,6 +30,15 @@ from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 from ftw.shop import shopMessageFactory as _
 
+class BaseStepGroup(object):
+    def __init__(self, context, request, dummy):
+        pass
+
+
+class BasePaymentProcessor(object):
+    def __init__(self, context, request, dummy):
+        pass
+
 
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
@@ -41,13 +50,13 @@ class DefaultContactInfoStep(wizard.Step):
     description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
     fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
+    prefill_fields = ['title', 'firstname', 'lastname', 'email',
+                      'street1', 'street2', 'phone', 'zipcode',
+                      'city', 'country', 'newsletter']
 
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
-        PREFILL_FIELDS = ['title', 'firstname', 'lastname', 'email',
-                          'street1', 'street2', 'phone', 'zipcode',
-                          'city', 'country', 'newsletter']
 
         # if user is authenticated:
         # prefill form from portal_memberdata
@@ -74,30 +83,34 @@ class DefaultContactInfoStep(wizard.Step):
                 if isinstance(cookie_data[key], basestring):
                     cookie_data[key] = unicode(cookie_data[key])
 
-            for fieldname in PREFILL_FIELDS:
-                self.fields[fieldname].field.default = cookie_data[fieldname]
+            for fieldname in self.prefill_fields:
+                try:
+                    self.fields[fieldname].field.default = cookie_data[fieldname]
+                except KeyError:
+                    pass
+
 
         elif SESSION_ADDRESS_KEY in request.SESSION.keys():
             # Prefill contact data form with values from session
             contact_info = request.SESSION[SESSION_ADDRESS_KEY]
-            for fieldname in PREFILL_FIELDS:
-                self.fields[fieldname].field.default = contact_info[fieldname]
-        
+            for fieldname in self.prefill_fields:
+                try:
+                    self.fields[fieldname].field.default = contact_info[fieldname]
+                except KeyError:
+                    pass
+
 
     def updateWidgets(self):
         super(DefaultContactInfoStep, self).updateWidgets()
         self.widgets['zipcode'].size = 5
 
 
-class DefaultContactInfoStepGroup(object):
+class DefaultContactInfoStepGroup(BaseStepGroup):
     implements(IContactInformationStepGroup)
     adapts(Interface, Interface, Interface)
     title = _(u"title_default_contact_info_step_group",
               default="Default Contact Information")
     steps = (DefaultContactInfoStep, )
-
-    def __init__(self, context, request, foo):
-        pass
 
 
 class DefaultPaymentProcessorChoiceStep(wizard.Step):
@@ -113,18 +126,15 @@ class DefaultPaymentProcessorChoiceStep(wizard.Step):
     fields['payment_processor'].widgetFactory = PaymentProcessorFieldWidget
 
 
-class DefaultPaymentProcessorStepGroup(object):
+class DefaultPaymentProcessorStepGroup(BaseStepGroup):
     implements(IPaymentProcessorStepGroup)
     adapts(Interface, Interface, Interface)
     title = _(u"title_default_payment_processor_step_group",
               default="Default Payment Processor Choice")
     steps = (DefaultPaymentProcessorChoiceStep, )
 
-    def __init__(self, context, request, foo):
-        pass
 
-
-class InvoicePaymentProcessor(object):
+class InvoicePaymentProcessor(BasePaymentProcessor):
     implements(IPaymentProcessor)
     adapts(Interface, Interface, Interface)
 
@@ -133,9 +143,6 @@ class InvoicePaymentProcessor(object):
     title = "Gegen Rechnung"
     image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
     description = """<em>Bezahlung gegen Rechnung</em>"""
-
-    def __init__(self, context, request, foo):
-        pass
 
 
 class DefaultOrderReviewStep(wizard.Step):
@@ -151,15 +158,12 @@ class DefaultOrderReviewStep(wizard.Step):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
 
-class DefaultOrderReviewStepGroup(object):
+class DefaultOrderReviewStepGroup(BaseStepGroup):
     implements(IOrderReviewStepGroup)
     adapts(Interface, Interface, Interface)
     title = _(u"title_default_order_review_step_group",
               default="Default Order Review Step Group")
     steps = (DefaultOrderReviewStep, )
-
-    def __init__(self, context, request, foo):
-        pass
 
 
 class CheckoutWizard(wizard.Wizard):
