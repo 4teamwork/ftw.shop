@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 from ftw.shop.tests.base import FtwShopTestCase
-
+from zc.dict import OrderedDict
 
 class TestVariations(FtwShopTestCase):
     """Here, we test the different variation methods with three items
@@ -78,13 +78,14 @@ class TestVariations(FtwShopTestCase):
         self.assertEquals(self.tshirt_vc.getPrettyName('doesnt-exist'), None)
         
     def test_get_variation_dict(self):
-        expected_var_dict = {
-        'hardcover': {'active': True, 'price': Decimal('1.00'), 'skuCode': 'b11', 'hasUniqueSKU': True},
-        'paperback': {'active': True, 'price': Decimal('2.00'), 'skuCode': 'b22', 'hasUniqueSKU': True},
-        }
-        self.assertEquals(self.book_vc.getVariationDict(), expected_var_dict)
+        expected_var_dict = OrderedDict(
+        hardcover =  {'active': True, 'price': Decimal('1.00'), 'skuCode': 'b11', 'hasUniqueSKU': True},
+        paperback = {'active': True, 'price': Decimal('2.00'), 'skuCode': 'b22', 'hasUniqueSKU': True},
+        )
+        self.assertEquals(self.book_vc.getVariationDict().items(),
+                          expected_var_dict.items())
 
-        expected_var_dict = {
+        expected_var_dict = OrderedDict({
         'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'hasUniqueSKU': True},
         'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'hasUniqueSKU': True}, 
         'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'hasUniqueSKU': True},
@@ -94,8 +95,8 @@ class TestVariations(FtwShopTestCase):
         'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'hasUniqueSKU': True}, 
         'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'hasUniqueSKU': True}, 
         'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'hasUniqueSKU': True},
-        }
-        self.assertEquals(self.tshirt_vc.getVariationDict(), expected_var_dict)
+        })
+        self.assertEquals(self.tshirt_vc.getVariationDict().items(), expected_var_dict.items())
 
 
 def test_suite():
