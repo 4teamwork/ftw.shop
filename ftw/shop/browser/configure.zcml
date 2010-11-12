@@ -7,6 +7,7 @@
   <include package=".widgets" file="paymentprocessor.zcml"/>
   
   <include file="cart.zcml" />
+  <include file="mail.zcml" />
 
   <!-- Shop Items --> 
   <browser:page
@@ -60,8 +61,6 @@
     action="compact_view"
     description=""
     />
-    
-  
 
   <!-- order view -->
   <browser:page
@@ -77,30 +76,6 @@
     name="order_manager"
     permission="zope2.View"
     class=".ordermanager.OrderManagerView"
-    />
- 
-  <!-- mail template for order confirmation to customer -->
-  <browser:page
-    for="*"
-    name="mail_view"
-    permission="zope2.View"
-    template="templates/order_mail.pt"
-    />
-    
-  <!-- mail template for order notification to shop owner -->
-  <browser:page
-    for="*"
-    name="shopowner_mail_view"
-    permission="zope2.View"
-    template="templates/shopowner_order_mail.pt"
-    />
-
-  <!-- mail template for order notification to supplier -->
-  <browser:page
-    for="*"
-    name="supplier_mail_view"
-    permission="zope2.View"
-    template="templates/supplier_order_mail.pt"
     />
 
   <browser:page 

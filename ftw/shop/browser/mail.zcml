@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.shop">
+
+  <!-- mail template for order confirmation to customer -->
+  <browser:page
+    for="*"
+    name="mail_view"
+    permission="zope2.View"
+    template="templates/mail/order_confirmation.pt"
+    />
+    
+  <!-- mail template for order notification to shop owner -->
+  <browser:page
+    for="*"
+    name="shopowner_mail_view"
+    permission="zope2.View"
+    template="templates/mail/order_notification.pt"
+    />
+
+  <!-- mail template for order notification to supplier -->
+  <browser:page
+    for="*"
+    name="supplier_mail_view"
+    permission="zope2.View"
+    template="templates/mail/supplier_notification.pt"
+    />
+
+</configure>
