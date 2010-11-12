@@ -397,6 +397,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
                                                 <span class="s">&quot;%a, </span><span class="si">%d</span><span class="s">-%b-%Y %H:%M:%S GMT&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">RESPONSE</span><span class="o">.</span><span class="n">setCookie</span><span class="p">(</span><span class="n">COOKIE_ADDRESS_KEY</span><span class="p">,</span>
                                         <span class="n">cookie_value</span><span class="p">,</span>
+                                        <span class="n">path</span><span class="o">=</span><span class="s">&#39;/&#39;</span><span class="p">,</span>
                                         <span class="n">expires</span><span class="o">=</span><span class="n">expiry_date</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">SESSION</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sessionKey</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>

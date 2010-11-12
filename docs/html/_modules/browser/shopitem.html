@@ -262,7 +262,6 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;0.00&quot;</span><span class="p">)</span>
 
-                <span class="n">data</span><span class="p">[</span><span class="s">&#39;stock&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-stock&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
                 <span class="n">data</span><span class="p">[</span><span class="s">&#39;skuCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-skuCode&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
 
                 <span class="c"># At this point the form has already been validated,</span>
@@ -289,7 +288,6 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
                         <span class="k">else</span><span class="p">:</span>
                             <span class="n">data</span><span class="p">[</span><span class="s">&#39;price&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;0.00&quot;</span><span class="p">)</span>
 
-                    <span class="n">data</span><span class="p">[</span><span class="s">&#39;stock&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-stock&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">))</span>
                     <span class="n">data</span><span class="p">[</span><span class="s">&#39;skuCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">-skuCode&quot;</span> <span class="o">%</span> <span class="n">variation_key</span><span class="p">)</span>
                     
                     <span class="c"># At this point the form has already been validated,</span>

@@ -127,6 +127,27 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <span class="kn">from</span> <span class="nn">ftw.shop.interfaces</span> <span class="kn">import</span> <span class="n">IShopConfiguration</span>
 
 
+
+<div class="viewcode-block" id="create_terms_from_adapters"><a class="viewcode-back" href="../vocabularies.html#vocabularies.create_terms_from_adapters">[docs]</a><span class="k">def</span> <span class="nf">create_terms_from_adapters</span><span class="p">(</span><span class="n">adapters</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a list of terms to be used to create a vocabulary,</span>
+<span class="sd">    including a nice human readable title if defined for the adapter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">adapter_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">adapter_titles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="n">adapters</span><span class="p">:</span>
+        <span class="n">adapter_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">adapter</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">adapter_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">adapter_names</span><span class="p">)):</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">adapter_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">adapter_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
+
+    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">terms</span>
+</div>
 <div class="viewcode-block" id="ContactInfoStepGroups"><a class="viewcode-back" href="../vocabularies.html#vocabularies.ContactInfoStepGroups">[docs]</a><span class="k">def</span> <span class="nf">ContactInfoStepGroups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a vocabulary of the registered StepGroups for the</span>
 <span class="sd">    contact information StepGroup</span>
@@ -134,23 +155,9 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="c"># context is the portal config options, whose context is the portal</span>
     <span class="n">contact_info_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
                                      <span class="n">IContactInformationStepGroup</span><span class="p">)</span>
-    <span class="n">step_group_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">step_group_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">contact_info_step_groups</span><span class="p">:</span>
-        <span class="n">step_group_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">step_group_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_group_names</span><span class="p">)):</span>
-        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">step_group_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step_group_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">contact_info_step_groups</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">ContactInfoStepGroups</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">vocabulary</span><span class="o">.</span><span class="n">SimpleVocabulary</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="OrderReviewStepGroups"><a class="viewcode-back" href="../vocabularies.html#vocabularies.OrderReviewStepGroups">[docs]</a><span class="k">def</span> <span class="nf">OrderReviewStepGroups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
@@ -160,23 +167,9 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="c"># context is the portal config options, whose context is the portal</span>
     <span class="n">order_review_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
                                      <span class="n">IOrderReviewStepGroup</span><span class="p">)</span>
-    <span class="n">step_group_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">step_group_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">order_review_step_groups</span><span class="p">:</span>
-        <span class="n">step_group_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">step_group_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_group_names</span><span class="p">)):</span>
-        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">step_group_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step_group_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">order_review_step_groups</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">OrderReviewStepGroups</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">vocabulary</span><span class="o">.</span><span class="n">SimpleVocabulary</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="PaymentProcessorStepGroups"><a class="viewcode-back" href="../vocabularies.html#vocabularies.PaymentProcessorStepGroups">[docs]</a><span class="k">def</span> <span class="nf">PaymentProcessorStepGroups</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
@@ -186,20 +179,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="c"># context is the portal config options, whose context is the portal</span>
     <span class="n">payment_processor_step_groups</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
                                      <span class="n">IPaymentProcessorStepGroup</span><span class="p">)</span>
-    <span class="n">step_group_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">step_group_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">payment_processor_step_groups</span><span class="p">:</span>
-        <span class="n">step_group_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">step_group_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_group_names</span><span class="p">)):</span>
-        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">step_group_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step_group_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">payment_processor_step_groups</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">PaymentProcessorStepGroups</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
 
@@ -212,20 +192,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="c"># context is the portal config options, whose context is the portal</span>
     <span class="n">payment_processors</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
                                      <span class="n">IPaymentProcessor</span><span class="p">)</span>
-    <span class="n">processor_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">processor_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">payment_processors</span><span class="p">:</span>
-        <span class="n">processor_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">processor_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">processor_names</span><span class="p">)):</span>
-        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">processor_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">processor_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">payment_processors</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">PaymentProcessors</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
 
@@ -241,21 +208,10 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
     <span class="n">shop_config</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">forInterface</span><span class="p">(</span><span class="n">IShopConfiguration</span><span class="p">)</span>
     <span class="n">payment_processors</span> <span class="o">=</span> <span class="n">getAdapters</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
                                      <span class="n">IPaymentProcessor</span><span class="p">)</span>
-    <span class="n">processor_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">processor_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">payment_processors</span><span class="p">:</span>
-        <span class="n">processor_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">processor_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">processor_names</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">processor_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">shop_config</span><span class="o">.</span><span class="n">enabled_payment_processors</span><span class="p">:</span>
-            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">processor_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">processor_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">payment_processors</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">term</span><span class="o">.</span><span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">shop_config</span><span class="o">.</span><span class="n">enabled_payment_processors</span><span class="p">:</span>
+            <span class="n">terms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">EnabledPaymentProcessors</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">vocabulary</span><span class="o">.</span><span class="n">SimpleVocabulary</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
@@ -267,23 +223,9 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># context is the portal config options, whose context is the portal</span>
     <span class="n">order_storages</span> <span class="o">=</span> <span class="n">getUtilitiesFor</span><span class="p">(</span><span class="n">IOrderStorage</span><span class="p">)</span>
-    <span class="n">storage_names</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">storage_titles</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">order_storages</span><span class="p">:</span>
-        <span class="n">storage_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">unicode</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-        <span class="n">storage_titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">storage_names</span><span class="p">)):</span>
-        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">storage_names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">storage_titles</span><span class="p">[</span><span class="n">i</span><span class="p">]]))</span>
-
-    <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SimpleTerm</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">token</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                         <span class="n">title</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
+    <span class="n">terms</span> <span class="o">=</span> <span class="n">create_terms_from_adapters</span><span class="p">(</span><span class="n">order_storages</span><span class="p">)</span>
 
     <span class="n">directlyProvides</span><span class="p">(</span><span class="n">OrderStorageVocabulary</span><span class="p">,</span> <span class="n">IVocabularyFactory</span><span class="p">)</span>
-
     <span class="k">return</span> <span class="n">vocabulary</span><span class="o">.</span><span class="n">SimpleVocabulary</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span></div>
 </pre></div>
 

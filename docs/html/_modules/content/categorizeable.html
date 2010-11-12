@@ -118,9 +118,8 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 <span class="kn">from</span> <span class="nn">ftw.shop.config</span> <span class="kn">import</span> <span class="n">CATEGORY_RELATIONSHIP</span>
 
 
-<div class="viewcode-block" id="Categorizeable"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable">[docs]</a><span class="k">class</span> <span class="nc">Categorizeable</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Mixin class for categorizeable objects</span>
+<div class="viewcode-block" id="Categorizeable"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable">[docs]</a><span class="k">class</span> <span class="nc">Categorizeable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Mixin class for categorizeable objects</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">security</span> <span class="o">=</span> <span class="n">ClassSecurityInfo</span><span class="p">()</span>
@@ -128,8 +127,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 
     <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;View&quot;</span><span class="p">,</span> <span class="s">&#39;getRankForCategory&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Categorizeable.getRankForCategory"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable.getRankForCategory">[docs]</a>    <span class="k">def</span> <span class="nf">getRankForCategory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the object&#39;s rank for the specified category</span>
+        <span class="sd">&quot;&quot;&quot;Get the object&#39;s rank for the specified category</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;_categoryRanks&#39;</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_categoryRanks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultRank</span><span class="p">))</span>
@@ -138,8 +136,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 </div>
     <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;Modify portal content&quot;</span><span class="p">,</span> <span class="s">&#39;addToCategory&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Categorizeable.setRankForCategory"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable.setRankForCategory">[docs]</a>    <span class="k">def</span> <span class="nf">setRankForCategory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">rank</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Set the object&#39;s rank for the specified category</span>
+        <span class="sd">&quot;&quot;&quot;Set the object&#39;s rank for the specified category</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;_categoryRanks&#39;</span><span class="p">)</span> \
             <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_categoryRanks</span><span class="p">,</span> <span class="n">PersistentMapping</span><span class="p">):</span>
@@ -149,24 +146,21 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
 </div>
     <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;Modify portal content&quot;</span><span class="p">,</span> <span class="s">&#39;addToCategory&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Categorizeable.addToCategory"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable.addToCategory">[docs]</a>    <span class="k">def</span> <span class="nf">addToCategory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add the object to a category.</span>
+        <span class="sd">&quot;&quot;&quot;Add the object to a category.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addReference</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">CATEGORY_RELATIONSHIP</span><span class="p">)</span>
 
 </div>
     <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;Modify portal content&quot;</span><span class="p">,</span> <span class="s">&#39;removeFromCategory&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Categorizeable.removeFromCategory"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable.removeFromCategory">[docs]</a>    <span class="k">def</span> <span class="nf">removeFromCategory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Remove the object from a category.</span>
+        <span class="sd">&quot;&quot;&quot;Remove the object from a category.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">deleteReference</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">CATEGORY_RELATIONSHIP</span><span class="p">)</span>
 
 </div>
     <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;View&quot;</span><span class="p">,</span> <span class="s">&#39;listCategories&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Categorizeable.listCategories"><a class="viewcode-back" href="../../content.categorizeable.html#content.categorizeable.Categorizeable.listCategories">[docs]</a>    <span class="k">def</span> <span class="nf">listCategories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        List the categories where the object is registered.</span>
+        <span class="sd">&quot;&quot;&quot;List the categories where the object is registered.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">getRefs</span><span class="p">(</span><span class="n">CATEGORY_RELATIONSHIP</span><span class="p">)</span></div></div>
 </pre></div>

@@ -211,8 +211,6 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;price&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Decimal</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">.</span><span class="si">%02d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">price</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;stock&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
         <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;skuCode&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">skuCode</span>
         <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s">&#39;hasUniqueSKU&#39;</span><span class="p">:</span>
