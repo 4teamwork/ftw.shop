@@ -55,7 +55,7 @@ class DefaultContactInfoStep(wizard.Step):
         if not mt.isAnonymousUser():
             member = mt.getAuthenticatedMember()
             fullname = member.getProperty('fullname')
-            if fullname.find(' '):
+            if fullname.find(' ') > -1:
                 firstname, lastname = fullname.rsplit(' ', 1)
             else:
                 firstname = lastname = ''
