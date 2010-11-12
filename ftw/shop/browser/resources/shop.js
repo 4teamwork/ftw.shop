@@ -10,9 +10,9 @@
                                 
                 // Get the containing form's action URL
                 var url;
-                url = jq(this).parent().parent().parent().attr('action');
-                var var1choice = jq(this).parent().parent().find('select[name=var1choice]').find('option:selected').val();
-                var var2choice = jq(this).parent().parent().find('select[name=var2choice]').find('option:selected').val();
+                url = jq(this).parents("form").attr('action');
+                var var1choice = jq(this).parents("form").find('select[name=var1choice]').find('option:selected').val();
+                var var2choice = jq(this).parents("form").find('select[name=var2choice]').find('option:selected').val();
                 var itemdata;
                 if (var1choice == undefined) {
                     // We don't have variations - reference the item by its skuCode

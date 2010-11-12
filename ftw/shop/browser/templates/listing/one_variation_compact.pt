@@ -23,7 +23,7 @@
                                      tal:attributes="href string:${item/url}/edit_variations">Edit variations</a>
                                     </span>
 									<input tal:condition="varConf/isValid"
-										   name="addtocart" type="submit" value="Add to cart" i18n:attributes="value"/>
+										   name="addtocart" class="compact" type="submit" value="Add to cart" i18n:attributes="value"/>
 								</p>
 
 						</form>
