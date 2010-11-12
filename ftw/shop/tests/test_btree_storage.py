@@ -10,25 +10,7 @@ from ftw.shop.interfaces import IOrderStorage
 
 from ftw.shop.tests.base import FtwShopTestCase
 
-
-MOCK_CUSTOMER = {'title': 'Mr.',
-                 'firstname': 'Hugo',
-                 'lastname': 'Boss',
-                 'street1': 'Teststreet 23',
-                 'street2': '',
-                 'zipcode': '56789',
-                 'city': 'Exampletown',
-                 'email': 'hugo@example.org',
-                 }
-
-MOCK_CART = {'12345': {'quantity':2,
-                       'price': '4.15',
-                       'title': 'Item Title',
-                       'total': '8.30',
-                       'supplier_name': 'Supplier Name',
-                       'supplier_email': 'supplier@example.org'
-                       }}
-
+from ftw.shop.tests.base import MOCK_CUSTOMER, MOCK_CART
 
 class TestBTreeStorage(FtwShopTestCase):
     

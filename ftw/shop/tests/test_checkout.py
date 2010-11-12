@@ -8,27 +8,8 @@ from ftw.shop.browser.checkout import DefaultContactInfoStep
 from ftw.shop.browser.cart import CartView
 from ftw.shop.config import SESSION_ADDRESS_KEY, COOKIE_ADDRESS_KEY
 from ftw.shop.tests.base import FtwShopTestCase
+from ftw.shop.tests.base import MOCK_CUSTOMER
 
-MOCK_CUSTOMER = {'title': u'Mr.',
-                 'firstname': u'Hugo',
-                 'lastname': u'Boss',
-                 'street1': u'Teststreet 23',
-                 'street2': u'',
-                 'zipcode': u'56789',
-                 'city': u'Exampletown',
-                 'email': u'hugo@example.org',
-                 'phone': u'099 999 99 99',
-                 'country': u'Switzerland',
-                 'newsletter': False
-                 }
-
-MOCK_CART = {'12345': {'quantity':2,
-                       'price': '4.15',
-                       'title': 'Item Title',
-                       'total': '8.30',
-                       'supplier_name': 'Supplier Name',
-                       'supplier_email': 'supplier@example.org'
-                       }}
 
 class TestCheckout(FtwShopTestCase):
     

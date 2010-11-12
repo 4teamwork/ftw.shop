@@ -16,8 +16,30 @@ from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
-
 from ftw.shop.interfaces import IVariationConfig
+
+# Mock data to be used in various tests in ftw.shop but also
+# other ftwshop.* products
+
+MOCK_CUSTOMER = {'title': u'Mr.',
+                 'firstname': u'Hugo',
+                 'lastname': u'Boss',
+                 'street1': u'Teststreet 23',
+                 'street2': u'',
+                 'zipcode': u'56789',
+                 'city': u'Exampletown',
+                 'email': u'hugo@example.org',
+                 'phone': u'099 999 99 99',
+                 'country': u'Switzerland',
+                 'newsletter': False}
+
+MOCK_CART = {'12345': {'quantity':2,
+                       'price': '4.15',
+                       'title': 'Item Title',
+                       'total': '8.30',
+                       'supplier_name': 'Supplier Name',
+                       'supplier_email': 'supplier@example.org'}}
+
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
 # in Products/. Instead, we have to use a statement such as:
