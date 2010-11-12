@@ -32,14 +32,12 @@
 			                 <thead>
 				                 <th>Variation</th>
 		                         <th i18n:translate="label_price">Price</th>
-		                         <th i18n:translate="label_stock">Stock</th>
 		                         <th i18n:translate="label_sku_code">SKU code</th>
 			                 </thead>
 			                 <tbody>
 				                 <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
 				                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
 				                 <td tal:content="python: varDict[vkey]['price']"></td>
-				                 <td tal:content="python: varDict[vkey]['stock']"></td>
 				                 <td tal:content="python: varDict[vkey]['skuCode']"></td>
 				                 </tr>
 			                 </tbody>

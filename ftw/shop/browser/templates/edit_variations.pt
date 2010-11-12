@@ -23,7 +23,7 @@
               <table>
               <thead>
               <tr>
-                <th></th><th></th><th i18n:translate="label_price">Price</th><th i18n:translate="label_stock">Stock</th>
+                <th></th><th></th><th i18n:translate="label_price">Price</th>
                 <th i18n:translate="label_sku_code_required">SKU code 
                     <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
@@ -39,9 +39,6 @@
                   <td><input type="text" class="number"
                       tal:attributes="name string:${vkey}-price;
                                       value python:varConf.getVariationData(varValue1, None, 'price')"></td>
-                  <td><input type="text" class="number" 
-                      tal:attributes="name string:${vkey}-stock:int;
-                                      value python:varConf.getVariationData(varValue1, None, 'stock')"></td>
                   <td><input type="text" class="required uniqueSkuCode"
                       tal:attributes="name string:${vkey}-skuCode:required;
                                       value python:varConf.getVariationData(varValue1, None, 'skuCode')">
@@ -68,7 +65,7 @@
               <table>
               <thead>
               <tr>
-                <th></th><th></th><th i18n:translate="label_price">Price</th><th i18n:translate="label_stock">Stock</th>
+                <th></th><th></th><th i18n:translate="label_price">Price</th>
                 <th i18n:translate="label_sku_code_required">SKU code 
                     <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
@@ -84,9 +81,6 @@
                   <td><input type="text" class="number"
                       tal:attributes="name string:${vkey}-price;
                                       value python:varConf.getVariationData(varValue1, varValue2, 'price')"></td>
-                  <td><input type="text" class="number" 
-                      tal:attributes="name string:${vkey}-stock:int;
-                                      value python:varConf.getVariationData(varValue1, varValue2, 'stock')"></td>
                   <td><input type="text" class="required uniqueSkuCode"
                       tal:attributes="name string:${vkey}-skuCode:required;
                                       value python:varConf.getVariationData(varValue1, varValue2, 'skuCode')">

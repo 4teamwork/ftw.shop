@@ -10,7 +10,6 @@
                             <tr>
                                 <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
                                 <th i18n:translate="label_price">Price</th>
-                                <th i18n:translate="label_stock">Stock</th>
                                 <th i18n:translate="label_sku_code">SKU code</th>
                             </tr>
                         </thead>
@@ -19,12 +18,10 @@
                                 <tr tal:define="active python:varConf.getVariationData(varValue1, varValue2, 'active');
                                              skuCode python:varConf.getVariationData(varValue1, varValue2, 'skuCode');
                                              price python:varConf.getVariationData(varValue1, varValue2, 'price');
-                                             stock python:varConf.getVariationData(varValue1, varValue2, 'stock');
                                              hasUniqueSKU python:varConf.getVariationData(varValue1, varValue2, 'hasUniqueSKU')"
                                     tal:condition="active">
                                     <td tal:content="varValue2">S</td>
                                     <td><span tal:content="price"/></td>
-                                    <td><span tal:content="stock"/></td>
                                     <td><span tal:content="skuCode"/></td>
                                     <td>
                                     <span tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">

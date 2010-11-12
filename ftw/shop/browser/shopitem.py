@@ -148,7 +148,6 @@ class EditVariationsView(BrowserView):
                     else:
                         data['price'] = Decimal("0.00")
 
-                data['stock'] = int(form.get("%s-stock" % variation_key))
                 data['skuCode'] = form.get("%s-skuCode" % variation_key)
 
                 # At this point the form has already been validated,
@@ -175,7 +174,6 @@ class EditVariationsView(BrowserView):
                         else:
                             data['price'] = Decimal("0.00")
 
-                    data['stock'] = int(form.get("%s-stock" % variation_key))
                     data['skuCode'] = form.get("%s-skuCode" % variation_key)
                     
                     # At this point the form has already been validated,
