@@ -12,6 +12,4 @@
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="ShopItem"
     meta_type="Factory-based Type Information with dynamic views" />
-  <object name="ShopOrder"
-    meta_type="Factory-based Type Information with dynamic views" />
 </object>
