@@ -46,6 +46,13 @@
     permission="zope2.View"
     class=".category.CategoryView"
     />
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="view"
+    permission="zope2.View"
+    class=".category.CategoryView"
+    />
     
   <browser:page
     for="..interfaces.IShopCategory"
@@ -53,9 +60,24 @@
     permission="zope2.View"
     class=".category.CategoryCompactView"
     />
-    
+
+  <browser:page
+    for="..interfaces.IShopRoot"
+    name="compact_view"
+    permission="zope2.View"
+    class=".category.CategoryCompactView"
+    />
+
   <browser:menuItem
     for="..interfaces.IShopCategory"
+    menu="plone_displayviews"
+    title="Compact View"
+    action="compact_view"
+    description=""
+    />
+
+  <browser:menuItem
+    for="..interfaces.IShopRoot"
     menu="plone_displayviews"
     title="Compact View"
     action="compact_view"
