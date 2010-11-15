@@ -3,14 +3,33 @@
     margin-left: 2em;
 }
 
-.listItem table td, .shopItemTable td, .cartListing td {
+
+.shopItem {
+    border: 1px solid #E5E5E5; 
+    margin-bottom: 1em;
+    padding: 5px;
+    padding-bottom: 0px;
+    background-color: #F8F8F8;
+}
+
+.shopItem table#itemDataTable {
+    margin-bottom: 0;
+}
+
+.shopItem table td, .shopItemTable td, .cartListing td {
     padding-left: 4px;
     padding-right: 4px;
 }
 
-.listItem table th, .shopItemTable th, .cartListing th {
+.shopItem table th, .shopItemTable th, .cartListing th {
     padding-left: 4px;
     padding-right: 4px;
+}
+
+#content .shopItem dl.portalMessage {
+    font-size: 90%;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
 .addToCartLink {
@@ -29,7 +48,7 @@
     padding: 5px;
     padding-top: 10px;
 }
-variations fieldset legend {
+#variations fieldset legend {
     font-size: 120%;
 }
 

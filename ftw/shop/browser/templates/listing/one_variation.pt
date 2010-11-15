@@ -23,10 +23,16 @@
                                      <td><span tal:content="price"/></td>
                                      <td><span tal:content="skuCode"/></td>
                                      <td>
-                                         <span tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
-	                                         Not buyable: <a href="" i18n:name="edit_variations" i18n:translate="label_edit_variations" 
-	                                         tal:attributes="href string:${item/url}/edit_variations">Edit variations</a>
-                                         </span>
+
+                                         <dl class="portalMessage warning"
+                                             tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
+                                                     <dt>Not buyable</dt>
+                                                     <dd><a href="" i18n:name="edit_variations"
+                                                            i18n:translate="label_edit_variations"
+                                                            tal:attributes="href string:${item/url}/edit_variations">
+                                                            Edit variations</a></dd>
+                                         </dl>
+
                                          <form tal:condition="varConf/isValid" tal:attributes="action string:${item/url}/addtocart">
                                              <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                              <input type="text" size="2" name="quantity:int" value="1"/>

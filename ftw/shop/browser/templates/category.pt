@@ -62,7 +62,7 @@
 
     <tal:shopitems repeat="item view/getItemDatas">
 
-        <div class="listItem">
+        <div class="listItem shopItem">
             
 			<div class="listItemImage" tal:condition="item/imageTag">
 				<a href="" tal:attributes="href item/url">

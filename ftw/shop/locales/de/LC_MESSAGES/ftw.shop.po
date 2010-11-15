@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-12 10:00+0000\n"
+"POT-Creation-Date: 2010-11-15 13:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -20,8 +20,8 @@ msgstr "Eine Kategorie für Shop-Artikel"
 msgid "A simple shop item"
 msgstr "Ein einfacher Shop-Artikel"
 
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:33
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:25
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:39
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:43
 #: ./ftw/shop/browser/templates/listing/single_item.pt:16
 msgid "Add to cart"
 msgstr "In Warenkorb legen"
@@ -60,17 +60,17 @@ msgid "Variations"
 msgstr "Variationen"
 
 #. Default: "Back"
-#: ./ftw/shop/browser/checkout.py:211
+#: ./ftw/shop/browser/checkout.py:234
 msgid "btn_back"
 msgstr "Zurück"
 
 #. Default: "Next"
-#: ./ftw/shop/browser/checkout.py:233
+#: ./ftw/shop/browser/checkout.py:256
 msgid "btn_continue"
 msgstr "Weiter"
 
 #. Default: "Finish"
-#: ./ftw/shop/browser/checkout.py:255
+#: ./ftw/shop/browser/checkout.py:278
 msgid "btn_finish"
 msgstr "Abschliessen"
 
@@ -196,11 +196,11 @@ msgstr "Shop-Einstellungen"
 msgid "help_add_cart_portlet"
 msgstr "Dieses Portlet zeigt den Inhalt des Warenkorbs an"
 
-#: ./ftw/shop/browser/checkout.py:40
+#: ./ftw/shop/browser/checkout.py:50
 msgid "help_default_contact_info_step"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:91
+#: ./ftw/shop/browser/checkout.py:123
 msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "help_newsletter"
 msgstr "Ich möchte den Newsletter bestellen"
 
-#: ./ftw/shop/browser/checkout.py:128
+#: ./ftw/shop/browser/checkout.py:154
 msgid "help_order_review_step"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgid "label_checkout"
 msgstr "Bestellen"
 
 #. Default: "Checkout"
-#: ./ftw/shop/browser/checkout.py:147
+#: ./ftw/shop/browser/checkout.py:170
 msgid "label_checkout_wizard"
 msgstr "Bestellvorgang"
 
@@ -284,12 +284,12 @@ msgid "label_date"
 msgstr "Datum"
 
 #. Default: "Contact Information"
-#: ./ftw/shop/browser/checkout.py:36
+#: ./ftw/shop/browser/checkout.py:46
 msgid "label_default_contact_info_step"
 msgstr "Kontaktinformationen"
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/checkout.py:87
+#: ./ftw/shop/browser/checkout.py:119
 msgid "label_default_payment_processor_choice_step"
 msgstr "Zahlungsanbieter"
 
@@ -318,9 +318,9 @@ msgid "label_edit_cart"
 msgstr "Warenkorb bearbeiten"
 
 #. Default: "Edit variations"
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:27
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
-#: ./ftw/shop/browser/templates/listing/two_variations.pt:28
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:30
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
+#: ./ftw/shop/browser/templates/listing/two_variations.pt:30
 msgid "label_edit_variations"
 msgstr "Variationen bearbeiten"
 
@@ -377,7 +377,7 @@ msgid "label_no"
 msgstr "Nein"
 
 #. Default: "Order Review"
-#: ./ftw/shop/browser/checkout.py:125
+#: ./ftw/shop/browser/checkout.py:151
 msgid "label_order_review_step"
 msgstr "Bestellungsübersicht"
 
@@ -433,7 +433,7 @@ msgstr "Telefonnummer"
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/edit_variations.pt:26
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:34
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
 msgid "label_price"
 msgstr "Preis"
 
@@ -464,7 +464,7 @@ msgstr "Shop Telefonnummer"
 
 #. Default: "SKU code"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:12
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:35
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:65
 #: ./ftw/shop/browser/templates/listing/single_item.pt:6
 msgid "label_sku_code"
 msgstr "Artikel-Nr."
@@ -573,12 +573,12 @@ msgstr "Information"
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 
-#. Default: "Not buyable: ${edit_variations}"
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:27
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
-#: ./ftw/shop/browser/templates/listing/two_variations.pt:28
+#. Default: "<dt>Not buyable</dt> <dd>${edit_variations}</dd>"
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:30
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
+#: ./ftw/shop/browser/templates/listing/two_variations.pt:30
 msgid "msg_not_buyable"
-msgstr "Nicht kaufbar: ${edit_variations}"
+msgstr "<dt>Nicht kaufbar</dt> <dd>${edit_variations}</dd>"
 
 #. Default: "Shop structure initialized."
 #: ./ftw/shop/browser/initialize.py:40
@@ -620,32 +620,32 @@ msgid "portletheader_cart"
 msgstr "Warenkorb"
 
 #. Default: "Default Contact Information"
-#: ./ftw/shop/browser/checkout.py:38
+#: ./ftw/shop/browser/checkout.py:48
 msgid "title_default_contact_info_step"
 msgstr "Standard-Kontaktinformationen"
 
 #. Default: "Default Contact Information"
-#: ./ftw/shop/browser/checkout.py:76
+#: ./ftw/shop/browser/checkout.py:111
 msgid "title_default_contact_info_step_group"
 msgstr "Standard-Kontaktinformationen"
 
 #. Default: "Default Order Review Step"
-#: ./ftw/shop/browser/checkout.py:126
+#: ./ftw/shop/browser/checkout.py:152
 msgid "title_default_order_review_step"
 msgstr "Standard-Bestellungsübersicht"
 
 #. Default: "Default Order Review Step Group"
-#: ./ftw/shop/browser/checkout.py:138
+#: ./ftw/shop/browser/checkout.py:164
 msgid "title_default_order_review_step_group"
 msgstr "Standard-Bestellungsübersicht"
 
 #. Default: "Default Payment Processor Choice"
-#: ./ftw/shop/browser/checkout.py:89
+#: ./ftw/shop/browser/checkout.py:121
 msgid "title_default_payment_processor_step"
 msgstr "Standard-Zahlungsanbieterauswahl"
 
 #. Default: "Default Payment Processor Choice"
-#: ./ftw/shop/browser/checkout.py:100
+#: ./ftw/shop/browser/checkout.py:132
 msgid "title_default_payment_processor_step_group"
 msgstr "Standard-Zahlungsanbieterauswahl"
 
