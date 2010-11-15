@@ -22,6 +22,7 @@
 
     <five:registerPackage package="." initialize=".initialize" />
 
+    <include package="collective.remove.kss" />
     <include package="archetypes.schemaextender" />
     <include package="plone.app.z3cform" />
     <include package="plone.app.registry" />
