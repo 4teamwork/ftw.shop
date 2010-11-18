@@ -87,10 +87,11 @@ class TestCategoryView(FtwShopTestCase):
         
     def test_category_contents(self):
         category_contents = self.category_view.category_contents
-        self.assertTrue(self.movie in category_contents)
-        self.assertTrue(self.book in category_contents)
-        self.assertTrue(self.tshirt in category_contents)
-        self.assertTrue(self.subcategory in category_contents)
+        self.assertEquals(category_contents,
+                          [self.movie,
+                           self.book,
+                           self.tshirt,
+                           self.subcategory])
 
     def test_category_contents_ordering(self):
         self.tshirt.setRankForCategory(self.portal.shop.products, 10)

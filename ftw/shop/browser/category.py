@@ -99,10 +99,7 @@ class CategoryView(BrowserView):
         context = aq_inner(self.context)
         mtool = getToolByName(context, 'portal_membership')
 
-        # Add items directly contained as well as backreferences
-        contents = list(context.objectValues())
-        contents += context.getBRefs(CATEGORY_RELATIONSHIP)
-        contents = list(set(contents))
+        contents = context.getBRefs(CATEGORY_RELATIONSHIP)
 
         contents = [item for item in contents
                     if mtool.checkPermission('View', item)]
