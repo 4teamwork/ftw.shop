@@ -63,10 +63,8 @@ def setup_product():
     
     fiveconfigure.debug_mode = True
     import ftw.shop
-    import collective.remove.kss
     
     zcml.load_config('configure.zcml', ftw.shop)
-    zcml.load_config('configure.zcml', collective.remove.kss)
     
     fiveconfigure.debug_mode = False
 
