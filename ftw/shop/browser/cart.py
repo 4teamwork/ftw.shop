@@ -14,7 +14,7 @@ from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces import IPaymentProcessor
-from ftw.shop.root import get_shop_root_object
+from ftw.shop.utils import get_shop_root_object
 from ftw.shop import shopMessageFactory as _
 
 
