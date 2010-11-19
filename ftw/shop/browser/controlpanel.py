@@ -1,7 +1,6 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.z3cform.layout import wrap_form
 from z3c.form import form, field, group
-#from zope.formlib import form
 
 try:
     # plone.app.registry 1.0b1
