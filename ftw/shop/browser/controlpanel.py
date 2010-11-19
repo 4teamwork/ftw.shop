@@ -30,7 +30,6 @@ class CheckoutGroup(group.Group):
     fields = field.Fields(IShopConfiguration).select(
         'payment_processor_step_group',
         'enabled_payment_processors',
-        'order_storage',
         'contact_info_step_group',
         'order_review_step_group')
 
@@ -47,7 +46,6 @@ class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
                                                    'always_notify_shop_owner',
                                                    'payment_processor_step_group',
                                                    'enabled_payment_processors',
-                                                   'order_storage',
                                                    'contact_info_step_group',
                                                    'order_review_step_group')
     groups = (MailGroup, CheckoutGroup)
