@@ -169,6 +169,14 @@ class IShopConfiguration(Interface):
             required=False,
             default=u"")
 
+    always_notify_shop_owner = schema.Bool(
+            title=_(u"label_always_notify_shop_owner",
+                    default=u"Always notify shop owner about orders"),
+            description=_(u"help_always_notify_shop_owner",
+                    default=u"Also send eMail to owner if supplier(s) have "
+                             "been notified"),
+            required=False)
+
     shop_phone = schema.TextLine(
             title=_(u"label_shop_phone",
                     default=u"Shop Phone Number"),

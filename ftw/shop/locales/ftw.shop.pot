@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-15 13:24+0000\n"
+"POT-Creation-Date: 2010-11-19 08:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -198,6 +198,11 @@ msgstr ""
 msgid "help_add_cart_portlet"
 msgstr ""
 
+#. Default: "Also send eMail to owner if supplier(s) have been notified"
+#: ./ftw/shop/interfaces.py:175
+msgid "help_always_notify_shop_owner"
+msgstr ""
+
 #: ./ftw/shop/browser/checkout.py:50
 msgid "help_default_contact_info_step"
 msgstr ""
@@ -207,7 +212,7 @@ msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
 #. Default: "I would like to subscribe to the newsletter."
-#: ./ftw/shop/interfaces.py:261
+#: ./ftw/shop/interfaces.py:269
 msgid "help_newsletter"
 msgstr ""
 
@@ -218,6 +223,11 @@ msgstr ""
 #. Default: "Add Shopping Cart Portlet"
 #: ./ftw/shop/portlets/cart.py:58
 msgid "label_add_cart_portlet"
+msgstr ""
+
+#. Default: "Always notify shop owner about orders"
+#: ./ftw/shop/interfaces.py:173
+msgid "label_always_notify_shop_owner"
 msgstr ""
 
 #. Default: "Article number"
@@ -253,23 +263,23 @@ msgid "label_checkout_wizard"
 msgstr ""
 
 #. Default: "City"
-#: ./ftw/shop/interfaces.py:252
+#: ./ftw/shop/interfaces.py:260
 msgid "label_city"
 msgstr ""
 
 #. Default: "Comments"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:23
-#: ./ftw/shop/interfaces.py:267
+#: ./ftw/shop/interfaces.py:275
 msgid "label_comments"
 msgstr ""
 
 #. Default: "Contact Information Step Group"
-#: ./ftw/shop/interfaces.py:202
+#: ./ftw/shop/interfaces.py:210
 msgid "label_contact_info_step_group"
 msgstr ""
 
 #. Default: "Country"
-#: ./ftw/shop/interfaces.py:256
+#: ./ftw/shop/interfaces.py:264
 msgid "label_country"
 msgstr ""
 
@@ -334,17 +344,17 @@ msgid "label_email"
 msgstr ""
 
 #. Default: "Enabled Payment Processors"
-#: ./ftw/shop/interfaces.py:185
+#: ./ftw/shop/interfaces.py:193
 msgid "label_enabled_payment_processors"
 msgstr ""
 
 #. Default: "First Name"
-#: ./ftw/shop/interfaces.py:224
+#: ./ftw/shop/interfaces.py:232
 msgid "label_firstname"
 msgstr ""
 
 #. Default: "Last Name"
-#: ./ftw/shop/interfaces.py:228
+#: ./ftw/shop/interfaces.py:236
 msgid "label_lastname"
 msgstr ""
 
@@ -369,7 +379,7 @@ msgid "label_more_link"
 msgstr ""
 
 #. Default: "Newsletter"
-#: ./ftw/shop/interfaces.py:260
+#: ./ftw/shop/interfaces.py:268
 msgid "label_newsletter"
 msgstr ""
 
@@ -384,7 +394,7 @@ msgid "label_order_review_step"
 msgstr ""
 
 #. Default: "Order Review Step Group"
-#: ./ftw/shop/interfaces.py:209
+#: ./ftw/shop/interfaces.py:217
 msgid "label_order_review_step_group"
 msgstr ""
 
@@ -395,7 +405,7 @@ msgid "label_order_status"
 msgstr ""
 
 #. Default: "Order Storage method"
-#: ./ftw/shop/interfaces.py:194
+#: ./ftw/shop/interfaces.py:202
 msgid "label_order_storage"
 msgstr ""
 
@@ -411,7 +421,7 @@ msgid "label_payment_processor"
 msgstr ""
 
 #. Default: "Payment Processor Step Group"
-#: ./ftw/shop/interfaces.py:178
+#: ./ftw/shop/interfaces.py:186
 msgid "label_payment_processor_step_group"
 msgstr ""
 
@@ -428,14 +438,14 @@ msgid "label_phone"
 msgstr ""
 
 #. Default: "Phone number"
-#: ./ftw/shop/interfaces.py:244
+#: ./ftw/shop/interfaces.py:252
 msgid "label_phone_number"
 msgstr ""
 
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/edit_variations.pt:26
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:66
 msgid "label_price"
 msgstr ""
 
@@ -445,7 +455,7 @@ msgid "label_receive_newsletter"
 msgstr ""
 
 #. Default: "Shop configuration"
-#: ./ftw/shop/browser/controlpanel.py:23
+#: ./ftw/shop/browser/controlpanel.py:55
 msgid "label_shop_configuration"
 msgstr ""
 
@@ -460,13 +470,13 @@ msgid "label_shop_name"
 msgstr ""
 
 #. Default: "Shop Phone Number"
-#: ./ftw/shop/interfaces.py:173
+#: ./ftw/shop/interfaces.py:181
 msgid "label_shop_phone"
 msgstr ""
 
 #. Default: "SKU code"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:12
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:65
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:67
 #: ./ftw/shop/browser/templates/listing/single_item.pt:6
 msgid "label_sku_code"
 msgstr ""
@@ -477,12 +487,12 @@ msgid "label_sku_code_required"
 msgstr ""
 
 #. Default: "Street/No."
-#: ./ftw/shop/interfaces.py:236
+#: ./ftw/shop/interfaces.py:244
 msgid "label_street"
 msgstr ""
 
 #. Default: "Address 2"
-#: ./ftw/shop/interfaces.py:240
+#: ./ftw/shop/interfaces.py:248
 msgid "label_street2"
 msgstr ""
 
@@ -492,7 +502,7 @@ msgid "label_summary"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/shop/interfaces.py:220
+#: ./ftw/shop/interfaces.py:228
 msgid "label_title"
 msgstr ""
 
@@ -527,7 +537,7 @@ msgid "label_yes"
 msgstr ""
 
 #. Default: "Zip Code"
-#: ./ftw/shop/interfaces.py:248
+#: ./ftw/shop/interfaces.py:256
 msgid "label_zipcode"
 msgstr ""
 

@@ -1,6 +1,7 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.z3cform.layout import wrap_form
-from zope.formlib import form
+from z3c.form import form, field, group
+#from zope.formlib import form
 
 try:
     # plone.app.registry 1.0b1
@@ -15,11 +16,42 @@ from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
 
 
-class ShopConfigurationForm(RegistryEditForm):
+class MailGroup(group.Group):
+    label = u'Mail'
+    fields = field.Fields(IShopConfiguration).select(
+        'shop_email',
+        'mail_bcc',
+        'mail_subject_de',
+        'mail_subject_en',
+        'always_notify_shop_owner')
+    
+
+class CheckoutGroup(group.Group):
+    label = u'Checkout'
+    fields = field.Fields(IShopConfiguration).select(
+        'payment_processor_step_group',
+        'enabled_payment_processors',
+        'order_storage',
+        'contact_info_step_group',
+        'order_review_step_group')
+
+
+
+class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
     """Configuration form for the ftw.shop configlet
     """
     schema = IShopConfiguration
-    form_fields = form.Fields(IShopConfiguration)
+    fields = field.Fields(IShopConfiguration).omit('shop_email',
+                                                   'mail_bcc',
+                                                   'mail_subject_de',
+                                                   'mail_subject_en',
+                                                   'always_notify_shop_owner',
+                                                   'payment_processor_step_group',
+                                                   'enabled_payment_processors',
+                                                   'order_storage',
+                                                   'contact_info_step_group',
+                                                   'order_review_step_group')
+    groups = (MailGroup, CheckoutGroup)
     label = _(u'label_shop_configuration', default=u"Shop configuration")
 
     def updateFields(self):
