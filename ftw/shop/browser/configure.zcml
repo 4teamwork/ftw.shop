@@ -88,7 +88,7 @@
   <browser:page
     for="*"
     name="order_manager"
-    permission="zope2.View"
+    permission="cmf.ModifyPortalContent"
     class=".ordermanager.OrderManagerView"
     />
 
@@ -104,7 +104,7 @@
     for="*"
     name="edit_categories" 
     class=".manage_categories.ManageCategories"
-    permission="zope2.View" 
+    permission="cmf.ModifyPortalContent" 
     />
 
   <browser:page

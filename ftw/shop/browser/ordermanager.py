@@ -243,6 +243,6 @@ class OrderView(BrowserView):
         """
         """
         order_view = OrderView(self.context, self.request)
-        order_view.order_id = id
-        order_view.__name__ = id
+        order_view.order_id = int(id)
+        order_view.__name__ = str(id)
         return order_view
