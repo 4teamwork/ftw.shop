@@ -15,6 +15,10 @@ class TestUtils(FtwShopTestCase):
         self.assertEquals(to_decimal('123'), Decimal('123.00'))
         self.assertEquals(to_decimal('50.25999'), Decimal('50.25'))
         self.assertEquals(to_decimal('NaN'), 'NaN')
+        self.assertEquals(to_decimal('invalid'), 'invalid')
+
+        self.assertEquals(to_decimal(0), Decimal('0.00'))
+        self.assertEquals(to_decimal(Decimal('0E-10')), Decimal('0.00'))
 
 
 def test_suite():
