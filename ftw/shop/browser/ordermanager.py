@@ -28,38 +28,35 @@ class OrderManagerView(BrowserView):
     """
     
     def __init__(self, context, request):
+        self.context = context
+        self.request = request
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
-        self.order_storage_name = self.shop_config.order_storage
+        self.mhost = IMailHostAdapter(self.context)
+        self.order_storage = getUtility(IOrderStorage,
+                                        name=self.shop_config.order_storage)
         super(OrderManagerView, self).__init__(context, request)
 
     __call__ = ViewPageTemplateFile('templates/order_manager.pt')
 
     def getOrders(self):
-        order_storage = getUtility(IOrderStorage, 
-                                   name=self.order_storage_name)
+        order_storage = self.order_storage
         orders = order_storage.getAllOrders()
         return orders
 
     def getOrder(self, order_id):
-        order_storage = getUtility(IOrderStorage, 
-                                   name=self.order_storage_name)
+        order_storage = self.order_storage
         order = order_storage.getOrder(order_id)
         return order
     
     def getOrderStorage(self):
-        order_storage = getUtility(IOrderStorage, 
-                                   name=self.order_storage_name)
-        return order_storage
+        return self.order_storage
 
     def addOrder(self):
         """Add a new Order and return the order id.
         """
 
         session = self.context.REQUEST.SESSION
-
-        registry = getUtility(IRegistry)
-        shop_config = registry.forInterface(IShopConfiguration)
 
         # check for cart
         cart_view = getMultiAdapter((self, self.context.REQUEST),
@@ -80,7 +77,7 @@ class OrderManagerView(BrowserView):
                                         (self.context, self.request, self),
                                         IPaymentProcessorStepGroup)
         
-        selected_pp_step_group = shop_config.payment_processor_step_group
+        selected_pp_step_group = self.shop_config.payment_processor_step_group
         for name, step_group_adapter in payment_processor_step_groups:
             if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps
@@ -93,8 +90,7 @@ class OrderManagerView(BrowserView):
         user = self.context.getWrappedOwner()
         newSecurityManager(self.context.REQUEST, user)
 
-        order_storage = getUtility(IOrderStorage, 
-                                   name=self.order_storage_name)
+        order_storage = self.order_storage
         order_id = order_storage.createOrder(status=ONLINE_PENDING_KEY,
                                              date=datetime.now(),
                                              customer_data=customer_data,
@@ -106,54 +102,20 @@ class OrderManagerView(BrowserView):
 
         return order_id
 
-    def sendOrderMail(self, order_id):
-        """Send order confirmation mail of the order with the specified 
-        order_id. Can be used if initial sending of order mail failed for 
-        some reason.
+    def sendOrderMails(self, order_id):
+        """Send order confirmation and notification mails for the order with
+        the specified order_id.
         """
 
-        order_storage = getUtility(IOrderStorage, 
-                                   name=self.order_storage_name)
-        order = order_storage.getOrder(order_id)
-
-        fullname = "%s %s" % (order.customer_firstname,
-                              order.customer_lastname)
+        order = self.order_storage.getOrder(order_id)
 
         ltool = getToolByName(self.context, 'portal_languages')
         lang = ltool.getPreferredLanguage()
 
-        registry = getUtility(IRegistry)
-        shop_config = registry.forInterface(IShopConfiguration)
+        # Send order confirmation to customer
+        self._send_customer_mail(order, lang)
 
-        # Send order confirmation mail to customer
-        mailTo = formataddr((fullname, order.customer_email))
-
-        if shop_config is not None:
-            mailFrom = shop_config.shop_email
-            mailBcc = getattr(shop_config, 'mail_bcc', '')
-            shop_name = shop_config.shop_name
-            mailSubject = getattr(shop_config, 'mail_subject_%s' % lang)
-            if not mailSubject:
-                mailSubject = '%s Webshop' % shop_name
-
-        mhost = IMailHostAdapter(self.context)
-        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
-                                    name=u'mail_view')
-        msg_body = mail_view(order=order, 
-                             shop_config=shop_config)
-
-        mhost.send(msg_body,
-                     mto=mailTo,
-                     mfrom=mailFrom,
-                     mbcc=mailBcc,
-                     subject=mailSubject,
-                     encode=None,
-                     immediate=False,
-                     msg_type='text/html',
-                     charset='utf8')
-
-        # Send mail to supplier(s) and shop owner about the order
-
+        # Send order notification to supplier(s)
         suppliers = []
         for item_type in order.cartitems:
             if not (item_type.supplier_name == '' \
@@ -163,58 +125,78 @@ class OrderManagerView(BrowserView):
         for supplier in unique_suppliers:
             self._send_supplier_mail(supplier, order)
 
-#        mailTo = formataddr(("Shop Owner", shop_config.shop_email))
-#
-#        if shop_config is not None:
-#            shop_name = shop_config.shop_name
-#            mailFrom = formataddr((shop_name, shop_config.shop_email))
-#            mailBcc = getattr(shop_config, 'mail_bcc', '')
-#            mailSubject = '[%s] Order %s by %s' % (shop_name,
-#                                                   order_id,
-#                                                   fullname)
+        # Send order notification to shop owner
+        self._send_owner_mail(order)
 
-#        mhost = IMailHostAdapter(self.context)
-#        shopowner_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
-#                                    name=u'shopowner_mail_view')
-#        msg_body = shopowner_mail_view(order=order,
-#                                       shop_config=shop_config)
-#
-#        mhost.send(msg_body,
-#                     mto=mailTo,
-#                     mfrom=mailFrom,
-#                     mbcc=mailBcc,
-#                     subject=mailSubject,
-#                     encode=None,
-#                     immediate=False,
-#                     msg_type='text/html',
-#                     charset='utf8')
         return
 
-    def _send_supplier_mail(self, supplier, order):
-        mailTo = formataddr(supplier)
-        fullname = "%s %s" % (order.customer_firstname, order.customer_lastname)
-        shop_name = self.shop_config.shop_name
-        mailFrom = formataddr((shop_name, self.shop_config.shop_email))
-        mailBcc = getattr(self.shop_config, 'mail_bcc', '')
-        mailSubject = '[%s] Order %s by %s' % (shop_name,
+
+    def _send_owner_mail(self, order):
+        """Send order notification to shop owner.
+        """
+        mail_to = formataddr(("Shop Owner", self.shop_config.shop_email))
+        customer_name = "%s %s" % (order.customer_firstname,
+                                   order.customer_lastname)
+        mail_subject = '[%s] Order %s by %s' % (self.shop_config.shop_name,
                                                order.order_id,
-                                               fullname)
+                                               customer_name)
 
-        mhost = IMailHostAdapter(self.context)
-        supplier_mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'shopowner_mail_view')
+        msg_body = mail_view(order=order,
+                             shop_config=self.shop_config)
+        self._send_mail(mail_to, mail_subject, msg_body)
+
+
+    def _send_customer_mail(self, order, lang):
+        """Send order confirmation mail to customer
+        """
+
+        customer_name = "%s %s" % (order.customer_firstname,
+                                   order.customer_lastname)
+        mail_to = formataddr((customer_name, order.customer_email))
+
+        mail_subject = getattr(self.shop_config, 'mail_subject_%s' % lang)
+        if not mail_subject:
+            mail_subject = '%s Webshop' % self.shop_config.shop_name
+
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
+                                    name=u'mail_view')
+        msg_body = mail_view(order=order,
+                             shop_config=self.shop_config)
+        self._send_mail(mail_to, mail_subject, msg_body)
+
+
+    def _send_supplier_mail(self, supplier, order):
+        """Send order notification to a (single) supplier.
+        """
+
+        mail_to = formataddr(supplier)
+        customer_name = "%s %s" % (order.customer_firstname,
+                                   order.customer_lastname)
+        mail_subject = '[%s] Order %s by %s' % (self.shop_config.shop_name,
+                                               order.order_id,
+                                               customer_name)
+
+        mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'supplier_mail_view')
-        msg_body = supplier_mail_view(order=order,
-                                       shop_config=self.shop_config)
+        msg_body = mail_view(order=order,
+                             shop_config=self.shop_config)
+        self._send_mail(mail_to, mail_subject, msg_body)
 
-        mhost.send(msg_body,
-                     mto=mailTo,
-                     mfrom=mailFrom,
-                     mbcc=mailBcc,
-                     subject=mailSubject,
-                     encode=None,
-                     immediate=False,
-                     msg_type='text/html',
-                     charset='utf8')
+    def _send_mail(self, to, subject, body):
+        mail_bcc = getattr(self.shop_config, 'mail_bcc', '')
+        mail_from = formataddr((self.shop_config.shop_name,
+                               self.shop_config.shop_email))
+        self.mhost.send(body,
+             mto=to,
+             mfrom=mail_from,
+             mbcc=mail_bcc,
+             subject=subject,
+             encode=None,
+             immediate=False,
+             msg_type='text/html',
+             charset='utf8')
 
 
 class OrderView(BrowserView):

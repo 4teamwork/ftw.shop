@@ -328,7 +328,7 @@ class CartView(BrowserView):
             order = omanager.getOrder(order_id)
             order.status = ONACCOUNT_KEY
 
-            omanager.sendOrderMail(order_id)
+            omanager.sendOrderMails(order_id)
 
             self.request.response.redirect(
                         '%s/thankyou?order_id=%s' % (url, order_id))
