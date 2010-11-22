@@ -57,6 +57,7 @@ Shop Items will be contained:
     >>> browser.getLink(id='folder').click()
     >>> browser.getControl('Title').value = 'Shop'
     >>> browser.getControl('Save').click()
+    >>> browser.open(portal_url + '/initialize-shop-structure')
     
 
 The Shop Category content type
@@ -140,3 +141,29 @@ click on the 'Variations' tab and fill in the form:
     >>> browser.getControl('Save').click()
 
 And we are done! We added a new 'Shop Item' content item with two variations.
+
+Buying a ShopItem
+=================
+
+    >>> browser.getControl('Add to cart').click()
+    >>> browser.open(portal_url + '/shop/checkout-wizard')
+
+    >>> browser.getControl('Title').value = 'Mr.'
+    >>> browser.getControl('First Name').value = 'Hugo'
+    >>> browser.getControl('Last Name').value = 'Boss'
+    >>> browser.getControl('Email').value = 'hugo.boss@example.org'
+    >>> browser.getControl('Phone').value = '999 99 99'
+    >>> browser.getControl('Street').value = 'Examplestreet 23'
+    >>> browser.getControl('Zip Code').value = '12345'
+    >>> browser.getControl('City').value = 'New York'
+    >>> browser.getControl('Country').value = 'United States' 
+
+    >>> browser.getControl('Next').click()
+    
+    >>> browser.getControl('Gegen Rechnung').click()
+    
+    >>> browser.getControl('Next').click()
+    
+    >>> browser.getControl('Finish').click()
+    >>> 'Order submitted' in browser.contents
+    True

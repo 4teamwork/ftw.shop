@@ -58,6 +58,8 @@ class CartView(BrowserView):
 
         # redirect to referer
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
+        if referer == 'localhost':
+            referer = context.absolute_url()
         self.request.response.redirect(referer)
 
         # add portal message

@@ -42,7 +42,7 @@ class InitShopStructure(BrowserView):
                                'info')
         # redirect to referer
         referer = self.request.get('HTTP_REFERER', portal.absolute_url())
-        if not referer == '':
+        if not referer in ['', 'localhost']:
             self.request.response.redirect(referer)
         else:
             self.request.response.redirect(portal.absolute_url())
