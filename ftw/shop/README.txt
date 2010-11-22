@@ -54,10 +54,12 @@ Setting up a Shop Root
 First we need to set up a shop root folder where all Shop Categories and 
 Shop Items will be contained:
 
-    >>> browser.getLink(id='folder').click()
-    >>> browser.getControl('Title').value = 'Shop'
-    >>> browser.getControl('Save').click()
     >>> browser.open(portal_url + '/initialize-shop-structure')
+    >>> browser.open(portal_url + '/shop')
+
+This handy view does that for us, creating a shop root folder called 'shop'
+in the root of the site, setting the IShopRoot marker interface and
+assigning the Shopping Cart portlet to it.
     
 
 The Shop Category content type
@@ -142,11 +144,18 @@ click on the 'Variations' tab and fill in the form:
 
 And we are done! We added a new 'Shop Item' content item with two variations.
 
+
+
 Buying a ShopItem
 =================
 
+Now let's buy the ShopItem we just added. For that we click the "Add to cart"
+button next to it, and then choose to checkout:
+
     >>> browser.getControl('Add to cart').click()
-    >>> browser.open(portal_url + '/shop/checkout-wizard')
+    >>> browser.getLink('Order').click()
+
+Then we get asked our contact information, so we fill it in:
 
     >>> browser.getControl('Title').value = 'Mr.'
     >>> browser.getControl('First Name').value = 'Hugo'
@@ -159,10 +168,17 @@ Buying a ShopItem
     >>> browser.getControl('Country').value = 'United States' 
 
     >>> browser.getControl('Next').click()
-    
+
+In the next step we're asked to select a payment processor. By default, only
+payment by invoice ('Gegen Rechnung') is enabled.
+
     >>> browser.getControl('Gegen Rechnung').click()
     
     >>> browser.getControl('Next').click()
+
+In the last step we get presented with an overview of our order, and are asked
+to check if everything is correct and then conform the order by clicking
+'Finish':
     
     >>> browser.getControl('Finish').click()
     >>> 'Order submitted' in browser.contents
