@@ -120,7 +120,8 @@ class OrderManagerView(BrowserView):
         for item_type in order.cartitems:
             if not (item_type.supplier_name == '' \
                 or item_type.supplier_email == ''):
-                suppliers.append((item_type.supplier_name, item_type.supplier_email))
+                suppliers.append((item_type.supplier_name,
+                                  item_type.supplier_email))
         unique_suppliers = set(suppliers)
         for supplier in unique_suppliers:
             self._send_supplier_mail(supplier, order)
@@ -185,6 +186,9 @@ class OrderManagerView(BrowserView):
         self._send_mail(mail_to, mail_subject, msg_body)
 
     def _send_mail(self, to, subject, body):
+        """Send mail originating from the shop.
+        """
+
         mail_bcc = getattr(self.shop_config, 'mail_bcc', '')
         mail_from = formataddr((self.shop_config.shop_name,
                                self.shop_config.shop_email))
