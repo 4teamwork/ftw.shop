@@ -8,7 +8,7 @@
 		    
 		    <h1 i18n:translate="msg_thank_you_title">Thank you!</h1>
 		
-		    <p i18n:translate="msg_thank_you_message">Order submited</p>
+		    <p i18n:translate="msg_thank_you_message">Order submitted</p>
 
 		    <p i18n:translate="msg_thank_you_info"></p>
 		    
