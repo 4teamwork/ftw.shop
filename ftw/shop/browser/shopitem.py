@@ -62,17 +62,15 @@ class ShopItemView(BrowserView):
             if image:
                 tag = image.tag(scale='tile')
 
-            results.append(
-                dict(
-                    title = item.Title(),
-                    description = item.Description(),
-                    url = item.absolute_url(),
-                    imageTag = tag,
-                    variants = None,
-                    skuCode = skuCode,
-                    price = price,
-                    varConf = varConf,
-                    hasVariations = has_variations))
+            results.append(dict(title = item.Title(),
+                                description = item.Description(),
+                                url = item.absolute_url(),
+                                imageTag = tag,
+                                variants = None,
+                                skuCode = skuCode,
+                                price = price,
+                                varConf = varConf,
+                                hasVariations = has_variations))
         return results
 
     def getVariationsConfig(self):
@@ -126,60 +124,45 @@ class EditVariationsView(BrowserView):
         form = self.request.form
         variation_config = IVariationConfig(self.context)
         variation_data = {}
-        normalizer = getUtility(IIDNormalizer)
+        normalize = getUtility(IIDNormalizer).normalize
 
-        # TODO: Refactor this to avoid code duplication
+        def _parse_data(variation_key):
+            data = {}
+            data['active'] = bool(form.get("%s-active" % variation_key))
+            # TODO: Handle decimal more elegantly
+            price = form.get("%s-price" % variation_key)
+            try:
+                p = int(price)
+                # Create a tuple of ints from string
+                digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
+                data['price'] = Decimal((0, digits, -2))
+            except ValueError:
+                if not price == "":
+                    data['price'] = Decimal(price)
+                else:
+                    data['price'] = Decimal("0.00")
+
+            data['skuCode'] = form.get("%s-skuCode" % variation_key)
+
+            # At this point the form has already been validated,
+            # so uniqueness of sku codes is ensured
+            data['hasUniqueSKU'] = True
+            return data
+
 
         if len(variation_config.getVariationAttributes()) == 1:
+            # One variation attribute
             for var1_value in variation_config.getVariation1Values():
-                variation_key = normalizer.normalize(var1_value)
-                data = {}
-                data['active'] = bool(form.get("%s-active" % variation_key))
-                # TODO: Handle decimal correctly
-                price = form.get("%s-price" % variation_key)
-                try:
-                    p = int(price)
-                    # Create a tuple of ints from string
-                    digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
-                    data['price'] = Decimal((0, digits, -2))
-                except ValueError:
-                    if not price == "":
-                        data['price'] = Decimal(price)
-                    else:
-                        data['price'] = Decimal("0.00")
+                variation_key = normalize(var1_value)
 
-                data['skuCode'] = form.get("%s-skuCode" % variation_key)
-
-                # At this point the form has already been validated,
-                # so uniqueness of sku codes is ensured
-                data['hasUniqueSKU'] = True
-                variation_data[variation_key] = data
+                variation_data[variation_key] = _parse_data(variation_key)
         else:
+            # Two variation attributes
             for var1_value in variation_config.getVariation1Values():
                 for var2_value in variation_config.getVariation2Values():
-                    variation_key = normalizer.normalize(
-                                        "%s-%s" % (var1_value, var2_value))
-                    data = {}
-                    data['active'] = bool(form.get("%s-active" % variation_key))
-                    # TODO: Handle decimal correctly
-                    price = form.get("%s-price" % variation_key)
-                    try:
-                        p = int(price)
-                        # Create a tuple of ints from string
-                        digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
-                        data['price'] = Decimal((0, digits, -2))
-                    except ValueError:
-                        if not price == "":
-                            data['price'] = Decimal(price)
-                        else:
-                            data['price'] = Decimal("0.00")
-
-                    data['skuCode'] = form.get("%s-skuCode" % variation_key)
-                    
-                    # At this point the form has already been validated,
-                    # so uniqueness of sku codes is ensured
-                    data['hasUniqueSKU'] = True
-                    variation_data[variation_key] = data
+                    variation_key = normalize("%s-%s" % (var1_value,
+                                                         var2_value))
+                    variation_data[variation_key] = _parse_data(variation_key)
         return variation_data
 
     def getVariationsConfig(self):
