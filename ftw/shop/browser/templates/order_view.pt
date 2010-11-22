@@ -9,56 +9,55 @@
 
 <metal:main fill-slot="main">
 <tal:main-macro metal:define-macro="main"
-                tal:define="customer context/getCustomerData;
-                            cart context/getCartData;">
+                tal:define="order view/getOrder">
 
     <div tal:replace="structure provider:plone.abovecontenttitle" />
     
-    <h1 class="documentFirstHeading" tal:content="context/Title">Title</h1>
+    <h1 class="documentFirstHeading" tal:content="string:Order ${order/title}">Title</h1>
 
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
     
     <h2 i18n:translate="title_order_status">Status</h2>
-    <p tal:content="context/status"></p>
+    <p tal:content="order/status"></p>
 
     <h2 i18n:translate="title_personal_information">Personal Information</h2>
             
         <p>
-            <span tal:replace="customer/title" /><br />
+            <span tal:replace="order/customer_title" /><br />
               
-            <span tal:replace="customer/firstname" />
-            <span tal:replace="customer/lastname" /><br />
+            <span tal:replace="order/customer_firstname" />
+            <span tal:replace="order/customer_lastname" /><br />
                 
-            <span tal:replace="customer/street1" /><br />
+            <span tal:replace="order/customer_street1" /><br />
                 
-            <tal:block condition="customer/street2">
-            <span tal:replace="customer/street2" /><br />
+            <tal:block condition="order/customer_street2">
+            <span tal:replace="order/customer_street2" /><br />
             </tal:block>
                 
-            <span tal:replace="customer/zipcode" />
-            <span tal:replace="customer/city" />                
+            <span tal:replace="order/customer_zipcode" />
+            <span tal:replace="order/customer_city" />                
         </p>
       
         <p>
             <span i18n:translate="label_email">Email</span>:
-            <span tal:replace="customer/email" />
+            <span tal:replace="order/customer_email" />
                 
-            <tal:block condition="customer/phone">
+            <tal:block condition="order/customer_phone">
             <br /><span i18n:translate="label_phone">Tel.</span>:
-            <span tal:replace="customer/phone"></span>
+            <span tal:replace="order/customer_phone"></span>
             </tal:block>
         </p>
       
         <p>
-            <tal:block condition="customer/newsletter">
+            <tal:block condition="order/customer_newsletter">
              <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
             </tal:block>
         </p>    
-        <p tal:condition="customer/comments">
+        <p tal:condition="order/customer_comments">
             <span i18n:translate="label_details_comments">Comments</span>:
-            <span tal:replace="customer/comments" />            
+            <span tal:replace="order/customer_comments" />            
         </p>
 
     <h2>Ordered Items</h2>
@@ -69,27 +68,25 @@
         <thead>
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
-            <th i18n:translate="cart_header_description">Description</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
             <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
           </tr>
         </thead>
         <tbody>
-          <metal:block tal:repeat="item python:cart.values()">
+          <metal:block tal:repeat="item python:order.cartitems">
             <tr>
               <td tal:content="item/title"></td>
-              <td tal:content="item/description"></td>
               <td tal:content="item/quantity"></td>
-              <td tal:content="item/price"></td>
-              <td tal:content="item/total"></td>
+              <td tal:content="item/getPrice"></td>
+              <td tal:content="item/getTotal"></td>
             </tr> 
           </metal:block>
         </tbody>
       </table>
 
       <p>
-          Total: <b tal:content="context/getTotal">US$ 100.00</b>
+          Total: <b tal:content="order/getTotal">US$ 100.00</b>
           <span i18n:translate="txt_vat">(inkl. MwSt)</span>
       </p>
 

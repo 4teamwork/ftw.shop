@@ -7,7 +7,11 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
+from zope.publisher.interfaces.browser import IBrowserView
 from zope.component import getUtility, getMultiAdapter, getAdapters
+from zope.interface import implements
+from zope.publisher.interfaces import IPublishTraverse
+
 
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
@@ -211,3 +215,34 @@ class OrderManagerView(BrowserView):
                      immediate=False,
                      msg_type='text/html',
                      charset='utf8')
+
+
+class OrderView(BrowserView):
+    """Lists a single order stored in a IOrderStorage
+    """
+
+    implements(IBrowserView, IPublishTraverse)
+
+    __call__ = ViewPageTemplateFile('templates/order_view.pt')
+
+    def __init__(self, context, request):
+        registry = getUtility(IRegistry)
+        self.shop_config = registry.forInterface(IShopConfiguration)
+        self.order_storage_name = self.shop_config.order_storage
+        super(OrderView, self).__init__(context, request)
+
+    def getOrder(self, order_id=None):
+        if not order_id:
+            order_id = self.order_id
+        order_storage = getUtility(IOrderStorage, 
+                                   name=self.order_storage_name)
+        order = order_storage.getOrder(order_id)
+        return order
+
+    def publishTraverse(self, request, id):
+        """
+        """
+        order_view = OrderView(self.context, self.request)
+        order_view.order_id = id
+        order_view.__name__ = id
+        return order_view

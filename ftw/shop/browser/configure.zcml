@@ -83,21 +83,21 @@
     action="compact_view"
     description=""
     />
-
-  <!-- order view -->
-  <browser:page
-    for="..interfaces.IShopOrder"
-    name="view"
-    permission="zope2.View"
-    template="templates/order.pt"
-    />
     
-   <!-- Order Manager View --> 
+  <!-- Order Manager View -->
   <browser:page
     for="*"
     name="order_manager"
     permission="zope2.View"
     class=".ordermanager.OrderManagerView"
+    />
+
+  <!-- Single Order View -->
+  <browser:page
+    for="*"
+    name="order_view"
+    permission="zope2.View"
+    class=".ordermanager.OrderView"
     />
 
   <browser:page 
