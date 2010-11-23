@@ -70,7 +70,7 @@ class ManageCategories(BrowserView):
         query = {}
         query['portal_type'] = ['ShopCategory']
         #query['path'] = '%s/%s' % (portalPath, lang)
-        query['sort_on'] = 'sortable_title'
+        query['sort_on'] = 'fullTitle'
 
         categories = catalog(query)
         return [category.getObject() for category in categories
