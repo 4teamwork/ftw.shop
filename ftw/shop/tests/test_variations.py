@@ -50,12 +50,13 @@ class TestVariations(FtwShopTestCase):
         price = self.movie_vc.getVariationData(None, None, 'price')
         skuCode = self.movie_vc.getVariationData(None, None, 'skuCode')
         active = self.movie_vc.getVariationData(None, None, 'active')
+        hasUniqueSKU = self.movie_vc.getVariationData(None, None, 'hasUniqueSKU')
         not_there = self.movie_vc.getVariationData(None, None, 'nonexisting')
 
         self.assertEquals(price, Decimal('7.15'))
         self.assertEquals(skuCode, '12345')
         self.assertEquals(active, True)
-        self.assertEquals(skuCode, '12345')
+        self.assertEquals(hasUniqueSKU, False)
         self.assertEquals(not_there, None)
 
         price = self.book_vc.getVariationData('Paperback', None, 'price')
