@@ -7,7 +7,6 @@ from zope.interface import Interface
 from Products.MailHost.MailHost import MailHostError
 from email import message_from_string
 from email.Header import Header
-from email.encoders import encode_quopri, encode_base64
 
 from ftw.shop.interfaces import IMailHostAdapter
 
@@ -33,6 +32,7 @@ class MailHostAdapter(object):
 
         try:
             # Plone 4
+            from email.encoders import encode_quopri, encode_base64
             msg = message_from_string(msg_body.encode(charset))
             if encode is None or encode in ["quoted-printable", "qp"]:
                 encode_quopri(msg)
