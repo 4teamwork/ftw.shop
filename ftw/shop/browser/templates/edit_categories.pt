@@ -33,7 +33,7 @@
                                        checked python: category in context.listCategories() and 'checked' or None" />
               </td>
               <td><a tal:attributes="href category/absolute_url" 
-                     tal:content="category/Title" /></td>
+                     tal:content="category/fullTitle" /></td>
               <td tal:content="category/Description"></td>
               <td>
                   <input type="text" size="10"

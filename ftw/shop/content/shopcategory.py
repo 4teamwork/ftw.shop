@@ -19,6 +19,25 @@ class ShopCategory(Categorizeable, ATFolder):
     meta_type = "ShopCategory"
     schema = ATFolderSchema.copy()
 
+    def fullTitle(self):
+        """Returns a fully qualified title for the category, including
+        parent categories' titles if applicable.
+        """
+
+        parent = self
+        parent_titles = []
+        done = False
+        while not done:
+            parent = aq_parent(parent)
+            if parent.portal_type =='ShopCategory':
+                parent_titles.append(parent.title)
+            else:
+                done = True
+
+        parent_titles.append(self.title)
+        full_title = " > ".join(parent_titles)
+        return full_title
+
 atapi.registerType(ShopCategory, PROJECTNAME)
 
 
