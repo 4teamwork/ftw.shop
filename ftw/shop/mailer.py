@@ -8,6 +8,12 @@ from Products.MailHost.MailHost import MailHostError
 from email import message_from_string
 from email.Header import Header
 
+try:
+    from email.encoders import encode_quopri, encode_base64
+except ImportError:
+    # Python 2.4, and therefore Plone < 4
+    pass
+
 from ftw.shop.interfaces import IMailHostAdapter
 
 logger = logging.getLogger('ftw.shop')
@@ -32,7 +38,6 @@ class MailHostAdapter(object):
 
         try:
             # Plone 4
-            from email.encoders import encode_quopri, encode_base64
             msg = message_from_string(msg_body.encode(charset))
             if encode is None or encode in ["quoted-printable", "qp"]:
                 encode_quopri(msg)
