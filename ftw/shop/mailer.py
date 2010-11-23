@@ -11,7 +11,7 @@ from email.Header import Header
 try:
     from email.encoders import encode_quopri, encode_base64
 except ImportError:
-    # Python 2.4, and therefore Plone < 4
+    # Python 2.4, and therefore Plone < 4
     pass
 
 from ftw.shop.interfaces import IMailHostAdapter
