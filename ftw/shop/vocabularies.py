@@ -29,6 +29,7 @@ def create_terms_from_adapters(adapters):
     for i in range(0, len(adapter_names)):
         items.append(tuple([adapter_names[i], adapter_titles[i]]))
 
+    items.sort()
     terms = [SimpleTerm(value=pair[0],
             token=pair[0],
             title=pair[1]) for pair in items]
