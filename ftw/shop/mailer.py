@@ -53,7 +53,7 @@ class MailHostAdapter(object):
                          immediate=immediate,
                          msg_type=msg_type,
                          charset=charset)
-        except TypeError:
+        except TypeError, NameError:
             # Plone 3 or earlier
             subtype = msg_type.split('/')[1]
 
