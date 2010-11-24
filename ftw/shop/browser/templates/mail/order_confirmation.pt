@@ -91,7 +91,7 @@ Thank you for your order in our shop on the
 
 <p i18n:translate="txt_contact">
 For inquiries please contact us: 
-Phone <span i18n:name="phone" tal:content="shop_config/shop_phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
+Phone <span i18n:name="phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
 </p>
 
 </body>

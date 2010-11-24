@@ -177,11 +177,6 @@ class IShopConfiguration(Interface):
                              "been notified"),
             required=False)
 
-    shop_phone = schema.TextLine(
-            title=_(u"label_shop_phone",
-                    default=u"Shop Phone Number"),
-            required=False)
-
     payment_processor_step_group = schema.Choice(
             title=_(u"label_payment_processor_step_group",
                     default="Payment Processor Step Group"),
