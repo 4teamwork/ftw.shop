@@ -4,7 +4,9 @@ from Products.CMFCore.utils import getToolByName
 # The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
 
-class Empty: pass
+
+class Empty:
+    pass
 
 
 def add_catalog_indexes(context, logger=None):

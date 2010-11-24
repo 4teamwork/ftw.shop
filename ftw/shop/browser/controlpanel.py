@@ -1,6 +1,6 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.z3cform.layout import wrap_form
-from z3c.form import form, field, group
+from z3c.form import field, group
 
 try:
     # plone.app.registry 1.0b1
@@ -23,7 +23,7 @@ class MailGroup(group.Group):
         'mail_subject_de',
         'mail_subject_en',
         'always_notify_shop_owner')
-    
+
 
 class CheckoutGroup(group.Group):
     label = u'Checkout'
@@ -32,7 +32,6 @@ class CheckoutGroup(group.Group):
         'enabled_payment_processors',
         'contact_info_step_group',
         'order_review_step_group')
-
 
 
 class ShopConfigurationForm(RegistryEditForm, group.GroupForm):

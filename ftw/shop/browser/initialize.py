@@ -47,4 +47,3 @@ class InitShopStructure(BrowserView):
         else:
             self.request.response.redirect(portal.absolute_url())
         return
-

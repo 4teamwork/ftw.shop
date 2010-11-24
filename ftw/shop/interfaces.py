@@ -39,6 +39,7 @@ class IShopOrder(Interface):
     """A shop order
     """
 
+
 class ICartItem(Interface):
     """A shop item that has been added to the cart and is part of an order
     """
@@ -59,16 +60,13 @@ class IMailHostAdapter(Interface):
 class IOrderStorage(Interface):
     """A local utility which stores the shop orders
     """
-    
+
     def createOrder(self):
         pass
-    
+
     def getOrder(self, order_id):
         pass
 
-    def getAllOrders(self):
-        pass
-    
     def flush(self):
         pass
 
@@ -198,8 +196,7 @@ class IShopConfiguration(Interface):
                     default="Order Storage method"),
             required=True,
             default=u'ftw.shop.BTreeOrderStorage',
-            vocabulary="ftw.shop.order_storage_vocabulary"
-            )
+            vocabulary="ftw.shop.order_storage_vocabulary")
 
     contact_info_step_group = schema.Choice(
             title=_(u"label_contact_info_step_group",

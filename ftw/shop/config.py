@@ -10,7 +10,7 @@ ADD_PERMISSIONS = {
 }
 
 CURRENCIES = DisplayList((
-    ('CHF', 'CHF'), # CHF                            
+    ('CHF', 'CHF'), # CHF
 #      ('USD', 'US$'), # U.S. Dollars
 #      ('EUR', 'Eur'), # Euros
 ))
@@ -23,7 +23,7 @@ COOKIE_ADDRESS_KEY = 'ftw.shop.customer_cookie'
 
 ONLINE_PENDING_KEY = 1
 ONLINE_CONFIRMED_KEY = 2
-ONACCOUNT_KEY = 3 
+ONACCOUNT_KEY = 3
 
 CART_KEY = 'shop_cart_items'
 

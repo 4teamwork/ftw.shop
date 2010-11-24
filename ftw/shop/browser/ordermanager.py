@@ -12,7 +12,6 @@ from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 
-
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingOrderConfirmation
@@ -26,7 +25,7 @@ from ftw.shop.interfaces import IPaymentProcessorStepGroup
 class OrderManagerView(BrowserView):
     """Lists orders stored in a IOrderStorage
     """
-    
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -48,7 +47,7 @@ class OrderManagerView(BrowserView):
         order_storage = self.order_storage
         order = order_storage.getOrder(order_id)
         return order
-    
+
     def getOrderStorage(self):
         return self.order_storage
 
@@ -76,12 +75,12 @@ class OrderManagerView(BrowserView):
         payment_processor_step_groups = getAdapters(
                                         (self.context, self.request, self),
                                         IPaymentProcessorStepGroup)
-        
+
         selected_pp_step_group = self.shop_config.payment_processor_step_group
         for name, step_group_adapter in payment_processor_step_groups:
             if name == selected_pp_step_group:
                 payment_processor_steps = step_group_adapter.steps
-                
+
         if not len(payment_processor_steps) == 0 \
             and not session.get('payment_processor_choice', None):
             raise MissingPaymentProcessor
@@ -131,7 +130,6 @@ class OrderManagerView(BrowserView):
 
         return
 
-
     def _send_owner_mail(self, order):
         """Send order notification to shop owner.
         """
@@ -147,7 +145,6 @@ class OrderManagerView(BrowserView):
         msg_body = mail_view(order=order,
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
-
 
     def _send_customer_mail(self, order, lang):
         """Send order confirmation mail to customer
@@ -166,7 +163,6 @@ class OrderManagerView(BrowserView):
         msg_body = mail_view(order=order,
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
-
 
     def _send_supplier_mail(self, supplier, order):
         """Send order notification to a (single) supplier.
@@ -220,7 +216,7 @@ class OrderView(BrowserView):
     def getOrder(self, order_id=None):
         if not order_id:
             order_id = self.order_id
-        order_storage = getUtility(IOrderStorage, 
+        order_storage = getUtility(IOrderStorage,
                                    name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
         return order

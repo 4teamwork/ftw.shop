@@ -12,6 +12,7 @@ class Categorizeable(object):
     defaultRank = 100
 
     security.declareProtected("View", 'getRankForCategory')
+
     def getRankForCategory(self, category):
         """Get the object's rank for the specified category
         """
@@ -21,6 +22,7 @@ class Categorizeable(object):
 
 
     security.declareProtected("Modify portal content", 'addToCategory')
+
     def setRankForCategory(self, category, rank):
         """Set the object's rank for the specified category
         """
@@ -31,6 +33,7 @@ class Categorizeable(object):
 
 
     security.declareProtected("Modify portal content", 'addToCategory')
+
     def addToCategory(self, category):
         """Add the object to a category.
         """
@@ -38,6 +41,7 @@ class Categorizeable(object):
 
 
     security.declareProtected("Modify portal content", 'removeFromCategory')
+
     def removeFromCategory(self, category):
         """Remove the object from a category.
         """
@@ -45,6 +49,7 @@ class Categorizeable(object):
 
 
     security.declareProtected("View", 'listCategories')
+
     def listCategories(self):
         """List the categories where the object is registered.
         """

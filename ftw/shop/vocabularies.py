@@ -13,7 +13,6 @@ from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
 
 
-
 def create_terms_from_adapters(adapters):
     """Returns a list of terms to be used to create a vocabulary,
     including a nice human readable title if defined for the adapter
@@ -35,6 +34,7 @@ def create_terms_from_adapters(adapters):
             title=pair[1]) for pair in items]
     return terms
 
+
 def ContactInfoStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
     contact information StepGroup
@@ -47,6 +47,7 @@ def ContactInfoStepGroups(context):
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
 
+
 def OrderReviewStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
     order review StepGroup
@@ -58,6 +59,7 @@ def OrderReviewStepGroups(context):
 
     directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
+
 
 def PaymentProcessorStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
@@ -105,7 +107,7 @@ def EnabledPaymentProcessors(context):
 
 
 def OrderStorageVocabulary(context):
-    """Returns a vocabulary of the currently registered utilities 
+    """Returns a vocabulary of the currently registered utilities
     that implement IOrderStorage.
     """
     # context is the portal config options, whose context is the portal

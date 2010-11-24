@@ -30,12 +30,15 @@ from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 from ftw.shop import shopMessageFactory as _
 
+
 class BaseStepGroup(object):
+
     def __init__(self, context, request, dummy):
         pass
 
 
 class BasePaymentProcessor(object):
+
     def __init__(self, context, request, dummy):
         pass
 
@@ -99,7 +102,6 @@ class DefaultContactInfoStep(wizard.Step):
                 except KeyError:
                     pass
 
-
     def updateWidgets(self):
         super(DefaultContactInfoStep, self).updateWidgets()
         self.widgets['zipcode'].size = 5
@@ -157,6 +159,7 @@ class DefaultOrderReviewStep(wizard.Step):
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
+
 
 class DefaultOrderReviewStepGroup(BaseStepGroup):
     implements(IOrderReviewStepGroup)
@@ -228,8 +231,9 @@ class CheckoutWizard(wizard.Wizard):
             if name == selected_order_review_step_group:
                 order_review_steps = step_group_adapter.steps
 
-        return contact_info_steps + payment_processor_steps + order_review_steps
-
+        return contact_info_steps + \
+               payment_processor_steps + \
+               order_review_steps
 
     @button.buttonAndHandler(_(u'btn_back', default="Back"),
                              name='back',

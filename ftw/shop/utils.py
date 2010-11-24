@@ -6,6 +6,7 @@ from Products.CMFCore.interfaces import ISiteRoot
 
 from ftw.shop.interfaces import IShopRoot
 
+
 def to_decimal(number):
     """Since SQLite doesn't support Decimal fields, trim the float it
     returns to two decimal places and convert it to Decimal. If that

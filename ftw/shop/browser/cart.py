@@ -21,7 +21,7 @@ from ftw.shop import shopMessageFactory as _
 class CartView(BrowserView):
     """Handles the customer's shopping cart and stores it in the user's
     session.
-    This view is responsible for adding, updating and removing items from 
+    This view is responsible for adding, updating and removing items from
     the cart, as well as calculating the current cart total.
     """
     portlet_template = ViewPageTemplateFile('../portlets/cart.pt')
@@ -67,13 +67,12 @@ class CartView(BrowserView):
         ptool.addPortalMessage(_(u'msg_item_added',
                                  default=u'Added item to cart.'), 'info')
 
-
     def _get_supplier(self, context):
         """If available, get supplier name and email address
         """
         supplier_name = ''
         supplier_email = ''
-        # First see if parent cateogry has a supplier defined
+        # First check if parent cateogry has a supplier defined
         parent_category = aq_parent(context)
         if parent_category.getField('supplier') is not None:
             category_supplier = parent_category.getField('supplier').get(parent_category)
@@ -94,7 +93,6 @@ class CartView(BrowserView):
         """
         context = aq_inner(self.context)
         varConf = IVariationConfig(self.context)
-        catalog = getToolByName(context, 'portal_catalog')
 
         # get current items in cart
         session = self.request.SESSION
@@ -110,7 +108,7 @@ class CartView(BrowserView):
 
         item_title = context.Title()
         quantity = int(quantity)
-        
+
         supplier_name, supplier_email = self._get_supplier(context)
 
         has_variations = varConf.hasVariations()

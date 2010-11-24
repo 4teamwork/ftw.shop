@@ -17,4 +17,3 @@ class MissingPaymentProcessor(Exception):
     a payment processor yet.
     """
     pass
-
