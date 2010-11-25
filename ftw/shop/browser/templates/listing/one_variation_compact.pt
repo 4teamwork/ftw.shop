@@ -56,6 +56,8 @@
                                                    tal:attributes="href string:${item/url}/edit_variations">
                                                    Edit variations</a></dd>
                                 </dl>
+
+                                <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />
 						</form>
 		                 
 		                 <table tal:condition="varConf/isValid" 

@@ -62,6 +62,22 @@
     />
 
   <browser:page
+    for="..interfaces.IShopCategory"
+    name="getVarDictsJSON"
+    class=".category.CategoryCompactView"
+    attribute="getVarDictsJSON"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="..interfaces.IShopItem"
+    name="getVarDictsJSON"
+    class=".shopitem.ShopCompactItemView"
+    attribute="getVarDictsJSON"
+    permission="zope2.View"
+    />
+
+  <browser:page
     for="..interfaces.IShopRoot"
     name="compact_view"
     permission="zope2.View"

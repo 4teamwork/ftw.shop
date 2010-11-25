@@ -59,7 +59,7 @@
         </div>
         </tal:categories>
         
-
+	<script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
     <tal:shopitems repeat="item view/getItemDatas">
 
         <div class="listItem shopItem">

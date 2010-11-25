@@ -1,4 +1,5 @@
 from decimal import Decimal
+import simplejson
 
 from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
@@ -69,6 +70,7 @@ class ShopItemView(BrowserView):
                                 variants = None,
                                 skuCode = skuCode,
                                 price = price,
+                                uid = item.UID(),
                                 varConf = varConf,
                                 hasVariations = has_variations))
         return results
@@ -87,6 +89,34 @@ class ShopCompactItemView(ShopItemView):
 
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
+
+    def getVarDictsJSON(self):
+        """Returns a JSON serialized dict with UID:varDict pairs, where UID
+        is the ShopItem's UID and varDict is the item's variation dict.
+        This is being used for the compact category view where inactive
+        item variations must not be buyable.
+        """
+        varDicts = {}
+        items = self.getItemDatas()
+        for item in items:
+            uid = item['uid']
+            varConf = item['varConf']
+            if varConf is not None:
+                varDicts[uid] = dict(varConf.getVariationDict())
+            else:
+                varDicts[uid] = {}
+
+            # Convert Decimals to Strings for serialization
+            varDict = varDicts[uid]
+            for vkey in varDict.keys():
+                i = varDict[vkey]
+                for k in i.keys():
+                    val = i[k]
+                    if isinstance(val, Decimal):
+                        val = str(val)
+                        i[k] = val
+
+        return simplejson.dumps(varDicts)
 
 
 class EditVariationsView(BrowserView):

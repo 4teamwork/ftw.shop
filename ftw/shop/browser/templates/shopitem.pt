@@ -27,7 +27,10 @@
         <div tal:replace="structure provider:plone.belowcontenttitle" />
         <div tal:replace="structure provider:plone.abovecontentbody" />        
         <div tal:replace="structure text" />
-        
+
+    <script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
+ 
+      
     <tal:shopitems repeat="item view/getItemDatas">
 
         <div class="listItem">
