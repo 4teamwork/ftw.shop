@@ -142,10 +142,12 @@ class FtwShopTestCase(ptc.PloneTestCase):
         'hardcover': {'active': True, 
                       'price': Decimal('1.00'),
                       'skuCode': 'b11',
+                      'description': 'A hard and durable cover',
                       'hasUniqueSKU': True},
         'paperback': {'active': True, 
                       'price': Decimal('2.00'),
                       'skuCode': 'b22',
+                      'description': 'A less durable but cheaper cover',
                       'hasUniqueSKU': True},
         }
         self.book_vc.updateVariationConfig(book_var_dict)
@@ -166,15 +168,15 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         self.tshirt_vc = IVariationConfig(self.tshirt)
         tshirt_var_dict = {
-        'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'hasUniqueSKU': True},
-        'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'hasUniqueSKU': True},
-        'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'hasUniqueSKU': True},
-        'green-s': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'hasUniqueSKU': True},
-        'green-m': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'hasUniqueSKU': True},
-        'green-l': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'hasUniqueSKU': True},
-        'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'hasUniqueSKU': True},
-        'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'hasUniqueSKU': True},
-        'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'hasUniqueSKU': True},
+        'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'description': '', 'hasUniqueSKU': True},
+        'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'description': '', 'hasUniqueSKU': True},
+        'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'description': '', 'hasUniqueSKU': True},
+        'green-s': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'description': '', 'hasUniqueSKU': True},
+        'green-m': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'description': '', 'hasUniqueSKU': True},
+        'green-l': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'description': '', 'hasUniqueSKU': True},
+        'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'description': '', 'hasUniqueSKU': True},
+        'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'description': '', 'hasUniqueSKU': True},
+        'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'description': '', 'hasUniqueSKU': True},
         }
         self.tshirt_vc.updateVariationConfig(tshirt_var_dict)
 

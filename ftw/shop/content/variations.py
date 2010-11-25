@@ -99,6 +99,8 @@ class VariationConfig(object):
             return Decimal("%s.%02d" % self.context.price)
         elif field == 'skuCode':
             return self.context.skuCode
+        elif field == 'description':
+            return ''
         elif field == 'hasUniqueSKU':
             return False
         else:

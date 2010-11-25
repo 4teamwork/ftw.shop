@@ -143,6 +143,7 @@ class EditVariationsView(BrowserView):
                     data['price'] = Decimal("0.00")
 
             data['skuCode'] = form.get("%s-skuCode" % variation_key)
+            data['description'] = form.get("%s-description" % variation_key)
 
             # At this point the form has already been validated,
             # so uniqueness of sku codes is ensured

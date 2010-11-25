@@ -27,6 +27,7 @@
                 <th i18n:translate="label_sku_code_required">SKU code 
                     <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
+                <th i18n:translate="label_description">Description</th>
               </tr>
               </thead>
               <tbody>
@@ -42,6 +43,9 @@
                   <td><input type="text" class="required uniqueSkuCode"
                       tal:attributes="name string:${vkey}-skuCode:required;
                                       value python:varConf.getVariationData(varValue1, None, 'skuCode')">
+                  </td>
+                  <td><input type="text" tal:attributes="name string:${vkey}-description;
+                                      value python:varConf.getVariationData(varValue1, None, 'description')">
                   </td>
                   </tal:block>
                 </tr>
@@ -69,6 +73,7 @@
                 <th i18n:translate="label_sku_code_required">SKU code 
                     <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
                 </th>
+                <th i18n:translate="label_description">Description</th>
               </tr>
               </thead>
               <tbody>
@@ -85,6 +90,8 @@
                       tal:attributes="name string:${vkey}-skuCode:required;
                                       value python:varConf.getVariationData(varValue1, varValue2, 'skuCode')">
                   </td>
+                  <td><input type="text" tal:attributes="name string:${vkey}-description;
+                                      value python:varConf.getVariationData(varValue1, varValue2, 'description')"></td>
                   </tal:block>
                 </tr>
                 </tbody>

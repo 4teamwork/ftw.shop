@@ -80,22 +80,22 @@ class TestVariations(FtwShopTestCase):
         
     def test_get_variation_dict(self):
         expected_var_dict = OrderedDict(
-        hardcover =  {'active': True, 'price': Decimal('1.00'), 'skuCode': 'b11', 'hasUniqueSKU': True},
-        paperback = {'active': True, 'price': Decimal('2.00'), 'skuCode': 'b22', 'hasUniqueSKU': True},
+        hardcover = {'active': True, 'price': Decimal('1.00'), 'hasUniqueSKU': True, 'description': 'A hard and durable cover', 'skuCode': 'b11'},
+        paperback = {'active': True, 'price': Decimal('2.00'), 'hasUniqueSKU': True, 'description': 'A less durable but cheaper cover', 'skuCode': 'b22'},
         )
         self.assertEquals(self.book_vc.getVariationDict().items(),
                           expected_var_dict.items())
 
         expected_var_dict = OrderedDict({
-        'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'hasUniqueSKU': True},
-        'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'hasUniqueSKU': True}, 
-        'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'hasUniqueSKU': True},
-        'green-s': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'hasUniqueSKU': True},
-        'green-m': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'hasUniqueSKU': True}, 
-        'green-l': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'hasUniqueSKU': True}, 
-        'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'hasUniqueSKU': True}, 
-        'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'hasUniqueSKU': True}, 
-        'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'hasUniqueSKU': True},
+        'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'hasUniqueSKU': True, 'description': ''},
+        'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'hasUniqueSKU': True, 'description': ''}, 
+        'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'hasUniqueSKU': True, 'description': ''},
+        'green-s': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'hasUniqueSKU': True, 'description': ''},
+        'green-m': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'hasUniqueSKU': True, 'description': ''}, 
+        'green-l': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'hasUniqueSKU': True, 'description': ''}, 
+        'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'hasUniqueSKU': True, 'description': ''}, 
+        'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'hasUniqueSKU': True, 'description': ''}, 
+        'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'hasUniqueSKU': True, 'description': ''},
         })
         self.assertEquals(self.tshirt_vc.getVariationDict().items(), expected_var_dict.items())
 

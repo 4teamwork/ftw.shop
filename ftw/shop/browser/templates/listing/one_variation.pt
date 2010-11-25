@@ -10,6 +10,7 @@
                                  <th tal:content="python: varConf.getVariationAttributes()[0]">Red</th>
                                  <th i18n:translate="label_price">Price</th>
                                  <th i18n:translate="label_sku_code">SKU code</th>
+                                 <th i18n:translate="label_description">Description</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -17,11 +18,13 @@
                                  <tr tal:define="active python:varConf.getVariationData(varValue1, None, 'active');
                                               skuCode python:varConf.getVariationData(varValue1, None, 'skuCode');
                                               price python:varConf.getVariationData(varValue1, None, 'price');
+                                              description python:varConf.getVariationData(varValue1, None, 'description');
                                               hasUniqueSKU python:varConf.getVariationData(varValue1, None, 'hasUniqueSKU')"
                                      tal:condition="active">
                                      <td tal:content="varValue1">S</td>
                                      <td><span tal:content="price"/></td>
                                      <td><span tal:content="skuCode"/></td>
+                                     <td><span tal:content="description"/></td>
                                      <td>
 
                                          <dl class="portalMessage warning"

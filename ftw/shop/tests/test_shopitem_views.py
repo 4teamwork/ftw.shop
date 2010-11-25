@@ -106,10 +106,13 @@ class TestShopItemViews(FtwShopTestCase):
         
     def test_edit_variations_view_call(self):
         book_edit_variations_html = self.book_edit_variations()
+
         expected_snippet = """<td>Hardcover</td>
                   <td><input type="checkbox" checked="checked" name="hardcover-active:boolean"></td>
                   <td><input type="text" class="number" name="hardcover-price" value="1.00"></td>
                   <td><input type="text" class="required uniqueSkuCode" name="hardcover-skuCode:required" value="b11">
+                  </td>
+                  <td><input type="text" name="hardcover-description" value="A hard and durable cover">
                   </td>"""
         self.assertTrue(expected_snippet in book_edit_variations_html)
         
@@ -118,7 +121,9 @@ class TestShopItemViews(FtwShopTestCase):
                   <td><input type="checkbox" checked="checked" name="blue-m-active:boolean"></td>
                   <td><input type="text" class="number" name="blue-m-price" value="8.00"></td>
                   <td><input type="text" class="required uniqueSkuCode" name="blue-m-skuCode:required" value="88">
-                  </td>"""
+                  </td>
+                  <td><input type="text" name="blue-m-description" value=""></td>"""
+
         self.assertTrue(expected_snippet in tshirt_edit_variations_html)
         
         self.portal.REQUEST['form'] = {}
@@ -127,10 +132,12 @@ class TestShopItemViews(FtwShopTestCase):
         self.portal.REQUEST.form['hardcover-active'] = True
         self.portal.REQUEST.form['hardcover-price'] = '7.90'
         self.portal.REQUEST.form['hardcover-skuCode'] = '1111'
+        self.portal.REQUEST.form['hardcover-description'] = 'A hard and durable cover'
         
         self.portal.REQUEST.form['paperback-active'] = True
         self.portal.REQUEST.form['paperback-price'] = '5'
         self.portal.REQUEST.form['paperback-skuCode'] = '2222'
+        self.portal.REQUEST.form['paperback-description'] = 'A less durable but cheaper cover'
         
         self.book_edit_variations()
         
@@ -139,10 +146,12 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(movie_data['hardcover']['active'], True)
         self.assertEquals(movie_data['hardcover']['price'], Decimal('7.90'))
         self.assertEquals(movie_data['hardcover']['skuCode'], '1111')
+        self.assertEquals(movie_data['hardcover']['description'], 'A hard and durable cover')
 
         self.assertEquals(movie_data['paperback']['active'], True)
         self.assertEquals(movie_data['paperback']['price'], Decimal('5.00'))
         self.assertEquals(movie_data['paperback']['skuCode'], '2222')
+        self.assertEquals(movie_data['paperback']['description'], 'A less durable but cheaper cover')
 
 
 def test_suite():
