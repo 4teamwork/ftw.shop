@@ -31,11 +31,16 @@ class CartView(BrowserView):
         """ Add item to cart, return portlet HTML and translated status
         message
         """
-        self._addtocart(skuCode, quantity, var1choice, var2choice)
         translate = self.context.translate
 
-        status_msg_label = _(u'msg_label_info', default=u"Information")
-        status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
+        success = self._addtocart(skuCode, quantity, var1choice, var2choice)
+        if success:
+            status_msg_label = _(u'msg_label_info', default=u"Information")
+            status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
+        else:
+            status_msg_label = _(u'msg_label_error', default=u"Error")
+            status_msg_text = _(u'msg_item_disabled', default=u"Item is disabled and can't be added.")
+
         status_message = """\
 <dt>%s</dt>
 <dd>%s</dd>""" % (translate(status_msg_label),
@@ -52,20 +57,22 @@ class CartView(BrowserView):
         without variations, or by its variation key.
         """
         context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
 
         # Add item to cart
-        self._addtocart(skuCode, quantity, var1choice, var2choice)
+        success = self._addtocart(skuCode, quantity, var1choice, var2choice)
+        if success:
+            ptool.addPortalMessage(_(u'msg_item_added',
+                                     default=u'Added item to cart.'), 'info')
+        else:
+            ptool.addPortalMessage(_(u'msg_item_disabled',
+                                     default=u'Item is disabled and can\'t be added.'), 'error')
 
         # redirect to referer
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         if referer == 'localhost':
             referer = context.absolute_url()
         self.request.response.redirect(referer)
-
-        # add portal message
-        ptool = getToolByName(context, 'plone_utils')
-        ptool.addPortalMessage(_(u'msg_item_added',
-                                 default=u'Added item to cart.'), 'info')
 
     def _get_supplier(self, context):
         """If available, get supplier name and email address
@@ -119,6 +126,9 @@ class CartView(BrowserView):
                 if variation_dict[vkey]['skuCode'] == skuCode:
                     variation_key = vkey
                     break
+            if not variation_dict[variation_key]['active']:
+                # Item is disabled
+                return False
 
             variation_pretty_name = varConf.getPrettyName(variation_key)
             item_title = '%s - %s' % (context.Title(), variation_pretty_name)
@@ -165,6 +175,7 @@ class CartView(BrowserView):
         # store cart in session
         cart_items[skuCode] = item
         session[CART_KEY] = cart_items
+        return True
 
     def cart_items(self):
         """Get all items currently contained in shopping cart
