@@ -60,7 +60,6 @@ jq(function () {
 
 	// Only show matching item variation depending on user selection
 	jq(".variation-toplevel-group select").change(function () {
-		var params = {};
 		var uid = jq(this).parents("form").find("input[name=uid]").val();
 
 		var varkey;
@@ -74,7 +73,24 @@ jq(function () {
 			varkey = jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value");
 		}
 
-		jq(this).parents(".variation-toplevel-group").find("table#itemDataTable tr").hide();
+		jq(this).parents(".variation-toplevel-group").find("table.itemDataTable tr").hide();
+
+		// Place Price and SKU code directly in variation selection table
+		varSelectTable = jq(this).parents(".variation-toplevel-group").find("table.variationSelection");
+		varPrice = varDicts[uid][varkey]['price']
+		varSkuCode = varDicts[uid][varkey]['skuCode']
+		varDescription = varDicts[uid][varkey]['description']
+
+		varSelectTable.find("td.variationPrice").text(varPrice);
+		varSelectTable.find("td.variationSKUCode").text(varSkuCode);
+		jq(this).parents(".variation-toplevel-group").find("span.variationDescription").text(varDescription);
+		jq(this).parents(".variation-toplevel-group").find("span.variationDescription").show();
+
+		varSelectTable.find("td.variationPrice").show();
+		varSelectTable.find("td.variationSKUCode").show();
+		varSelectTable.find("td.variationPriceLabel").show();
+		varSelectTable.find("td.variationSKUCodeLabel").show();
+		jq(this).parents(".variation-toplevel-group").find("table.itemDataTable").hide();
 
 		// Disable "add to cart" button if variation is disabled
 		if (varDicts[uid][varkey]['active']) {
@@ -82,15 +98,20 @@ jq(function () {
 			jq(this).parents("form").find("input[name=quantity:int]").attr("disabled", false);
 
 			// Only un-hide the item data if item is active
-			jq(this).parents(".variation-toplevel-group").find("table#itemDataTable tr").each(function () {
+			jq(this).parents(".variation-toplevel-group").find("table.itemDataTable tr").each(function () {
 				if (varkey == jq(this).attr("id")) {
 					jq(this).show();
 				}
 			});
 		}
 		else {
+			// Inactive variation
+			// Hide 'add to cart' button, quantity, price, SKU code and description
 			jq(this).parents("form").find("input[name=addtocart]").attr("disabled", true);
 			jq(this).parents("form").find("input[name=quantity:int]").attr("disabled", true);
+			varSelectTable.find("td.variationPrice").text("");
+			varSelectTable.find("td.variationSKUCode").text("");
+			jq(this).parents(".variation-toplevel-group").find("span.variationDescription").text("");
 		}
 
 

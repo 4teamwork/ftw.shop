@@ -8,7 +8,7 @@
                      tal:define="varConf item/varConf">
                     <form tal:attributes="action string:${item/url}/addtocart">
 
-                        <table>
+                        <table class="variationSelection">
                             <tr>
                                 <td>
                                     <label tal:content="python:varConf.getVariationAttributes()[0]">Farbe</label>
@@ -16,6 +16,10 @@
                                 <td>
                                     <label tal:content="python:varConf.getVariationAttributes()[1]">Grösse</label>
                                 </td>
+
+                                <td class="variationPriceLabel" style="display:none;"><label i18n:translate="label_price">Price</label></td>
+                                <td class="variationSKUCodeLabel" style="display:none;"><label i18n:translate="label_sku_code">SKU Code</label></td>
+
                                 <td>
                                     <label>Menge</label>
                                 </td>
@@ -24,7 +28,7 @@
                                 </td>
                             </tr>
                                 
-                            <tr>
+                            <tr class="variationSelection">
                                 <td>
                                     <select name="var1choice">
                                         <option tal:repeat="varValue1 varConf/getVariation1Values"
@@ -45,10 +49,13 @@
                                     </select>
                                 </td>
 
+                                <td class="variationPrice" style="display:none;"></td>
+                                <td class="variationSKUCode" style="display:none;"></td>
+
                                 <td>
                                     <input name="quantity:int" type="text" value="1" size="2" />
                                 </td>
-                                
+
                                 <td>
                                     <input tal:condition="varConf/isValid" 
                                            name="addtocart" class="compact" type="submit" 
@@ -70,7 +77,7 @@
                     </form>
                      
                      <table tal:condition="varConf/isValid" 
-                            id="itemDataTable"
+                            class="itemDataTable"
                             tal:define="varDict varConf/getVariationDict">
                          <thead>
                              <th>Variation</th>
@@ -79,13 +86,17 @@
                              <th i18n:translate="label_description">Description</th>
                          </thead>
                          <tbody>
-                             <tr tal:repeat="vkey varDict" tal:attributes="id vkey">
-                             <td tal:content="python:varConf.getPrettyName(vkey)"></td>
-                             <td tal:content="python: varDict[vkey]['price']"></td>
-                             <td tal:content="python: varDict[vkey]['skuCode']"></td>
-                             <td><span tal:condition="python: 'description' in varDict[vkey].keys()"  tal:content="python: varDict[vkey]['description']"/></td>
-                             </tr>
+	                         <tal:variations tal:repeat="vkey varDict">
+	                             <tr tal:attributes="id vkey" tal:condition="python: varDict[vkey]['active']">
+	                             <td tal:content="python:varConf.getPrettyName(vkey)"></td>
+	                             <td tal:content="python: varDict[vkey]['price']"></td>
+	                             <td tal:content="python: varDict[vkey]['skuCode']"></td>
+	                             <td><span tal:condition="python: 'description' in varDict[vkey].keys()"  tal:content="python: varDict[vkey]['description']"/></td>
+	                             </tr>
+	                         </tal:variations>
                          </tbody>
                      </table>
+
+                     <span class="variationDescription" style="display:none;"></span>
                  </div>
              </tal:block>

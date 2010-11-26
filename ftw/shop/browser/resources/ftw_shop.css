@@ -12,7 +12,7 @@
     background-color: #F8F8F8;
 }
 
-.shopItem table#itemDataTable {
+.shopItem table.itemDataTable {
     margin-bottom: 0;
 }
 
