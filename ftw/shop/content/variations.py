@@ -1,10 +1,10 @@
 from decimal import Decimal
 
+from persistent.mapping import PersistentMapping
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 from zope.component import adapts, getUtility
-from zc.dict import OrderedDict
 
 from ftw.shop.interfaces import IVariationConfig, IShopItem
 
@@ -34,13 +34,13 @@ class VariationConfig(object):
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
         """
-        return self.annotations.get('variations', OrderedDict())
+        return self.annotations.get('variations', PersistentMapping())
 
     def updateVariationConfig(self, data):
         """Updates the stored variation config with changes
         """
         if not 'variations' in self.annotations.keys():
-            self.annotations['variations'] = OrderedDict()
+            self.annotations['variations'] = PersistentMapping()
         self.annotations['variations'].update(data)
 
     def getVariation1Values(self):
