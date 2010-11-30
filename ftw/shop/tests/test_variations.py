@@ -97,7 +97,7 @@ class TestVariations(FtwShopTestCase):
         'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'hasUniqueSKU': True, 'description': ''},
         }
 
-        self.assertEquals(self.tshirt_vc.getVariationDict(), expected_var_dict
+        self.assertEquals(self.tshirt_vc.getVariationDict(), expected_var_dict)
 
 
 def test_suite():
