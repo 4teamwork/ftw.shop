@@ -123,7 +123,7 @@ class CartView(BrowserView):
             variation_dict = varConf.getVariationDict()
             variation_key = None
             for vkey in variation_dict.keys():
-                if variation_dict[vkey]['skuCode'] == skuCode:
+                if variation_dict[vkey]['active'] and variation_dict[vkey]['skuCode'] == skuCode:
                     variation_key = vkey
                     break
             if not variation_dict[variation_key]['active']:
