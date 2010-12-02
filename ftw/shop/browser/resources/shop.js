@@ -24,7 +24,7 @@ jq(function () {
 					// We've got one variation
 					itemdata = {
 						var1choice: var1choice,
-						quantity: jq(this).siblings().filter('input[name=quantity:int]').val()
+						quantity: jq(this).parents("form").find('input[name=quantity:int]').val()
 					};
 				}
 				else {
@@ -32,7 +32,7 @@ jq(function () {
 					itemdata = {
 						var1choice: var1choice,
 						var2choice: var2choice,
-						quantity: jq(this).siblings().filter('input[name=quantity:int]').val()
+						quantity: jq(this).parents("form").find('input[name=quantity:int]').val()
 					};
 				}
 			}
