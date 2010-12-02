@@ -110,7 +110,7 @@
                     for (var i=0; i<other_sku_fields.length; i++) {
                         existing_sku_codes.push(other_sku_fields[i].value);
                     }
-                    if(jq.inArray(value, existing_sku_codes) > -1) {
+                    if(jq.inArray(value, existing_sku_codes) > -1 && jq(element).parents('tr').find('input[type=checkbox]').attr('checked') === true) {
                         return false; 
                         }
                     else { 
