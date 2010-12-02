@@ -83,10 +83,10 @@
                   <td><input type="checkbox"
                       tal:attributes="name string:${vkey}-active:boolean;
                                       checked python:varConf.getVariationData(varValue1, varValue2, 'active')"></td>
-                  <td><input type="text" class="number"
+                  <td><input type="text" class="number" size="4"
                       tal:attributes="name string:${vkey}-price;
                                       value python:varConf.getVariationData(varValue1, varValue2, 'price')"></td>
-                  <td><input type="text" class="required uniqueSkuCode"
+                  <td><input type="text" class="required uniqueSkuCode" size="10"
                       tal:attributes="name string:${vkey}-skuCode:required;
                                       value python:varConf.getVariationData(varValue1, varValue2, 'skuCode')">
                   </td>
