@@ -154,6 +154,33 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(movie_data['paperback']['description'], 'A less durable but cheaper cover')
 
 
+    def test_variations_order(self):
+        var1_values = self.tshirt_vc.getVariation1Values()
+        self.assertEquals(var1_values, ('Red', 'Green', 'Blue'))
+
+        item_datas = self.tshirt_view.getItemDatas()
+        item = item_datas[0]
+        item_listing = self.tshirt_view.two_variations(item)
+
+        red_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="11" />')
+        green_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="44" />')
+        blue_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="77" />')
+        self.assertTrue(red_s_pos < green_s_pos and green_s_pos < blue_s_pos)
+
+        # Now we swap 'Red' and 'Blue' and check if the listing reflects
+        # the new order
+        self.tshirt.Schema().getField('variation1_values').set(self.tshirt, ['Blue', 'Green', 'Red'])
+
+        item_datas = self.tshirt_view.getItemDatas()
+        item = item_datas[0]
+        item_listing = self.tshirt_view.two_variations(item)
+
+        red_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="11" />')
+        green_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="44" />')
+        blue_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="77" />')
+        self.assertTrue(red_s_pos > green_s_pos and green_s_pos > blue_s_pos)
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(TestShopItemViews))
