@@ -8,31 +8,31 @@ from ftw.shop.tests.base import FtwShopTestCase
 
 
 class TestShopItemViews(FtwShopTestCase):
-    
+
     def afterSetUp(self):
         super(TestShopItemViews, self).afterSetUp()
-        
-        self.movie_view = getMultiAdapter((self.movie, 
-                                 self.portal.REQUEST), 
+
+        self.movie_view = getMultiAdapter((self.movie,
+                                 self.portal.REQUEST),
                                  name='view')
-        self.book_view = getMultiAdapter((self.book, 
-                                 self.portal.REQUEST), 
+        self.book_view = getMultiAdapter((self.book,
+                                 self.portal.REQUEST),
                                  name='view')
-        self.tshirt_view = getMultiAdapter((self.tshirt, 
-                                 self.portal.REQUEST), 
+        self.tshirt_view = getMultiAdapter((self.tshirt,
+                                 self.portal.REQUEST),
                                  name='view')
-        
-        self.book_edit_variations = getMultiAdapter((self.book, 
-                                 self.portal.REQUEST), 
+
+        self.book_edit_variations = getMultiAdapter((self.book,
+                                 self.portal.REQUEST),
                                  name='edit_variations')
-        
-        self.tshirt_edit_variations = getMultiAdapter((self.tshirt, 
-                                 self.portal.REQUEST), 
+
+        self.tshirt_edit_variations = getMultiAdapter((self.tshirt,
+                                 self.portal.REQUEST),
                                  name='edit_variations')
-        
+
 
     def test_get_items(self):
-        self.assertEquals(self.movie_view.getItems(), 
+        self.assertEquals(self.movie_view.getItems(),
                           [self.movie])
 
     def test_single_item(self):
@@ -59,12 +59,12 @@ class TestShopItemViews(FtwShopTestCase):
         item_listing = self.tshirt_view.two_variations(item)
         self.assertTrue('<input type="hidden" name="skuCode" value="11" />' \
                             in item_listing)
-    
+
     def test_get_item_datas(self):
         movie_data = self.movie_view.getItemDatas()[0]
         book_data = self.book_view.getItemDatas()[0]
         tshirt_data = self.tshirt_view.getItemDatas()[0]
-        
+
         self.assertEquals(movie_data['description'], 
                           'A Shop Item with no variations')
         self.assertEquals(movie_data['hasVariations'], False)
@@ -74,7 +74,7 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(movie_data['title'], 'A Movie')
         self.assertEquals(movie_data['varConf'], None)
         self.assertEquals(movie_data['variants'], None)
-        
+
         self.assertEquals(book_data['description'], 
                           'A Shop Item with one variation')
         self.assertEquals(book_data['hasVariations'], True)
@@ -84,7 +84,7 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(book_data['title'], 'Professional Plone Development')
         self.assertTrue(book_data['varConf'])
         self.assertEquals(book_data['variants'], None)
-        
+
         self.assertEquals(tshirt_data['description'], 
                           'A Shop Item with two variations')
         self.assertEquals(tshirt_data['hasVariations'], True)
@@ -94,16 +94,16 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(tshirt_data['title'], 'A T-Shirt')
         self.assertTrue(tshirt_data['varConf'])
         self.assertEquals(tshirt_data['variants'], None)
-    
+
     def test_get_variations_config(self):
         movie_vc = self.movie_view.getVariationsConfig()
         book_vc = self.book_view.getVariationsConfig()
         tshirt_vc = self.tshirt_view.getVariationsConfig()
-        
+
         self.assertEquals(movie_vc.getVariationAttributes(), [])
         self.assertEquals(book_vc.getVariationAttributes(), ['Cover'])
         self.assertEquals(tshirt_vc.getVariationAttributes(), ['Color', 'Size'])
-        
+
     def test_edit_variations_view_call(self):
         book_edit_variations_html = self.book_edit_variations()
 
@@ -115,17 +115,17 @@ class TestShopItemViews(FtwShopTestCase):
                   <td><input type="text" name="hardcover-description" value="A hard and durable cover">
                   </td>"""
         self.assertTrue(expected_snippet in book_edit_variations_html)
-        
+
         tshirt_edit_variations_html = self.tshirt_edit_variations()
         expected_snippet = """<td>M</td>
                   <td><input type="checkbox" checked="checked" name="blue-m-active:boolean"></td>
-                  <td><input type="text" class="number" name="blue-m-price" value="8.00"></td>
-                  <td><input type="text" class="required uniqueSkuCode" name="blue-m-skuCode:required" value="88">
+                  <td><input type="text" class="number" size="4" name="blue-m-price" value="8.00"></td>
+                  <td><input type="text" class="required uniqueSkuCode" size="10" name="blue-m-skuCode:required" value="88">
                   </td>
                   <td><input type="text" name="blue-m-description" value=""></td>"""
 
         self.assertTrue(expected_snippet in tshirt_edit_variations_html)
-        
+
         self.portal.REQUEST['form'] = {}
         self.portal.REQUEST.form['form.submitted'] = True
 
@@ -133,14 +133,14 @@ class TestShopItemViews(FtwShopTestCase):
         self.portal.REQUEST.form['hardcover-price'] = '7.90'
         self.portal.REQUEST.form['hardcover-skuCode'] = '1111'
         self.portal.REQUEST.form['hardcover-description'] = 'A hard and durable cover'
-        
+
         self.portal.REQUEST.form['paperback-active'] = True
         self.portal.REQUEST.form['paperback-price'] = '5'
         self.portal.REQUEST.form['paperback-skuCode'] = '2222'
         self.portal.REQUEST.form['paperback-description'] = 'A less durable but cheaper cover'
-        
+
         self.book_edit_variations()
-        
+
         movie_data = self.book_vc.getVariationDict()
 
         self.assertEquals(movie_data['hardcover']['active'], True)
