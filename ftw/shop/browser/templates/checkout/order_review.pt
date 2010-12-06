@@ -19,6 +19,11 @@
           <li><span i18n:translate="label_email">Email</span>: <span tal:content="customer/email"/></li>
           <li><span i18n:translate="label_phone">Phone</span>: <span tal:content="customer/phone"/></li>
 
+          <li>
+            <span i18n:translate="label_shipping_address">Shipping Address</span>:
+            <p tal:content="customer/shipping_address" />
+          </li>
+
           <li tal:condition="customer/comments"> 
               <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
           <li><span i18n:translate="label_receive_newsletter">Receive Newsletter</span>: 
