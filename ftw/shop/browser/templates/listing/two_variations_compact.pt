@@ -18,7 +18,7 @@
                                 </td>
 
                                 <td class="variationPriceLabel" style="display:none;"><label i18n:translate="label_price">Price</label></td>
-                                <td class="variationSKUCodeLabel" style="display:none;"><label i18n:translate="label_sku_code">SKU Code</label></td>
+                                <td class="variationSKUCodeLabel" style="display:none;"><label i18n:translate="label_sku_code">SKU code</label></td>
 
                                 <td>
                                     <label>Menge</label>

@@ -22,7 +22,7 @@
 	                                </td>
 
 	                                <td class="variationSKUCodeLabel" style="display:none;">
-										<label i18n:translate="label_sku_code">SKU Code</label>
+										<label i18n:translate="label_sku_code">SKU code</label>
 	                                </td>
 
 									<td>

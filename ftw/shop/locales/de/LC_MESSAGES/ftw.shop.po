@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-25 09:43+0000\n"
+"POT-Creation-Date: 2010-12-06 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -21,7 +21,7 @@ msgid "A simple shop item"
 msgstr "Ein einfacher Shop-Artikel"
 
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:42
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:43
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:56
 #: ./ftw/shop/browser/templates/listing/single_item.pt:16
 msgid "Add to cart"
 msgstr "In Warenkorb legen"
@@ -210,7 +210,7 @@ msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
 #. Default: "I would like to subscribe to the newsletter."
-#: ./ftw/shop/interfaces.py:261
+#: ./ftw/shop/interfaces.py:265
 msgid "help_newsletter"
 msgstr "Ich möchte den Newsletter bestellen"
 
@@ -267,7 +267,7 @@ msgstr "Ort"
 
 #. Default: "Comments"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:23
-#: ./ftw/shop/interfaces.py:267
+#: ./ftw/shop/interfaces.py:271
 msgid "label_comments"
 msgstr "Bemerkungen"
 
@@ -306,7 +306,7 @@ msgstr "Zahlungsanbieter"
 #. Default: "Description"
 #: ./ftw/shop/browser/templates/edit_variations.pt:30
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:13
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:68
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:83
 msgid "label_description"
 msgstr "Beschreibung"
 
@@ -336,7 +336,7 @@ msgstr "Warenkorb bearbeiten"
 
 #. Default: "Edit variations"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:33
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:67
 #: ./ftw/shop/browser/templates/listing/two_variations.pt:32
 msgid "label_edit_variations"
 msgstr "Variationen bearbeiten"
@@ -384,7 +384,7 @@ msgid "label_more_link"
 msgstr "» Mehr"
 
 #. Default: "Newsletter"
-#: ./ftw/shop/interfaces.py:260
+#: ./ftw/shop/interfaces.py:264
 msgid "label_newsletter"
 msgstr "Newsletter"
 
@@ -450,7 +450,7 @@ msgstr "Telefonnummer"
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/edit_variations.pt:26
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:66
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:21
 msgid "label_price"
 msgstr "Preis"
 
@@ -458,6 +458,16 @@ msgstr "Preis"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:24
 msgid "label_receive_newsletter"
 msgstr "Newsletter bestellt"
+
+#. Default: "Shipping Address"
+#: ./ftw/shop/browser/templates/order_view.pt:53
+msgid "label_shipping_address"
+msgstr "Lieferadresse"
+
+#. Default: "Shipping address (optional)"
+#: ./ftw/shop/interfaces.py:260
+msgid "label_shipping_address_optional"
+msgstr "Lieferadresse (optional)"
 
 #. Default: "Shop configuration"
 #: ./ftw/shop/browser/controlpanel.py:51
@@ -476,7 +486,7 @@ msgstr "Geben sie den Shop-Namen ein"
 
 #. Default: "SKU code"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:12
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:67
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:25
 #: ./ftw/shop/browser/templates/listing/single_item.pt:6
 msgid "label_sku_code"
 msgstr "Artikel-Nr."
@@ -545,17 +555,17 @@ msgid "link_agb"
 msgstr "http://www.4teamwork.ch"
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:270
+#: ./ftw/shop/browser/cart.py:281
 msgid "msg_cart_emptied"
 msgstr "Der Warenkorb wurde geleert."
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: ./ftw/shop/browser/cart.py:225
+#: ./ftw/shop/browser/cart.py:236
 msgid "msg_cart_invalidvalue"
 msgstr "Ungültige Mengenangabe. Der Warenkorb wurde nicht aktualisiert."
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:241
+#: ./ftw/shop/browser/cart.py:252
 msgid "msg_cart_updated"
 msgstr "Der Warenkorb wurde aktualisiert."
 
@@ -570,23 +580,33 @@ msgid "msg_external_redirect"
 msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
 #. Default: "Added item to cart."
-#: ./ftw/shop/browser/cart.py:38
+#: ./ftw/shop/browser/cart.py:39
 msgid "msg_item_added"
 msgstr "Der Artikel wurde in den Warenkorb gelegt."
 
+#. Default: "Item is disabled and can't be added."
+#: ./ftw/shop/browser/cart.py:42
+msgid "msg_item_disabled"
+msgstr "Artikel ist deaktiviert und kann nicht hinzugefügt werden"
+
+#. Default: "Error"
+#: ./ftw/shop/browser/cart.py:41
+msgid "msg_label_error"
+msgstr "Fehler"
+
 #. Default: "Information"
-#: ./ftw/shop/browser/cart.py:37
+#: ./ftw/shop/browser/cart.py:38
 msgid "msg_label_info"
 msgstr "Information"
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:287
+#: ./ftw/shop/browser/cart.py:298
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 
 #. Default: "<dt>Not buyable</dt> <dd>${edit_variations}</dd>"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:33
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:67
 #: ./ftw/shop/browser/templates/listing/two_variations.pt:32
 msgid "msg_not_buyable"
 msgstr "<dt>Nicht kaufbar</dt> <dd>${edit_variations}</dd>"
@@ -617,7 +637,7 @@ msgid "msg_thank_you_title"
 msgstr "Besten Dank!"
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:114
+#: ./ftw/shop/browser/shopitem.py:144
 msgid "msg_variations_saved"
 msgstr "Variationen wurden gespeichert."
 
@@ -660,6 +680,16 @@ msgstr "Standard-Zahlungsanbieterauswahl"
 #: ./ftw/shop/browser/checkout.py:134
 msgid "title_default_payment_processor_step_group"
 msgstr "Standard-Zahlungsanbieterauswahl"
+
+#. Default: "Status"
+#: ./ftw/shop/browser/templates/order_view.pt:22
+msgid "title_order_status"
+msgstr "Status"
+
+#. Default: "Ordered Items"
+#: ./ftw/shop/browser/templates/order_view.pt:67
+msgid "title_ordered_items"
+msgstr "Bestellte Artikel"
 
 #. Default: "Personal Information"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:27
