@@ -1,3 +1,5 @@
+import cStringIO
+import csv
 from datetime import datetime
 from email.Utils import formataddr
 
@@ -12,14 +14,18 @@ from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 
+
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
+from ftw.shop.utils import UnicodeCSVWriter
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
+
+DEBUG = True
 
 
 class OrderManagerView(BrowserView):
@@ -37,6 +43,54 @@ class OrderManagerView(BrowserView):
         super(OrderManagerView, self).__init__(context, request)
 
     __call__ = ViewPageTemplateFile('templates/order_manager.pt')
+
+    def download_csv(self):
+        """Returns a CSV file containing the shop orders
+        """
+        from Products.Archetypes.utils import contentDispositionHeader
+        filename = "orders.csv"
+        stream = cStringIO.StringIO()
+        csv_writer = UnicodeCSVWriter(stream, delimiter=',',
+                        quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        core_cols = ['order_id',
+                      'title',
+                      'status',
+                      'total',
+                      'date',
+                      'customer_title',
+                      'customer_firstname',
+                      'customer_lastname',
+                      'customer_email',
+                      'customer_street1',
+                      'customer_street2',
+                      'customer_phone',
+                      'customer_zipcode',
+                      'customer_city',
+                      'customer_shipping_address',
+                      'customer_country',
+                      'customer_newsletter',
+                      'customer_comments']
+
+        # Create union of core_cols + all_cols to retain order
+        all_cols = self.order_storage.getFieldNames()
+        columns = core_cols + filter(lambda x:x not in core_cols, all_cols)
+
+        csv_writer.writerow(columns)
+
+        for order in self.getOrders():
+            values = [getattr(order, attr, '') for attr in columns]
+            csv_writer.writerow(values)
+
+        RESPONSE = self.request.RESPONSE
+        header_value = contentDispositionHeader('attachment',
+                                                'utf-8',
+                                                filename=filename)
+        if not DEBUG:
+            RESPONSE.setHeader("Content-Disposition", header_value)
+            RESPONSE.setHeader("Content-Type",
+                               'text/comma-separated-values;charset=%s' % 'utf-8')
+        stream.seek(0)
+        return stream.read()
 
     def getOrders(self):
         order_storage = self.order_storage
@@ -197,6 +251,9 @@ class OrderManagerView(BrowserView):
              immediate=False,
              msg_type='text/html',
              charset='utf8')
+
+
+
 
 
 class OrderView(BrowserView):

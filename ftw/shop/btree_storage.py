@@ -152,3 +152,10 @@ class BTreeOrderStorage(Persistent):
 
     def flush(self):
         pass
+
+    def getFieldNames(self):
+        o = Order()
+        field_names = [f for f in dir(o) if not (f.startswith('_') or \
+                                                 f.startswith('get') or \
+                                                 f == 'cartitems')]
+        return field_names
