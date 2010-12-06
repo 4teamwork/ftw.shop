@@ -299,8 +299,7 @@ class CartView(BrowserView):
                             default=u"Can't proceed with empty cart."),
                 'error')
             self.request.response.redirect(url)
-
-        omanager = getMultiAdapter((context, self.request),
+        omanager = getMultiAdapter((get_shop_root_object(context), self.request),
                                    name=u'order_manager')
 
         # Check we got all the data we need from the wizard

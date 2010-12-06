@@ -11,6 +11,8 @@ from Products.Five import zcml
 from Products.Five import fiveconfigure
 from Products.CMFCore.utils import getToolByName
 import zope.event
+from zope.component import getMultiAdapter
+from zope.interface import Interface
 from Products.Archetypes.event import ObjectInitializedEvent
 from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
@@ -105,8 +107,10 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         self.setRoles(('Manager',))
 
-        # Create a root shop folder
-        self.portal.invokeFactory("Folder", "shop")
+        # Use helper method to set up shop root at portal.shop
+        init_shop = getMultiAdapter((self.portal, self.portal.REQUEST),
+                                    Interface, 'initialize-shop-structure')
+        init_shop()
 
         # Create a shop category
         self.portal.shop.invokeFactory("ShopCategory", "products")

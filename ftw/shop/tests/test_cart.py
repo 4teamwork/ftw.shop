@@ -168,7 +168,7 @@ class TestCart(FtwShopTestCase):
         cart.checkout()
         
         # Test checkout with item and all necessary information
-        omanager = getMultiAdapter((self.portal, self.portal.REQUEST), 
+        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
                                    name=u'order_manager')
 
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
