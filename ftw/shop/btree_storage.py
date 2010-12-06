@@ -40,6 +40,7 @@ class Order(object):
         self.customer_zipcode = None
         self.customer_city = None
         self.customer_country = None
+        self.customer_shipping_address = None
         self.customer_newsletter = None
         self.customer_comments = None
 

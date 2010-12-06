@@ -255,6 +255,10 @@ class IDefaultContactInformation(Interface):
     country = schema.TextLine(
             title=_(u'label_country', default=u'Country'),
             required=True)
+    
+    shipping_address = schema.Text(
+            title=_(u'label_shipping_address_optional', default=u'Shipping address (optional)'),
+            required=False)
 
     newsletter = schema.Bool(
             title=_(u'label_newsletter', default=u'Newsletter'),

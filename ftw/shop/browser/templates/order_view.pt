@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="ftw.shop">
 <body>
 
 <metal:main fill-slot="main">
@@ -45,10 +45,14 @@
             <span tal:replace="order/customer_email" />
                 
             <tal:block condition="order/customer_phone">
-            <br /><span i18n:translate="label_phone">Tel.</span>:
+            <br /><span i18n:translate="label_phone">Phone</span>:
             <span tal:replace="order/customer_phone"></span>
             </tal:block>
         </p>
+
+            <span i18n:translate="label_shipping_address">Shipping Address</span>:
+            <p tal:content="order/customer_shipping_address" />
+
       
         <p>
             <tal:block condition="order/customer_newsletter">
@@ -60,7 +64,7 @@
             <span tal:replace="order/customer_comments" />            
         </p>
 
-    <h2>Ordered Items</h2>
+    <h2 i18n:translate="title_ordered_items">Ordered Items</h2>
 
     <table class="cartListing"
            cellpadding="0"
@@ -87,7 +91,7 @@
 
       <p>
           Total: <b tal:content="order/getTotal">US$ 100.00</b>
-          <span i18n:translate="txt_vat">(inkl. MwSt)</span>
+          <span i18n:translate="txt_vat">(incl. VAT)</span>
       </p>
 
 
