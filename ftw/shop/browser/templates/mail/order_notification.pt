@@ -52,6 +52,10 @@
             <span tal:replace="order/customer_phone"></span>
         </tal:block>
     </p>
+
+    <span i18n:translate="label_shipping_address">Shipping Address</span>:
+    <p tal:content="order/customer_shipping_address" />
+
     <p>
     <tal:block condition="order/customer_newsletter">
         <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           

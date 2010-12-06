@@ -57,7 +57,10 @@
         <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
     </tal:block>
     </p>
-    
+
+    <span i18n:translate="label_shipping_address">Shipping Address</span>:
+    <p tal:content="order/customer_shipping_address" />
+
     <p tal:condition="order/customer_comments">
          <span i18n:translate="label_details_comments">Comments</span>:
          <span tal:replace="order/customer_comments" />
