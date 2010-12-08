@@ -61,9 +61,20 @@ class UnicodeCSVWriter:
             if value is None:
                 row[i] = ''
             else:
-                row[i] = str(value)
+                try:
+                    row[i] = str(value)
+                except UnicodeEncodeError:
+                    row[i] = value
 
-        self.writer.writerow([s.encode("utf-8") for s in row])
+        encoded_row = []
+        for s in row:
+            try:
+                encoded_row.append(s.encode('utf-8'))
+            except UnicodeDecodeError:
+                # Already encoded
+                encoded_row.append(s)
+
+        self.writer.writerow(encoded_row)
         # Fetch UTF-8 output from the queue ...
         data = self.queue.getvalue()
         data = data.decode("utf-8")

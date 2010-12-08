@@ -35,6 +35,7 @@ class OrderManagerView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.request.set('disable_border', True)
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
         self.mhost = IMailHostAdapter(self.context)
@@ -74,12 +75,26 @@ class OrderManagerView(BrowserView):
         # Create union of core_cols + all_cols to retain order
         all_cols = self.order_storage.getFieldNames()
         columns = core_cols + filter(lambda x:x not in core_cols, all_cols)
-
-        csv_writer.writerow(columns)
+        cart_cols = ['sku_code', 'quantity', 'title', 'price', 
+                     'item_total', 'supplier_name', 'supplier_email']
+        csv_writer.writerow(columns + cart_cols)
 
         for order in self.getOrders():
-            values = [getattr(order, attr, '') for attr in columns]
-            csv_writer.writerow(values)
+            order_data = [getattr(order, attr, '') for attr in columns]
+
+            # Get the total via getTotal accessor to convert it to Decimal
+            order_data[columns.index('total')] = order.getTotal()
+
+            for cart_item in order.cartitems:
+                cart_data = [cart_item.sku_code,
+                            cart_item.quantity,
+                            cart_item.title,
+                            cart_item.getPrice(),
+                            cart_item.getTotal(),
+                            cart_item.supplier_name,
+                            cart_item.supplier_email]
+
+                csv_writer.writerow(order_data + cart_data)
 
         RESPONSE = self.request.RESPONSE
         header_value = contentDispositionHeader('attachment',

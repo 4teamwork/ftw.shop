@@ -8,6 +8,13 @@
 <body>
 
 <metal:main fill-slot="main">
+
+        <h1 class="documentFirstHeading" i18n:translate="title_orders">
+        Orders
+        </h1>
+        <br/>
+        <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv">CSV export</a></p>
+
 	<table class="padded-table">
 	<thead>
 		<th>ID</th>
@@ -30,8 +37,10 @@
 			<td tal:content="python: order.date.strftime('%Y-%m-%d %H:%M')"/>
 		</tr>
 	</tbody>
-	
+
 	</table>
+
+	<p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv">CSV export</a></p>
 
 	<h3>Status Legend</h3>
 
