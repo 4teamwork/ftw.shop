@@ -71,6 +71,34 @@ jq(function () {
 		else {
 			// We've got two variations
 			varkey = jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value");
+
+			// Grey out variations that are deactivated
+			var other_select = jq(this).parents("form").find("select").not(jq(this));
+			if (other_select.attr("name") === "var1choice") {
+				var varkey_right_part = jq(this).attr("value");
+				other_select.find('option').each(function () {
+					option_vkey = jq(this).attr("value") + "-" + varkey_right_part;
+					if (varDicts[uid][option_vkey]['active'] === false) {
+						jq(this).addClass("greyed-out");
+					}
+					else {
+						jq(this).removeClass("greyed-out");
+					}
+				})
+
+			}
+			else {
+				var varkey_left_part = jq(this).attr("value");
+				other_select.find('option').each(function () {
+					option_vkey =  varkey_left_part + "-" + jq(this).attr("value");
+					if (varDicts[uid][option_vkey]['active'] === false) {
+						jq(this).addClass("greyed-out");
+					}
+					else {
+						jq(this).removeClass("greyed-out");
+					}
+				})
+			}
 		}
 
 		jq(this).parents(".variation-toplevel-group").find("table.itemDataTable tr").hide();

@@ -3,7 +3,6 @@
     margin-left: 2em;
 }
 
-
 .shopItem {
     border: 1px solid #E5E5E5; 
     margin-bottom: 1em;
@@ -124,5 +123,7 @@ table.padded-table td, table.padded-table th {
 	padding-right: 10px
 }
 
-
+.greyed-out {
+	color: grey !important;
+}
 
