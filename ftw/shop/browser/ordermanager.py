@@ -35,6 +35,7 @@ class OrderManagerView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.template = ViewPageTemplateFile('templates/order_manager.pt')
         self.request.set('disable_border', True)
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
@@ -43,7 +44,13 @@ class OrderManagerView(BrowserView):
                                         name=self.shop_config.order_storage)
         super(OrderManagerView, self).__init__(context, request)
 
-    __call__ = ViewPageTemplateFile('templates/order_manager.pt')
+
+    def __call__(self):
+        self.from_date = self.request.get('from_date')
+        self.to_date = self.request.get('to_date')
+        self.order_results = self.getOrders(self.from_date, self.to_date)
+        return self.template(self)
+
 
     def download_csv(self):
         """Returns a CSV file containing the shop orders
@@ -79,7 +86,9 @@ class OrderManagerView(BrowserView):
                      'item_total', 'supplier_name', 'supplier_email']
         csv_writer.writerow(columns + cart_cols)
 
-        for order in self.getOrders():
+        self.from_date = self.request.get('from_date')
+        self.to_date = self.request.get('to_date')
+        for order in self.getOrders(self.from_date, self.to_date):
             order_data = [getattr(order, attr, '') for attr in columns]
 
             # Get the total via getTotal accessor to convert it to Decimal
@@ -107,9 +116,16 @@ class OrderManagerView(BrowserView):
         stream.seek(0)
         return stream.read()
 
-    def getOrders(self):
+    def getOrders(self, from_date=None, to_date=None):
+
         order_storage = self.order_storage
-        orders = order_storage.getAllOrders()
+        all_orders = order_storage.getAllOrders()
+        if from_date and to_date:
+            from_date = from_date.asdatetime()
+            to_date = to_date.asdatetime()
+            orders = [o for o in all_orders if from_date.date() <= o.date.date() and to_date.date() >= o.date.date() ]
+        else:
+            orders = all_orders
         return orders
 
     def getOrder(self, order_id):
