@@ -39,7 +39,8 @@
                                          <form tal:condition="varConf/isValid" tal:attributes="action string:${item/url}/addtocart">
                                              <input type="hidden" name="skuCode" tal:attributes="value skuCode"/>
                                              <input type="text" size="2" name="quantity:int" value="1"/>
-                                             <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
+                                             <input class="allowMultiSubmit" name="addtocart" type="submit" 
+                                                    value="Add to cart" i18n:attributes="value" />
                                          </form>
                                      </td>
                                  </tr>

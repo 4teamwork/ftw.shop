@@ -49,7 +49,7 @@
                             <label>Menge</label>
                             <input name="quantity:int" type="text" value="1" size="2" />
 
-                            <input name="addtocart" class="compact" 
+                            <input name="addtocart" class="compact allowMultiSubmit" 
                                    type="submit" value="Add to cart" i18n:attributes="value"/>
                         </span>
 
