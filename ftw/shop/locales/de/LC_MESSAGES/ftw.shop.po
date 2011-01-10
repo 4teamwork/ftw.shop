@@ -624,7 +624,6 @@ msgstr ""
 
 #. Default: "Order submitted"
 #: ./ftw/shop/browser/templates/thankyou.pt:11
-#, fuzzy
 msgid "msg_thank_you_message"
 msgstr "Die Bestellung wurde übermittelt."
 
