@@ -1,100 +1,98 @@
-			<!-- One Variation Attribute -->
+            <!-- One Variation Attribute -->
              <tal:block tal:define="item options/item;
-             						varConf item/varConf;
-             						normalizeString nocall: context/@@plone/normalizeString"
-             			i18n:domain="ftw.shop">
-		            <div class="variation-toplevel-group"
-		                 tal:condition="python:item['hasVariations'] and len(varConf.getVariationAttributes()) == 1" 
-					     tal:define="varConf item/varConf">
-						<form tal:attributes="action string:${item/url}/addtocart">
+                                    varConf item/varConf;
+                                    normalizeString nocall: context/@@plone/normalizeString"
+                        i18n:domain="ftw.shop">
 
-								<table class="variationSelection">
-								    <tr>
-								        
-								    <td>
-    									<label for="var1choice" tal:content="python:varConf.getVariationAttributes()[0]">
-    									    Farbe
-    									</label>
-									</td>
+                    <div class="variation-toplevel-group"
+                         tal:condition="python:item['hasVariations'] and len(varConf.getVariationAttributes()) == 1" 
+                         tal:define="varConf item/varConf">
 
-	                                <td class="variationPriceLabel" style="display:none;">
-										<label i18n:translate="label_price">Price</label>
-	                                </td>
+                    <form tal:attributes="action string:${item/url}/addtocart">
 
-	                                <td class="variationSKUCodeLabel" style="display:none;">
-										<label i18n:translate="label_sku_code">SKU code</label>
-	                                </td>
+                        <!-- Variation selection -->
+                        <table class="variationSelection">
+                            <tr>
+                                <td>
+                                    <label for="var1choice" tal:content="python:varConf.getVariationAttributes()[0]">
+                                    Farbe
+                                    </label>
+                                </td>
 
-									<td>
-									    <label for="quantity">Menge</label>
-									</td>
+                                <td class="variationPriceLabel" style="display:none;">
+                                    <label i18n:translate="label_price">Price</label>
+                                </td>
 
-									<td>
-								    </td>
+                                <td class="variationSKUCodeLabel" style="display:none;">
+                                    <label i18n:translate="label_sku_code">SKU code</label>
+                                </td>
+                            </tr>
 
-									</tr>
-									
-									<tr class="variationSelection">
-									    <td>
-        									<select name="var1choice">
-        										<option tal:repeat="varValue1 varConf/getVariation1Values"
-        											tal:content="varValue1" 
-        											tal:attributes="value python:normalizeString(varValue1)">
-        											Blau
-        										</option>
-        									</select>
-									    </td>
+                            <tr class="variationSelection">
+                                <td>
+                                    <select name="var1choice">
+                                        <option tal:repeat="varValue1 varConf/getVariation1Values"
+                                        tal:content="varValue1" 
+                                        tal:attributes="value python:normalizeString(varValue1)">
+                                        Blau
+                                        </option>
+                                    </select>
+                                </td>
 
-			                            <td class="variationPrice" style="display:none;"></td>
-			                            <td class="variationSKUCode" style="display:none;"></td>
+                                <td class="variationPrice" style="display:none;"></td>
+                                <td class="variationSKUCode" style="display:none;"></td>
+                            </tr>
+                        </table>
 
-									    <td>
-									        <input name="quantity:int" type="text" value="1" size="2" />
-									    </td>
+                        <!-- Add to cart button and quantity-->
+                        <span style="float: right" tal:condition="varConf/isValid">
+                            <label>Menge</label>
+                            <input name="quantity:int" type="text" value="1" size="2" />
 
-									    <td>
-									        <input tal:condition="varConf/isValid"
-        										   name="addtocart" class="compact" 
-        										   type="submit" value="Add to cart" i18n:attributes="value"/>
-									    </td>
-									</tr>
+                            <input name="addtocart" class="compact" 
+                                   type="submit" value="Add to cart" i18n:attributes="value"/>
+                        </span>
 
-								</table>
 
-                                <dl class="portalMessage warning"
-                                    tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
-                                            <dt>Not buyable</dt>
-                                            <dd><a href="" i18n:name="edit_variations"
-                                                   i18n:translate="label_edit_variations"
-                                                   tal:attributes="href string:${item/url}/edit_variations">
-                                                   Edit variations</a></dd>
-                                </dl>
+                        <!-- Warning if variations not configured -->
+                        <dl class="portalMessage warning"
+                            tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
+                            <dt>Not buyable</dt>
+                            <dd>
+                                <a href="" i18n:name="edit_variations"
+                                   i18n:translate="label_edit_variations"
+                                   tal:attributes="href string:${item/url}/edit_variations">
+                                   Edit variations</a>
+                            </dd>
+                        </dl>
 
-                                <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />
-						</form>
-		                 
-		                 <table tal:condition="varConf/isValid" 
-		                        class="itemDataTable"
-		                        tal:define="varDict varConf/getVariationDict">
-			                 <thead>
-				                 <th>Variation</th>
-		                         <th i18n:translate="label_price">Price</th>
-		                         <th i18n:translate="label_sku_code">SKU code</th>
-		                         <th i18n:translate="label_description">Description</th>
-			                 </thead>
-			                 <tbody>
-			                 <tal:variations tal:repeat="vkey varDict">
-				                 <tr tal:attributes="id vkey" tal:condition="python: varDict[vkey]['active']">
-				                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
-				                 <td tal:content="python: varDict[vkey]['price']"></td>
-				                 <td tal:content="python: varDict[vkey]['skuCode']"></td>
-				                 <td><span tal:condition="python: 'description' in varDict[vkey].keys()" tal:content="python: varDict[vkey]['description']"/></td>
-				                 </tr>
-				             </tal:variations>
-			                 </tbody>
-		                 </table>
+                        <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />
+                    </form>
 
-		                 <span class="variationDescription" style="display:none;"></span>
+                    <!-- Description Table -->
+                     <table tal:condition="varConf/isValid" 
+                            class="itemDataTable"
+                            tal:define="varDict varConf/getVariationDict">
+                         <thead>
+                             <th>Variation</th>
+                             <th i18n:translate="label_price">Price</th>
+                             <th i18n:translate="label_sku_code">SKU code</th>
+                             <th i18n:translate="label_description">Description</th>
+                         </thead>
+                         <tbody>
+                         <tal:variations tal:repeat="vkey varDict">
+                             <tr tal:attributes="id vkey" tal:condition="python: varDict[vkey]['active']">
+                                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
+                                 <td tal:content="python: varDict[vkey]['price']"></td>
+                                 <td tal:content="python: varDict[vkey]['skuCode']"></td>
+                                 <td><span tal:condition="python: 'description' in varDict[vkey].keys()"
+                                           tal:content="python: varDict[vkey]['description']"/></td>
+                             </tr>
+                         </tal:variations>
+                         </tbody>
+                     </table>
 
-		             </div>
+                     <span class="variationDescription" style="display:none;"></span><br/><br/>
+
+                     </div>
              </tal:block>

@@ -82,14 +82,6 @@ class ShopItemView(BrowserView):
         variation_config = IVariationConfig(context)
         return variation_config
 
-
-class ShopCompactItemView(ShopItemView):
-    """Compact view for a shop item
-    """
-
-    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
-    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
-
     def getVarDictsJSON(self):
         """Returns a JSON serialized dict with UID:varDict pairs, where UID
         is the ShopItem's UID and varDict is the item's variation dict.
@@ -117,6 +109,14 @@ class ShopCompactItemView(ShopItemView):
                         i[k] = val
 
         return simplejson.dumps(varDicts)
+
+
+class ShopCompactItemView(ShopItemView):
+    """Compact view for a shop item
+    """
+
+    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
+    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
 
 
 class EditVariationsView(BrowserView):

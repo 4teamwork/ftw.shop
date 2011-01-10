@@ -1,7 +1,7 @@
              <!-- One Variation -->
              <tal:block tal:define="item options/item;
-             						varConf item/varConf"
-             			i18n:domain="ftw.shop">
+                                    varConf item/varConf"
+                        i18n:domain="ftw.shop">
                  <div class="variation-toplevel-group"
                         tal:condition="python:len(varConf.getVariationAttributes()) == 1">
                      <table>
@@ -25,7 +25,7 @@
                                      <td><span tal:content="price"/></td>
                                      <td><span tal:content="skuCode"/></td>
                                      <td><span tal:content="description"/></td>
-                                     <td>
+                                     <td style="white-space: nowrap;">
 
                                          <dl class="portalMessage warning"
                                              tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
