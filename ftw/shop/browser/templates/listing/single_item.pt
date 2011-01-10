@@ -4,11 +4,11 @@
                 <table class="shopItemTable">
                     <tr>
                         <th i18n:translate="label_sku_code">SKU code</th>
-                        <th colspan="2" i18n:translate="label_price">Price</th>
+                        <th tal:condition="python: item['price'] != '0.00'" colspan="2" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
                         <td tal:content="item/skuCode" />
-                        <td tal:content="item/price" />
+                        <td tal:condition="python: item['price'] != '0.00'" tal:content="item/price" />
                         <td>
                             <form tal:attributes="action string:${item/url}/addtocart">
                                 <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>

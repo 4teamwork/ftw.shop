@@ -135,3 +135,9 @@ class VariationConfig(object):
             return False
         else:
             return True
+    
+    def allPricesZero(self):
+        return all([p == '0.0' for p in [self.getVariationDict()[k].get('price', '0.0') 
+                                        for k in self.getVariationDict().keys()]])
+        
+    
