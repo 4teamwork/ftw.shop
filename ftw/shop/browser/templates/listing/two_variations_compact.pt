@@ -49,7 +49,7 @@
                                     </select>
                                 </td>
 
-                                <td class="variationPrice" style="display:none;" tal:condition="python: varConf.allPriceZero() == False"></td>
+                                <td class="variationPrice" style="display:none;" tal:condition="python: varConf.allPricesZero() == False"></td>
                                 <td class="variationSKUCode" style="display:none;"></td>
 
                             </tr>

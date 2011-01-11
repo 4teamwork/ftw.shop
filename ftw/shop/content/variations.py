@@ -1,4 +1,5 @@
 from decimal import Decimal
+from decimal import InvalidOperation
 
 from persistent.mapping import PersistentMapping
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -135,9 +136,14 @@ class VariationConfig(object):
             return False
         else:
             return True
-    
+
     def allPricesZero(self):
-        return all([p == '0.0' for p in [self.getVariationDict()[k].get('price', '0.0') 
-                                        for k in self.getVariationDict().keys()]])
-        
+        var_dict = self.getVariationDict()
+        try:
+            prices = [Decimal(var_dict[k].get('price', '0.0'))
+                            for k in var_dict]
+            return all([p == Decimal('0.0') for p in prices])
+        except InvalidOperation:
+            return False
+
     
