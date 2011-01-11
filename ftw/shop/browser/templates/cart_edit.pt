@@ -46,8 +46,13 @@
                       <td><input type="text" size="5"
                                  tal:attributes="value item/quantity;
                                                  name string:quantity_${skuCode}" /></td>
-                      <td tal:condition="python: not cview.all_prices_zero()" tal:content="item/price"></td>
-                      <td tal:condition="python: not cview.all_prices_zero()" tal:content="item/total"></td>
+
+                      <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
+                      <td tal:condition="python: not cview.all_prices_zero()"
+                          tal:content="python:item['price'].replace('0.00', '').replace('0.0', '')"></td>
+                      <td tal:condition="python: not cview.all_prices_zero()"
+                          tal:content="python:item['total'].replace('0.00', '').replace('0.0', '')"></td>
+
                       <td>
                           <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
@@ -58,7 +63,11 @@
                   </metal:block>
                 </tbody>
               </table>
-              <div><p tal:condition="python: not cview.all_prices_zero()">Total: <b tal:content="cview/cart_total">US$ 100.00</b></p></div>
+              <div>
+                  <p tal:condition="python: not cview.all_prices_zero()">
+                      Total: <b tal:content="cview/cart_total">US$ 100.00</b>
+                  </p>
+              </div>
               <div>
                 <input class="context"
                        type="submit"
