@@ -9,14 +9,18 @@
                     <tr>
                         <td tal:content="item/skuCode" />
                         <td tal:condition="python: item['price'] != '0.00'" tal:content="item/price" />
-                        <td>
-                            <form tal:attributes="action string:${item/url}/addtocart">
-                                <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
-                                <input type="text" size="2" name="quantity:int" value="1"/>
-                                <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
-                            </form>
-                        </td>
+
                     </tr>
                 </table>
+
+                <form tal:attributes="action string:${item/url}/addtocart">
+                    <span style="float: right">
+                        <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
+                        <label>Menge</label>
+                        <input type="text" size="2" name="quantity:int" value="1"/>
+                        <input name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
+                    </span>
+                </form>
+                <br/><br/>
             </div>
             </tal:block>

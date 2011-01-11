@@ -9,7 +9,7 @@
                         <thead>
                             <tr>
                                 <th tal:content="python: varConf.getVariationAttributes()[1]">Size</th>
-                                <th i18n:translate="label_price" tal:condition="python: varConf.allPricesZero == False">Price</th>
+                                <th i18n:translate="label_price" tal:condition="python: not varConf.allPricesZero()">Price</th>
                                 <th i18n:translate="label_sku_code">SKU code</th>
                             </tr>
                         </thead>
@@ -22,7 +22,7 @@
                                              hasUniqueSKU python:varConf.getVariationData(varValue1, varValue2, 'hasUniqueSKU')"
                                     tal:condition="active">
                                     <td tal:content="varValue2">S</td>
-                                    <td tal:condition="varConf/allPricesZero"><span tal:content="price"/></td>
+                                    <td tal:condition="python: not varConf.allPricesZero()"><span tal:content="price"/></td>
                                     <td><span tal:content="skuCode"/></td>
                                     <td><span tal:content="description"/></td>
                                     <td style="white-space: nowrap;">

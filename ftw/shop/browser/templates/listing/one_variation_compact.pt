@@ -18,7 +18,7 @@
                                     Farbe
                                     </label>
                                 </td>
-                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero">
+                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero()">
                                     <label i18n:translate="label_price">Price</label>
                                 </td>
 
