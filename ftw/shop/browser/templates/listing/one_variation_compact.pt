@@ -11,14 +11,14 @@
                     <form tal:attributes="action string:${item/url}/addtocart">
 
                         <!-- Variation selection -->
-                        <table class="variationSelection" tal:define="price python: varConf.getVariationDict()[varConf.getVariation1Values()[0].lower()]['price']">
+                        <table class="variationSelection">
                             <tr tal:define="test python:varConf.getVariationAttributes()[0]">
                                 <td>
                                     <label for="var1choice" tal:content="test">
                                     Farbe
                                     </label>
                                 </td>
-                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: varConf.allPricesZero == False">
+                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero">
                                     <label i18n:translate="label_price">Price</label>
                                 </td>
 
@@ -38,7 +38,7 @@
                                     </select>
                                 </td>
 
-                                <td class="variationPrice" style="display:none;" tal:condition="python: varConf.allPricesZero()"></td>
+                                <td class="variationPrice" style="display:none;" tal:condition="python: not varConf.allPricesZero()"></td>
                                 <td class="variationSKUCode" style="display:none;"></td>
                             </tr>
                         </table>
