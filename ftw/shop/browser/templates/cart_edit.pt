@@ -27,8 +27,8 @@
                     <th i18n:translate="cart_header_product">Product</th>
                     <th i18n:translate="cart_header_description">Description</th>
                     <th i18n:translate="cart_header_quantity">Quantity</th>
-                    <th i18n:translate="cart_header_price">Price</th>
-                    <th i18n:translate="cart_header_total">Total</th>
+                    <th i18n:translate="cart_header_price" tal:condition="python: not cview.all_prices_zero()">Price</th>
+                    <th tal:condition="python: not cview.all_prices_zero()" i18n:translate="cart_header_total">Total</th>
                     <th i18n:translate="cart_header_delete">Delete</th>
                   </tr>
                 </thead>
@@ -46,8 +46,8 @@
                       <td><input type="text" size="5"
                                  tal:attributes="value item/quantity;
                                                  name string:quantity_${skuCode}" /></td>
-                      <td tal:content="item/price"></td>
-                      <td tal:content="item/total"></td>
+                      <td tal:condition="python: not cview.all_prices_zero()" tal:content="item/price"></td>
+                      <td tal:condition="python: not cview.all_prices_zero()" tal:content="item/total"></td>
                       <td>
                           <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
@@ -58,7 +58,7 @@
                   </metal:block>
                 </tbody>
               </table>
-              <div><p>Total: <b tal:content="cview/cart_total">US$ 100.00</b></p></div>
+              <div><p tal:condition="python: not cview.all_prices_zero()">Total: <b tal:content="cview/cart_total">US$ 100.00</b></p></div>
               <div>
                 <input class="context"
                        type="submit"

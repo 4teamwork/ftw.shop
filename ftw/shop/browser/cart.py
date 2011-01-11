@@ -184,6 +184,15 @@ class CartView(BrowserView):
         items = session.get(CART_KEY, {})
         return items
 
+    def all_prices_zero(self):
+        items = self.cart_items()
+        try:
+            prices = [Decimal(items[k].get('price', '0.0'))
+                            for k in items]
+            return all([p == Decimal('0.0') for p in prices])
+        except InvalidOperation:
+            return False
+
     def cart_total(self):
         """Return the cart's total as a string
         """
