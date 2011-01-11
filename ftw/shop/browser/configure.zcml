@@ -195,4 +195,9 @@
     file="resources/shop_config.js"
     />
 
+  <browser:resource
+    name="contactform_prefill.js"
+    file="resources/contactform_prefill.js"
+    />
+
 </configure>

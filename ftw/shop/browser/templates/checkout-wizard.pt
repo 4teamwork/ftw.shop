@@ -52,4 +52,5 @@
       </form>
 
   </tal:form>
+  <script type="text/javascript" src="++resource++contactform_prefill.js"></script>
 </div>
