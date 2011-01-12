@@ -16,11 +16,16 @@ from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
 from zope.component import getUtility
 
-from ftw.shop.config import SESSION_ADDRESS_KEY, COOKIE_ADDRESS_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
+from ftw.shop.config import COOKIE_ADDRESS_KEY
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IDefaultContactInformation
 from ftw.shop.interfaces import IContactInformationStep
 from ftw.shop.interfaces import IContactInformationStepGroup
+from ftw.shop.interfaces import IShippingAddress
+from ftw.shop.interfaces import IShippingAddressStep
+from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
@@ -115,6 +120,58 @@ class DefaultContactInfoStepGroup(BaseStepGroup):
     steps = (DefaultContactInfoStep, )
 
 
+class DefaultShippingAddressStep(wizard.Step):
+    implements(IShippingAddressStep)
+    prefix = 'shipping_address'
+    label = _(u"label_default_shipping_address_step",
+              default="Shipping Address")
+    title = _(u"title_default_shipping_address_step",
+              default="Default Shipping Address")
+    description = _(u'help_default_shipping_address_step', default=u"")
+    prefill_fields = [
+        'title',
+        'firstname',
+        'lastname',
+        'street1',
+        'street2',
+        'zipcode',
+        'city']
+    fields = field.Fields(IShippingAddress) + \
+    field.Fields(IDefaultContactInformation).select(
+        'title',
+        'firstname',
+        'lastname',
+        'street1',
+        'street2',
+        'zipcode',
+        'city')
+
+    def __init__(self, context, request, wiz):
+        super(wizard.Step, self).__init__(context, request)
+        self.wizard = wiz
+
+    def updateWidgets(self):
+        super(DefaultShippingAddressStep, self).updateWidgets()
+        if 'contact_information' in self.wizard.session and \
+            (not 'shipping_address' in self.wizard.session \
+            or self.wizard.session['shipping_address'] == {}):
+            # Prefill shipping address with data from contact_info (prev step)
+            contact_info = self.wizard.session['contact_information']
+            for fieldname in self.prefill_fields:
+                try:
+                    self.widgets[fieldname].value = contact_info[fieldname]
+                except KeyError:
+                    pass
+
+
+class DefaultShippingAddressStepGroup(BaseStepGroup):
+    implements(IShippingAddressStepGroup)
+    adapts(Interface, Interface, Interface)
+    title = _(u"title_default_shipping_address_step_group",
+              default="Default Shipping Address")
+    steps = (DefaultShippingAddressStep, )
+
+
 class DefaultPaymentProcessorChoiceStep(wizard.Step):
     implements(IPaymentProcessorChoiceStep)
     prefix = 'payment_processor_choice'
@@ -201,9 +258,13 @@ class CheckoutWizard(wizard.Wizard):
     @property
     def steps(self):
         contact_info_steps = ()
+        shipping_address_steps = ()
         contact_info_step_groups = getAdapters(
                                         (self.context, self.request, self),
                                         IContactInformationStepGroup)
+        shipping_address_step_groups = getAdapters(
+                                        (self.context, self.request, self),
+                                        IShippingAddressStepGroup)
         payment_processor_step_groups = getAdapters(
                                         (self.context, self.request, self),
                                         IPaymentProcessorStepGroup)
@@ -219,6 +280,12 @@ class CheckoutWizard(wizard.Wizard):
             if name == selected_contact_info_step_group:
                 contact_info_steps = step_group_adapter.steps
 
+        # Get steps for selected Shipping Address Step Group
+        selected_shipping_address_step_group = shop_config.shipping_address_step_group
+        for name, step_group_adapter in shipping_address_step_groups:
+            if name == selected_shipping_address_step_group:
+                shipping_address_steps = step_group_adapter.steps
+
         # Get steps for selected Payment Processor Step Group
         selected_pp_step_group = shop_config.payment_processor_step_group
         for name, step_group_adapter in payment_processor_step_groups:
@@ -232,6 +299,7 @@ class CheckoutWizard(wizard.Wizard):
                 order_review_steps = step_group_adapter.steps
 
         return contact_info_steps + \
+               shipping_address_steps + \
                payment_processor_steps + \
                order_review_steps
 
@@ -296,6 +364,10 @@ class CheckoutWizard(wizard.Wizard):
         self.request.SESSION[SESSION_ADDRESS_KEY] = {}
         self.request.SESSION[SESSION_ADDRESS_KEY].update(
                                         self.session['contact_information'])
+
+        self.request.SESSION[SESSION_SHIPPING_KEY] = {}
+        self.request.SESSION[SESSION_SHIPPING_KEY].update(
+                                        self.session['shipping_address'])
         self.request.SESSION['order_confirmation'] = True
         self.request.SESSION['payment_processor_choice'] = {}
         if 'payment_processor_choice' in self.session.keys():

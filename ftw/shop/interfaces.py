@@ -99,6 +99,18 @@ class IContactInformationStep(IWizardStep):
     """
 
 
+class IShippingAddressStepGroup(IWizardStepGroup):
+    """A wizard step group gathering contact information about the
+    preferred shipping address.
+    """
+
+
+class IShippingAddressStep(IWizardStep):
+    """A wizard step gathering contact information about the preferred
+    shipping address.
+    """
+
+
 class IPaymentProcessorChoiceStep(IWizardStep):
     """A wizard step asking to choose a payment processor
     """
@@ -205,6 +217,13 @@ class IShopConfiguration(Interface):
             default=u"ftw.shop.DefaultContactInformationStepGroup",
             required=True)
 
+    shipping_address_step_group = schema.Choice(
+            title=_(u"label_shipping_address_step_group",
+                    default="Shipping Address Step Group"),
+            vocabulary="ftw.shop.shipping_address_step_groups",
+            default=u"ftw.shop.DefaultShippingAddressStepGroup",
+            required=True)
+
     order_review_step_group = schema.Choice(
             title=_(u"label_order_review_step_group",
                     default="Order Review Step Group"),
@@ -255,10 +274,6 @@ class IDefaultContactInformation(Interface):
     country = schema.TextLine(
             title=_(u'label_country', default=u'Country'),
             required=True)
-    
-    shipping_address = schema.Text(
-            title=_(u'label_shipping_address_optional', default=u'Shipping address (optional)'),
-            required=False)
 
     newsletter = schema.Bool(
             title=_(u'label_newsletter', default=u'Newsletter'),
@@ -271,6 +286,14 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_comments', default=u'Comments'),
             required=False)
 
+
+class IShippingAddress(Interface):
+    """Schema defining a form for entering a shipping address
+    """
+
+    used = schema.Bool(
+            title=_(u'label_used', default=u'Different from invoice address'),
+            required=False)
 
 class IFtwShopSpecific(IDefaultPloneLayer):
     """Marker interface for a zope 3 browser layer.

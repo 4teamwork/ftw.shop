@@ -57,12 +57,10 @@
                         <dl class="portalMessage warning"
                             tal:condition="not: varConf/isValid" i18n:translate="msg_not_buyable">
                             <dt>Not buyable</dt>
-                            <dd>
-                                <a href="" i18n:name="edit_variations"
+                            <dd><a href="" i18n:name="edit_variations"
                                    i18n:translate="label_edit_variations"
                                    tal:attributes="href string:${item/url}/edit_variations">
-                                   Edit variations</a>
-                            </dd>
+                                   Edit variations</a></dd>
                         </dl>
 
                         <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />

@@ -31,6 +31,7 @@ class CheckoutGroup(group.Group):
         'payment_processor_step_group',
         'enabled_payment_processors',
         'contact_info_step_group',
+        'shipping_address_step_group',
         'order_review_step_group')
 
 
@@ -46,6 +47,7 @@ class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
                                                    'payment_processor_step_group',
                                                    'enabled_payment_processors',
                                                    'contact_info_step_group',
+                                                   'shipping_address_step_group',
                                                    'order_review_step_group')
     groups = (MailGroup, CheckoutGroup)
     label = _(u'label_shop_configuration', default=u"Shop configuration")

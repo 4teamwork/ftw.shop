@@ -53,9 +53,6 @@
         </tal:block>
     </p>
 
-    <span i18n:translate="label_shipping_address">Shipping Address</span>:
-    <p tal:content="order/customer_shipping_address" />
-
     <p>
     <tal:block condition="order/customer_newsletter">
         <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
@@ -66,7 +63,26 @@
          <span i18n:translate="label_details_comments">Comments</span>:
          <span tal:replace="order/customer_comments" />
     </p>
-    
+
+
+<h4 i18n:translate="title_shipping_address">Shipping Address</h4>
+
+    <p>
+        <span tal:replace="order/shipping_title" /><br />
+
+        <span tal:replace="order/shipping_firstname" />
+        <span tal:replace="order/shipping_lastname" /><br />
+
+        <span tal:replace="order/shipping_street1" /><br />
+
+        <tal:block condition="order/shipping_street2">
+            <span tal:replace="order/shipping_street2" /><br />
+        </tal:block>
+
+        <span tal:replace="order/shipping_zipcode" />
+        <span tal:replace="order/shipping_city" />
+    </p>
+
 <h4 i18n:translate="header_ordereditems">Ordered items</h4>
 
 <table border="1" cellspacing="0" cellpadding="2">

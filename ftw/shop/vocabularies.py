@@ -6,6 +6,7 @@ from zope.interface import directlyProvides
 from plone.registry.interfaces import IRegistry
 
 from ftw.shop.interfaces import IContactInformationStepGroup
+from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IOrderStorage
@@ -45,6 +46,19 @@ def ContactInfoStepGroups(context):
     terms = create_terms_from_adapters(contact_info_step_groups)
 
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+
+def ShippingAddressStepGroups(context):
+    """Returns a vocabulary of the registered StepGroups for the
+    shipping address StepGroup
+    """
+    # context is the portal config options, whose context is the portal
+    shipping_address_step_groups = getAdapters((context, None, context),
+                                     IShippingAddressStepGroup)
+    terms = create_terms_from_adapters(shipping_address_step_groups)
+
+    directlyProvides(ShippingAddressStepGroups, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
 
 

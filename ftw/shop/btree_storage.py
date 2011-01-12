@@ -44,6 +44,14 @@ class Order(object):
         self.customer_newsletter = None
         self.customer_comments = None
 
+        self.shipping_title = None
+        self.shipping_firstname = None
+        self.shipping_lastname = None
+        self.shipping_street1 = None
+        self.shipping_street2 = None
+        self.shipping_zipcode = None
+        self.shipping_city = None
+
         self.cartitems = None
 
     def getTotal(self):
@@ -112,7 +120,7 @@ class BTreeOrderStorage(Persistent):
     security.declareProtected(ModifyPortalContent, 'createOrder')
 
     def createOrder(self, status=None, date=None, customer_data=None,
-                    cart_data=None, total=None):
+                    shipping_data=None, cart_data=None, total=None):
         """ a wrapper for the _addDataRow method """
 
         new_order = Order()
@@ -131,6 +139,9 @@ class BTreeOrderStorage(Persistent):
 
         for key in customer_data.keys():
             setattr(new_order, "customer_%s" % key, customer_data[key])
+
+        for key in shipping_data.keys():
+            setattr(new_order, "shipping_%s" % key, shipping_data[key])
 
         # store cart in order
         all_cart_items = []

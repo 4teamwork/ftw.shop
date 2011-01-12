@@ -1,4 +1,5 @@
 from decimal import Decimal
+from decimal import InvalidOperation
 import simplejson
 
 from Acquisition import aq_inner, aq_parent
@@ -10,6 +11,7 @@ from zope.component import getAdapters, getMultiAdapter
 from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
+from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IVariationConfig
@@ -311,10 +313,14 @@ class CartView(BrowserView):
         omanager = getMultiAdapter((get_shop_root_object(context), self.request),
                                    name=u'order_manager')
 
+
         # Check we got all the data we need from the wizard
         try:
             order_id = omanager.addOrder()
         except MissingCustomerInformation:
+            self.request.response.redirect('%s/checkout-wizard' % url)
+            return
+        except MissingShippingAddress:
             self.request.response.redirect('%s/checkout-wizard' % url)
             return
         except MissingOrderConfirmation:

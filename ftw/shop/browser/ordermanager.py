@@ -14,9 +14,11 @@ from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 
-
-from ftw.shop.config import SESSION_ADDRESS_KEY, ONLINE_PENDING_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
+from ftw.shop.config import ONLINE_PENDING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
+from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.utils import UnicodeCSVWriter
@@ -152,6 +154,11 @@ class OrderManagerView(BrowserView):
         if not customer_data:
             raise MissingCustomerInformation
 
+        # check for shipping address
+        shipping_data = session.get(SESSION_SHIPPING_KEY, {})
+        if not shipping_data:
+            raise MissingShippingAddress
+
         # check for order confirmation
         if not session.get('order_confirmation', None):
             raise MissingOrderConfirmation
@@ -178,6 +185,7 @@ class OrderManagerView(BrowserView):
         order_id = order_storage.createOrder(status=ONLINE_PENDING_KEY,
                                              date=datetime.now(),
                                              customer_data=customer_data,
+                                             shipping_data=shipping_data,
                                              total=cart_view.cart_total(),
                                              cart_data=cart_data)
         order_storage.flush()

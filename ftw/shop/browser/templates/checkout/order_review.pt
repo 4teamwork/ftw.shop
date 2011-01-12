@@ -15,14 +15,10 @@
           <li tal:content="python:str(customer['zipcode']) + ' ' + customer['city']"></li>
           <li tal:content="customer/country|nothing"></li>
           <li><br/></li>
-          
+
           <li><span i18n:translate="label_email">Email</span>: <span tal:content="customer/email"/></li>
           <li><span i18n:translate="label_phone">Phone</span>: <span tal:content="customer/phone"/></li>
 
-          <li>
-            <span i18n:translate="label_shipping_address">Shipping Address</span>:
-            <p tal:content="customer/shipping_address" />
-          </li>
 
           <li tal:condition="customer/comments"> 
               <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
@@ -31,6 +27,23 @@
           <span i18n:translate="label_no" tal:condition="not:customer/newsletter">No</span></li>
           <li><br/></li>
       </ul>
+
+
+
+
+      <h2 i18n:translate="label_shipping_address">Shipping Address</h2>
+
+      <ul style="list-style:none" tal:define="shipping_address python:view.wizard.session['shipping_address'];">
+          <li tal:content="shipping_address/title"></li>
+          <li tal:content="python:shipping_address['firstname'] + ' ' + shipping_address['lastname'] "></li>
+          <li tal:content="shipping_address/street1"></li>
+          <li tal:content="shipping_address/street2"></li>
+          <li tal:content="python:str(shipping_address['zipcode']) + ' ' + shipping_address['city']"></li>
+          <li tal:content="shipping_address/country|nothing"></li>
+      </ul>
+
+
+
       
       <h2 i18n:translate="label_cart_contents">Cart Contents</h2>
       

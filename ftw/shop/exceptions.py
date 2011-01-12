@@ -5,6 +5,13 @@ class MissingCustomerInformation(Exception):
     pass
 
 
+class MissingShippingAddress(Exception):
+    """Gets raised if trying to add an order when shipping address has
+    not been supplied yet.
+    """
+    pass
+
+
 class MissingOrderConfirmation(Exception):
     """Gets raised if trying to add an order but the customer hasn't confirmed
     the order in the review step yet.

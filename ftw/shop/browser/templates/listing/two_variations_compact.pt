@@ -71,8 +71,7 @@
                             <dd><a href="" i18n:name="edit_variations"
                                    i18n:translate="label_edit_variations"
                                    tal:attributes="href string:${item/url}/edit_variations">
-                                   Edit variations</a>
-                            </dd>
+                                   Edit variations</a></dd>
                         </dl>
 
                         <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />
