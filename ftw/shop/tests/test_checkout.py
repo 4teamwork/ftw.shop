@@ -12,7 +12,7 @@ from ftw.shop.tests.base import MOCK_CUSTOMER
 
 
 class TestCheckout(FtwShopTestCase):
-    
+
     def afterSetUp(self):
         super(TestCheckout, self).afterSetUp()
         self.checkout_view = CheckoutView(self.portal, self.portal.REQUEST)
@@ -26,16 +26,19 @@ class TestCheckout(FtwShopTestCase):
         wizard = self.wizard
         steps = wizard.steps
         default_contact_info_step = steps[0]
-        default_payment_processor_choice_step = steps[1]
-        default_order_review_step = steps[2]
-        
+        default_shipping_address_step = steps[1]
+        default_payment_processor_choice_step = steps[2]
+        default_order_review_step = steps[3]
+
         self.assertEquals(default_contact_info_step.title, 
                           u'title_default_contact_info_step')
+        self.assertEquals(default_shipping_address_step.title, 
+                        u'title_default_shipping_address_step')
         self.assertEquals(default_payment_processor_choice_step.title, 
                           u'title_default_payment_processor_step')
         self.assertEquals(default_order_review_step.title, 
                           u'title_default_order_review_step')
-        
+
     def test_default_contact_info_step(self):
         wizard = self.wizard
         session = self.portal.REQUEST.SESSION
@@ -49,8 +52,8 @@ class TestCheckout(FtwShopTestCase):
         for key in MOCK_CUSTOMER.keys():
             self.assertEquals(step.fields[key].field.default,
                               MOCK_CUSTOMER[key])
-            
-        
+
+
         # Test form prefill from cookie
         cookie_data = base64.b64encode(simplejson.dumps(MOCK_CUSTOMER))
         self.portal.REQUEST[COOKIE_ADDRESS_KEY] = cookie_data

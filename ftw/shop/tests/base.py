@@ -35,6 +35,14 @@ MOCK_CUSTOMER = {'title': u'Mr.',
                  'country': u'Switzerland',
                  'newsletter': False}
 
+MOCK_SHIPPING = {'title': u'Mr.',
+                'firstname': u'Hugo',
+                'lastname': u'Boss',
+                'street1': u'Shippingstreet 42',
+                'street2': u'',
+                'zipcode': u'4242',
+                'city': u'Exampletown'}
+
 MOCK_CART = {'12345': {'quantity':2,
                        'price': '4.15',
                        'title': 'Item Title',

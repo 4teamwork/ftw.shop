@@ -246,6 +246,11 @@ Then we get asked our contact information, so we fill it in:
 
     >>> browser.getControl('Next').click()
 
+In the next step we're asked if we want to provide an alternative
+shipping address. For now, we'll just skip that step.
+
+    >>> browser.getControl('Next').click()
+
 In the next step we're asked to select a payment processor. By default, only
 payment by invoice ('Gegen Rechnung') is enabled.
 

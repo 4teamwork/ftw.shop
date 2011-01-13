@@ -6,6 +6,7 @@ from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 
 from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.tests.base import FtwShopTestCase
 
 
@@ -150,6 +151,9 @@ class TestCart(FtwShopTestCase):
         customer_info = {'title': 'Mr.',
                          'firstname': "Hugo",
                          'lastname': "Boss"}
+        shipping_info = {'title': 'Mr.',
+                         'firstname': "Hugo",
+                         'lastname': "Boss"}
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         
         # Test checkout with empty cart 
@@ -172,6 +176,7 @@ class TestCart(FtwShopTestCase):
                                    name=u'order_manager')
 
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
+        self.portal.REQUEST.SESSION[SESSION_SHIPPING_KEY] = shipping_info
         self.portal.REQUEST.SESSION['order_confirmation'] = True
         self.portal.REQUEST.SESSION['payment_processor_choice'] = pp_choice
         cart.checkout()

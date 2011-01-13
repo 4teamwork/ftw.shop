@@ -10,7 +10,9 @@ from ftw.shop.interfaces import IOrderStorage
 
 from ftw.shop.tests.base import FtwShopTestCase
 
-from ftw.shop.tests.base import MOCK_CUSTOMER, MOCK_CART
+from ftw.shop.tests.base import MOCK_CUSTOMER
+from ftw.shop.tests.base import MOCK_SHIPPING
+from ftw.shop.tests.base import MOCK_CART
 
 class TestBTreeStorage(FtwShopTestCase):
     
@@ -24,6 +26,7 @@ class TestBTreeStorage(FtwShopTestCase):
         order_id = btree_order_storage.createOrder(status=ONLINE_PENDING_KEY, 
                                                  date=now,
                                                  customer_data=MOCK_CUSTOMER,
+                                                 shipping_data=MOCK_SHIPPING,
                                                  cart_data=MOCK_CART,
                                                  total='8.30')
         self.assertEquals(order_id, 1)
@@ -62,26 +65,33 @@ class TestBTreeStorage(FtwShopTestCase):
     def test_get_field_names(self):
         btree_order_storage = getUtility(IOrderStorage, 'ftw.shop.BTreeOrderStorage')
         expected_field_names = ['customer_city',
-                                'customer_comments',
-                                'customer_country',
-                                'customer_email',
-                                'customer_firstname',
-                                'customer_lastname',
-                                'customer_newsletter',
-                                'customer_phone',
-                                'customer_shipping_address',
-                                'customer_street1',
-                                'customer_street2',
-                                'customer_title',
-                                'customer_zipcode',
-                                'date',
-                                'order_id',
-                                'status',
-                                'title',
-                                'total'] 
+                                 'customer_comments',
+                                 'customer_country',
+                                 'customer_email',
+                                 'customer_firstname',
+                                 'customer_lastname',
+                                 'customer_newsletter',
+                                 'customer_phone',
+                                 'customer_shipping_address',
+                                 'customer_street1',
+                                 'customer_street2',
+                                 'customer_title',
+                                 'customer_zipcode',
+                                 'date',
+                                 'order_id',
+                                 'shipping_city',
+                                 'shipping_firstname',
+                                 'shipping_lastname',
+                                 'shipping_street1',
+                                 'shipping_street2',
+                                 'shipping_title',
+                                 'shipping_zipcode',
+                                 'status',
+                                 'title',
+                                 'total']
         field_names = btree_order_storage.getFieldNames()
         self.assertEquals(field_names, expected_field_names)
-        
+
 
 
 def test_suite():
