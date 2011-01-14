@@ -1,7 +1,7 @@
 """Definition of the Shop Category content type
 """
 
-from Acquisition import aq_parent
+from Acquisition import aq_parent, aq_inner
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
@@ -23,20 +23,13 @@ class ShopCategory(Categorizeable, ATFolder):
         """Returns a fully qualified title for the category, including
         parent categories' titles if applicable.
         """
-
         parent = self
-        parent_titles = []
-        done = False
-        while not done:
-            parent = aq_parent(parent)
-            if parent.portal_type =='ShopCategory':
-                parent_titles.append(parent.title)
-            else:
-                done = True
-
-        parent_titles.append(self.title)
-        full_title = " > ".join(parent_titles)
-        return full_title
+        title_chain = []
+        while parent.portal_type =='ShopCategory':
+            title_chain.append(parent.Title())
+            parent = aq_parent(aq_inner(parent))
+        title_chain.reverse()
+        return title_chain
 
 atapi.registerType(ShopCategory, PROJECTNAME)
 

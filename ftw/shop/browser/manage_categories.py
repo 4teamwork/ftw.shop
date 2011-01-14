@@ -3,6 +3,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 
+from ftw.shop import utils
 from ftw.shop import shopMessageFactory as _
 
 
@@ -56,6 +57,32 @@ class ManageCategories(BrowserView):
                                   default=u"Categories updated."), 'info')
         return self.context.REQUEST.RESPONSE.redirect('%s' %
                                             (self.context.absolute_url()))
+
+    def get_categories(self, context=None, except_uids=[]):
+        depth = -1
+        sort = True
+        if not context:
+            sort = False
+            context = utils.get_shop_root_object(self.context)
+            depth = 1
+        catalog = getToolByName(self.context, 'portal_catalog')
+        query = dict(
+            portal_type = 'ShopCategory',
+            path = {
+                'query': '/'.join(context.getPhysicalPath()),
+                'depth': depth},
+            sort_on = 'sortable_title',
+            )
+        categories = []
+        for brain in catalog(query):
+            if brain.UID not in except_uids and \
+               brain.UID != context.UID():
+                categories.append(brain.getObject())
+        if sort:
+            tmp = [('>'.join(c.fullTitle()[1:]), c) for c in categories]
+            tmp.sort()
+            return [c[1] for c in tmp]
+        return categories
 
     def list_all_categories(self, categoryUID):
         """return all Category instances except the context

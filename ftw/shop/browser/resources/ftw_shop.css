@@ -127,3 +127,33 @@ table.padded-table td, table.padded-table th {
 	color: grey !important;
 }
 
+
+table.categoryListing {
+    width: 100%;
+}
+
+table.categoryListing th,
+table.categoryListing td {
+    padding: 0.2em;
+}
+
+table.categoryListing .toggle,
+table.categoryListing .check {
+    width: 20px;
+}
+table.categoryListing .rank {
+    width: 110px;
+}
+table.categoryListing .topItem {
+    font-weight: bold;
+}
+
+table.categoryListing tr.odd.active td {
+    background-color: #ffeecc !important;
+}
+table.categoryListing tr.even.active td {
+    background-color: #ffeeaa !important;
+}
+table.categoryListing .toggleCategory a {
+    text-decoration: none !important;
+}

@@ -3,55 +3,133 @@
       i18n:domain="ftw.shop">
 
 <body metal:use-macro="here/main_template/macros/master">
-
-  <div metal:fill-slot="main">
+<metal:js fill-slot="javascript_head_slot">
+    <script type="text/javascript">
+        jq(function() {
+            // toggle
+            jq('.toggleCategory a').live('click', function(e) {
+                uid = jq(this).attr('id');
+                if (jq(this).html() == '+') {
+                    jq(this).html('-');
+                    jq('tr.'+uid).show();
+                }
+                else {
+                    jq(this).html('+');
+                    jq('tr.'+uid).hide();
+                }
+                e.preventDefault();
+            });
+            jq('input[type=checkbox]').click(function() {
+                var parent_tr = jq(this).parents('tr');
+                if (parent_tr.hasClass('active')) {
+                    jq(this).parents('tr').removeClass('active');
+                }
+                else {
+                    jq(this).parents('tr').addClass('active');
+                }
+            });
+            // show if selected
+            jq('input[type=checkbox]:checked').each(function(){
+                var chbox = jq(this);
+                chbox.parents('tbody').find('.toggleCategory a').click();
+                chbox.parents('tr').addClass('active');
+            });
+            // indent
+            jq('.categoryListing a.indent').each(function() {
+                var me = jq(this);
+                indent = me.attr('title').split('>').length;
+                indent = (indent -1) * 20;
+                me.css('padding-left', indent+'px');
+            });
+        });
+    </script>
+</metal:js>
+<div metal:fill-slot="main">
     <h1 i18n:translate="categories_title">Categories</h1>
     <form method="post" 
-			  tal:attributes="action python:here.absolute_url() + '/edit_categories'"
-	          tal:define="all_categories python:view.list_all_categories(here.UID())">
-      <table class="listing"
-             cellpadding="0"
-             cellspacing="0">
-        <thead>
-          <tr>
-            <th></th>
-            <th i18n:translate="categories_header_title">Title</th>
-            <th i18n:translate="categories_header_description">Short Description</th>
-            <th i18n:translate="categories_header_rank">Rank</th>
-          </tr>
-        </thead>
-        <tbody>
-          <metal:block tal:repeat="category all_categories">
-            <tr class="even"
-                tal:define="oddrow repeat/category/odd"
-                tal:attributes="class python:oddrow and 'even' or 'odd'" >
-              <td>
-                <input type="checkbox"
-                       class="noborder"
-                       name="categories:list"
-                       tal:attributes="value category/UID;
-                                       checked python: category in context.listCategories() and 'checked' or None" />
-              </td>
-              <td><a tal:attributes="href category/absolute_url" 
-                     tal:content="category/fullTitle" /></td>
-              <td tal:content="category/Description"></td>
-              <td>
-                  <input type="text" size="10"
-                         tal:condition="python: hasattr(context,'getRankForCategory' )"
-                         tal:attributes="name python:'rank_%s' % category.UID();
-                                         value python:context.getRankForCategory(category)"/>
-              </td>
-            </tr>
-          </metal:block>
-        </tbody>
-      </table>
-      <input type="hidden" name="form.submitted:boolean" value="True" />
-      <input class="context"
-             type="submit"
-             value="Update"
-             i18n:attributes="value"
-             tal:condition="all_categories"/>
+          tal:attributes="action python:here.absolute_url() + '/edit_categories'"
+          tal:define="all_categories python:view.list_all_categories(here.UID())">
+        <table class="listing categoryListing" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="toggle"></th>
+                    <th class="check"></th>
+                    <th i18n:translate="categories_header_title">Title</th>
+                    <th class="rank" i18n:translate="categories_header_rank">Rank</th>
+                </tr>
+            </thead>
+        </table>
+        <metal:block tal:repeat="category view/get_categories">
+            <table class="listing categoryListing" cellpadding="0" cellspacing="0">
+                <tbody tal:define="subitems python: view.get_categories(context=category)">
+                    <tr class="even topItem">
+                        <td class="toggleCategory toggle">
+                            <a href="#"
+                               tal:attributes="id category/UID"
+                               tal:condition="subitems">+</a>
+                        </td>
+                        <td class="check">
+                            <input type="checkbox"
+                                   class="noborder"
+                                   name="categories:list"
+                                   tal:attributes="value category/UID;
+                                                   checked python: category in context.listCategories() and 'checked' or None"
+                                    />
+                        </td>
+                        <td>
+                            <a tal:attributes="href category/absolute_url" 
+                               tal:content="category/Title"
+                               />
+                        </td>
+                        <td class="rank">
+                            <input type="text" size="10"
+                                   tal:condition="python: hasattr(context,'getRankForCategory')"
+                                   tal:attributes="name python:'rank_%s' % category.UID();
+                                                   value python:context.getRankForCategory(category)"
+                                    />
+                        </td>
+                    </tr>
+                    <tal:sub repeat="obj subitems">
+                        <tr style="display:none;"
+                            class="even"
+                            tal:define="oddrow repeat/obj/odd"
+                            tal:attributes="class python:oddrow and 'even '+category.UID() or 'odd '+category.UID()">
+                        <td></td>
+                        <td>
+                            <input type="checkbox"
+                                   class="noborder"
+                                   name="categories:list"
+                                   tal:attributes="value obj/UID;
+                                                   checked python: obj in context.listCategories() and 'checked' or None"
+                                    />
+                        </td>
+                        <td>
+                            <a tal:attributes="href obj/absolute_url;
+                                               title python:' > '.join(obj.fullTitle())"
+                               class="indent"
+                               tal:content="obj/Title"
+                               />
+                        </td>
+                        <td>
+                            <input type="text" size="10"
+                                   tal:condition="python: hasattr(context,'getRankForCategory')"
+                                   tal:attributes="name python:'rank_%s' % obj.UID();
+                                                   value python:context.getRankForCategory(obj)"
+                                    />
+                        </td>
+                        </tr>
+                    </tal:sub>
+                </tbody>
+            </table>
+        </metal:block>
+        <input type="hidden" name="form.submitted:boolean" value="True" />
+        <input class="context"
+               type="submit"
+               value="Update"
+               i18n:attributes="value"
+               tal:condition="all_categories"
+               />
     </form>
-  </div>
+</div>
 </body>
 </html>
