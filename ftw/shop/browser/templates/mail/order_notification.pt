@@ -7,6 +7,7 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="order options/order;
+                  all_prices_zero options/all_prices_zero;
                   shop_config options/shop_config">
 
 <p>
@@ -90,16 +91,16 @@
        <th i18n:translate="label_article_no">Article number</th>
        <th i18n:translate="cart_header_product">Product</th>
        <th i18n:translate="cart_header_quantity">Quantity</th>
-       <th i18n:translate="cart_header_price">Price</th>
-       <th i18n:translate="cart_header_total">Total</th>
+       <th tal:condition="not:all_prices_zero" i18n:translate="cart_header_price">Price</th>
+       <th tal:condition="not:all_prices_zero" i18n:translate="cart_header_total">Total</th>
    </tr>
 
    <tr tal:repeat="item order/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
-     <td tal:content="item/getPrice"/>
-     <td tal:content="item/getTotal"/>
+     <td tal:condition="not:all_prices_zero" tal:content="python:item.getPrice().replace('0.00', '').replace('0.0', '')"/>
+     <td tal:condition="not:all_prices_zero" tal:content="item/getTotal"/>
    </tr>
 </table>
 
