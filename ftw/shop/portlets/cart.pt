@@ -32,7 +32,8 @@
         </tal:items>
         </ul>
 
-        <div class="cartTotal">Total: CHF <span tal:replace="cview/cart_total">100.00</span></div>
+        <div tal:condition="python: not cview.all_prices_zero()"
+             class="cartTotal">Total: CHF <span tal:replace="cview/cart_total">100.00</span></div>
 
         <div class="cartActions">
             <ul>
