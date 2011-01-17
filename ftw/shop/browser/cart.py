@@ -106,12 +106,11 @@ class CartView(BrowserView):
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
+        import pdb; pdb.set_trace( )
 
         if not skuCode:
             # We got no skuCode, so look it up by variation key
-            skuCode = varConf.getVariationData(var1choice,
-                                               var2choice,
-                                               'skuCode')
+            skuCode = varConf.getVariationDict()['var-%s-%s' % (var1choice, var2choice)]['skuCode']
 
         item = cart_items.get(skuCode, None)
 
@@ -123,18 +122,18 @@ class CartView(BrowserView):
         has_variations = varConf.hasVariations()
         if has_variations:
             variation_dict = varConf.getVariationDict()
-            variation_key = None
-            for vkey in variation_dict.keys():
-                if variation_dict[vkey]['active'] and variation_dict[vkey]['skuCode'] == skuCode:
-                    variation_key = vkey
+            variation_code = None
+            for vcode in variation_dict.keys():
+                if variation_dict[vcode]['active'] and variation_dict[vcode]['skuCode'] == skuCode:
+                    variation_code = vcode
                     break
-            if not variation_dict[variation_key]['active']:
+            if not variation_dict[variation_code]['active']:
                 # Item is disabled
                 return False
 
-            variation_pretty_name = varConf.getPrettyName(variation_key)
+            variation_pretty_name = varConf.getPrettyName(variation_code)
             item_title = '%s - %s' % (context.Title(), variation_pretty_name)
-            price = Decimal(variation_dict[variation_key]['price'])
+            price = Decimal(variation_dict[variation_code]['price'])
             # add item to cart
             if item is None:
 
@@ -147,7 +146,7 @@ class CartView(BrowserView):
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
-                        'variation_key': variation_key,
+                        'variation_code': variation_code,
                 }
             # item already in cart, update quantity
             else:

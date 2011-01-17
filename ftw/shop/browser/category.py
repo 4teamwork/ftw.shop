@@ -92,8 +92,8 @@ class CategoryView(BrowserView):
 
             # Convert Decimals to Strings for serialization
             varDict = varDicts[uid]
-            for vkey in varDict.keys():
-                i = varDict[vkey]
+            for vcode in varDict.keys():
+                i = varDict[vcode]
                 for k in i.keys():
                     val = i[k]
                     if isinstance(val, Decimal):

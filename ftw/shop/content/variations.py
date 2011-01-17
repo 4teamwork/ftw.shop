@@ -75,20 +75,18 @@ class VariationConfig(object):
                 variation_attributes.append(field.get(self.context))
         return variation_attributes
 
-    def getVariationData(self, var1_attr, var2_attr, field):
+    def getVariationData(self, var1_idx, var2_idx, field):
         """Returns the data for one specific variation instance's field
         """
         variation_dict = self.getVariationDict()
-        normalizer = getUtility(IIDNormalizer)
 
-        if var2_attr is None:
+        if var2_idx is None:
             # We only have one variation
-            variation_key = normalizer.normalize(var1_attr)
+            variation_code = "var-%s" % var1_idx
         else:
             # We have two levels of variation
-            variation_key = normalizer.normalize(
-                                    "%s-%s" % (var1_attr, var2_attr))
-        var_data = variation_dict.get(variation_key, None)
+            variation_code = "var-%s-%s" % (var1_idx, var2_idx)
+        var_data = variation_dict.get(variation_code, None)
         if var_data is not None and field in var_data.keys():
             if not var_data[field] == "":
                 return var_data[field]
@@ -107,24 +105,23 @@ class VariationConfig(object):
         else:
             return None
 
-    def getPrettyName(self, variation_key):
+    def getPrettyName(self, variation_code):
         """Returns the human facing name for a variation,
         e.g. 'Green-XXL'
         """
-        normalizer = getUtility(IIDNormalizer)
         if len(self.getVariationAttributes()) == 1:
-            for var1_value in self.getVariation1Values():
-                vkey = normalizer.normalize(var1_value)
-                if vkey == variation_key:
+            for i, var1_value in enumerate(self.getVariation1Values()):
+                vcode = "var-%s" % i
+                if vcode == variation_code:
                     return var1_value
         else:
-            for var1_value in self.getVariation1Values():
-                for var2_value in self.getVariation2Values():
-                    vkey = normalizer.normalize(
-                                    "%s-%s" % (var1_value, var2_value))
-                    if vkey == variation_key:
+            for i, var1_value in enumerate(self.getVariation1Values()):
+                for j, var2_value in enumerate(self.getVariation2Values()):
+                    vcode = "var-%s-%s" % (i, j)
+                    if vcode == variation_code:
                         return "%s-%s" % (var1_value, var2_value)
         return None
+
 
     def isValid(self):
         var_dict = self.getVariationDict()

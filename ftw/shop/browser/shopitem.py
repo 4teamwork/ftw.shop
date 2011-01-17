@@ -100,8 +100,8 @@ class ShopItemView(BrowserView):
 
             # Convert Decimals to Strings for serialization
             varDict = varDicts[uid]
-            for vkey in varDict.keys():
-                i = varDict[vkey]
+            for vcode in varDict.keys():
+                i = varDict[vcode]
                 for k in i.keys():
                     val = i[k]
                     if isinstance(val, Decimal):
@@ -137,7 +137,17 @@ class EditVariationsView(BrowserView):
         if submitted:
             variation_config = IVariationConfig(self.context)
 
-            edited_var_data = self._parse_edit_variations_form()
+            attributes, edited_var_data = self._parse_edit_variations_form()
+            v1attr = attributes[0].keys()[0]
+            v2attr = attributes[1].keys()[0]
+            v1values = attributes[0][v1attr]
+            v2values = attributes[1][v2attr]
+
+            self.context.Schema().getField('variation1_attribute').set(self.context, v1attr)
+            self.context.Schema().getField('variation2_attribute').set(self.context, v2attr)
+            self.context.Schema().getField('variation1_values').set(self.context, v1values)
+            self.context.Schema().getField('variation2_values').set(self.context, v2values)
+
             variation_config.updateVariationConfig(edited_var_data)
 
             IStatusMessage(self.request).addStatusMessage(
@@ -154,13 +164,12 @@ class EditVariationsView(BrowserView):
         form = self.request.form
         variation_config = IVariationConfig(self.context)
         variation_data = {}
-        normalize = getUtility(IIDNormalizer).normalize
 
-        def _parse_data(variation_key):
+        def _parse_data(variation_code):
             data = {}
-            data['active'] = bool(form.get("%s-active" % variation_key))
+            data['active'] = bool(form.get("%s-active" % variation_code))
             # TODO: Handle decimal more elegantly
-            price = form.get("%s-price" % variation_key)
+            price = form.get("%s-price" % variation_code)
             try:
                 p = int(price)
                 # Create a tuple of ints from string
@@ -172,8 +181,8 @@ class EditVariationsView(BrowserView):
                 else:
                     data['price'] = Decimal("0.00")
 
-            data['skuCode'] = form.get("%s-skuCode" % variation_key)
-            data['description'] = form.get("%s-description" % variation_key)
+            data['skuCode'] = form.get("%s-skuCode" % variation_code)
+            data['description'] = form.get("%s-description" % variation_code)
 
             # At this point the form has already been validated,
             # so uniqueness of sku codes is ensured
@@ -183,18 +192,32 @@ class EditVariationsView(BrowserView):
 
         if len(variation_config.getVariationAttributes()) == 1:
             # One variation attribute
-            for var1_value in variation_config.getVariation1Values():
-                variation_key = normalize(var1_value)
+            for i, var1_value in enumerate(variation_config.getVariation1Values()):
+                variation_code = 'var-%s' % i
 
-                variation_data[variation_key] = _parse_data(variation_key)
+                variation_data[variation_code] = _parse_data(variation_code)
         else:
             # Two variation attributes
-            for var1_value in variation_config.getVariation1Values():
-                for var2_value in variation_config.getVariation2Values():
-                    variation_key = normalize("%s-%s" % (var1_value,
-                                                         var2_value))
-                    variation_data[variation_key] = _parse_data(variation_key)
-        return variation_data
+            for i, var1_value in enumerate(variation_config.getVariation1Values()):
+                for j, var2_value in enumerate(variation_config.getVariation2Values()):
+                    variation_code = 'var-%s-%s' % (i, j) 
+                    variation_data[variation_code] = _parse_data(variation_code)
+
+        v1attr = form.get('v1attr')
+        v2attr = form.get('v2attr')
+        
+        v1values = []
+        for key in form.keys():
+            if 'v1-value-' in key:
+                v1values.append(form.get(key))
+
+        v2values = []
+        for key in form.keys():
+            if 'v2-value-' in key:
+                v2values.append(form.get(key))
+        
+        attributes = [{v1attr:v1values}, {v2attr:v2values}]
+        return (attributes, variation_data)
 
     def getVariationsConfig(self):
         """Returns the variation config for the item being edited
@@ -202,3 +225,4 @@ class EditVariationsView(BrowserView):
         context = aq_inner(self.context)
         variation_config = IVariationConfig(context)
         return variation_config
+

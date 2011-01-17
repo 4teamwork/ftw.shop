@@ -43,14 +43,30 @@
 #variations p { clear: both; }
 #variations .submit { margin-left: 12em; }
 #variations em { font-weight: bold; padding-right: 1em; vertical-align: top; }
-#variations td {
-    padding: 5px;
-    padding-top: 10px;
-}
-#variations fieldset legend {
-    font-size: 120%;
+
+#variations table.listing th,
+#variations table.listing td {
+    padding: 0.5em 0.1em;
+    vertical-align: top;
 }
 
+
+
+#variations fieldset legend {
+    font-size: 105%;
+}
+
+
+#variations td, th {
+    font-size: 80%;
+}
+
+
+#variations {
+    background-color: #eee;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+}
 
 .clearer {
 	clear: both;}
