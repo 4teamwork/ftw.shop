@@ -251,6 +251,10 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_email', default=u'Email'),
             required=True)
 
+    company = schema.TextLine(
+            title=_(u'label_company', default=u'Company'),
+            required=False)
+
     street1 = schema.TextLine(
             title=_(u'label_street', default=u'Street/No.'),
             required=True)

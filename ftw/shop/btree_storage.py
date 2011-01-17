@@ -34,6 +34,7 @@ class Order(object):
         self.customer_firstname = None
         self.customer_lastname = None
         self.customer_email = None
+        self.customer_company = None
         self.customer_street1 = None
         self.customer_street2 = None
         self.customer_phone = None
@@ -47,6 +48,7 @@ class Order(object):
         self.shipping_title = None
         self.shipping_firstname = None
         self.shipping_lastname = None
+        self.shipping_company = None
         self.shipping_street1 = None
         self.shipping_street2 = None
         self.shipping_zipcode = None

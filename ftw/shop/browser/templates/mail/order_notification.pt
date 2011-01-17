@@ -33,7 +33,11 @@
         
         <span tal:replace="order/customer_firstname" />
         <span tal:replace="order/customer_lastname" /><br />
-        
+
+        <tal:block condition="order/customer_company">
+            <span tal:replace="order/customer_company" /><br />
+        </tal:block>
+
         <span tal:replace="order/customer_street1" /><br />
         
         <tal:block condition="order/customer_street2">
@@ -74,6 +78,10 @@
         <span tal:replace="order/shipping_firstname" />
         <span tal:replace="order/shipping_lastname" /><br />
 
+        <tal:block condition="order/shipping_company">
+            <span tal:replace="order/shipping_company" /><br />
+        </tal:block>
+
         <span tal:replace="order/shipping_street1" /><br />
 
         <tal:block condition="order/shipping_street2">
@@ -99,7 +107,7 @@
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
-     <td tal:condition="not:all_prices_zero" tal:content="python:item.getPrice().replace('0.00', '').replace('0.0', '')"/>
+     <td tal:condition="not:all_prices_zero" tal:content="python:str(item.getPrice()).replace('0.00', '').replace('0.0', '')"/>
      <td tal:condition="not:all_prices_zero" tal:content="item/getTotal"/>
    </tr>
 </table>

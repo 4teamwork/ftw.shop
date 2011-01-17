@@ -10,6 +10,7 @@
                                               
           <li tal:content="customer/title"></li>
           <li tal:content="python:customer['firstname'] + ' ' + customer['lastname'] "></li>
+          <li tal:content="customer/company|nothing"></li>
           <li tal:content="customer/street1"></li>
           <li tal:content="customer/street2"></li>
           <li tal:content="python:str(customer['zipcode']) + ' ' + customer['city']"></li>
@@ -36,6 +37,7 @@
       <ul style="list-style:none" tal:define="shipping_address python:view.wizard.session['shipping_address'];">
           <li tal:content="shipping_address/title"></li>
           <li tal:content="python:shipping_address['firstname'] + ' ' + shipping_address['lastname'] "></li>
+          <li tal:content="shipping_address/company|nothing"></li>
           <li tal:content="shipping_address/street1"></li>
           <li tal:content="shipping_address/street2"></li>
           <li tal:content="python:str(shipping_address['zipcode']) + ' ' + shipping_address['city']"></li>

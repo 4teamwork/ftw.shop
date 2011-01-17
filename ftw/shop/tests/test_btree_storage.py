@@ -66,6 +66,7 @@ class TestBTreeStorage(FtwShopTestCase):
         btree_order_storage = getUtility(IOrderStorage, 'ftw.shop.BTreeOrderStorage')
         expected_field_names = ['customer_city',
                                  'customer_comments',
+                                 'customer_company',
                                  'customer_country',
                                  'customer_email',
                                  'customer_firstname',
@@ -82,6 +83,7 @@ class TestBTreeStorage(FtwShopTestCase):
                                  'shipping_city',
                                  'shipping_firstname',
                                  'shipping_lastname',
+                                 'shipping_company',
                                  'shipping_street1',
                                  'shipping_street2',
                                  'shipping_title',
@@ -90,7 +92,7 @@ class TestBTreeStorage(FtwShopTestCase):
                                  'title',
                                  'total']
         field_names = btree_order_storage.getFieldNames()
-        self.assertEquals(field_names, expected_field_names)
+        self.assertEquals(sorted(field_names), sorted(expected_field_names))
 
 
 

@@ -37,14 +37,41 @@ class TestOrderManager(FtwShopTestCase):
         csv_header = csv.split('\r\n')[0]
         csv_data = csv.split('\r\n')[1]
 
-        expected_csv_header = 'order_id,title,status,total,' \
-        'date,customer_title,customer_firstname,customer_lastname,customer_email,'\
-        'customer_street1,customer_street2,customer_phone,customer_zipcode,'\
-        'customer_city,customer_shipping_address,customer_country,'\
-        'customer_newsletter,customer_comments,shipping_city,shipping_firstname,'\
-        'shipping_lastname,shipping_street1,shipping_street2,shipping_title,'\
-        'shipping_zipcode,sku_code,quantity,title,price,item_total,'\
-        'supplier_name,supplier_email'
+        expected_csv_header = ','.join([
+            'order_id',
+            'title',
+            'status',
+            'total',
+            'date',
+            'customer_title',
+            'customer_firstname',
+            'customer_lastname',
+            'customer_email',
+            'customer_street1',
+            'customer_street2',
+            'customer_phone',
+            'customer_zipcode',
+            'customer_city',
+            'customer_shipping_address',
+            'customer_country',
+            'customer_newsletter',
+            'customer_comments',
+            'customer_company',
+            'shipping_city',
+            'shipping_company',
+            'shipping_firstname',
+            'shipping_lastname',
+            'shipping_street1',
+            'shipping_street2',
+            'shipping_title',
+            'shipping_zipcode',
+            'sku_code',
+            'quantity',
+            'title',
+            'price',
+            'item_total',
+            'supplier_name',
+            'supplier_email'])
 
         expected_csv_data = ','.join([
             '1',
@@ -65,10 +92,12 @@ class TestOrderManager(FtwShopTestCase):
             MOCK_CUSTOMER['country'],
             'False',
             '',
-
+            MOCK_CUSTOMER['company'],
             MOCK_SHIPPING['city'],
+            MOCK_SHIPPING['company'],
             MOCK_SHIPPING['firstname'],
             MOCK_SHIPPING['lastname'],
+
             MOCK_SHIPPING['street1'],
             '',
             MOCK_SHIPPING['title'],
@@ -81,7 +110,7 @@ class TestOrderManager(FtwShopTestCase):
             str(MOCK_CART.values()[0]['total']),
             MOCK_CART.values()[0]['supplier_name'],
             MOCK_CART.values()[0]['supplier_email'],])
-                                     
+
         self.assertEquals(csv_header, expected_csv_header)
         self.assertEquals(csv_data, expected_csv_data)
 

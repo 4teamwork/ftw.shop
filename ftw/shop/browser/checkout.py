@@ -59,8 +59,8 @@ class DefaultContactInfoStep(wizard.Step):
     fields = field.Fields(IDefaultContactInformation)
     fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
     prefill_fields = ['title', 'firstname', 'lastname', 'email',
-                      'street1', 'street2', 'phone', 'zipcode',
-                      'city', 'country', 'newsletter']
+                      'company', 'street1', 'street2', 'phone',
+                      'zipcode', 'city', 'country', 'newsletter']
 
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
@@ -132,6 +132,7 @@ class DefaultShippingAddressStep(wizard.Step):
         'title',
         'firstname',
         'lastname',
+        'company',
         'street1',
         'street2',
         'zipcode',
@@ -141,6 +142,7 @@ class DefaultShippingAddressStep(wizard.Step):
         'title',
         'firstname',
         'lastname',
+        'company',
         'street1',
         'street2',
         'zipcode',
