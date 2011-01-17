@@ -58,6 +58,21 @@
             <div class="visualClear"></div>
         </div>
         </tal:categories>
+
+        <tal:folders repeat="item python:context.getFolderContents(contentFilter={'portal_type':'Folder'})">
+        <div class="listItem">
+             <div class="listItemHeading">
+                <h2><a href="#" tal:content="item/Title" tal:attributes="href item/getURL" /></h2>
+            </div>
+        
+            <p class="listItemBody">
+                <span tal:replace="item/Description" />
+                <a href="#" tal:attributes="href item/getURL"
+                            i18n:translate="label_more_link">More</a>
+            </p>
+            <div class="visualClear"></div>       
+        </div>
+        </tal:folders>
         
 	<script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
     <tal:shopitems repeat="item view/getItemDatas">
