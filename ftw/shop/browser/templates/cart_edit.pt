@@ -35,7 +35,9 @@
                 <tbody>
                   <metal:block tal:repeat="ctuple python:cart.items()">
                     <tr tal:define="item python:ctuple[1];
-                                    skuCode python:ctuple[0]">
+                                    skuCode python:ctuple[0];
+                                    oddrow repeat/ctuple/odd"
+                        tal:attributes="class python:oddrow and 'even' or 'odd'">
                       <td>
                         <a tal:attributes="href item/url"
                            tal:content="item/title">
