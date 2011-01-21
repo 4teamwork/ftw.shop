@@ -78,7 +78,7 @@
                   <strong class="attribute-label" tal:condition="python: varValue1 != varConf.getVariation1Values()[0]" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" />
                   <strong><input tal:attributes="name string:v1-value-${v1idx}; value varValue1" /></strong>
               </legend>
-              <table class="listing nosort">
+              <table class="listing nosort varTable">
               <thead>
               <tr>
                 <th></th>
@@ -126,24 +126,25 @@
                              tal:attributes="name string:${vcode}-description;
                                              value python:varConf.getVariationData(v2idx, v2idx, 'description')">
                   </td>
-                  <td width="1%">
-                      <img class="del-variant" src="++resource++ftw-shop-resources/16x16-delete.png" />
+                  <td width="8%">
+                      <img class="del-variant" src="++resource++ftw-shop-resources/16x16-delete.png" title="Variante entfernen"/>
+                      <img class="add-variant" src="++resource++ftw-shop-resources/16x16-add.png" title="Variante hinzufügen"/>
                   </td>
                     </tal:vcode>
                   </tal:v2idx>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td colspan="5">
                     <span class="add-variant"><img src="++resource++ftw-shop-resources/16x16-add.png" />
                         <span style="color: grey; font-size: 80%;">Variante hinzufügen</span>
                     </span>
                     </td>
-                </tr>
+                </tr> -->
                 </tbody>
               </table>
               </tal:v1idx>
             </fieldset>
-            <span class="del-attribute">Attribut löschen <img src="++resource++fieldsettw-shop-resources/24x24-delete.png" /></span>
+            <span class="del-attribute">Attribut löschen <img src="++resource++ftw-shop-resources/24x24-delete.png" /></span>
             </div>
             <div style="border: 1px solid #ccc; background-color: #ddd; margin-bottom: 1em">
                 <fieldset>
@@ -155,107 +156,154 @@
           </form>
 
           <script type="text/javascript">
-              // Add a new attribute
-              jq('.add-attribute').live('click', function(event) {
-                  var attr_template = jq('.attribute-template');
-                  attr_template.removeClass('attribute-template');
-                  attr_template.addClass('attribute');
-                  attr_template.css('display', 'block');
-              });
+            jq(function () {
+                var hide_buttons = function () {
+                    // Hide all Add-Buttons except the on in the last row
+                    jq('.varTable').each(function() {
+                        var add_imgs = jq(this).find('.add-variant');
+                        add_imgs.each(function(idx, element) {
+                            if (idx != add_imgs.length - 1) {
+                                jq(element).css('display', 'none');
+                            }
+                            else {
+                                jq(element).css('display', 'inline');
+                            }
+                        
+                        });
+                    });
+                };
+                hide_buttons();
+                var update_vcodes = function () {
+                    // Updates all vcodes in the inputs name attributes
+                    jq('.varTable').each(function(tbl_idx, tbl) {
+                        var rows = jq(tbl).find('tr');
+                        rows.each(function(row_idx, row) {
+                            var vcode = tbl_idx + '-' + (row_idx - 1)
+                            var inputs = jq(row).find('input');
+                            inputs.each(function() {
+                                if (jq(this).hasClass('attributeLabelInput')) {
+                                    var new_name = "v2-value-" + (row_idx - 1);
+                                }
+                                else {
+                                    var old_name = jq(this).attr('name');
+                                    var old_v1idx = old_name.split('-')[1];
+                                    var old_v2idx = old_name.split('-')[2];
+                                    var old_vcode = old_v1idx + '-' + old_v2idx;
+                                    var new_name = old_name.replace(old_vcode, vcode);
+                                }
+                                jq(this).attr('name', new_name);
+                            });
+                        });
+                    });
+                };
+                
 
-              // Add a new variant
-              jq('.add-variant').live('click', function(event) {
-                  var new_variant = jq('<input value="Neue Variante" /> <img class="del-variant" src="icons/16x16/delete.png" /> <br/> ');
-                  jq(this).before(new_variant);
-
-              });
-
-
-              // Delete a variant
-              jq('.del-variant').live('click', function(event) {
-                  var variant_name = jq(this).prev().val();
-                  var line = jq(this).add(jq(this).prev()).add(jq(this).next());
-                  line.remove();
-
-                  var variant_labels = jq('form#variations .variant-label');
-                  var occurences = [];
-                  variant_labels.each(function (i, label) {
-                      if (jq(label).text() === variant_name) {
-                          occurences.push(jq(label));
-                      }
+                  // Add a new attribute
+                  jq('.add-attribute').live('click', function(event) {
+                      var attr_template = jq('.attribute-template');
+                      attr_template.removeClass('attribute-template');
+                      attr_template.addClass('attribute');
+                      attr_template.css('display', 'block');
                   });
 
-                  jq(occurences).each(function () {
-                      var parent = jq(this).parent();
-                      if (parent.attr('nodeName') === "TR") {
-                          var variant = parent;
-                      }
-                      else {
-                          var variant = parent.parent();
-                      }
-                      variant.remove();
+                  // Add a new variant
+                  jq('.add-variant').live('click', function(event) {
+                      var clicked_row = jq(this).parents('tr');
+                      var vcode = clicked_row.find('input').first().attr('name').replace('-active:boolean', '').replace('var-', '');
+                      var v1_idx = parseInt(vcode.split('-')[0]);
+                      var v2_idx = parseInt(vcode.split('-')[1]);
+                      var row_from_first_table = jq(jq('form#variations table').first().find('tr')[v2_idx + 1]);
+
+                      var tables = jq('.varTable');
+                      tables.each(function(tbl_idx, tbl_element) {
+                          var rows = jq(this).find('tr');
+                          var matching_row = jq(rows[v2_idx + 1]); // + 1 because first one is header row
+                          var new_row = matching_row.clone();
+                          matching_row.after(new_row);
+                          new_row.find('input').each(function() {
+                              jq(this).val('');
+                          });
+                          new_row.find('.attribute-label').first().text('Neue Variante');
+
+                      });
+                      var added_row = row_from_first_table.next();
+                      added_row.find('.attributeLabelInput').val('Neue Variante');
+                      hide_buttons();
+                      update_vcodes();
+
                   });
 
-              });
 
-              // Delete an attribute
-              jq('.del-attribute').live('click', function(event) {
-                  var attr = jq(this).parent();
-                  attr.slideUp().delay(500).remove();
+                  // Delete a variant
+                  jq('.del-variant').live('click', function(event) {
+                      var clicked_row = jq(this).parents('tr');
+                      var vcode = clicked_row.find('input').first().attr('name').replace('-active:boolean', '').replace('var-', '');
+                      var v1_idx = parseInt(vcode.split('-')[0]);
+                      var v2_idx = parseInt(vcode.split('-')[1]);
+                      var row_from_first_table = jq(jq('form#variations table').first().find('tr')[v2_idx + 1]);
 
-              });
+                      var tables = jq('.varTable');
+                      tables.each(function(tbl_idx, tbl_element) {
+                          var rows = jq(this).find('tr');
+                          var matching_row = jq(rows[v2_idx + 1]); // + 1 because first one is header row
+                          matching_row.remove();
+                      });
 
+                      hide_buttons();
+                      update_vcodes();
 
-              // Store old variant name if it's about to be renamed
-              jq('input.attributeLabelInput').live('focus', function(event) {
-                  jq(this).data('old_value', jq(this).val());
-              });
-
-              // Rename all occurences of the variant
-              jq('input.attributeLabelInput').live('change', function(event) {
-                  var old_variant_name = jq(this).data('old_value');
-                  var new_variant_name = jq(this).val();
-                  var variant_labels = jq('form#variations .attribute-label');
-
-                  var occurences = [];
-                  variant_labels.each(function (i, label) {
-                      if (jq(label).text() === old_variant_name) {
-                          occurences.push(jq(label));
-                      }
                   });
 
-                  jq(occurences).each(function () {
-                      var el = jq(this);
-                      el.text(new_variant_name);
+                  // Delete an attribute
+                  jq('.del-attribute').live('click', function(event) {
+                      var attr = jq(this).parent();
+                      attr.slideUp().delay(500).remove();
                   });
 
+                  // Store old variant name if it's about to be renamed
+                  jq('input.attributeLabelInput').live('focus', function(event) {
+                      jq(this).data('old_value', jq(this).val());
+                  });
+
+                  // Rename all occurences of the variant
+                  jq('input.attributeLabelInput').live('change', function(event) {
+                      var new_variant_name = jq(this).val();
+                      var v2_idx = parseInt(jq(this).attr('name').replace('v2-value-', ''));
+                      var linked_labels = jq('.varTable tr:nth-child(' + (v2_idx + 1) +') .attribute-label');
+
+                      jq(linked_labels).each(function () {
+                          var el = jq(this);
+                          el.text(new_variant_name);
+                      });
+
+                  });
               });
 
-          </script>
+              </script>
 
 
-          <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
-          <script>
-          jQuery.validator.addMethod("uniqueSkuCode", 
-                function(value, element) {
-                    other_sku_fields = jq('.uniqueSkuCode').not(element);
-                    var existing_sku_codes = new Array(0);
-                    for (var i=0; i<other_sku_fields.length; i++) {
-                        existing_sku_codes.push(other_sku_fields[i].value);
-                    }
-                    if(jq.inArray(value, existing_sku_codes) > -1 && jq(element).parents('tr').find('input[type=checkbox]').attr('checked') === true) {
-                        return false; 
+              <!-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+              <script>
+              jQuery.validator.addMethod("uniqueSkuCode", 
+                    function(value, element) {
+                        other_sku_fields = jq('.uniqueSkuCode').not(element);
+                        var existing_sku_codes = new Array(0);
+                        for (var i=0; i<other_sku_fields.length; i++) {
+                            existing_sku_codes.push(other_sku_fields[i].value);
                         }
-                    else { 
-                        return true; 
-                        }
-                    }, 
-                "SKU code must be unique");
+                        if(jq.inArray(value, existing_sku_codes) > -1 && jq(element).parents('tr').find('input[type=checkbox]').attr('checked') === true) {
+                            return false; 
+                            }
+                        else { 
+                            return true; 
+                            }
+                        }, 
+                    "SKU code must be unique");
 
-          jq(document).ready(function($){
-            $("#variations").validate();
-          });
-          </script>
+              jq(document).ready(function($){
+                $("#variations").validate();
+              });
+          </script> -->
 
     </div>
 
