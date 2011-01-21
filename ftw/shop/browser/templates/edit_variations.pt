@@ -39,8 +39,8 @@
 
                 <tal:vcode tal:define="vcode string:var-${v1idx}">
                   <td tal:content="varValue1">Red</td>
-                  <td><input type="checkbox"
-                      tal:attributes="name string:${vcode}-active:boolean;
+                  <td><input type="checkbox" class="varActiveCheckbox"
+                             tal:attributes="name string:${vcode}-active:boolean;
                                       checked python:varConf.getVariationData(v1idx, None, 'active')"></td>
                   <td><input type="text" class="number"
                       tal:attributes="name string:${vcode}-price;
@@ -100,7 +100,7 @@
                 <tal:v2idx tal:define="v2idx repeat/varValue2/index">
                   <tal:vcode tal:define="vcode string:var-${v1idx}-${v2idx}">
                   <td width="1%" style="text-align: center;">
-                      <input type="checkbox"
+                      <input type="checkbox" class="varActiveCheckbox"
                       tal:attributes="name string:${vcode}-active:boolean;
                                       checked python:varConf.getVariationData(v1idx, v2idx, 'active')"></td>
 
@@ -196,7 +196,6 @@
                         });
                     });
                 };
-                
 
                   // Add a new attribute
                   jq('.add-attribute').live('click', function(event) {
@@ -204,6 +203,21 @@
                       attr_template.removeClass('attribute-template');
                       attr_template.addClass('attribute');
                       attr_template.css('display', 'block');
+                  });
+
+                  // Toggle disabled status of the row's input fields
+                  jq('.varActiveCheckbox').live('click', function(event) {
+                      var row = jq(this).parents('tr');
+                      row.find('input').not('.varActiveCheckbox').not('.attributeLabelInput').each(function() {
+                          var current_val = jq(this).attr('disabled');
+                          if (current_val === true) {
+                              jq(this).removeAttr('disabled');
+                          }
+                          else {
+                              jq(this).attr('disabled', true);
+                          }
+                      });
+                      row.toggleClass('greyed-out');
                   });
 
                   // Add a new variant
