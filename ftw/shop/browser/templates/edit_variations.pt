@@ -41,16 +41,16 @@
                   <td tal:content="varValue1">Red</td>
                   <td><input type="checkbox" class="varActiveCheckbox"
                              tal:attributes="name string:${vcode}-active:boolean;
-                                      checked python:varConf.getVariationData(v1idx, None, 'active')"></td>
+                                      checked python:varConf.getVariationData(v1idx, None, 'active')"/></td>
                   <td><input type="text" class="number"
                       tal:attributes="name string:${vcode}-price;
-                                      value python:varConf.getVariationData(v1idx, None, 'price')"></td>
+                                      value python:varConf.getVariationData(v1idx, None, 'price')"/></td>
                   <td><input type="text" class="required uniqueSkuCode"
                       tal:attributes="name string:${vcode}-skuCode:required;
-                                      value python:varConf.getVariationData(v1idx, None, 'skuCode')">
+                                      value python:varConf.getVariationData(v1idx, None, 'skuCode')"/>
                   </td>
                   <td><input type="text" tal:attributes="name string:${vcode}-description;
-                                      value python:varConf.getVariationData(v1idx, None, 'description')">
+                                      value python:varConf.getVariationData(v1idx, None, 'description')"/>
                   </td>
                   </tal:vcode>
 
@@ -59,7 +59,7 @@
                 </tbody>
               </table>
 
-            <input type="submit">
+            <input type="submit"/>
             <input type="hidden" name="form.submitted:boolean" value="True" />
           </form>
 
@@ -80,7 +80,7 @@
               </legend>
               <table class="listing nosort varTable">
               <thead>
-              <tr>
+              <tr class="">
                 <th></th>
                 <th>
                     <input name="v2attr" class="attributeLabelInput" style="font-weight: bolder;" size="5%" tal:condition="python: varValue1 == varConf.getVariation1Values()[0]" tal:attributes="value python:context.Schema().getField('variation2_attribute').get(context)" />
@@ -95,14 +95,14 @@
                 <th></th>
               </tr>
               </thead>
-              <tbody>
-                <tr tal:repeat="varValue2 varConf/getVariation2Values">
+              <tbody class="sortable">
+                <tr tal:repeat="varValue2 varConf/getVariation2Values" class="combination">
                 <tal:v2idx tal:define="v2idx repeat/varValue2/index">
                   <tal:vcode tal:define="vcode string:var-${v1idx}-${v2idx}">
                   <td width="1%" style="text-align: center;">
                       <input type="checkbox" class="varActiveCheckbox"
                       tal:attributes="name string:${vcode}-active:boolean;
-                                      checked python:varConf.getVariationData(v1idx, v2idx, 'active')"></td>
+                                      checked python:varConf.getVariationData(v1idx, v2idx, 'active')"/></td>
 
                   <td width="5%" tal:condition="python: varValue1 == varConf.getVariation1Values()[0]">
                       <input style="width: 100%" class="attributeLabelInput"
@@ -115,31 +115,29 @@
                   <td width="3%" >
                       <input type="text" class="number" size="3%"
                              tal:attributes="name string:${vcode}-price;
-                                             value python:varConf.getVariationData(v1idx, v2idx, 'price')"></td>
+                                             value python:varConf.getVariationData(v1idx, v2idx, 'price')"/></td>
                   <td width="%4">
                       <input type="text" class="required uniqueSkuCode" style="width:100%"
                              tal:attributes="name string:${vcode}-skuCode:required;
-                                             value python:varConf.getVariationData(v1idx, v2idx, 'skuCode')">
+                                             value python:varConf.getVariationData(v1idx, v2idx, 'skuCode')"/>
                   </td>
                   <td>
                       <input type="text" style="width:100%"
                              tal:attributes="name string:${vcode}-description;
-                                             value python:varConf.getVariationData(v2idx, v2idx, 'description')">
+                                             value python:varConf.getVariationData(v2idx, v2idx, 'description')"/>
                   </td>
-                  <td width="8%">
-                      <img class="del-variant" src="++resource++ftw-shop-resources/16x16-delete.png" title="Variante entfernen"/>
-                      <img class="add-variant" src="++resource++ftw-shop-resources/16x16-add.png" title="Variante hinzufügen"/>
+                  <td width="15%">
+                      <tal:controls tal:condition="python:repeat['varValue1'].index == 0">
+                        <img class="del-variant" src="++resource++ftw-shop-resources/16x16-delete.png" title="Variante entfernen"/>
+                        <img class="add-variant" src="++resource++ftw-shop-resources/16x16-add.png" title="Variante hinzufügen"/>
+                        <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/>
+                      </tal:controls>
+                      
                   </td>
                     </tal:vcode>
                   </tal:v2idx>
                 </tr>
-                <!-- <tr>
-                    <td colspan="5">
-                    <span class="add-variant"><img src="++resource++ftw-shop-resources/16x16-add.png" />
-                        <span style="color: grey; font-size: 80%;">Variante hinzufügen</span>
-                    </span>
-                    </td>
-                </tr> -->
+
                 </tbody>
               </table>
               </tal:v1idx>
@@ -151,28 +149,16 @@
                     <span class="add-attribute"><img src="++resource++ftw-shop-resources/24x24-add.png" />Attribut hinzufügen</span>
                 </fieldset>
             </div>
-            <input type="submit" name="form.button.save" value="Save">
+            <input type="submit" name="form.button.save" value="Save"/>
             <input type="hidden" name="form.submitted:boolean" value="True" />
           </form>
 
+
+
+
           <script type="text/javascript">
             jq(function () {
-                var hide_buttons = function () {
-                    // Hide all Add-Buttons except the on in the last row
-                    jq('.varTable').each(function() {
-                        var add_imgs = jq(this).find('.add-variant');
-                        add_imgs.each(function(idx, element) {
-                            if (idx != add_imgs.length - 1) {
-                                jq(element).css('display', 'none');
-                            }
-                            else {
-                                jq(element).css('display', 'inline');
-                            }
-                        
-                        });
-                    });
-                };
-                hide_buttons();
+
                 var update_vcodes = function () {
                     // Updates all vcodes in the inputs name attributes
                     jq('.varTable').each(function(tbl_idx, tbl) {
@@ -242,7 +228,7 @@
                       });
                       var added_row = row_from_first_table.next();
                       added_row.find('.attributeLabelInput').val('Neue Variante');
-                      hide_buttons();
+
                       update_vcodes();
 
                   });
@@ -263,7 +249,6 @@
                           matching_row.remove();
                       });
 
-                      hide_buttons();
                       update_vcodes();
 
                   });
@@ -291,7 +276,21 @@
                       });
 
                   });
+                  
+                // Make the combinations sortable by the user  
+                jq( ".sortable" ).sortable({
+                 revert: true,
+                 handle: ".drag-variant",
+                 axis: "y",
+                 opacity: 0.8,
+                 containment: "parent",
+                 update: function(event, ui) {
+                     update_vcodes();
+                 }
+                 
+                });
               });
+              
 
               </script>
 

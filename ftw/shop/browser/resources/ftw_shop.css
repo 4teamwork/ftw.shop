@@ -68,6 +68,16 @@
     border: 1px solid #ddd;
 }
 
+.ui-sortable-helper {
+	border: 1px solid grey;
+
+}
+
+.add-variant,
+.del-variant,
+.drag-variant {
+    cursor: pointer;
+}
 .clearer {
 	clear: both;}
 
