@@ -244,12 +244,14 @@ class MigrateVariationsView(BrowserView):
         items = catalog(portal_type="ShopItem")
         for item in items:
             obj = item.getObject()
+            stats[obj.UID()] = {'status': 'UNKNOWN',
+                                'result': 'UNKNOWN'}
             var_conf = IVariationConfig(obj)
 
             # Skip broken OrderedDict items
             var_dict = var_conf.getVariationDict()
             if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
-                status = "SKIPPED Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
+                status = "SKIPPED: Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
                 response += status + "\n"
                 print status
                 stats[obj.UID()] = {'status': 'SKIPPED',
@@ -281,7 +283,11 @@ class MigrateVariationsView(BrowserView):
                     if key in mapping.keys():
                         migrated = False
 
-                if not migrated:
+                if migrated:
+                    # Already migrated
+                    stats[obj.UID()] = {'status': 'ALREADY_MIGRATED',
+                                        'result': 'SUCCESS'}
+                else:
                     # Migrate the item
                     print "Migrating %s..." % obj.Title()
                     for vkey in mapping.keys():
@@ -295,14 +301,14 @@ class MigrateVariationsView(BrowserView):
                             stats[obj.UID()] = {'status': 'MIGRATED',
                                                 'result': 'SUCCESS'}
                         except KeyError:
-                            status = "FAILED: Migration of item %s failed!" % obj.Title()
+                            status = "FAILED: Migration of item '%s' at '%s' failed!" % (obj.Title(), obj.absolute_url())
                             response += status + "\n"
                             print status
                             stats[obj.UID()] = {'status': 'FAILED',
                                                 'result': 'FAILED'}
                             break
                     if stats[obj.UID()]['status'] == 'MIGRATED':
-                        status = "MIGRATED: Item %s" % obj.Title()
+                        status = "MIGRATED: Item '%s' at '%s'" %  (obj.Title(), obj.absolute_url())
                         response += status + "\n"
                         print status
 
@@ -323,7 +329,12 @@ class MigrateVariationsView(BrowserView):
                     if key in mapping.keys():
                         migrated = False
 
-                if not migrated:
+
+                if migrated:
+                    # Already migrated
+                    stats[obj.UID()] = {'status': 'ALREADY_MIGRATED',
+                                        'result': 'SUCCESS'}
+                else:
                     # Migrate this item
                     print "Migrating %s..." % obj.Title()
                     for vkey in mapping.keys():
@@ -337,27 +348,32 @@ class MigrateVariationsView(BrowserView):
                             stats[obj.UID()] = {'status': 'MIGRATED',
                                                 'result': 'SUCCESS'}
                         except KeyError:
-                            status = "Migration of item %s failed!" % obj.Title()
+                            status = "FAILED: Migration of item '%s' at '%s' failed!" % (obj.Title(), obj.absolute_url())
                             response += status + "\n"
                             print status
                             stats[obj.UID()] = {'status': 'FAILED',
                                                 'result': 'FAILED'}
                             break
                     if stats[obj.UID()]['status'] == 'MIGRATED':
-                        status = "MIGRATED: Item %s" % obj.Title()
+                        status = "MIGRATED: Item '%s' at '%s'" %  (obj.Title(), obj.absolute_url())
                         response += status + "\n"
                         print status
+
+
 
         total = len(items)
         migrated = len([stats[k] for k in stats if stats[k]['status'] == 'MIGRATED'])
         skipped = len([stats[k] for k in stats if stats[k]['status'] == 'SKIPPED'])
         failed = len([stats[k] for k in stats if stats[k]['status'] == 'FAILED'])
         no_migration_needed = len([stats[k] for k in stats if stats[k]['status'] == 'NO_MIGRATION_NEEDED'])
-        
-        summary = "TOTAL: %s   MIGRATED: %s   SKIPPED: %s   FAILED: %s   NO MIGRATION NEEDED: %s" % (total,
-                                                                                       migrated,
-                                                                                       skipped,
-                                                                                       failed,
-                                                                                       no_migration_needed)
+        already = len([stats[k] for k in stats if stats[k]['status'] == 'ALREADY_MIGRATED'])
+
+        summary = "TOTAL: %s   MIGRATED: %s   SKIPPED: %s   "\
+                  "FAILED: %s   NO MIGRATION NEEDED: %s   ALREADY_MIGRATED: %s" % (total,
+                                                                          migrated,
+                                                                          skipped,
+                                                                          failed,
+                                                                          no_migration_needed,
+                                                                          already)
         response = "%s\n\n%s" % (summary, response)
         return response
