@@ -238,27 +238,32 @@ class MigrateVariationsView(BrowserView):
         """
         catalog = getToolByName(self.context, 'portal_catalog')
         normalize = getUtility(IIDNormalizer).normalize
-        items = catalog(portal_type="ShopItem")
 
+        items = catalog(portal_type="ShopItem")
         for item in items:
             obj = item.getObject()
-            print obj.Title()
+            print "Migrating %s..." % obj.Title()
 
             var_conf = IVariationConfig(obj)
+
+            # Skip broken OrderedDict items
+            var_dict = var_conf.getVariationDict()
+            if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
+                print "Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
+                continue
+
             varAttrs = var_conf.getVariationAttributes()
             num_variations = len(varAttrs)
             if num_variations == 0:
                 # No migration needed
                 continue
 
-            var_dict = var_conf.getVariationDict()
-            if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
-                continue
-
+            # Migrate items with 2 variations
             if num_variations == 2:
                 migrated = True
                 keys = var_dict.keys()
 
+                # Check if item needs to be migrated
                 for key in keys:
                     try:
                         key = key.replace('var-', '')
@@ -272,9 +277,7 @@ class MigrateVariationsView(BrowserView):
                     except:
                         migrated = False
 
-                if obj.Title() == "Unmigrated Item":
-                    import pdb; pdb.set_trace( )
-
+                # Create mapping from old to new keys
                 if not migrated:
                     mapping = {}
                     for i, v1 in enumerate(var_conf.getVariation1Values()):
@@ -283,19 +286,21 @@ class MigrateVariationsView(BrowserView):
                             vcode = "var-%s-%s" % (i, j)
                             mapping[vkey] = vcode
 
-
-
+                    # Migrate the item
                     for vkey in mapping.keys():
                         vcode = mapping[vkey]
-                        # Store data with new vcode
                         try:
+                            # Store data with new vcode
                             var_dict[vcode] = var_dict[vkey]
                             del var_dict[vkey]
                             var_conf.updateVariationConfig(var_dict)
                             transaction.commit()
                         except KeyError:
-                            print "Migration of item %s failed!" % obj.Title()
+                            print "FAILED: Migration of item %s failed!" % obj.Title()
+                            import pdb; pdb.set_trace( )
+                            break
 
+                # Migrate items with 1 variation
                 if num_variations == 1:
                     migrated = True
                     keys = var_dict.keys()
@@ -304,6 +309,7 @@ class MigrateVariationsView(BrowserView):
                         if not key.isdigit():
                             migrated = False
 
+                    # Create mapping from old to new keys
                     if not migrated:
                         mapping = {}
                         for i, v1 in enumerate(var_conf.getVariation1Values()):
@@ -311,15 +317,16 @@ class MigrateVariationsView(BrowserView):
                             vcode = "%s" % i
                             mapping[vkey] = vcode
 
+                        # Migrate this item
                         for vkey in mapping.keys():
                             vcode = mapping[vkey]
-                            # Store data with new vcode
-                            var_dict[vcode] = var_dict[vkey]
-                            del var_dict[vkey]
-                            var_conf.updateVariationConfig(var_dict)
-                            transaction.commit()
+                            try:
+                                # Store data with new vcode
+                                var_dict[vcode] = var_dict[vkey]
+                                del var_dict[vkey]
+                                var_conf.updateVariationConfig(var_dict)
+                                transaction.commit()
+                            except KeyError:
+                                print "Migration of item %s failed!" % obj.Title()
+                                break
         return "Items Migrated"
-                
-
-            
-        
