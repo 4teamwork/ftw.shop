@@ -151,6 +151,8 @@
             </div>
             <input type="submit" name="form.button.save" value="Save"/>
             <input type="hidden" name="form.submitted:boolean" value="True" />
+            
+            <pre tal:content="varConf/getVariationDict"></pre>
           </form>
 
 

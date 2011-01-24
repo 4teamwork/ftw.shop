@@ -1,4 +1,5 @@
 from decimal import Decimal
+from Products.CMFCore.utils import getToolByName
 import simplejson
 
 from Acquisition import aq_inner
@@ -226,3 +227,33 @@ class EditVariationsView(BrowserView):
         variation_config = IVariationConfig(context)
         return variation_config
 
+
+class MigrateVariationsView(BrowserView):
+    """View to migrate variations of all shop items
+    """
+
+    def __call__(self):
+        """Migrates all items
+        """
+        return True
+        catalog = getToolByName(self.context, 'portal_catalog')
+        items = catalog(portal_type="ShopItem")
+        for item in items:
+            obj = item.getObject()
+            migrated = True
+            variation_config = IVariationConfig(obj)
+            var_dict = variation_config.getVariationDict()
+            keys = var_dict.keys()
+            for key in keys:
+                try:
+                    a, b = key.split('-')
+                    if not a.isnum() and b.isnum():
+                        migrated = False
+                except:
+                    migrated = False
+            #if not migrated:
+                
+                
+            
+            
+        
