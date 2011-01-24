@@ -1,3 +1,4 @@
+import transaction
 from decimal import Decimal
 from Products.CMFCore.utils import getToolByName
 import simplejson
@@ -235,25 +236,90 @@ class MigrateVariationsView(BrowserView):
     def __call__(self):
         """Migrates all items
         """
-        return True
         catalog = getToolByName(self.context, 'portal_catalog')
+        normalize = getUtility(IIDNormalizer).normalize
         items = catalog(portal_type="ShopItem")
+
         for item in items:
             obj = item.getObject()
-            migrated = True
-            variation_config = IVariationConfig(obj)
-            var_dict = variation_config.getVariationDict()
-            keys = var_dict.keys()
-            for key in keys:
-                try:
-                    a, b = key.split('-')
-                    if not a.isnum() and b.isnum():
+            print obj.Title()
+
+            var_conf = IVariationConfig(obj)
+            varAttrs = var_conf.getVariationAttributes()
+            num_variations = len(varAttrs)
+            if num_variations == 0:
+                # No migration needed
+                continue
+
+            var_dict = var_conf.getVariationDict()
+            if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
+                continue
+
+            if num_variations == 2:
+                migrated = True
+                keys = var_dict.keys()
+
+                for key in keys:
+                    try:
+                        key = key.replace('var-', '')
+                        split_keys = key.split('-')
+                        if not len(split_keys) == 2:
+                            migrated = False
+                            continue
+                        a, b = split_keys
+                        if not (a.isdigit() and b.isdigit()):
+                            migrated = False
+                    except:
                         migrated = False
-                except:
-                    migrated = False
-            #if not migrated:
+
+                if obj.Title() == "Unmigrated Item":
+                    import pdb; pdb.set_trace( )
+
+                if not migrated:
+                    mapping = {}
+                    for i, v1 in enumerate(var_conf.getVariation1Values()):
+                        for j, v2 in enumerate(var_conf.getVariation2Values()):
+                            vkey = normalize("%s-%s" % (v1, v2))
+                            vcode = "var-%s-%s" % (i, j)
+                            mapping[vkey] = vcode
+
+
+
+                    for vkey in mapping.keys():
+                        vcode = mapping[vkey]
+                        # Store data with new vcode
+                        try:
+                            var_dict[vcode] = var_dict[vkey]
+                            del var_dict[vkey]
+                            var_conf.updateVariationConfig(var_dict)
+                            transaction.commit()
+                        except KeyError:
+                            print "Migration of item %s failed!" % obj.Title()
+
+                if num_variations == 1:
+                    migrated = True
+                    keys = var_dict.keys()
+                    for key in keys:
+                        key = key.replace('var-', '')
+                        if not key.isdigit():
+                            migrated = False
+
+                    if not migrated:
+                        mapping = {}
+                        for i, v1 in enumerate(var_conf.getVariation1Values()):
+                            vkey = normalize(v1)
+                            vcode = "%s" % i
+                            mapping[vkey] = vcode
+
+                        for vkey in mapping.keys():
+                            vcode = mapping[vkey]
+                            # Store data with new vcode
+                            var_dict[vcode] = var_dict[vkey]
+                            del var_dict[vkey]
+                            var_conf.updateVariationConfig(var_dict)
+                            transaction.commit()
+        return "Items Migrated"
                 
-                
-            
+
             
         

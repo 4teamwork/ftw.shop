@@ -175,6 +175,14 @@
     class=".checkout.ExternalPaymentProcessorView"
     />
 
+    <browser:page
+      for="*"
+      name="migrate_variations"
+      permission="zope2.View"
+      class=".shopitem.MigrateVariationsView"
+      />
+
+
   <browser:resourceDirectory
     name='ftw-shop-resources'
     directory="resources" 
