@@ -238,55 +238,52 @@ class MigrateVariationsView(BrowserView):
         """
         catalog = getToolByName(self.context, 'portal_catalog')
         normalize = getUtility(IIDNormalizer).normalize
+        response = ""
+        stats = {}
 
         items = catalog(portal_type="ShopItem")
         for item in items:
             obj = item.getObject()
-            print "Migrating %s..." % obj.Title()
-
             var_conf = IVariationConfig(obj)
 
             # Skip broken OrderedDict items
             var_dict = var_conf.getVariationDict()
             if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
-                print "Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
+                status = "SKIPPED Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
+                response += status + "\n"
+                print status
+                stats[obj.UID()] = {'status': 'SKIPPED',
+                                    'result': 'SUCCESS'}
                 continue
 
             varAttrs = var_conf.getVariationAttributes()
             num_variations = len(varAttrs)
             if num_variations == 0:
                 # No migration needed
+                stats[obj.UID()] = {'status': 'NO_MIGRATION_NEEDED',
+                                    'result': 'SUCCESS'}
                 continue
 
             # Migrate items with 2 variations
             if num_variations == 2:
                 migrated = True
-                keys = var_dict.keys()
-
-                # Check if item needs to be migrated
-                for key in keys:
-                    try:
-                        key = key.replace('var-', '')
-                        split_keys = key.split('-')
-                        if not len(split_keys) == 2:
-                            migrated = False
-                            continue
-                        a, b = split_keys
-                        if not (a.isdigit() and b.isdigit()):
-                            migrated = False
-                    except:
-                        migrated = False
 
                 # Create mapping from old to new keys
-                if not migrated:
-                    mapping = {}
-                    for i, v1 in enumerate(var_conf.getVariation1Values()):
-                        for j, v2 in enumerate(var_conf.getVariation2Values()):
-                            vkey = normalize("%s-%s" % (v1, v2))
-                            vcode = "var-%s-%s" % (i, j)
-                            mapping[vkey] = vcode
+                mapping = {}
+                for i, v1 in enumerate(var_conf.getVariation1Values()):
+                    for j, v2 in enumerate(var_conf.getVariation2Values()):
+                        vkey = "%s-%s" % (normalize(v1), normalize(v2))
+                        vcode = "var-%s-%s" % (i, j)
+                        mapping[vkey] = vcode
 
+                # Check if item needs to be migrated
+                for key in var_dict.keys():
+                    if key in mapping.keys():
+                        migrated = False
+
+                if not migrated:
                     # Migrate the item
+                    print "Migrating %s..." % obj.Title()
                     for vkey in mapping.keys():
                         vcode = mapping[vkey]
                         try:
@@ -295,38 +292,72 @@ class MigrateVariationsView(BrowserView):
                             del var_dict[vkey]
                             var_conf.updateVariationConfig(var_dict)
                             transaction.commit()
+                            stats[obj.UID()] = {'status': 'MIGRATED',
+                                                'result': 'SUCCESS'}
                         except KeyError:
-                            print "FAILED: Migration of item %s failed!" % obj.Title()
-                            import pdb; pdb.set_trace( )
+                            status = "FAILED: Migration of item %s failed!" % obj.Title()
+                            response += status + "\n"
+                            print status
+                            stats[obj.UID()] = {'status': 'FAILED',
+                                                'result': 'FAILED'}
                             break
+                    if stats[obj.UID()]['status'] == 'MIGRATED':
+                        status = "MIGRATED: Item %s" % obj.Title()
+                        response += status + "\n"
+                        print status
 
-                # Migrate items with 1 variation
-                if num_variations == 1:
-                    migrated = True
-                    keys = var_dict.keys()
-                    for key in keys:
-                        key = key.replace('var-', '')
-                        if not key.isdigit():
-                            migrated = False
 
-                    # Create mapping from old to new keys
-                    if not migrated:
-                        mapping = {}
-                        for i, v1 in enumerate(var_conf.getVariation1Values()):
-                            vkey = normalize(v1)
-                            vcode = "%s" % i
-                            mapping[vkey] = vcode
+            # Migrate items with 1 variation
+            if num_variations == 1:
+                migrated = True
 
-                        # Migrate this item
-                        for vkey in mapping.keys():
-                            vcode = mapping[vkey]
-                            try:
-                                # Store data with new vcode
-                                var_dict[vcode] = var_dict[vkey]
-                                del var_dict[vkey]
-                                var_conf.updateVariationConfig(var_dict)
-                                transaction.commit()
-                            except KeyError:
-                                print "Migration of item %s failed!" % obj.Title()
-                                break
-        return "Items Migrated"
+                # Create mapping from old to new keys
+                mapping = {}
+                for i, v1 in enumerate(var_conf.getVariation1Values()):
+                    vkey = normalize(v1)
+                    vcode = "var-%s" % i
+                    mapping[vkey] = vcode
+
+                # Check if item needs to be migrated
+                for key in var_dict.keys():
+                    if key in mapping.keys():
+                        migrated = False
+
+                if not migrated:
+                    # Migrate this item
+                    print "Migrating %s..." % obj.Title()
+                    for vkey in mapping.keys():
+                        vcode = mapping[vkey]
+                        try:
+                            # Store data with new vcode
+                            var_dict[vcode] = var_dict[vkey]
+                            del var_dict[vkey]
+                            var_conf.updateVariationConfig(var_dict)
+                            transaction.commit()
+                            stats[obj.UID()] = {'status': 'MIGRATED',
+                                                'result': 'SUCCESS'}
+                        except KeyError:
+                            status = "Migration of item %s failed!" % obj.Title()
+                            response += status + "\n"
+                            print status
+                            stats[obj.UID()] = {'status': 'FAILED',
+                                                'result': 'FAILED'}
+                            break
+                    if stats[obj.UID()]['status'] == 'MIGRATED':
+                        status = "MIGRATED: Item %s" % obj.Title()
+                        response += status + "\n"
+                        print status
+
+        total = len(items)
+        migrated = len([stats[k] for k in stats if stats[k]['status'] == 'MIGRATED'])
+        skipped = len([stats[k] for k in stats if stats[k]['status'] == 'SKIPPED'])
+        failed = len([stats[k] for k in stats if stats[k]['status'] == 'FAILED'])
+        no_migration_needed = len([stats[k] for k in stats if stats[k]['status'] == 'NO_MIGRATION_NEEDED'])
+        
+        summary = "TOTAL: %s   MIGRATED: %s   SKIPPED: %s   FAILED: %s   NO MIGRATION NEEDED: %s" % (total,
+                                                                                       migrated,
+                                                                                       skipped,
+                                                                                       failed,
+                                                                                       no_migration_needed)
+        response = "%s\n\n%s" % (summary, response)
+        return response
