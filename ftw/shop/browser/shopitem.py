@@ -1,4 +1,6 @@
+import transaction
 from decimal import Decimal
+from Products.CMFCore.utils import getToolByName
 import simplejson
 
 from Acquisition import aq_inner
@@ -100,8 +102,8 @@ class ShopItemView(BrowserView):
 
             # Convert Decimals to Strings for serialization
             varDict = varDicts[uid]
-            for vkey in varDict.keys():
-                i = varDict[vkey]
+            for vcode in varDict.keys():
+                i = varDict[vcode]
                 for k in i.keys():
                     val = i[k]
                     if isinstance(val, Decimal):
@@ -137,7 +139,17 @@ class EditVariationsView(BrowserView):
         if submitted:
             variation_config = IVariationConfig(self.context)
 
-            edited_var_data = self._parse_edit_variations_form()
+            attributes, edited_var_data = self._parse_edit_variations_form()
+            v1attr = attributes[0].keys()[0]
+            v2attr = attributes[1].keys()[0]
+            v1values = attributes[0][v1attr]
+            v2values = attributes[1][v2attr]
+
+            self.context.Schema().getField('variation1_attribute').set(self.context, v1attr)
+            self.context.Schema().getField('variation2_attribute').set(self.context, v2attr)
+            self.context.Schema().getField('variation1_values').set(self.context, v1values)
+            self.context.Schema().getField('variation2_values').set(self.context, v2values)
+
             variation_config.updateVariationConfig(edited_var_data)
 
             IStatusMessage(self.request).addStatusMessage(
@@ -154,13 +166,12 @@ class EditVariationsView(BrowserView):
         form = self.request.form
         variation_config = IVariationConfig(self.context)
         variation_data = {}
-        normalize = getUtility(IIDNormalizer).normalize
 
-        def _parse_data(variation_key):
+        def _parse_data(variation_code):
             data = {}
-            data['active'] = bool(form.get("%s-active" % variation_key))
+            data['active'] = bool(form.get("%s-active" % variation_code))
             # TODO: Handle decimal more elegantly
-            price = form.get("%s-price" % variation_key)
+            price = form.get("%s-price" % variation_code)
             try:
                 p = int(price)
                 # Create a tuple of ints from string
@@ -172,8 +183,8 @@ class EditVariationsView(BrowserView):
                 else:
                     data['price'] = Decimal("0.00")
 
-            data['skuCode'] = form.get("%s-skuCode" % variation_key)
-            data['description'] = form.get("%s-description" % variation_key)
+            data['skuCode'] = form.get("%s-skuCode" % variation_code)
+            data['description'] = form.get("%s-description" % variation_code)
 
             # At this point the form has already been validated,
             # so uniqueness of sku codes is ensured
@@ -183,18 +194,32 @@ class EditVariationsView(BrowserView):
 
         if len(variation_config.getVariationAttributes()) == 1:
             # One variation attribute
-            for var1_value in variation_config.getVariation1Values():
-                variation_key = normalize(var1_value)
+            for i, var1_value in enumerate(variation_config.getVariation1Values()):
+                variation_code = 'var-%s' % i
 
-                variation_data[variation_key] = _parse_data(variation_key)
+                variation_data[variation_code] = _parse_data(variation_code)
         else:
             # Two variation attributes
-            for var1_value in variation_config.getVariation1Values():
-                for var2_value in variation_config.getVariation2Values():
-                    variation_key = normalize("%s-%s" % (var1_value,
-                                                         var2_value))
-                    variation_data[variation_key] = _parse_data(variation_key)
-        return variation_data
+            for i, var1_value in enumerate(variation_config.getVariation1Values()):
+                for j, var2_value in enumerate(variation_config.getVariation2Values()):
+                    variation_code = 'var-%s-%s' % (i, j) 
+                    variation_data[variation_code] = _parse_data(variation_code)
+
+        v1attr = form.get('v1attr')
+        v2attr = form.get('v2attr')
+        
+        v1values = []
+        for key in form.keys():
+            if 'v1-value-' in key:
+                v1values.append(form.get(key))
+
+        v2values = []
+        for key in form.keys():
+            if 'v2-value-' in key:
+                v2values.append(form.get(key))
+        
+        attributes = [{v1attr:v1values}, {v2attr:v2values}]
+        return (attributes, variation_data)
 
     def getVariationsConfig(self):
         """Returns the variation config for the item being edited
@@ -202,3 +227,153 @@ class EditVariationsView(BrowserView):
         context = aq_inner(self.context)
         variation_config = IVariationConfig(context)
         return variation_config
+
+
+class MigrateVariationsView(BrowserView):
+    """View to migrate variations of all shop items
+    """
+
+    def __call__(self):
+        """Migrates all items
+        """
+        catalog = getToolByName(self.context, 'portal_catalog')
+        normalize = getUtility(IIDNormalizer).normalize
+        response = ""
+        stats = {}
+
+        items = catalog(portal_type="ShopItem")
+        for item in items:
+            obj = item.getObject()
+            stats[obj.UID()] = {'status': 'UNKNOWN',
+                                'result': 'UNKNOWN'}
+            var_conf = IVariationConfig(obj)
+
+            # Skip broken OrderedDict items
+            var_dict = var_conf.getVariationDict()
+            if str(type(var_dict)) == "<class 'zc.dict.dict.OrderedDict'>":
+                status = "SKIPPED: Broken OrderedDict Item '%s' at '%s'" % (obj.Title(), obj.absolute_url())
+                response += status + "\n"
+                print status
+                stats[obj.UID()] = {'status': 'SKIPPED',
+                                    'result': 'SUCCESS'}
+                continue
+
+            varAttrs = var_conf.getVariationAttributes()
+            num_variations = len(varAttrs)
+            if num_variations == 0:
+                # No migration needed
+                stats[obj.UID()] = {'status': 'NO_MIGRATION_NEEDED',
+                                    'result': 'SUCCESS'}
+                continue
+
+            # Migrate items with 2 variations
+            if num_variations == 2:
+                migrated = True
+
+                # Create mapping from old to new keys
+                mapping = {}
+                for i, v1 in enumerate(var_conf.getVariation1Values()):
+                    for j, v2 in enumerate(var_conf.getVariation2Values()):
+                        vkey = "%s-%s" % (normalize(v1), normalize(v2))
+                        vcode = "var-%s-%s" % (i, j)
+                        mapping[vkey] = vcode
+
+                # Check if item needs to be migrated
+                for key in var_dict.keys():
+                    if key in mapping.keys():
+                        migrated = False
+
+                if migrated:
+                    # Already migrated
+                    stats[obj.UID()] = {'status': 'ALREADY_MIGRATED',
+                                        'result': 'SUCCESS'}
+                else:
+                    # Migrate the item
+                    print "Migrating %s..." % obj.Title()
+                    for vkey in mapping.keys():
+                        vcode = mapping[vkey]
+                        try:
+                            # Store data with new vcode
+                            var_dict[vcode] = var_dict[vkey]
+                            del var_dict[vkey]
+                            var_conf.updateVariationConfig(var_dict)
+                            transaction.commit()
+                            stats[obj.UID()] = {'status': 'MIGRATED',
+                                                'result': 'SUCCESS'}
+                        except KeyError:
+                            status = "FAILED: Migration of item '%s' at '%s' failed!" % (obj.Title(), obj.absolute_url())
+                            response += status + "\n"
+                            print status
+                            stats[obj.UID()] = {'status': 'FAILED',
+                                                'result': 'FAILED'}
+                            break
+                    if stats[obj.UID()]['status'] == 'MIGRATED':
+                        status = "MIGRATED: Item '%s' at '%s'" %  (obj.Title(), obj.absolute_url())
+                        response += status + "\n"
+                        print status
+
+
+            # Migrate items with 1 variation
+            if num_variations == 1:
+                migrated = True
+
+                # Create mapping from old to new keys
+                mapping = {}
+                for i, v1 in enumerate(var_conf.getVariation1Values()):
+                    vkey = normalize(v1)
+                    vcode = "var-%s" % i
+                    mapping[vkey] = vcode
+
+                # Check if item needs to be migrated
+                for key in var_dict.keys():
+                    if key in mapping.keys():
+                        migrated = False
+
+
+                if migrated:
+                    # Already migrated
+                    stats[obj.UID()] = {'status': 'ALREADY_MIGRATED',
+                                        'result': 'SUCCESS'}
+                else:
+                    # Migrate this item
+                    print "Migrating %s..." % obj.Title()
+                    for vkey in mapping.keys():
+                        vcode = mapping[vkey]
+                        try:
+                            # Store data with new vcode
+                            var_dict[vcode] = var_dict[vkey]
+                            del var_dict[vkey]
+                            var_conf.updateVariationConfig(var_dict)
+                            transaction.commit()
+                            stats[obj.UID()] = {'status': 'MIGRATED',
+                                                'result': 'SUCCESS'}
+                        except KeyError:
+                            status = "FAILED: Migration of item '%s' at '%s' failed!" % (obj.Title(), obj.absolute_url())
+                            response += status + "\n"
+                            print status
+                            stats[obj.UID()] = {'status': 'FAILED',
+                                                'result': 'FAILED'}
+                            break
+                    if stats[obj.UID()]['status'] == 'MIGRATED':
+                        status = "MIGRATED: Item '%s' at '%s'" %  (obj.Title(), obj.absolute_url())
+                        response += status + "\n"
+                        print status
+
+
+
+        total = len(items)
+        migrated = len([stats[k] for k in stats if stats[k]['status'] == 'MIGRATED'])
+        skipped = len([stats[k] for k in stats if stats[k]['status'] == 'SKIPPED'])
+        failed = len([stats[k] for k in stats if stats[k]['status'] == 'FAILED'])
+        no_migration_needed = len([stats[k] for k in stats if stats[k]['status'] == 'NO_MIGRATION_NEEDED'])
+        already = len([stats[k] for k in stats if stats[k]['status'] == 'ALREADY_MIGRATED'])
+
+        summary = "TOTAL: %s   MIGRATED: %s   SKIPPED: %s   "\
+                  "FAILED: %s   NO MIGRATION NEEDED: %s   ALREADY_MIGRATED: %s" % (total,
+                                                                          migrated,
+                                                                          skipped,
+                                                                          failed,
+                                                                          no_migration_needed,
+                                                                          already)
+        response = "%s\n\n%s" % (summary, response)
+        return response

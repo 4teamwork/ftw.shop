@@ -32,7 +32,7 @@
                                     <select name="var1choice">
                                         <option tal:repeat="varValue1 varConf/getVariation1Values"
                                         tal:content="varValue1" 
-                                        tal:attributes="value python:normalizeString(varValue1)">
+                                        tal:attributes="value repeat/varValue1/index">
                                         Blau
                                         </option>
                                     </select>
@@ -69,7 +69,8 @@
                     <!-- Description Table -->
                      <table tal:condition="varConf/isValid" 
                             class="itemDataTable"
-                            tal:define="varDict varConf/getVariationDict">
+                            tal:define="varDict varConf/getVariationDict"
+                            style="display: none;">
                          <thead>
                              <th>Variation</th>
                              <th i18n:translate="label_price">Price</th>
@@ -77,13 +78,13 @@
                              <th i18n:translate="label_description">Description</th>
                          </thead>
                          <tbody>
-                         <tal:variations tal:repeat="vkey varDict">
-                             <tr tal:attributes="id vkey" tal:condition="python: varDict[vkey]['active']">
-                                 <td tal:content="python:varConf.getPrettyName(vkey)"></td>
-                                 <td tal:content="python: varDict[vkey]['price']"></td>
-                                 <td tal:content="python: varDict[vkey]['skuCode']"></td>
-                                 <td><span tal:condition="python: 'description' in varDict[vkey].keys()"
-                                           tal:content="python: varDict[vkey]['description']"/></td>
+                         <tal:variations tal:repeat="vcode varDict">
+                             <tr tal:attributes="id vcode" tal:condition="python: varDict[vcode]['active']">
+                                 <td tal:content="python:varConf.getPrettyName(vcode)"></td>
+                                 <td tal:content="python: varDict[vcode]['price']"></td>
+                                 <td tal:content="python: varDict[vcode]['skuCode']"></td>
+                                 <td><span tal:condition="python: 'description' in varDict[vcode].keys()"
+                                           tal:content="python: varDict[vcode]['description']"/></td>
                              </tr>
                          </tal:variations>
                          </tbody>

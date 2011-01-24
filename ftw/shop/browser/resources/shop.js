@@ -65,23 +65,23 @@ jq(function () {
     jq(".variation-toplevel-group select").change(function () {
         var uid = jq(this).parents("form").find("input[name=uid]").val();
 
-        var varkey;
+        var varcode;
         var v2select = jq(this).parents("form").find("select[name=var2choice]");
         if (v2select.length == 0) {
             // We only have one variation
-            varkey = jq(this).parent().find("select[name=var1choice] option:selected").attr("value");
+            varcode = "var-" + jq(this).parent().find("select[name=var1choice] option:selected").attr("value");
         }
         else {
             // We've got two variations
-            varkey = jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value");
+            varcode = "var-" + jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value");
 
             // Grey out variations that are deactivated
             var other_select = jq(this).parents("form").find("select").not(jq(this));
             if (other_select.attr("name") === "var1choice") {
-                var varkey_right_part = jq(this).attr("value");
+                var varcode_right_part = jq(this).attr("value");
                 other_select.find('option').each(function () {
-                    option_vkey = jq(this).attr("value") + "-" + varkey_right_part;
-                    if (varDicts[uid][option_vkey]['active'] === false) {
+                    option_vcode = "var-" + jq(this).attr("value") + "-" + varcode_right_part;
+                    if (varDicts[uid][option_vcode]['active'] === false) {
                         jq(this).addClass("greyed-out");
                     }
                     else {
@@ -91,10 +91,10 @@ jq(function () {
 
             }
             else {
-                var varkey_left_part = jq(this).attr("value");
+                var varcode_left_part = jq(this).attr("value");
                 other_select.find('option').each(function () {
-                    option_vkey =  varkey_left_part + "-" + jq(this).attr("value");
-                    if (varDicts[uid][option_vkey]['active'] === false) {
+                    option_vcode =  "var-" + varcode_left_part + "-" + jq(this).attr("value");
+                    if (varDicts[uid][option_vcode]['active'] === false) {
                         jq(this).addClass("greyed-out");
                     }
                     else {
@@ -108,9 +108,9 @@ jq(function () {
 
         // Place Price and SKU code directly in variation selection table
         varSelectTable = jq(this).parents(".variation-toplevel-group").find("table.variationSelection");
-        varPrice = varDicts[uid][varkey]['price']
-        varSkuCode = varDicts[uid][varkey]['skuCode']
-        varDescription = varDicts[uid][varkey]['description']
+        varPrice = varDicts[uid][varcode]['price']
+        varSkuCode = varDicts[uid][varcode]['skuCode']
+        varDescription = varDicts[uid][varcode]['description']
 
         varSelectTable.find("td.variationPrice").text(varPrice);
         varSelectTable.find("td.variationSKUCode").text(varSkuCode);
@@ -124,13 +124,13 @@ jq(function () {
         jq(this).parents(".variation-toplevel-group").find("table.itemDataTable").hide();
 
         // Disable "add to cart" button if variation is disabled
-        if (varDicts[uid][varkey]['active']) {
+        if (varDicts[uid][varcode]['active']) {
             jq(this).parents("form").find("input[name=addtocart]").attr("disabled", false);
             jq(this).parents("form").find("input[name=quantity:int]").attr("disabled", false);
 
             // Only un-hide the item data if item is active
             jq(this).parents(".variation-toplevel-group").find("table.itemDataTable tr").each(function () {
-                if (varkey == jq(this).attr("id")) {
+                if (varcode == jq(this).attr("id")) {
                     jq(this).show();
                 }
             });
