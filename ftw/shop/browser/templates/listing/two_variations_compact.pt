@@ -80,7 +80,8 @@
                     <!-- Description Table -->
                      <table tal:condition="varConf/isValid" 
                             class="itemDataTable"
-                            tal:define="varDict varConf/getVariationDict">
+                            tal:define="varDict varConf/getVariationDict"
+                            style="display: none;">
                          <thead>
                              <th>Variation</th>
                              <th i18n:translate="label_price">Price</th>
