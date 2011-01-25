@@ -1,5 +1,6 @@
 <dl class="portlet portletCartPortlet"
-    i18n:domain="ftw.shop">
+    i18n:domain="ftw.shop"
+    tal:define="mtool context/@@plone_tools/membership">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
@@ -35,20 +36,18 @@
         <div tal:condition="python: not cview.all_prices_zero()"
              class="cartTotal">Total: CHF <span tal:replace="cview/cart_total">100.00</span></div>
 
-        <div class="cartActions"
-             tal:define="mtool context/@@plone_tools/membership">
+        <div class="cartActions">
             <ul>
                 <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit"
                                 i18n:translate="label_edit_cart">Edit cart</a></li>
                 <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout-wizard"
                                 i18n:translate="label_checkout">Order</a></li>
-                <li tal:condition="python:mtool.checkPermission('Modify portal content', context)">
-                    <a href="#" tal:attributes="href string:${cview/shop_url}/order_manager"
-                                i18n:translate="label_order_manager">Order Manager</a></li>
             </ul>
         </div>
         </tal:cartcontents>
-
+        <ul><li tal:condition="python:mtool.checkPermission('Modify portal content', context)">
+            <a href="#" tal:attributes="href string:${cview/shop_url}/order_manager"
+                        i18n:translate="label_order_manager">Order Manager</a></li></ul>
         <span class="portletBottomLeft"></span>
         <span class="portletBottomRight"></span>
     </dd>
