@@ -59,12 +59,18 @@ class ManageCategories(BrowserView):
                                             (self.context.absolute_url()))
 
     def get_categories(self, context=None, except_uids=[]):
+        # TODO: This method needs some refactoring!
+        # except_uids is never used!?
+        # a navtree builder seems more appropriate here
         depth = -1
         sort = True
         if not context:
             sort = False
             context = utils.get_shop_root_object(self.context)
             depth = 1
+            # shop root is a shop category
+            if context.portal_type == 'ShopCategory':
+                depth = 0
         catalog = getToolByName(self.context, 'portal_catalog')
         query = dict(
             portal_type = 'ShopCategory',
@@ -77,6 +83,9 @@ class ManageCategories(BrowserView):
         for brain in catalog(query):
             if brain.UID not in except_uids and \
                brain.UID != context.UID():
+                categories.append(brain.getObject())
+            # shop root is a shop category
+            elif depth == 0:
                 categories.append(brain.getObject())
         if sort:
             tmp = [('>'.join(c.fullTitle()[1:]), c) for c in categories]
