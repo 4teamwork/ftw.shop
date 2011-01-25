@@ -50,18 +50,6 @@
     vertical-align: top;
 }
 
-
-
-#variations fieldset legend {
-    font-size: 105%;
-}
-
-
-#variations td, th {
-    font-size: 80%;
-}
-
-
 #variations {
     background-color: #eee;
     padding: 0.5em;
