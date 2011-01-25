@@ -17,18 +17,18 @@
         <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv?from_date:date=${from_date}&amp;to_date:date=${to_date}">CSV export</a></p>
 
         <form action="./order_manager" method="post">
-        <label for="from_date">From: </label>
+        <label i18n:translate="label_from_date" for="from_date">From: </label>
         <input name="from_date:date" id="from_date"/>
 
-        <label for="to_date">To: </label>
+        <label i18n:translate="label_to_date" for="to_date">To: </label>
         <input name="to_date:date" id="to_date"/>
 
-        <input name="filter" type="submit" value="Filter"/>
+        <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
         <br/><br/>
         </form>
 
 
-    <table class="padded-table">
+    <table class="listing">
     <thead>
         <th>ID</th>
         <th i18n:translate="label_order_title">Title</th>
@@ -37,18 +37,26 @@
         <th i18n:translate="label_cart">Cart</th>
         <th i18n:translate="label_customer">Customer</th>
         <th i18n:translate="label_date">Date</th>
+        <th i18n:translate="label_cancel_order">Cancel</th>
     </thead>
     <tbody>
-        <tr tal:repeat="order view/order_results">
-            <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/order_id"></a></td>
-            <td tal:content="order/title"/>
-            <td tal:content="order/status"/>
-            <td tal:content="order/getTotal"/>
-            <td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code" /><span tal:content="string:(${item_set/quantity})" /><br/></tal:block></td>
-            <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
-                tal:content="customer"/>
-            <td tal:content="python: order.date.strftime('%Y-%m-%d %H:%M')"/>
-        </tr>
+        <tal:order tal:repeat="order view/order_results">
+            <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
+                <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/order_id"></a></td>
+                <td tal:content="order/title"/>
+                <td tal:content="order/status"/>
+                <td tal:content="order/getTotal"/>
+                <td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code" /><span tal:content="string:(${item_set/quantity})" /><br/></tal:block></td>
+                <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
+                    tal:content="customer"/>
+                <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
+                <td><a href=""
+                    tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}">
+                    <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
+                    </a>
+                </td>
+            </tr>
+        </tal:order>
     </tbody>
 
     </table>

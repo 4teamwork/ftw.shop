@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-12 14:48+0000\n"
+"POT-Creation-Date: 2011-01-25 09:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -33,12 +33,16 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:84
+#: ./ftw/shop/browser/templates/cart_edit.pt:86
 msgid "Checkout"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:78
+#: ./ftw/shop/browser/templates/cart_edit.pt:80
 msgid "Empty Shopping Cart"
+msgstr ""
+
+#: ./ftw/shop/browser/templates/order_manager.pt:26
+msgid "Filter"
 msgstr ""
 
 #: ./ftw/shop/profiles/default/types/ShopCategory.xml
@@ -49,11 +53,11 @@ msgstr ""
 msgid "Shop Item"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/edit_categories.pt:49
+#: ./ftw/shop/browser/templates/edit_categories.pt:126
 msgid "Update"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:72
+#: ./ftw/shop/browser/templates/cart_edit.pt:74
 msgid "Update Cart"
 msgstr ""
 
@@ -62,17 +66,17 @@ msgid "Variations"
 msgstr ""
 
 #. Default: "Back"
-#: ./ftw/shop/browser/checkout.py:306
+#: ./ftw/shop/browser/checkout.py:308
 msgid "btn_back"
 msgstr ""
 
 #. Default: "Next"
-#: ./ftw/shop/browser/checkout.py:328
+#: ./ftw/shop/browser/checkout.py:330
 msgid "btn_continue"
 msgstr ""
 
 #. Default: "Finish"
-#: ./ftw/shop/browser/checkout.py:350
+#: ./ftw/shop/browser/checkout.py:352
 msgid "btn_finish"
 msgstr ""
 
@@ -83,35 +87,35 @@ msgstr ""
 
 #. Default: "Description"
 #: ./ftw/shop/browser/templates/cart_edit.pt:28
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:58
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
 msgid "cart_header_description"
 msgstr ""
 
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/cart_edit.pt:30
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:60
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:93
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:61
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:102
 msgid "cart_header_price"
 msgstr ""
 
 #. Default: "Product"
 #: ./ftw/shop/browser/templates/cart_edit.pt:27
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:57
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:91
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:58
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:100
 msgid "cart_header_product"
 msgstr ""
 
 #. Default: "Quantity"
 #: ./ftw/shop/browser/templates/cart_edit.pt:29
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:92
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:60
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:101
 msgid "cart_header_quantity"
 msgstr ""
 
 #. Default: "Total"
 #: ./ftw/shop/browser/templates/cart_edit.pt:31
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:61
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:94
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:62
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:103
 msgid "cart_header_total"
 msgstr ""
 
@@ -126,23 +130,18 @@ msgstr ""
 msgid "cart_title"
 msgstr ""
 
-#. Default: "Short Description"
-#: ./ftw/shop/browser/templates/edit_categories.pt:19
-msgid "categories_header_description"
-msgstr ""
-
 #. Default: "Rank"
-#: ./ftw/shop/browser/templates/edit_categories.pt:20
+#: ./ftw/shop/browser/templates/edit_categories.pt:58
 msgid "categories_header_rank"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/shop/browser/templates/edit_categories.pt:18
+#: ./ftw/shop/browser/templates/edit_categories.pt:57
 msgid "categories_header_title"
 msgstr ""
 
 #. Default: "Categories"
-#: ./ftw/shop/browser/templates/edit_categories.pt:8
+#: ./ftw/shop/browser/templates/edit_categories.pt:48
 msgid "categories_title"
 msgstr ""
 
@@ -171,20 +170,20 @@ msgid "desc_variation2_values"
 msgstr ""
 
 #. Default: "Details of your order"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:22
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:23
 msgid "header_orderdetails"
 msgstr ""
 
 #. Default: "Ordered items"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:86
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:86
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:86
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:95
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:95
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:95
 msgid "header_ordereditems"
 msgstr ""
 
 #. Default: "Details of the order"
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:17
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:17
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:18
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:18
 msgid "header_shopowner_orderdetails"
 msgstr ""
 
@@ -207,7 +206,7 @@ msgstr ""
 msgid "help_default_contact_info_step"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:182
+#: ./ftw/shop/browser/checkout.py:184
 msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
@@ -220,7 +219,7 @@ msgstr ""
 msgid "help_newsletter"
 msgstr ""
 
-#: ./ftw/shop/browser/checkout.py:213
+#: ./ftw/shop/browser/checkout.py:215
 msgid "help_order_review_step"
 msgstr ""
 
@@ -235,10 +234,15 @@ msgid "label_always_notify_shop_owner"
 msgstr ""
 
 #. Default: "Article number"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:90
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:90
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:90
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:99
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:99
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:99
 msgid "label_article_no"
+msgstr ""
+
+#. Default: "Cancel"
+#: ./ftw/shop/browser/templates/order_manager.pt:40
+msgid "label_cancel_order"
 msgstr ""
 
 #. Default: "Cart"
@@ -247,7 +251,7 @@ msgid "label_cart"
 msgstr ""
 
 #. Default: "Cart Contents"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:49
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:50
 msgid "label_cart_contents"
 msgstr ""
 
@@ -257,24 +261,29 @@ msgid "label_cart_portlet"
 msgstr ""
 
 #. Default: "Order"
-#: ./ftw/shop/portlets/cart.pt:41
+#: ./ftw/shop/portlets/cart.pt:43
 msgid "label_checkout"
 msgstr ""
 
 #. Default: "Checkout"
-#: ./ftw/shop/browser/checkout.py:230
+#: ./ftw/shop/browser/checkout.py:232
 msgid "label_checkout_wizard"
 msgstr ""
 
 #. Default: "City"
-#: ./ftw/shop/interfaces.py:271
+#: ./ftw/shop/interfaces.py:275
 msgid "label_city"
 msgstr ""
 
 #. Default: "Comments"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:24
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:25
 #: ./ftw/shop/interfaces.py:290
 msgid "label_comments"
+msgstr ""
+
+#. Default: "Company"
+#: ./ftw/shop/interfaces.py:255
+msgid "label_company"
 msgstr ""
 
 #. Default: "Contact Information Step Group"
@@ -283,7 +292,7 @@ msgid "label_contact_info_step_group"
 msgstr ""
 
 #. Default: "Country"
-#: ./ftw/shop/interfaces.py:275
+#: ./ftw/shop/interfaces.py:279
 msgid "label_country"
 msgstr ""
 
@@ -293,8 +302,8 @@ msgid "label_customer"
 msgstr ""
 
 #. Default: "Date"
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:21
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:21
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:22
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:22
 #: ./ftw/shop/browser/templates/order_manager.pt:39
 msgid "label_date"
 msgstr ""
@@ -305,7 +314,7 @@ msgid "label_default_contact_info_step"
 msgstr ""
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/checkout.py:178
+#: ./ftw/shop/browser/checkout.py:180
 msgid "label_default_payment_processor_choice_step"
 msgstr ""
 
@@ -315,16 +324,16 @@ msgid "label_default_shipping_address_step"
 msgstr ""
 
 #. Default: "Description"
-#: ./ftw/shop/browser/templates/edit_variations.pt:30
+#: ./ftw/shop/browser/templates/edit_variations.pt:33
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:13
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:77
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:78
 msgid "label_description"
 msgstr ""
 
 #. Default: "Comments"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:62
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:63
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:62
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:67
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:68
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:67
 msgid "label_details_comments"
 msgstr ""
 
@@ -341,7 +350,7 @@ msgid "label_details_ms"
 msgstr ""
 
 #. Default: "Edit cart"
-#: ./ftw/shop/portlets/cart.pt:39
+#: ./ftw/shop/portlets/cart.pt:41
 msgid "label_edit_cart"
 msgstr ""
 
@@ -353,9 +362,9 @@ msgid "label_edit_variations"
 msgstr ""
 
 #. Default: "Email"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:19
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:46
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:47
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:20
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:51
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:52
 msgid "label_email"
 msgstr ""
 
@@ -367,6 +376,11 @@ msgstr ""
 #. Default: "First Name"
 #: ./ftw/shop/interfaces.py:243
 msgid "label_firstname"
+msgstr ""
+
+#. Default: "From:"
+#: ./ftw/shop/browser/templates/order_manager.pt:20
+msgid "label_from_date"
 msgstr ""
 
 #. Default: "Last Name"
@@ -390,7 +404,7 @@ msgid "label_mail_subject_en"
 msgstr ""
 
 #. Default: "More"
-#: ./ftw/shop/browser/templates/category.pt:55
+#: ./ftw/shop/browser/templates/category.pt:49
 msgid "label_more_link"
 msgstr ""
 
@@ -400,12 +414,17 @@ msgid "label_newsletter"
 msgstr ""
 
 #. Default: "No"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:27
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:28
 msgid "label_no"
 msgstr ""
 
+#. Default: "Order Manager"
+#: ./ftw/shop/portlets/cart.pt:46
+msgid "label_order_manager"
+msgstr ""
+
 #. Default: "Order Review"
-#: ./ftw/shop/browser/checkout.py:210
+#: ./ftw/shop/browser/checkout.py:212
 msgid "label_order_review_step"
 msgstr ""
 
@@ -415,8 +434,8 @@ msgid "label_order_review_step_group"
 msgstr ""
 
 #. Default: "Order Status"
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:23
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:23
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:24
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:24
 msgid "label_order_status"
 msgstr ""
 
@@ -431,7 +450,7 @@ msgid "label_order_title"
 msgstr ""
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:83
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:84
 #: ./ftw/shop/interfaces.py:123
 msgid "label_payment_processor"
 msgstr ""
@@ -447,38 +466,33 @@ msgid "label_personal_information"
 msgstr ""
 
 #. Default: "Phone"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:20
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:50
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:51
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:21
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:55
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:56
 msgid "label_phone"
 msgstr ""
 
 #. Default: "Phone number"
-#: ./ftw/shop/interfaces.py:263
+#: ./ftw/shop/interfaces.py:267
 msgid "label_phone_number"
 msgstr ""
 
 #. Default: "Price"
-#: ./ftw/shop/browser/templates/edit_variations.pt:26
+#: ./ftw/shop/browser/templates/edit_variations.pt:29
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
 msgstr ""
 
 #. Default: "Receive Newsletter"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:25
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:26
 msgid "label_receive_newsletter"
 msgstr ""
 
 #. Default: "Shipping Address"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:34
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:35
 #: ./ftw/shop/browser/templates/order_view.pt:53
 msgid "label_shipping_address"
-msgstr ""
-
-#. Default: "Shipping address (optional)"
-#: ./ftw/shop/interfaces.py:279
-msgid "label_shipping_address_optional"
 msgstr ""
 
 #. Default: "Shipping Address Step Group"
@@ -509,17 +523,17 @@ msgid "label_sku_code"
 msgstr ""
 
 #. Default: "SKU code ${required}"
-#: ./ftw/shop/browser/templates/edit_variations.pt:28
+#: ./ftw/shop/browser/templates/edit_variations.pt:31
 msgid "label_sku_code_required"
 msgstr ""
 
 #. Default: "Street/No."
-#: ./ftw/shop/interfaces.py:255
+#: ./ftw/shop/interfaces.py:259
 msgid "label_street"
 msgstr ""
 
 #. Default: "Address 2"
-#: ./ftw/shop/interfaces.py:259
+#: ./ftw/shop/interfaces.py:263
 msgid "label_street2"
 msgstr ""
 
@@ -531,6 +545,11 @@ msgstr ""
 #. Default: "Title"
 #: ./ftw/shop/interfaces.py:239
 msgid "label_title"
+msgstr ""
+
+#. Default: "To:"
+#: ./ftw/shop/browser/templates/order_manager.pt:23
+msgid "label_to_date"
 msgstr ""
 
 #. Default: "Up to Shop Setup"
@@ -564,12 +583,12 @@ msgid "label_variation2_values"
 msgstr ""
 
 #. Default: "Yes"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:26
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:27
 msgid "label_yes"
 msgstr ""
 
 #. Default: "Zip Code"
-#: ./ftw/shop/interfaces.py:267
+#: ./ftw/shop/interfaces.py:271
 msgid "label_zipcode"
 msgstr ""
 
@@ -577,27 +596,27 @@ msgid "link_agb"
 msgstr ""
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:292
+#: ./ftw/shop/browser/cart.py:290
 msgid "msg_cart_emptied"
 msgstr ""
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: ./ftw/shop/browser/cart.py:247
+#: ./ftw/shop/browser/cart.py:245
 msgid "msg_cart_invalidvalue"
 msgstr ""
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:263
+#: ./ftw/shop/browser/cart.py:261
 msgid "msg_cart_updated"
 msgstr ""
 
 #. Default: "Categories updated."
-#: ./ftw/shop/browser/manage_categories.py:26
+#: ./ftw/shop/browser/manage_categories.py:27
 msgid "msg_categories_updated"
 msgstr ""
 
 #. Default: "You will now be redirected to an external site."
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:87
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:88
 msgid "msg_external_redirect"
 msgstr ""
 
@@ -622,7 +641,7 @@ msgid "msg_label_info"
 msgstr ""
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:309
+#: ./ftw/shop/browser/cart.py:307
 msgid "msg_no_cart"
 msgstr ""
 
@@ -658,13 +677,8 @@ msgid "msg_thank_you_title"
 msgstr ""
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:144
+#: ./ftw/shop/browser/shopitem.py:156
 msgid "msg_variations_saved"
-msgstr ""
-
-#. Default: "This item does not have any body text, click the edit tab to change it."
-#: ./ftw/shop/browser/templates/category.pt:31
-msgid "no_body_text"
 msgstr ""
 
 #. Default: "Cart"
@@ -683,22 +697,22 @@ msgid "title_default_contact_info_step_group"
 msgstr ""
 
 #. Default: "Default Order Review Step"
-#: ./ftw/shop/browser/checkout.py:211
+#: ./ftw/shop/browser/checkout.py:213
 msgid "title_default_order_review_step"
 msgstr ""
 
 #. Default: "Default Order Review Step Group"
-#: ./ftw/shop/browser/checkout.py:224
+#: ./ftw/shop/browser/checkout.py:226
 msgid "title_default_order_review_step_group"
 msgstr ""
 
 #. Default: "Default Payment Processor Choice"
-#: ./ftw/shop/browser/checkout.py:180
+#: ./ftw/shop/browser/checkout.py:182
 msgid "title_default_payment_processor_step"
 msgstr ""
 
 #. Default: "Default Payment Processor Choice"
-#: ./ftw/shop/browser/checkout.py:191
+#: ./ftw/shop/browser/checkout.py:193
 msgid "title_default_payment_processor_step_group"
 msgstr ""
 
@@ -708,7 +722,7 @@ msgid "title_default_shipping_address_step"
 msgstr ""
 
 #. Default: "Default Shipping Address"
-#: ./ftw/shop/browser/checkout.py:170
+#: ./ftw/shop/browser/checkout.py:172
 msgid "title_default_shipping_address_step_group"
 msgstr ""
 
@@ -728,76 +742,76 @@ msgid "title_orders"
 msgstr ""
 
 #. Default: "Personal Information"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:27
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:28
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:28
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:28
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:29
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:29
 msgid "title_personal_information"
 msgstr ""
 
 #. Default: "Shipping Address"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:67
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:68
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:67
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:72
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:73
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:72
 msgid "title_shipping_address"
 msgstr ""
 
 #. Default: "For inquiries please contact us: Phone ${phone}, E-Mail ${email}"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:115
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:124
 msgid "txt_contact"
 msgstr ""
 
 #. Default: "Your order number is"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:24
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:25
 msgid "txt_ordernumber"
 msgstr ""
 
 #. Default: "Shipping and packaging costs are not included and will be charged individually."
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:111
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:111
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:111
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:120
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:120
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:120
 msgid "txt_shipping"
 msgstr ""
 
 #. Default: "Hello, <br /> a customer has placed an order in your Webshop:"
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:13
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:13
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:14
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:14
 msgid "txt_shopowner_greeting"
 msgstr ""
 
 #. Default: "Order number"
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:19
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:19
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:20
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:20
 msgid "txt_shopowner_ordernumber"
 msgstr ""
 
 #. Default: "Subscribe to newsletter"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:57
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:58
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:57
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:62
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:63
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:62
 msgid "txt_subscribe_newsletter"
 msgstr ""
 
 #. Default: "Thank you for your order in our shop on the ${date}"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:19
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:20
 msgid "txt_thankyou"
 msgstr ""
 
 #. Default: "Dear"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:13
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:14
 msgid "txt_title"
 msgstr ""
 
 #. Default: "Total amount of this order"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:107
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:107
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:107
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:116
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:116
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:116
 msgid "txt_total"
 msgstr ""
 
 #. Default: "(incl. VAT)"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:109
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:109
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:109
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:118
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:118
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:118
 msgid "txt_vat"
 msgstr ""
 
