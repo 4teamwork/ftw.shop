@@ -24,7 +24,7 @@
     for="*"
     name="supplier_mail_view"
     permission="zope2.View"
-    template="templates/mail/supplier_notification.pt"
+    class=".supplier_mail.SupplierMailView"
     />
 
 </configure>

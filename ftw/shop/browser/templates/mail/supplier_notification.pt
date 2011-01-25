@@ -103,7 +103,7 @@
        <th tal:condition="not:all_prices_zero" i18n:translate="cart_header_total">Total</th>
    </tr>
 
-   <tr tal:repeat="item order/cartitems">
+   <tr tal:repeat="item view/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
@@ -114,7 +114,7 @@
 
 <br/>
 <span i18n:translate="txt_total">Total amount of this order</span>:
-<b tal:content="order/getTotal" />
+<b tal:content="view/getTotal" />
 <span i18n:translate="txt_vat">(incl. VAT)</span>
 <br />
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>

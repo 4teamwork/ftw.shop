@@ -306,7 +306,8 @@ class OrderManagerView(BrowserView):
                                     name=u'supplier_mail_view')
         msg_body = mail_view(order=order,
                              all_prices_zero=all_prices_zero,
-                             shop_config=self.shop_config)
+                             shop_config=self.shop_config,
+                             supplier=supplier)
         self._send_mail(mail_to, mail_subject, msg_body)
 
     def _send_mail(self, to, subject, body):
