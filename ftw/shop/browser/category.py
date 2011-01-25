@@ -161,13 +161,25 @@ class CategoryView(BrowserView):
     def category_contents(self):
         """ get all items (shop items, categories) belonging to this category.
         """
+        def filter_language(item):
+            """Return ``True`` for items that have the same language as the
+               context or items that have no language.
+            """
+            language = context.Language()
+            if not item.Language():
+                return True
+            if item.Language()==language:
+                return True
+            return False
+
         context = aq_inner(self.context)
         mtool = getToolByName(context, 'portal_membership')
+        
 
         contents = context.getBRefs(CATEGORY_RELATIONSHIP)
 
         contents = [item for item in contents
-                    if mtool.checkPermission('View', item)]
+                    if mtool.checkPermission('View', item) and filter_language(item)]
         contents.sort(lambda x, y: cmp(x.getRankForCategory(context),
                         y.getRankForCategory(context)))
         return contents
