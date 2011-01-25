@@ -32,7 +32,6 @@
     <thead>
         <th>ID</th>
         <th i18n:translate="label_order_title">Title</th>
-        <th>Status</th>
         <th>Total</th>
         <th i18n:translate="label_cart">Cart</th>
         <th i18n:translate="label_customer">Customer</th>
@@ -44,7 +43,6 @@
             <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
                 <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/order_id"></a></td>
                 <td tal:content="order/title"/>
-                <td tal:content="order/status"/>
                 <td tal:content="order/getTotal"/>
                 <td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code" /><span tal:content="string:(${item_set/quantity})" /><br/></tal:block></td>
                 <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
@@ -63,13 +61,6 @@
 
     <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv?from_date:date=${from_date}&amp;to_date:date=${to_date}">CSV export</a></p>
 
-    <h3>Status Legend</h3>
-
-    <ul>
-        <li>1: ONLINE_PENDING</li>
-        <li>2: ONLINE_CONFIRMED</li>
-        <li>3: ONACCOUNT</li>
-    </ul>
 
     <script>
         jq(function() {
