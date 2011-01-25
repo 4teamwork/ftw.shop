@@ -163,6 +163,10 @@ class BTreeOrderStorage(Persistent):
         new_order.cartitems = all_cart_items
         return order_id
 
+    def cancelOrder(self, order_id):
+        del self._orderStorage[order_id]
+        self._length.change(-1)
+
     def flush(self):
         pass
 

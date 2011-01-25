@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-25 09:58+0000\n"
+"POT-Creation-Date: 2011-01-25 10:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -649,6 +649,11 @@ msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 #: ./ftw/shop/browser/templates/listing/two_variations.pt:32
 msgid "msg_not_buyable"
 msgstr "<dt>Nicht kaufbar</dt> <dd>${edit_variations}</dd>"
+
+#. Default: "Order cancelled."
+#: ./ftw/shop/browser/ordermanager.py:136
+msgid "msg_order_cancelled"
+msgstr "Bestellung storniert."
 
 #. Default: "Shop structure initialized."
 #: ./ftw/shop/browser/initialize.py:40

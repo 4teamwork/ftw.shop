@@ -5,6 +5,7 @@ from email.Utils import formataddr
 from decimal import Decimal
 from decimal import InvalidOperation
 
+from Acquisition import aq_inner
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
 from Products.Five.browser import BrowserView
@@ -16,6 +17,7 @@ from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 
+from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.config import ONLINE_PENDING_KEY
@@ -120,8 +122,23 @@ class OrderManagerView(BrowserView):
         stream.seek(0)
         return stream.read()
 
-    def getOrders(self, from_date=None, to_date=None):
+    def cancel_order(self):
+        """Cancel an order by its order_id
+        """
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        order_id = self.request.get('order_id')
+        cancel = self.request.get('cancel')
+        if cancel:
+            order_storage = self.getOrderStorage()
+            order_storage.cancelOrder(order_id)
+            ptool.addPortalMessage(
+                _(u'msg_order_cancelled',
+                  default=u"Order cancelled."),
+                'info')
+        self.request.response.redirect("%s/order_manager" % context.absolute_url())
 
+    def getOrders(self, from_date=None, to_date=None):
         order_storage = self.order_storage
         all_orders = order_storage.getAllOrders()
         if from_date and to_date:

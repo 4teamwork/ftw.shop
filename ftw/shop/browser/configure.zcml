@@ -106,7 +106,7 @@
     name="order_manager"
     permission="cmf.ModifyPortalContent"
     class=".ordermanager.OrderManagerView"
-    allowed_attributes="download_csv"
+    allowed_attributes="download_csv cancel_order"
     />
 
   <!-- Single Order View -->

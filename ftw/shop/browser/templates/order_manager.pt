@@ -51,7 +51,7 @@
                     tal:content="customer"/>
                 <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
                 <td><a href=""
-                    tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}">
+                    tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}&amp;cancel=1">
                     <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
                     </a>
                 </td>
