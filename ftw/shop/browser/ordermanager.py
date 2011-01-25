@@ -1,6 +1,7 @@
 import cStringIO
 import csv
 from datetime import datetime
+from DateTime import DateTime
 from email.Utils import formataddr
 from decimal import Decimal
 from decimal import InvalidOperation
@@ -94,6 +95,17 @@ class OrderManagerView(BrowserView):
 
         self.from_date = self.request.get('from_date')
         self.to_date = self.request.get('to_date')
+
+        if self.from_date == "None":
+            self.from_date = None
+        elif self.from_date:
+            self.from_date = DateTime(self.from_date)
+
+        if self.to_date == "None":
+            self.to_date = None
+        elif self.to_date:
+            self.to_date = DateTime(self.to_date)
+
         for order in self.getOrders(self.from_date, self.to_date):
             order_data = [getattr(order, attr, '') for attr in columns]
 
