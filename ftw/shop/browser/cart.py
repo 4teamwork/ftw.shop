@@ -106,7 +106,6 @@ class CartView(BrowserView):
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
-        import pdb; pdb.set_trace( )
 
         if not skuCode:
             # We got no skuCode, so look it up by variation key
