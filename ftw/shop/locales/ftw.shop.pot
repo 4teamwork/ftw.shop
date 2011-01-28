@@ -1,7 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2011-01-28 10:32+0000\n"
+=======
+"POT-Creation-Date: 2011-01-28 10:44+0000\n"
+>>>>>>> translated ftw.shop from de in fr
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
