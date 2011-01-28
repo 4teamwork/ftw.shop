@@ -7,11 +7,13 @@ from Products.Archetypes import atapi
 
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 if HAS_LINGUA_PLONE:
+    from Products.LinguaPlone.public import BooleanField
     from Products.LinguaPlone.public import StringField
     from Products.LinguaPlone.public import LinesField
     from Products.LinguaPlone.public import FixedPointField
     from Products.LinguaPlone.public import registerType
 else:
+    from Products.Archetypes.atapi import BooleanField
     from Products.Archetypes.atapi import StringField
     from Products.Archetypes.atapi import LinesField
     from Products.Archetypes.atapi import FixedPointField
@@ -19,6 +21,10 @@ else:
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopItem
+
+
+class ExtBooleanField(ExtensionField, BooleanField):
+    """A boolean field."""
 
 
 class ExtStringField(ExtensionField, StringField):
@@ -50,6 +56,15 @@ class ShopItemExtender(object):
                 label = _(u"label_price", default=u"Price"),
                 description = _(u"desc_price", default=u""),
                 size=8,
+            ),
+        ),
+
+        ExtBooleanField('showPrice',
+            default = False,
+            languageIndependent=True,
+            widget = atapi.BooleanWidget(
+                label = _(u"label_show_price", default=u"Show price"),
+                description = _(u"desc_show_price", default=u""),
             ),
         ),
 

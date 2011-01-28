@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-25 10:42+0000\n"
+"POT-Creation-Date: 2011-01-28 10:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -119,7 +119,7 @@ msgstr "Total"
 
 #. Default: "Your cart is empty"
 #: ./ftw/shop/browser/templates/cart_edit.pt:18
-#: ./ftw/shop/portlets/cart.pt:17
+#: ./ftw/shop/portlets/cart.pt:18
 msgid "cart_is_empty"
 msgstr "Ihr Warenkorb ist leer"
 
@@ -143,27 +143,31 @@ msgstr "Titel"
 msgid "categories_title"
 msgstr "Kategorien"
 
-#: ./ftw/shop/extender.py:51
+#: ./ftw/shop/extender.py:57
 msgid "desc_price"
 msgstr ""
 
-#: ./ftw/shop/extender.py:61
+#: ./ftw/shop/extender.py:67
+msgid "desc_show_price"
+msgstr ""
+
+#: ./ftw/shop/extender.py:76
 msgid "desc_sku_code"
 msgstr ""
 
-#: ./ftw/shop/extender.py:70
+#: ./ftw/shop/extender.py:85
 msgid "desc_variation1_attr"
 msgstr ""
 
-#: ./ftw/shop/extender.py:79
+#: ./ftw/shop/extender.py:94
 msgid "desc_variation1_values"
 msgstr ""
 
-#: ./ftw/shop/extender.py:89
+#: ./ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr ""
 
-#: ./ftw/shop/extender.py:99
+#: ./ftw/shop/extender.py:114
 msgid "desc_variation2_values"
 msgstr ""
 
@@ -239,12 +243,12 @@ msgid "label_article_no"
 msgstr "Artikel-Nr."
 
 #. Default: "Cancel"
-#: ./ftw/shop/browser/templates/order_manager.pt:40
+#: ./ftw/shop/browser/templates/order_manager.pt:39
 msgid "label_cancel_order"
 msgstr "Stornieren"
 
 #. Default: "Cart"
-#: ./ftw/shop/browser/templates/order_manager.pt:37
+#: ./ftw/shop/browser/templates/order_manager.pt:36
 msgid "label_cart"
 msgstr "Warenkorb"
 
@@ -295,14 +299,14 @@ msgid "label_country"
 msgstr "Land"
 
 #. Default: "Customer"
-#: ./ftw/shop/browser/templates/order_manager.pt:38
+#: ./ftw/shop/browser/templates/order_manager.pt:37
 msgid "label_customer"
 msgstr "Kunde"
 
 #. Default: "Date"
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:22
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:22
-#: ./ftw/shop/browser/templates/order_manager.pt:39
+#: ./ftw/shop/browser/templates/order_manager.pt:38
 msgid "label_date"
 msgstr "Datum"
 
@@ -417,7 +421,7 @@ msgid "label_no"
 msgstr "Nein"
 
 #. Default: "Order Manager"
-#: ./ftw/shop/portlets/cart.pt:46
+#: ./ftw/shop/portlets/cart.pt:49
 msgid "label_order_manager"
 msgstr "Bestellungsverwaltung"
 
@@ -513,6 +517,11 @@ msgstr "Absender e-Mail-Adresse"
 msgid "label_shop_name"
 msgstr "Geben sie den Shop-Namen ein"
 
+#. Default: "Show price"
+#: ./ftw/shop/extender.py:66
+msgid "label_show_price"
+msgstr "Preis anzeigen"
+
 #. Default: "SKU code"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:12
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:26
@@ -561,22 +570,22 @@ msgid "label_used"
 msgstr "Abweichende Lieferadresse"
 
 #. Default: "Variation 1 Attribute"
-#: ./ftw/shop/extender.py:68
+#: ./ftw/shop/extender.py:83
 msgid "label_variation1_attr"
 msgstr "Variations-Attribut 1"
 
 #. Default: "Variation 1 Values"
-#: ./ftw/shop/extender.py:77
+#: ./ftw/shop/extender.py:92
 msgid "label_variation1_values"
 msgstr "Werte für Variation 1"
 
 #. Default: "Variation 2 Attribute"
-#: ./ftw/shop/extender.py:87
+#: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr "Variations-Attribut 2"
 
 #. Default: "Variation 2 Values"
-#: ./ftw/shop/extender.py:97
+#: ./ftw/shop/extender.py:112
 msgid "label_variation2_values"
 msgstr "Werte für Variation 2"
 
@@ -651,7 +660,7 @@ msgid "msg_not_buyable"
 msgstr "<dt>Nicht kaufbar</dt> <dd>${edit_variations}</dd>"
 
 #. Default: "Order cancelled."
-#: ./ftw/shop/browser/ordermanager.py:136
+#: ./ftw/shop/browser/ordermanager.py:148
 msgid "msg_order_cancelled"
 msgstr "Bestellung storniert."
 
@@ -685,7 +694,7 @@ msgid "msg_variations_saved"
 msgstr "Variationen wurden gespeichert."
 
 #. Default: "Cart"
-#: ./ftw/shop/portlets/cart.pt:6
+#: ./ftw/shop/portlets/cart.pt:7
 msgid "portletheader_cart"
 msgstr "Warenkorb"
 
