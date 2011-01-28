@@ -18,7 +18,7 @@
                                     Farbe
                                     </label>
                                 </td>
-                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero()">
+                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']">
                                     <label i18n:translate="label_price">Price</label>
                                 </td>
 
@@ -38,7 +38,7 @@
                                     </select>
                                 </td>
 
-                                <td class="variationPrice" style="display:none;" tal:condition="python: not varConf.allPricesZero()"></td>
+                                <td class="variationPrice" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']"></td>
                                 <td class="variationSKUCode" style="display:none;"></td>
                             </tr>
                         </table>

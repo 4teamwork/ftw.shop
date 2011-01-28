@@ -20,7 +20,7 @@
                                     <label tal:content="python:varConf.getVariationAttributes()[1]">Grösse</label>
                                 </td>
 
-                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: varConf.allPricesZero() == False">
+                                <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']">
                                     <label i18n:translate="label_price">Price</label>
                                 </td>
                                 <td class="variationSKUCodeLabel" style="display:none;">
@@ -49,7 +49,7 @@
                                     </select>
                                 </td>
 
-                                <td class="variationPrice" style="display:none;" tal:condition="python: varConf.allPricesZero() == False"></td>
+                                <td class="variationPrice" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']"></td>
                                 <td class="variationSKUCode" style="display:none;"></td>
 
                             </tr>
