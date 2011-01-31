@@ -17,14 +17,39 @@
         <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv?from_date=${from_date}&amp;to_date=${to_date}">CSV export</a></p>
 
         <form action="./order_manager" method="post">
-        <label i18n:translate="label_from_date" for="from_date">From: </label>
-        <input name="from_date" id="from_date"/>
+        <table>
+            <tr>
+                <td>
+                    <label i18n:translate="label_from_date" for="from_date">From: </label>
+                </td>
+                <td>
+                    <input name="from_date" id="from_date"/>
+                </td>
+                <td>
+                    &nbsp; &nbsp;<label i18n:translate="label_to_date" for="to_date">To: </label>
+                </td>
+                <td>
+                    <input name="to_date" id="to_date"/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="supplier"><span i18n:translate="label_supplier">Supplier</span>:</label>
+                </td>
+                <td>
+                    <select name="supplier" id="supplier">
+                        <option value="all_suppliers" i18n:translate="label_all_suppliers">All Suppliers</option>
+                        <option tal:repeat="supplier view/getSuppliers" tal:attributes="value supplier/name" tal:content="supplier/name"></option>
+                    </select>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                    <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
+                </td>
+            </tr>
 
-        <label i18n:translate="label_to_date" for="to_date">To: </label>
-        <input name="to_date" id="to_date"/>
-
-        <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
-        <br/><br/>
+        </table>
         </form>
 
 

@@ -1,6 +1,7 @@
 import cStringIO
 import csv
 from datetime import datetime
+from datetime import timedelta
 from DateTime import DateTime
 from email.Utils import formataddr
 from decimal import Decimal
@@ -39,10 +40,11 @@ class OrderManagerView(BrowserView):
     """Lists orders stored in a IOrderStorage
     """
 
+    template = ViewPageTemplateFile('templates/order_manager.pt')
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.template = ViewPageTemplateFile('templates/order_manager.pt')
         self.request.set('disable_border', True)
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
@@ -55,9 +57,16 @@ class OrderManagerView(BrowserView):
     def __call__(self):
         self.from_date = self.request.get('from_date')
         self.to_date = self.request.get('to_date')
+        self.supplier_filter = self.request.get('supplier')
         self.order_results = self.getOrders(self.from_date, self.to_date)
-        return self.template(self)
+        return self.template()
 
+
+    def getSuppliers(self):
+        catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog(portal_type="Supplier")
+        results = [dict(name=b.Title, email=b.email) for b in brains]
+        return results
 
     def download_csv(self):
         """Returns a CSV file containing the shop orders
@@ -154,9 +163,21 @@ class OrderManagerView(BrowserView):
         order_storage = self.order_storage
         all_orders = order_storage.getAllOrders()
         if from_date and to_date:
-            from_date = from_date.asdatetime()
-            to_date = to_date.asdatetime()
-            orders = [o for o in all_orders if from_date.date() <= o.date.date() and to_date.date() >= o.date.date() ]
+            from_date = datetime.strptime(from_date, "%d.%m.%Y")
+            to_date = datetime.strptime(to_date, "%d.%m.%Y")
+        else:
+            from_date = datetime(1982, 1, 1)
+            to_date = datetime.today() + timedelta(days=1)
+
+        if any([from_date and to_date, self.supplier_filter]):
+            # Filter orders
+            orders = []
+            for order in all_orders:
+                suppliers = [item.supplier_name for item in order.cartitems]
+                if self.supplier_filter in suppliers \
+                and from_date.date() <= order.date.date() \
+                and to_date.date() >= order.date.date():
+                    orders.append(order)
         else:
             orders = all_orders
         return orders

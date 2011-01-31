@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-28 10:44+0000\n"
+"POT-Creation-Date: 2011-01-31 08:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Empty Shopping Cart"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/order_manager.pt:26
+#: ./ftw/shop/browser/templates/order_manager.pt:32
 msgid "Filter"
 msgstr ""
 
@@ -232,6 +232,11 @@ msgstr ""
 msgid "label_add_cart_portlet"
 msgstr ""
 
+#. Default: "All Suppliers"
+#: ./ftw/shop/browser/templates/order_manager.pt:28
+msgid "label_all_suppliers"
+msgstr ""
+
 #. Default: "Always notify shop owner about orders"
 #: ./ftw/shop/interfaces.py:183
 msgid "label_always_notify_shop_owner"
@@ -245,12 +250,12 @@ msgid "label_article_no"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/shop/browser/templates/order_manager.pt:39
+#: ./ftw/shop/browser/templates/order_manager.pt:45
 msgid "label_cancel_order"
 msgstr ""
 
 #. Default: "Cart"
-#: ./ftw/shop/browser/templates/order_manager.pt:36
+#: ./ftw/shop/browser/templates/order_manager.pt:42
 msgid "label_cart"
 msgstr ""
 
@@ -301,14 +306,14 @@ msgid "label_country"
 msgstr ""
 
 #. Default: "Customer"
-#: ./ftw/shop/browser/templates/order_manager.pt:37
+#: ./ftw/shop/browser/templates/order_manager.pt:43
 msgid "label_customer"
 msgstr ""
 
 #. Default: "Date"
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:22
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:22
-#: ./ftw/shop/browser/templates/order_manager.pt:38
+#: ./ftw/shop/browser/templates/order_manager.pt:44
 msgid "label_date"
 msgstr ""
 
@@ -449,7 +454,7 @@ msgid "label_order_storage"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/shop/browser/templates/order_manager.pt:34
+#: ./ftw/shop/browser/templates/order_manager.pt:40
 msgid "label_order_title"
 msgstr ""
 
@@ -549,6 +554,11 @@ msgstr ""
 #. Default: "Summary"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:5
 msgid "label_summary"
+msgstr ""
+
+#. Default: "Supplier"
+#: ./ftw/shop/browser/templates/order_manager.pt:26
+msgid "label_supplier"
 msgstr ""
 
 #. Default: "Title"
@@ -662,7 +672,7 @@ msgid "msg_not_buyable"
 msgstr ""
 
 #. Default: "Order cancelled."
-#: ./ftw/shop/browser/ordermanager.py:148
+#: ./ftw/shop/browser/ordermanager.py:157
 msgid "msg_order_cancelled"
 msgstr ""
 
@@ -691,7 +701,7 @@ msgid "msg_thank_you_title"
 msgstr ""
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:156
+#: ./ftw/shop/browser/shopitem.py:157
 msgid "msg_variations_saved"
 msgstr ""
 
