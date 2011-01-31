@@ -77,8 +77,8 @@ class OrderManagerView(BrowserView):
         from Products.Archetypes.utils import contentDispositionHeader
         filename = "orders.csv"
         stream = cStringIO.StringIO()
-        csv_writer = UnicodeCSVWriter(stream, delimiter=',',
-                        quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csv_writer = csv.writer(stream, dialect='excel', delimiter=';',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
         core_cols = ['order_id',
                       'title',
                       'status',
@@ -124,6 +124,9 @@ class OrderManagerView(BrowserView):
 
             # Get the total via getTotal accessor to convert it to Decimal
             order_data[columns.index('total')] = order.getTotal()
+            for i, value in enumerate(order_data):
+                if isinstance(value, unicode):
+                    order_data[i] = value.encode('cp1252')
 
             for cart_item in order.cartitems:
                 cart_data = [cart_item.sku_code,
@@ -138,12 +141,12 @@ class OrderManagerView(BrowserView):
 
         RESPONSE = self.request.RESPONSE
         header_value = contentDispositionHeader('attachment',
-                                                'utf-8',
+                                                'cp1252',
                                                 filename=filename)
         if not DEBUG:
             RESPONSE.setHeader("Content-Disposition", header_value)
             RESPONSE.setHeader("Content-Type",
-                               'text/comma-separated-values;charset=%s' % 'utf-8')
+                               'text/comma-separated-values;charset=%s' % 'cp1252')
         stream.seek(0)
         return stream.read()
 
