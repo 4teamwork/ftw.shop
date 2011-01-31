@@ -157,11 +157,6 @@ class CategoryView(BrowserView):
         return contents
 
 
-#    TODO: Check if still needed and replace with edit_categories
-#    def manage_categories(self):
-#        return getMultiAdapter((self.context, self.request),
-#                               'manage_categories')
-
 class CategoryCompactView(CategoryView):
     """Compact view for a category. Shows all contained items and categories.
     """
