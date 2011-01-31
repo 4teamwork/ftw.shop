@@ -10,6 +10,7 @@ from decimal import InvalidOperation
 from Acquisition import aq_inner
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
+from Products.Archetypes.utils import contentDispositionHeader
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -27,13 +28,55 @@ from ftw.shop.exceptions import MissingCustomerInformation
 from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
-from ftw.shop.utils import UnicodeCSVWriter
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
 DEBUG = True
+
+COLUMN_TITLES = {
+    'order_id': 'Bestellungs-ID',
+    'title': 'Bestellnummer',
+    'status': 'Status',
+    'total': 'Total',
+    'date': 'Datum',
+    'customer_attn': 'Zu Handen von',
+    'customer_title': 'Anrede',
+    'customer_firstname': 'Vorname',
+    'customer_lastname': 'Nachname',
+    'customer_company': 'Firma',
+    'customer_department_code': 'Postkürzel',
+    'customer_cost_center': 'Kostenstelle',
+    'customer_email': 'e-Mail',
+    'customer_street1': 'Strasse',
+    'customer_street2': 'Adresszusatz',
+    'customer_phone': 'Telefon',
+    'customer_zipcode': 'PLZ',
+    'customer_city': 'Ort',
+    'customer_shipping_address': 'Bestelladresse',
+    'customer_country': 'Land',
+    'customer_newsletter': 'Newsletter',
+    'customer_comments': 'Kommentare',
+
+    'shipping_title': 'Lieferadresse Anrede',
+    'shipping_firstname': 'Lieferadresse Vorname',
+    'shipping_lastname': 'Lieferadresse Nachname',
+    'shipping_company': 'Lieferadresse Firma',
+    'shipping_department_code': 'Lieferadresse Postkürzel',
+    'shipping_street1': 'Lieferadresse Strasse',
+    'shipping_street2': 'Lieferadresse Adresszusatz',
+    'shipping_zipcode': 'Lieferadresse PLZ',
+    'shipping_city': 'Lieferadresse Ort',
+
+    'sku_code': 'Artikel-Nr',
+    'quantity': 'Menge',
+    'title': 'Titel',
+    'price': 'Preis',
+    'item_total': 'Subtotal',
+    'supplier_name': 'Lieferant',
+    'supplier_email': 'Lieferant e-Mail',
+}
 
 
 class OrderManagerView(BrowserView):
@@ -74,7 +117,7 @@ class OrderManagerView(BrowserView):
     def download_csv(self):
         """Returns a CSV file containing the shop orders
         """
-        from Products.Archetypes.utils import contentDispositionHeader
+
         filename = "orders.csv"
         stream = cStringIO.StringIO()
         csv_writer = csv.writer(stream, dialect='excel', delimiter=';',
@@ -87,6 +130,7 @@ class OrderManagerView(BrowserView):
                       'customer_title',
                       'customer_firstname',
                       'customer_lastname',
+                      'customer_company',
                       'customer_email',
                       'customer_street1',
                       'customer_street2',
@@ -101,9 +145,12 @@ class OrderManagerView(BrowserView):
         # Create union of core_cols + all_cols to retain order
         all_cols = self.order_storage.getFieldNames()
         columns = core_cols + filter(lambda x:x not in core_cols, all_cols)
-        cart_cols = ['sku_code', 'quantity', 'title', 'price', 
+        cart_cols = ['sku_code', 'quantity', 'title', 'price',
                      'item_total', 'supplier_name', 'supplier_email']
-        csv_writer.writerow(columns + cart_cols)
+
+        column_titles = [COLUMN_TITLES[col].decode('utf-8').encode('cp1252') for col in columns + cart_cols]
+        # Write header row
+        csv_writer.writerow(column_titles)
 
         self.from_date = self.request.get('from_date')
         self.to_date = self.request.get('to_date')
@@ -146,7 +193,11 @@ class OrderManagerView(BrowserView):
         if not DEBUG:
             RESPONSE.setHeader("Content-Disposition", header_value)
             RESPONSE.setHeader("Content-Type",
-                               'text/comma-separated-values;charset=%s' % 'cp1252')
+                           'text/comma-separated-values;charset=%s' % 'cp1252')
+        else:
+            RESPONSE.setHeader("Content-Type",
+                           'text/plain; charset=%s' % 'cp1252')
+
         stream.seek(0)
         return stream.read()
 
