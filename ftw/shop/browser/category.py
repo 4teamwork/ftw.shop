@@ -10,40 +10,6 @@ from ftw.shop.config import CATEGORY_RELATIONSHIP
 from ftw.shop.interfaces import IVariationConfig
 
 
-
-
-def common_prefixes(items):
-    prefixes = []
-    final_prefixes = []
-    delim = None
-
-    for i, item in enumerate(items):
-        other_items = copy(items)
-        other_items.remove(item)
-        for other_item in other_items:
-            common_prefix = os.path.commonprefix([item, other_item])
-            if not common_prefix == '':
-                prefixes.append(common_prefix)
-    
-    for p in prefixes:
-        substr_of_other_prefix = False
-        other_prefixes = list(set(copy(prefixes)))
-        other_prefixes.remove(p)
-        for other_prefix in other_prefixes:
-            common_subprefix = os.path.commonprefix([p, other_prefix])
-            if common_subprefix == p:
-                substr_of_other_prefix = True
-        if not substr_of_other_prefix:
-            final_prefixes.append(p)
-    
-
-
-
-
-
-
-
-
 class CategoryView(BrowserView):
     """Default view for a category. Shows all contained items and categories.
     """
@@ -142,6 +108,7 @@ class CategoryView(BrowserView):
     def categories(self):
         """ get a list with all categories belonging to this category.
         """
+
         results = []
         for item in self.category_contents:
             image = None
@@ -175,12 +142,16 @@ class CategoryView(BrowserView):
 
         context = aq_inner(self.context)
         mtool = getToolByName(context, 'portal_membership')
-        
 
         contents = context.getBRefs(CATEGORY_RELATIONSHIP)
 
         contents = [item for item in contents
                     if mtool.checkPermission('View', item) and filter_language(item)]
+
+        # Sort alphabetically first
+        contents.sort(key=lambda x: x.Title())
+
+        # Then by ranking
         contents.sort(lambda x, y: cmp(x.getRankForCategory(context),
                         y.getRankForCategory(context)))
         return contents
