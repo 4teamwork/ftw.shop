@@ -18,11 +18,9 @@
         Orders
         </h1>
         <br/>
-        <p>
-            <input type="submit" name="download_csv" value="CSV export"/>
-        </p>
-        <br/>
-        <table>
+
+
+        <table class="listing">
             <tr>
                 <td>
                     <label i18n:translate="label_from_date" for="from_date">From: </label>
@@ -31,7 +29,7 @@
                     <input name="from_date" id="from_date"/>
                 </td>
                 <td>
-                    &nbsp; &nbsp;<label i18n:translate="label_to_date" for="to_date">To: </label>
+                    <label i18n:translate="label_to_date" for="to_date">To: </label>
                 </td>
                 <td>
                     <input name="to_date" id="to_date"/><br/>
@@ -54,7 +52,13 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                <input type="submit" name="download_csv" value="CSV export"/>
+                <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
                 </td>
             </tr>
 

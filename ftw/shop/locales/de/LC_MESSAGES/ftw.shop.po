@@ -41,7 +41,7 @@ msgstr "Warenkorb leeren"
 
 #: ./ftw/shop/browser/templates/order_manager.pt:32
 msgid "Filter"
-msgstr "Filtern"
+msgstr "Anzeigen"
 
 #: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
