@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cStringIO
 import csv
 from datetime import datetime
@@ -106,6 +107,8 @@ class OrderManagerView(BrowserView):
             return self.template()
         elif self.request.get('download_csv'):
             return self.download_csv()
+        else:
+            return self.template()
 
 
     def getSuppliers(self):
@@ -171,6 +174,7 @@ class OrderManagerView(BrowserView):
 
             # Get the total via getTotal accessor to convert it to Decimal
             order_data[columns.index('total')] = order.getTotal()
+
             for i, value in enumerate(order_data):
                 if isinstance(value, unicode):
                     order_data[i] = value.encode('cp1252')
@@ -183,6 +187,10 @@ class OrderManagerView(BrowserView):
                             cart_item.getTotal(),
                             cart_item.supplier_name,
                             cart_item.supplier_email]
+
+                for i, value in enumerate(cart_data):
+                    if isinstance(value, unicode):
+                        cart_data[i] = value.encode('cp1252')
 
                 csv_writer.writerow(order_data + cart_data)
 
@@ -232,7 +240,8 @@ class OrderManagerView(BrowserView):
             orders = []
             for order in all_orders:
                 suppliers = [item.supplier_name for item in order.cartitems]
-                if self.supplier_filter in suppliers \
+                if (self.supplier_filter in suppliers
+                or self.supplier_filter in ["all_suppliers", "", None]) \
                 and from_date.date() <= order.date.date() \
                 and to_date.date() >= order.date.date():
                     orders.append(order)
