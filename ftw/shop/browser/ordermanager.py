@@ -59,7 +59,10 @@ class OrderManagerView(BrowserView):
         self.to_date = self.request.get('to_date')
         self.supplier_filter = self.request.get('supplier')
         self.order_results = self.getOrders(self.from_date, self.to_date)
-        return self.template()
+        if self.request.get('filter'):
+            return self.template()
+        elif self.request.get('download_csv'):
+            return self.download_csv()
 
 
     def getSuppliers(self):
@@ -104,6 +107,7 @@ class OrderManagerView(BrowserView):
 
         self.from_date = self.request.get('from_date')
         self.to_date = self.request.get('to_date')
+        self.supplier_filter = self.request.get('supplier')
 
         if self.from_date == "None":
             self.from_date = None

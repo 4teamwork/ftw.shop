@@ -9,14 +9,19 @@
 
 <metal:main fill-slot="main">
 <tal:daterange tal:define="from_date python:request.get('from_date');
-                           to_date python:request.get('to_date')">
+                           to_date python:request.get('to_date');
+                           supplier python:request.get('supplier')">
+
+    <form action="./order_manager" method="post">
+
         <h1 class="documentFirstHeading" i18n:translate="title_orders">
         Orders
         </h1>
         <br/>
-        <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv?from_date=${from_date}&amp;to_date=${to_date}">CSV export</a></p>
-
-        <form action="./order_manager" method="post">
+        <p>
+            <input type="submit" name="download_csv" value="CSV export"/>
+        </p>
+        <br/>
         <table>
             <tr>
                 <td>
@@ -39,7 +44,11 @@
                 <td>
                     <select name="supplier" id="supplier">
                         <option value="all_suppliers" i18n:translate="label_all_suppliers">All Suppliers</option>
-                        <option tal:repeat="supplier view/getSuppliers" tal:attributes="value supplier/name" tal:content="supplier/name"></option>
+                        <option tal:repeat="supplier view/getSuppliers"
+                                tal:attributes="value supplier/name;
+                                                selected python:supplier['name']==request.get('supplier') and 'selected' or ''"
+                                tal:content="supplier/name">
+                        </option>
                     </select>
                 </td>
                 <td></td>
@@ -83,8 +92,6 @@
     </tbody>
 
     </table>
-
-    <p><a tal:attributes="href string:${context/absolute_url}/order_manager/download_csv?from_date:date=${from_date}&amp;to_date:date=${to_date}">CSV export</a></p>
 
 
     <script>
