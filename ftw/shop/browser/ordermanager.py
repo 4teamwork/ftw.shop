@@ -412,7 +412,7 @@ class OrderManagerView(BrowserView):
              encode=None,
              immediate=False,
              msg_type='text/html',
-             charset='utf8')
+             charset='latin1')
 
     def show_prices(self, order):
         for item in order.cartitems:

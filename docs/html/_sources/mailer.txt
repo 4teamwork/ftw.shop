@@ -28,5 +28,5 @@ Example usage
 	             encode=None,
 	             immediate=False,
 	             msg_type='text/plain',
-	             charset='utf8')
+	             charset='latin1')
 
