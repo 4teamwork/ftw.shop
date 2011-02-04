@@ -415,7 +415,6 @@ class OrderManagerView(BrowserView):
              charset='utf8')
 
     def show_prices(self, order):
-        import pdb; pdb.set_trace( )
         for item in order.cartitems:
             if item.show_price:
                 return True
