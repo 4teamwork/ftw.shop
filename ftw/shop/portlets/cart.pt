@@ -25,7 +25,7 @@
                 <a href="" tal:content="item/title" tal:attributes="href item/url"/>
 
                 <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
-                <span tal:condition="python: not cview.all_prices_zero()"
+                <span tal:condition="item/show_price"
                       tal:replace="python:item['total'].replace('0.00', '').replace('0.0', '')" />
 
                 (<span tal:replace="item/quantity" />)
@@ -33,7 +33,7 @@
         </tal:items>
         </ul>
 
-        <div tal:condition="python: not cview.all_prices_zero()"
+        <div tal:condition="cview/show_prices"
              class="cartTotal">Total: CHF <span tal:replace="cview/cart_total">100.00</span></div>
 
         <div class="cartActions">

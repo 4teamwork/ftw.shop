@@ -10,8 +10,8 @@ class SupplierMailView(BrowserView):
 
     template = ViewPageTemplateFile('templates/mail/supplier_notification.pt')
 
-    def __call__(self, all_prices_zero=False, order=None, shop_config=None, supplier=None):
-        self.all_prices_zero = all_prices_zero
+    def __call__(self, show_prices=False, order=None, shop_config=None, supplier=None):
+        self.show_prices = show_prices
         self.order = order
         self.shop_config = shop_config
         self.supplier = supplier
@@ -29,6 +29,12 @@ class SupplierMailView(BrowserView):
             and item_type.supplier_name == supplier_name:
                 filtered_items.append(item_type)
         return filtered_items
+
+    def show_prices(self):
+           for item in self.cartitems():
+               if item.show_price:
+                   return True
+           return False
 
     def getTotal(self):
         items = self.cartitems()

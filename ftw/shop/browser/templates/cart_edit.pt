@@ -27,8 +27,8 @@
                     <th i18n:translate="cart_header_product">Product</th>
                     <th i18n:translate="cart_header_description">Description</th>
                     <th i18n:translate="cart_header_quantity">Quantity</th>
-                    <th i18n:translate="cart_header_price" tal:condition="python: not cview.all_prices_zero()">Price</th>
-                    <th tal:condition="python: not cview.all_prices_zero()" i18n:translate="cart_header_total">Total</th>
+                    <th i18n:translate="cart_header_price" tal:condition="cview/show_prices">Price</th>
+                    <th tal:condition="cview/show_prices" i18n:translate="cart_header_total">Total</th>
                     <th i18n:translate="cart_header_delete">Delete</th>
                   </tr>
                 </thead>
@@ -50,11 +50,16 @@
                                                  name string:quantity_${skuCode}" /></td>
 
                       <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
-                      <td tal:condition="python: not cview.all_prices_zero()"
-                          tal:content="python:item['price'].replace('0.00', '').replace('0.0', '')"></td>
-                      <td tal:condition="python: not cview.all_prices_zero()"
-                          tal:content="python:item['total'].replace('0.00', '').replace('0.0', '')"></td>
-
+                      <td tal:condition="cview/show_prices">
+                          <span tal:condition="python:item['show_price']"
+                                tal:content="python:item['price'].replace('0.00', '').replace('0.0', '')"
+                                />
+                      </td>
+                      <td tal:condition="cview/show_prices">
+                          <span tal:condition="python:item['show_price']"
+                                tal:content="python:item['total'].replace('0.00', '').replace('0.0', '')"
+                                />
+                      </td>
                       <td>
                           <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
@@ -66,7 +71,7 @@
                 </tbody>
               </table>
               <div>
-                  <p tal:condition="python: not cview.all_prices_zero()">
+                  <p tal:condition="cview/show_prices">
                       Total: <b tal:content="cview/cart_total">US$ 100.00</b>
                   </p>
               </div>

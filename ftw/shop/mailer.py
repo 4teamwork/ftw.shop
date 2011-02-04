@@ -44,6 +44,7 @@ class MailHostAdapter(object):
             else:
                 encode_base64(msg)
 
+#            import pdb; pdb.set_trace( )
             msg['BCC']= Header(mbcc)
             mhost.send(msg,
                          mto=mto,

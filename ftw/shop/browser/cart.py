@@ -1,5 +1,4 @@
 from decimal import Decimal
-from decimal import InvalidOperation
 import simplejson
 
 from Acquisition import aq_inner, aq_parent
@@ -141,6 +140,7 @@ class CartView(BrowserView):
                         'skucode': skuCode,
                         'quantity': quantity,
                         'price': str(price),
+                        'show_price': context.showPrice,
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
@@ -161,6 +161,7 @@ class CartView(BrowserView):
                         'skucode': skuCode,
                         'quantity': quantity,
                         'price': str(price),
+                        'show_price': context.showPrice,
                         'total': str(price * quantity),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
@@ -184,14 +185,11 @@ class CartView(BrowserView):
         items = session.get(CART_KEY, {})
         return items
 
-    def all_prices_zero(self):
-        items = self.cart_items()
-        try:
-            prices = [Decimal(items[k].get('price', '0.0'))
-                            for k in items]
-            return all([p == Decimal('0.0') for p in prices])
-        except InvalidOperation:
-            return False
+    def show_prices(self):
+        for item in self.cart_items().values():
+            if item['show_price']:
+                return True
+        return False
 
     def cart_total(self):
         """Return the cart's total as a string
@@ -199,7 +197,8 @@ class CartView(BrowserView):
         items = self.cart_items()
         total = Decimal('0.00')
         for item in items.values():
-            total += Decimal(item['total'])
+            if item['show_price']:
+                total += Decimal(item['total'])
         return str(total)
 
     def remove_item(self, skuCode):

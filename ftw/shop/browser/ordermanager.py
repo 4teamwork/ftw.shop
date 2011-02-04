@@ -5,8 +5,6 @@ from datetime import datetime
 from datetime import timedelta
 from DateTime import DateTime
 from email.Utils import formataddr
-from decimal import Decimal
-from decimal import InvalidOperation
 
 from Acquisition import aq_inner
 from AccessControl.SecurityManagement import newSecurityManager
@@ -74,6 +72,7 @@ COLUMN_TITLES = {
     'quantity': 'Menge',
     'title': 'Titel',
     'price': 'Preis',
+    'show_price': 'Preis anzeigen',
     'item_total': 'Subtotal',
     'supplier_name': 'Lieferant',
     'supplier_email': 'Lieferant e-Mail',
@@ -345,7 +344,7 @@ class OrderManagerView(BrowserView):
     def _send_owner_mail(self, order):
         """Send order notification to shop owner.
         """
-        all_prices_zero = self.all_prices_zero(order)
+        show_prices = self.show_prices(order)
         mail_to = formataddr(("Shop Owner", self.shop_config.shop_email))
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
@@ -356,14 +355,14 @@ class OrderManagerView(BrowserView):
         mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'shopowner_mail_view')
         msg_body = mail_view(order=order,
-                             all_prices_zero=all_prices_zero,
+                             show_prices=show_prices,
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
 
     def _send_customer_mail(self, order, lang):
         """Send order confirmation mail to customer
         """
-        all_prices_zero = self.all_prices_zero(order)
+        show_prices = self.show_prices(order)
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
         mail_to = formataddr((customer_name, order.customer_email))
@@ -375,14 +374,14 @@ class OrderManagerView(BrowserView):
         mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'mail_view')
         msg_body = mail_view(order=order,
-                             all_prices_zero=all_prices_zero,
+                             show_prices=show_prices,
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
 
     def _send_supplier_mail(self, supplier, order):
         """Send order notification to a (single) supplier.
         """
-        all_prices_zero = self.all_prices_zero(order)
+        show_prices = self.show_prices(order)
         mail_to = formataddr(supplier)
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
@@ -393,7 +392,7 @@ class OrderManagerView(BrowserView):
         mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'supplier_mail_view')
         msg_body = mail_view(order=order,
-                             all_prices_zero=all_prices_zero,
+                             show_prices=show_prices,
                              shop_config=self.shop_config,
                              supplier=supplier)
         self._send_mail(mail_to, mail_subject, msg_body)
@@ -415,13 +414,12 @@ class OrderManagerView(BrowserView):
              msg_type='text/html',
              charset='utf8')
 
-    def all_prices_zero(self, order):
-        try:
-            prices = [item.price for item in order.cartitems]
-            return all([p == Decimal('0.0') for p in prices])
-        except InvalidOperation:
-            return False
-
+    def show_prices(self, order):
+        import pdb; pdb.set_trace( )
+        for item in order.cartitems:
+            if item.show_price:
+                return True
+        return False
 
 class OrderView(BrowserView):
     """Lists a single order stored in a IOrderStorage
