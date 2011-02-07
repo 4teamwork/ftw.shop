@@ -110,7 +110,7 @@ tal:define="varConf python:view.getVariationsConfig();
               <tbody class="sortable">
                   <tr tal:repeat="varValue1 varConf/getVariation1Values" class="combination">
                   <tal:v1idx tal:define="v1idx repeat/varValue1/index">
-                  <tal:vcode tal:define="vcode string:var-${v1idx}}">
+                  <tal:vcode tal:define="vcode string:var-${v1idx}">
                       <td width="1%" class="centered">
                           <input type="checkbox" class="varActiveCheckbox"
                                  tal:attributes="name string:${vcode}-active:boolean;
