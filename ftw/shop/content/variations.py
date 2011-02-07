@@ -144,7 +144,10 @@ class VariationConfig(object):
         except InvalidOperation:
             return False
 
-    def remove_level(self):
+    def purge_dict(self):
+        self.annotations['variations'] = PersistentMapping()
+
+    def reduce_level(self):
         if len(self.getVariationAttributes()) == 2:
             # Reduce from 2 to 1 variation
             var_dict = self.getVariationDict()
@@ -180,6 +183,20 @@ class VariationConfig(object):
             self.context.getField('variation2_attribute').set(self.context, None)
 
             self.annotations['variations'] = PersistentMapping()
+
+
+    def remove_level(self):
+        if len(self.getVariationAttributes()) == 2:
+            self.context.getField('variation2_values').set(self.context, [])
+            self.context.getField('variation2_attribute').set(self.context, None)
+            self.purge_dict()
+        elif len(self.getVariationAttributes()) == 1:
+            self.context.getField('variation1_values').set(self.context, [])
+            self.context.getField('variation1_attribute').set(self.context, None)
+            self.context.getField('variation2_values').set(self.context, [])
+            self.context.getField('variation2_attribute').set(self.context, None)
+            self.purge_dict()
+
 
     def add_level(self):
         if len(self.getVariationAttributes()) == 1:

@@ -143,6 +143,10 @@ class EditVariationsView(BrowserView):
             variation_config = IVariationConfig(self.context)
             variation_config.remove_level()
 
+        if form.get('reduce_level'):
+            variation_config = IVariationConfig(self.context)
+            variation_config.reduce_level()
+                
         if form.get('add_level'):
             variation_config = IVariationConfig(self.context)
             variation_config.add_level()
@@ -172,6 +176,7 @@ class EditVariationsView(BrowserView):
             values = list(self.context.getField(fn).get(self.context))
             values.pop(int(pos))
             self.context.getField(fn).set(self.context, values)
+            
 
 
         if form.get('update_structure'):

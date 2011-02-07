@@ -89,7 +89,7 @@ tal:define="varConf python:view.getVariationsConfig();
 </form>
 <p tal:condition="python:len(varConf.getVariationAttributes()) == 0">
     <br/>
-    (Dieser Artikel enthält noch keine Variationen)
+    (Dieser Artikel enthält keine Variationen)
 </p>
 </div>
 
