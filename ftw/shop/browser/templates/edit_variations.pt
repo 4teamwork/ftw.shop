@@ -74,8 +74,12 @@ tal:define="varConf python:view.getVariationsConfig();
 
 <div>
     <input name="update_structure" type="submit" value="Update" style="float: left">
-    <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
-    <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+    <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) < 2">
+        <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
+    </tal:cond>
+    <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) > 0">
+        <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+    </tal:cond>
 </div>
 
 
