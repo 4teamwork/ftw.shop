@@ -3,11 +3,11 @@
             <div class="listItemTable" tal:condition="not:item/hasVariations">
                 <table class="shopItemTable">
                     <tr>
-                        <th i18n:translate="label_sku_code">SKU code</th>
+                        <th tal:condition="item/skuCode" i18n:translate="label_sku_code">SKU code</th>
                         <th tal:condition="item/showPrice" colspan="2" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
-                        <td tal:content="item/skuCode" />
+                        <td tal:condition="item/skuCode" tal:content="item/skuCode" />
                         <td tal:condition="item/showPrice" tal:content="item/price" />
 
                     </tr>

@@ -67,7 +67,7 @@ class ShopItemExtender(object):
         ),
 
         ExtStringField('skuCode',
-            required = 1,
+            required = 0,
             languageIndependent=True,
             widget = atapi.StringWidget(
                 label = _(u"label_sku_code", default=u"SKU code"),
