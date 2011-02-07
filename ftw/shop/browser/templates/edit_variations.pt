@@ -28,6 +28,9 @@ tal:define="varConf python:view.getVariationsConfig();
             normalizeString nocall: context/@@plone/normalizeString">
 
 <div>
+    
+
+    
         <div class="attribute-box" tal:repeat="attr varConf/getVariationAttributes">
             
             <tal:idx tal:define="idx repeat/attr/index">
@@ -66,14 +69,18 @@ tal:define="varConf python:view.getVariationsConfig();
     
 </div>
 
-<div>
-    <input name="add_level" type="submit" value="Add variation level">
-    <input name="remove_level" type="submit" value="Remove variation level">
-</div>
-
 <div style="clear: both">&nbsp;</div>
 
-    <input name="update_structure" type="submit" value="Update structure">
+
+<div>
+    <input name="update_structure" type="submit" value="Update" style="float: left">
+    <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
+    <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+</div>
+
+
+
+<div style="clear: both"></div>
 
 </form>
 </div>
