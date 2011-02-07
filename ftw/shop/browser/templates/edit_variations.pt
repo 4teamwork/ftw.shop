@@ -87,8 +87,11 @@ tal:define="varConf python:view.getVariationsConfig();
 <div style="clear: both"></div>
 
 </form>
+<p tal:condition="python:len(varConf.getVariationAttributes()) == 0">
+    <br/>
+    (Dieser Artikel enthält noch keine Variationen)
+</p>
 </div>
-
 
 
 
@@ -157,7 +160,7 @@ tal:define="varConf python:view.getVariationsConfig();
 
     </div>
 
-    <input type="submit"/>
+    <input type="submit" name="form.button.save" value="Speichern"/>
     <input type="hidden" name="form.submitted:boolean" value="True" />
 
 </form>
@@ -237,7 +240,7 @@ tal:define="varConf python:view.getVariationsConfig();
 
     </div>
 
-    <input type="submit" name="form.button.save" value="Save"/>
+    <input type="submit" name="form.button.save" value="Speichern"/>
     <input type="hidden" name="form.submitted:boolean" value="True" />
 
 </form>
