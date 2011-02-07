@@ -15,6 +15,87 @@
     <div>
 
 
+<h2 class="panel-header">Edit variation structure</h2>
+<div class="panel-body"
+     tal:define="varConf python:view.getVariationsConfig();">
+
+
+<form id="variation-structure" method="post"
+tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+tal:define="varConf python:view.getVariationsConfig();
+            normalizeString nocall: context/@@plone/normalizeString">
+
+<div>
+        <div class="attribute-box" tal:repeat="attr varConf/getVariationAttributes">
+            
+            <tal:idx tal:define="idx repeat/attr/index">
+            <h3 tal:content="python: 'Variationsstufe %s' % (idx + 1)">Variationsstufe 1</h3>
+                <input type="text" tal:attributes="name string:vattr-${idx};
+                                                   value attr">
+                <br/>
+                <h3>Werte</h3>
+                <tal:block tal:condition="python: idx == 0">
+                    <tal:values tal:repeat="val varConf/getVariation1Values">
+                    <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
+                    <input type="image" name="delvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
+                           src="++resource++ftw-shop-resources/16x16-delete.png">
+                    <input type="image" name="addvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
+                           src="++resource++ftw-shop-resources/16x16-add.png">
+                    <!-- <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/> -->
+                    <br/>
+                    </tal:values>
+
+                </tal:block>
+
+                <tal:block tal:condition="python: idx == 1">
+                    <tal:values tal:repeat="val varConf/getVariation2Values">
+                    <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
+                    <input type="image" name="delvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
+                           src="++resource++ftw-shop-resources/16x16-delete.png">
+                    <input type="image" name="addvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
+                           src="++resource++ftw-shop-resources/16x16-add.png">
+                    <!-- <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/> -->
+                    <br/>
+                    </tal:values>
+
+                </tal:block>
+            </tal:idx>
+        </div>
+    
+</div>
+
+<div>
+    <input name="add_level" type="submit" value="Add variation level">
+    <input name="remove_level" type="submit" value="Remove variation level">
+</div>
+
+<div style="clear: both">&nbsp;</div>
+
+    <input name="update_structure" type="submit" value="Update structure">
+
+</form>
+</div>
+
+<!-- No Variations -->
+<form id="variations" method="post"
+tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+tal:define="varConf python:view.getVariationsConfig();
+            normalizeString nocall: context/@@plone/normalizeString;
+            item context"
+tal:condition="python:len(varConf.getVariationAttributes()) == 0">
+
+            <input type="text" class="number"
+                tal:attributes="name string:novar-price;
+                                value python: context.getField('price').get(context)"/>
+            <input type="text" class="required uniqueSkuCode"
+                tal:attributes="name string:novar-skuCode:required;
+                                value python: context.getField('skuCode').get(context)"/>
+            
+            <input type="text" tal:attributes="name string:novar-description;
+                                value python: context.getField('description').get(context)"/>
+
+</form>
+
 
           <!-- One Variation -->
           <form id="variations" method="post"
@@ -65,95 +146,82 @@
           </form>
 
 
-          <!-- Two Variations -->
-          <form id="variations" method="post"
-          tal:attributes="action python:here.absolute_url() + '/edit_variations'"
-          tal:define="varConf python:view.getVariationsConfig();
-                      normalizeString nocall: context/@@plone/normalizeString"
-          tal:condition="python:len(varConf.getVariationAttributes()) > 1">
-        <div tal:repeat="varValue1 varConf/getVariation1Values" style="border: 1px solid #ccc; background-color: #ddd; margin-bottom: 1em">
-            <fieldset>
-                <tal:v1idx tal:define="v1idx repeat/varValue1/index">
-              <legend>
-                  <input name="v1attr" class="attributeLabelInput" size="7" style="font-weight: bolder;" tal:condition="python: varValue1 == varConf.getVariation1Values()[0]" tal:attributes="value python:context.Schema().getField('variation1_attribute').get(context)" />
-                  <strong class="attribute-label" tal:condition="python: varValue1 != varConf.getVariation1Values()[0]" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" />
-                  <strong><input tal:attributes="name string:v1-value-${v1idx}; value varValue1" /></strong>
-              </legend>
-              <table class="listing nosort varTable">
-              <thead>
-              <tr class="">
-                <th></th>
-                <th>
-                    <input name="v2attr" class="attributeLabelInput" style="font-weight: bolder;" size="5%" tal:condition="python: varValue1 == varConf.getVariation1Values()[0]" tal:attributes="value python:context.Schema().getField('variation2_attribute').get(context)" />
-                    <strong class="attribute-label" tal:condition="python: varValue1 != varConf.getVariation1Values()[0]" tal:content="python:context.Schema().getField('variation2_attribute').get(context)" />
-                
-                </th>
-                <th i18n:translate="label_price">Price</th>
-                <th i18n:translate="label_sku_code_required">SKU code 
-                    <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
-                </th>
-                <th i18n:translate="label_description">Description</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody class="sortable">
-                <tr tal:repeat="varValue2 varConf/getVariation2Values" class="combination">
-                <tal:v2idx tal:define="v2idx repeat/varValue2/index">
-                  <tal:vcode tal:define="vcode string:var-${v1idx}-${v2idx}">
-                  <td width="1%" style="text-align: center;">
-                      <input type="checkbox" class="varActiveCheckbox"
-                      tal:attributes="name string:${vcode}-active:boolean;
-                                      checked python:varConf.getVariationData(v1idx, v2idx, 'active')"/></td>
+<!-- Two Variations -->
+<form id="variations" method="post"
+      tal:condition="python:len(varConf.getVariationAttributes()) > 1"
+      tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+      tal:define="varConf python:view.getVariationsConfig();
+                  normalizeString nocall: context/@@plone/normalizeString">
 
-                  <td width="5%" tal:condition="python: varValue1 == varConf.getVariation1Values()[0]">
-                      <input style="width: 100%" class="attributeLabelInput"
-                             tal:attributes="name string:v2-value-${v2idx}; value varValue2"/>
-                  </td>
-                  <td width="5%" class="attribute-label" 
-                                 tal:condition="python: varValue1 != varConf.getVariation1Values()[0]"
-                                 tal:content="varValue2"></td>
+    <div tal:repeat="varValue1 varConf/getVariation1Values" class="varbox">
 
-                  <td width="3%" >
-                      <input type="text" class="number" size="3%"
-                             tal:attributes="name string:${vcode}-price;
-                                             value python:varConf.getVariationData(v1idx, v2idx, 'price')"/></td>
-                  <td width="%4">
-                      <input type="text" class="required uniqueSkuCode" style="width:100%"
-                             tal:attributes="name string:${vcode}-skuCode:required;
-                                             value python:varConf.getVariationData(v1idx, v2idx, 'skuCode')"/>
-                  </td>
-                  <td>
-                      <input type="text" style="width:100%"
-                             tal:attributes="name string:${vcode}-description;
-                                             value python:varConf.getVariationData(v2idx, v2idx, 'description')"/>
-                  </td>
-                  <td width="15%">
-                      <tal:controls tal:condition="python:repeat['varValue1'].index == 0">
-                        <img class="del-variant" src="++resource++ftw-shop-resources/16x16-delete.png" title="Variante entfernen"/>
-                        <img class="add-variant" src="++resource++ftw-shop-resources/16x16-add.png" title="Variante hinzufügen"/>
-                        <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/>
-                      </tal:controls>
-                      
-                  </td>
+        <fieldset tal:define="v1idx repeat/varValue1/index">
+
+            <legend>
+                <!-- <span class="attribute-label" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" /> -->
+                <strong tal:content="varValue1"/>
+            </legend>
+
+            <table class="listing nosort varTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            <strong class="attribute-label" tal:content="python:context.Schema().getField('variation2_attribute').get(context)" />
+                        </th>
+                        <th i18n:translate="label_price">Price</th>
+                        <th i18n:translate="label_sku_code_required" style="white-space: nowrap;">SKU code
+                            <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                        </th>
+                        <th i18n:translate="label_description">Description</th>
+                    </tr>
+                </thead>
+
+                <tbody class="sortable">
+                    <tr tal:repeat="varValue2 varConf/getVariation2Values" class="combination">
+                    <tal:v2idx tal:define="v2idx repeat/varValue2/index">
+                    <tal:vcode tal:define="vcode string:var-${v1idx}-${v2idx}">
+                        <td width="1%" class="centered">
+                            <input type="checkbox" class="varActiveCheckbox"
+                                   tal:attributes="name string:${vcode}-active:boolean;
+                                                   checked python:varConf.getVariationData(v1idx, v2idx, 'active')"/>
+                        </td>
+
+                        <td width="5%" class="attribute-label centered" 
+                            tal:content="varValue2">
+                        </td>
+
+                        <td width="3%" >
+                            <input type="text" class="number" size="3%"
+                                   tal:attributes="name string:${vcode}-price;
+                                                   value python:varConf.getVariationData(v1idx, v2idx, 'price')"/>
+                        </td>
+                        <td width="%4">
+                            <input type="text" class="required uniqueSkuCode width100"
+                                   tal:attributes="name string:${vcode}-skuCode:required;
+                                                   value python:varConf.getVariationData(v1idx, v2idx, 'skuCode')"/>
+                        </td>
+                        <td>
+                            <input type="text" class="width100"
+                                   tal:attributes="name string:${vcode}-description;
+                                                   value python:varConf.getVariationData(v2idx, v2idx, 'description')"/>
+                        </td>
+
                     </tal:vcode>
-                  </tal:v2idx>
-                </tr>
+                    </tal:v2idx>
+                    </tr>
 
                 </tbody>
-              </table>
-              </tal:v1idx>
-            </fieldset>
-            <span class="del-attribute">Attribut löschen <img src="++resource++ftw-shop-resources/24x24-delete.png" /></span>
-            </div>
-            <div style="border: 1px solid #ccc; background-color: #ddd; margin-bottom: 1em">
-                <fieldset>
-                    <span class="add-attribute"><img src="++resource++ftw-shop-resources/24x24-add.png" />Attribut hinzufügen</span>
-                </fieldset>
-            </div>
-            <input type="submit" name="form.button.save" value="Save"/>
-            <input type="hidden" name="form.submitted:boolean" value="True" />
+            </table>
 
-          </form>
+        </fieldset>
+
+    </div>
+
+    <input type="submit" name="form.button.save" value="Save"/>
+    <input type="hidden" name="form.submitted:boolean" value="True" />
+
+</form>
 
 
 

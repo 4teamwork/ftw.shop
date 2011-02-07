@@ -171,3 +171,48 @@ table.categoryListing tr.even.active td {
 table.categoryListing .toggleCategory a {
     text-decoration: none !important;
 }
+
+/* =========== New Variations =============== */
+.varbox {
+    border: 1px solid #ccc;
+    background-color: #ddd;
+    margin-bottom: 1em;
+}
+
+.centered {
+    text-align: center;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.panel-body {
+    border: 1px solid #ccc;
+    background-color: #eee;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+
+.panel-header {
+    background-color: #ccc;
+    margin-bottom: 0 !important;
+    padding-left: 1em;
+}
+
+
+form#variations table td {
+    font-size: 80%;
+}
+form#variations table th {
+    font-size: 80%;
+    text-align: center;
+}
+form#variations legend {
+    font-size: 120%;
+}
+
+.attribute-box {
+    float: left;
+    padding: 1em;
+}

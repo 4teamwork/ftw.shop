@@ -1,5 +1,6 @@
 from decimal import Decimal
 from decimal import InvalidOperation
+import itertools
 
 from persistent.mapping import PersistentMapping
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -143,4 +144,49 @@ class VariationConfig(object):
         except InvalidOperation:
             return False
 
-    
+    def remove_level(self):
+        if len(self.getVariationAttributes()) == 2:
+            # Reduce from 2 to 1 variation
+            var_dict = self.getVariationDict()
+            new_var_dict = PersistentMapping()
+            vcodes = sorted(var_dict.keys())
+            for i, vcode in enumerate(vcodes):
+                new_vcode = 'var-%s' % i
+                new_var_dict[new_vcode] = var_dict[vcode]
+
+            self.annotations['variations'] = new_var_dict
+            new_values = []
+
+            combinations = itertools.product(self.getVariation1Values(), self.getVariation2Values())
+            for pair in combinations:
+                val = '-'.join(pair)
+                new_values.append(val)
+
+            new_attr = "%s/%s" % (self.getVariationAttributes()[0],
+                                  self.getVariationAttributes()[1])
+
+            self.context.getField('variation2_values').set(self.context, [])
+            self.context.getField('variation2_attribute').set(self.context, None)
+
+            self.context.getField('variation1_values').set(self.context, new_values)
+            self.context.getField('variation1_attribute').set(self.context, new_attr)
+
+        elif len(self.getVariationAttributes()) == 1:
+            # Reduce from 1 to 0 variations
+            self.context.getField('variation1_values').set(self.context, [])
+            self.context.getField('variation1_attribute').set(self.context, None)
+
+            self.context.getField('variation2_values').set(self.context, [])
+            self.context.getField('variation2_attribute').set(self.context, None)
+
+            self.annotations['variations'] = PersistentMapping()
+
+    def add_level(self):
+        if len(self.getVariationAttributes()) == 1:
+            self.context.getField('variation2_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
+            self.context.getField('variation2_attribute').set(self.context, 'Neues Attribut')
+
+        elif len(self.getVariationAttributes()) == 0:
+            self.context.getField('variation1_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
+            self.context.getField('variation1_attribute').set(self.context, 'Neues Attribut')
+

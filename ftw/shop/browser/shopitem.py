@@ -24,6 +24,10 @@ class ShopItemView(BrowserView):
     one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
     two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
 
+    @property
+    def depth(self):
+        return len(self.getVariationAttributes())
+
     def getItems(self):
         """Returns a list with this item as its only element,
         so the listing viewlet can treat it like a list of items
@@ -135,12 +139,70 @@ class EditVariationsView(BrowserView):
         """
         form = self.request.form
 
+        if form.get('remove_level'):
+            variation_config = IVariationConfig(self.context)
+            variation_config.remove_level()
+
+        if form.get('add_level'):
+            variation_config = IVariationConfig(self.context)
+            variation_config.add_level()
+
+
+        if form.get('addvalue'):
+            fn = None
+            idx_and_pos = form.get('addvalue')
+            idx, pos = idx_and_pos.split('-')
+            if int(idx) == 0:
+                fn = 'variation1_values'
+            elif int(idx) == 1:
+                fn = 'variation2_values'
+            values = list(self.context.getField(fn).get(self.context))
+            values.append('Neuer Wert')
+            self.context.getField(fn).set(self.context, values)
+
+
+        if form.get('delvalue'):
+            fn = None
+            idx_and_pos = form.get('delvalue')
+            idx, pos = idx_and_pos.split('-')
+            if int(idx) == 0:
+                fn = 'variation1_values'
+            elif int(idx) == 1:
+                fn = 'variation2_values'
+            values = list(self.context.getField(fn).get(self.context))
+            values.pop(int(pos))
+            self.context.getField(fn).set(self.context, values)
+
+
+        if form.get('update_structure'):
+            var_config = IVariationConfig(self.context)
+            vattr0 = form.get('vattr-0', None)
+            vattr1 = form.get('vattr-1', None)
+
+            if len(var_config.getVariationAttributes()) >= 1:
+                self.context.getField('variation1_attribute').set(self.context, vattr0)
+                new_values = []
+                for i in range(len(var_config.getVariation1Values())):
+                    new_value = form.get('vvalue-%s-%s' % (0, i))
+                    new_values.append(new_value)
+                self.context.getField('variation1_values').set(self.context, new_values)
+
+            if len(var_config.getVariationAttributes()) >= 2:
+                self.context.getField('variation2_attribute').set(self.context, vattr1)
+                new_values = []
+                for j in range(len(var_config.getVariation2Values())):
+                    new_value = form.get('vvalue-%s-%s' % (1, j))
+                    new_values.append(new_value)
+                self.context.getField('variation2_values').set(self.context, new_values)
+
+
         # Make sure we had a proper form submit, not just a GET request
         submitted = form.get('form.submitted', False)
         if submitted:
             variation_config = IVariationConfig(self.context)
 
             attributes, edited_var_data = self._parse_edit_variations_form()
+            #import pdb; pdb.set_trace( )
             v1attr = attributes[0].keys()[0]
             v2attr = attributes[1].keys()[0]
             v1values = attributes[0][v1attr]
@@ -210,15 +272,15 @@ class EditVariationsView(BrowserView):
         v2attr = form.get('v2attr')
         
         v1values = []
-        for key in form.keys():
+        for key in sorted(form.keys()):
             if 'v1-value-' in key:
                 v1values.append(form.get(key))
 
         v2values = []
-        for key in form.keys():
+        for key in sorted(form.keys()):
             if 'v2-value-' in key:
                 v2values.append(form.get(key))
-        
+
         attributes = [{v1attr:v1values}, {v2attr:v2values}]
         return (attributes, variation_data)
 
