@@ -221,21 +221,22 @@ class EditVariationsView(BrowserView):
         def _parse_data(variation_code):
             data = {}
             data['active'] = bool(form.get("%s-active" % variation_code))
-            # TODO: Handle decimal more elegantly
-            price = form.get("%s-price" % variation_code)
-            try:
-                p = int(price)
-                # Create a tuple of ints from string
-                digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
-                data['price'] = Decimal((0, digits, -2))
-            except ValueError:
-                if not price == "":
-                    data['price'] = Decimal(price)
-                else:
-                    data['price'] = Decimal("0.00")
+            if data['active']:
+                # TODO: Handle decimal more elegantly
+                price = form.get("%s-price" % variation_code)
+                try:
+                    p = int(price)
+                    # Create a tuple of ints from string
+                    digits = tuple([int(i) for i in list(str(p))]) + (0, 0)
+                    data['price'] = Decimal((0, digits, -2))
+                except ValueError:
+                    if not price == "":
+                        data['price'] = Decimal(price)
+                    else:
+                        data['price'] = Decimal("0.00")
 
-            data['skuCode'] = form.get("%s-skuCode" % variation_code)
-            data['description'] = form.get("%s-description" % variation_code)
+                data['skuCode'] = form.get("%s-skuCode" % variation_code)
+                data['description'] = form.get("%s-description" % variation_code)
 
             # At this point the form has already been validated,
             # so uniqueness of sku codes is ensured
