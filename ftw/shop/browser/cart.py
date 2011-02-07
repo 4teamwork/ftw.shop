@@ -108,7 +108,10 @@ class CartView(BrowserView):
 
         if not skuCode:
             # We got no skuCode, so look it up by variation key
-            skuCode = varConf.getVariationDict()['var-%s-%s' % (var1choice, var2choice)]['skuCode']
+            if len(varConf.getVariationAttributes()) == 2:
+                skuCode = varConf.getVariationDict()['var-%s-%s' % (var1choice, var2choice)]['skuCode']
+            elif len(varConf.getVariationAttributes()) == 1:
+                skuCode = varConf.getVariationDict()['var-%s' % var1choice]['skuCode']
 
         item = cart_items.get(skuCode, None)
 
