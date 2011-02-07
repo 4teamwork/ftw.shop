@@ -15,7 +15,9 @@
     <div>
 
 
-<h2 class="panel-header">Edit variation structure</h2>
+
+<!-- Variation Structure Edit Box -->
+<h2 class="panel-header">Variationen konfigurieren</h2>
 <div class="panel-body"
      tal:define="varConf python:view.getVariationsConfig();">
 
@@ -76,74 +78,80 @@ tal:define="varConf python:view.getVariationsConfig();
 </form>
 </div>
 
-<!-- No Variations -->
-<form id="variations" method="post"
-tal:attributes="action python:here.absolute_url() + '/edit_variations'"
-tal:define="varConf python:view.getVariationsConfig();
-            normalizeString nocall: context/@@plone/normalizeString;
-            item context"
-tal:condition="python:len(varConf.getVariationAttributes()) == 0">
 
-            <input type="text" class="number"
-                tal:attributes="name string:novar-price;
-                                value python: context.getField('price').get(context)"/>
-            <input type="text" class="required uniqueSkuCode"
-                tal:attributes="name string:novar-skuCode:required;
-                                value python: context.getField('skuCode').get(context)"/>
-            
-            <input type="text" tal:attributes="name string:novar-description;
-                                value python: context.getField('description').get(context)"/>
+
+
+
+
+<!-- One Variation -->
+<form id="variations" method="post"
+      tal:attributes="action python:here.absolute_url() + '/edit_variations'"
+      tal:define="varConf python:view.getVariationsConfig();
+                  normalizeString nocall: context/@@plone/normalizeString"
+      tal:condition="python:len(varConf.getVariationAttributes()) == 1">
+
+    <div class="varbox">
+
+          <table class="listing nosort varTable">
+              <thead>
+                  <tr>
+                      <th>Aktiv</th>
+                      <th>
+                          <strong class="attribute-label" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" />
+                      </th>
+                      <th i18n:translate="label_price">Price</th>
+                      <th i18n:translate="label_sku_code_required" style="white-space: nowrap;">SKU code
+                          <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
+                      </th>
+                      <th i18n:translate="label_description">Description</th>
+                  </tr>
+              </thead>
+
+              <tbody class="sortable">
+                  <tr tal:repeat="varValue1 varConf/getVariation1Values" class="combination">
+                  <tal:v1idx tal:define="v1idx repeat/varValue1/index">
+                  <tal:vcode tal:define="vcode string:var-${v1idx}}">
+                      <td width="1%" class="centered">
+                          <input type="checkbox" class="varActiveCheckbox"
+                                 tal:attributes="name string:${vcode}-active:boolean;
+                                                 checked python:varConf.getVariationData(v1idx, None, 'active')"/>
+                      </td>
+
+                      <td width="5%" class="attribute-label centered" 
+                          tal:content="varValue1">
+                      </td>
+
+                      <td width="3%" >
+                          <input type="text" class="number" size="3%"
+                                 tal:attributes="name string:${vcode}-price;
+                                                 value python:varConf.getVariationData(v1idx, None, 'price')"/>
+                      </td>
+                      <td width="%4">
+                          <input type="text" class="required uniqueSkuCode width100"
+                                 tal:attributes="name string:${vcode}-skuCode:required;
+                                                 value python:varConf.getVariationData(v1idx, None, 'skuCode')"/>
+                      </td>
+                      <td>
+                          <input type="text" class="width100"
+                                 tal:attributes="name string:${vcode}-description;
+                                                 value python:varConf.getVariationData(v1idx, None, 'description')"/>
+                      </td>
+
+                  </tal:vcode>
+                  </tal:v1idx>
+                  </tr>
+
+              </tbody>
+          </table>
+
+    </div>
+
+    <input type="submit"/>
+    <input type="hidden" name="form.submitted:boolean" value="True" />
 
 </form>
 
 
-          <!-- One Variation -->
-          <form id="variations" method="post"
-          tal:attributes="action python:here.absolute_url() + '/edit_variations'"
-          tal:define="varConf python:view.getVariationsConfig();
-                      normalizeString nocall: context/@@plone/normalizeString"
-          tal:condition="python:len(varConf.getVariationAttributes()) == 1">
-
-              <table>
-              <thead>
-              <tr>
-                <th></th><th></th><th i18n:translate="label_price">Price</th>
-                <th i18n:translate="label_sku_code_required">SKU code 
-                    <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
-                </th>
-                <th i18n:translate="label_description">Description</th>
-              </tr>
-              </thead>
-              <tbody>
-                <tr tal:repeat="varValue1 varConf/getVariation1Values">
-                <tal:v1idx tal:define="v1idx repeat/varValue1/index">
-
-                <tal:vcode tal:define="vcode string:var-${v1idx}">
-                  <td tal:content="varValue1">Red</td>
-                  <td><input type="checkbox" class="varActiveCheckbox"
-                             tal:attributes="name string:${vcode}-active:boolean;
-                                      checked python:varConf.getVariationData(v1idx, None, 'active')"/></td>
-                  <td><input type="text" class="number"
-                      tal:attributes="name string:${vcode}-price;
-                                      value python:varConf.getVariationData(v1idx, None, 'price')"/></td>
-                  <td><input type="text" class="required uniqueSkuCode"
-                      tal:attributes="name string:${vcode}-skuCode:required;
-                                      value python:varConf.getVariationData(v1idx, None, 'skuCode')"/>
-                  </td>
-                  <td><input type="text" tal:attributes="name string:${vcode}-description;
-                                      value python:varConf.getVariationData(v1idx, None, 'description')"/>
-                  </td>
-                  </tal:vcode>
-
-                  </tal:v1idx>
-                </tr>
-                </tbody>
-              </table>
-
-            <input type="submit"/>
-            <input type="hidden" name="form.submitted:boolean" value="True" />
-
-          </form>
 
 
 <!-- Two Variations -->
@@ -165,7 +173,7 @@ tal:condition="python:len(varConf.getVariationAttributes()) == 0">
             <table class="listing nosort varTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>Aktiv</th>
                         <th>
                             <strong class="attribute-label" tal:content="python:context.Schema().getField('variation2_attribute').get(context)" />
                         </th>
@@ -364,29 +372,6 @@ tal:condition="python:len(varConf.getVariationAttributes()) == 0">
 
               </script>
 
-
-              <!-- <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
-              <script>
-              jQuery.validator.addMethod("uniqueSkuCode", 
-                    function(value, element) {
-                        other_sku_fields = jq('.uniqueSkuCode').not(element);
-                        var existing_sku_codes = new Array(0);
-                        for (var i=0; i<other_sku_fields.length; i++) {
-                            existing_sku_codes.push(other_sku_fields[i].value);
-                        }
-                        if(jq.inArray(value, existing_sku_codes) > -1 && jq(element).parents('tr').find('input[type=checkbox]').attr('checked') === true) {
-                            return false; 
-                            }
-                        else { 
-                            return true; 
-                            }
-                        }, 
-                    "SKU code must be unique");
-
-              jq(document).ready(function($){
-                $("#variations").validate();
-              });
-          </script> -->
 
     </div>
 

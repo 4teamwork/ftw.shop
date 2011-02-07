@@ -200,19 +200,7 @@ class EditVariationsView(BrowserView):
         submitted = form.get('form.submitted', False)
         if submitted:
             variation_config = IVariationConfig(self.context)
-
-            attributes, edited_var_data = self._parse_edit_variations_form()
-            #import pdb; pdb.set_trace( )
-            v1attr = attributes[0].keys()[0]
-            v2attr = attributes[1].keys()[0]
-            v1values = attributes[0][v1attr]
-            v2values = attributes[1][v2attr]
-
-            self.context.Schema().getField('variation1_attribute').set(self.context, v1attr)
-            self.context.Schema().getField('variation2_attribute').set(self.context, v2attr)
-            self.context.Schema().getField('variation1_values').set(self.context, v1values)
-            self.context.Schema().getField('variation2_values').set(self.context, v2values)
-
+            edited_var_data = self._parse_edit_variations_form()
             variation_config.updateVariationConfig(edited_var_data)
 
             IStatusMessage(self.request).addStatusMessage(
@@ -268,21 +256,7 @@ class EditVariationsView(BrowserView):
                     variation_code = 'var-%s-%s' % (i, j) 
                     variation_data[variation_code] = _parse_data(variation_code)
 
-        v1attr = form.get('v1attr')
-        v2attr = form.get('v2attr')
-        
-        v1values = []
-        for key in sorted(form.keys()):
-            if 'v1-value-' in key:
-                v1values.append(form.get(key))
-
-        v2values = []
-        for key in sorted(form.keys()):
-            if 'v2-value-' in key:
-                v2values.append(form.get(key))
-
-        attributes = [{v1attr:v1values}, {v2attr:v2values}]
-        return (attributes, variation_data)
+        return variation_data
 
     def getVariationsConfig(self):
         """Returns the variation config for the item being edited
