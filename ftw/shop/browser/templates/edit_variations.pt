@@ -355,8 +355,8 @@ tal:define="varConf python:view.getVariationsConfig();
 
                   });
                   
-                // Make the combinations sortable by the user  
-                jq( ".sortable" ).sortable({
+                // Make the combinations sortable by the user
+                jq(".sortable").sortable({
                  revert: true,
                  handle: ".drag-variant",
                  axis: "y",
@@ -367,6 +367,22 @@ tal:define="varConf python:view.getVariationsConfig();
                  }
                  
                 });
+
+                // Disabled all inactive rows on page load
+                jq("form#variations input[type=checkbox]").not(":checked").each(function () {
+                          var row = jq(this).parents('tr');
+                          row.find('input').not('.varActiveCheckbox').not('.attributeLabelInput').each(function() {
+                              var current_val = jq(this).attr('disabled');
+                              if (current_val === true) {
+                                  jq(this).removeAttr('disabled');
+                              }
+                              else {
+                                  jq(this).attr('disabled', true);
+                              }
+                          });
+                          row.toggleClass('greyed-out');
+                });
+
               });
               
 
