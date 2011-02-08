@@ -2,8 +2,6 @@
 import cStringIO
 import csv
 from datetime import datetime
-from datetime import timedelta
-from DateTime import DateTime
 from email.Utils import formataddr
 
 from Acquisition import aq_inner
@@ -32,7 +30,7 @@ from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
-DEBUG = True
+DEBUG = False
 
 COLUMN_TITLES = {
     'order_id': 'Bestellungs-ID',
@@ -98,13 +96,22 @@ class OrderManagerView(BrowserView):
 
 
     def __call__(self):
-        self.from_date = self.request.get('from_date')
-        self.to_date = self.request.get('to_date')
-        self.supplier_filter = self.request.get('supplier')
-        self.order_results = self.getOrders(self.from_date, self.to_date)
-        if self.request.get('filter'):
+        try:
+            from_date = datetime.strptime(self.request.form.get(
+                'from_date', '01.01.2001'), "%d.%m.%Y")
+        except ValueError:
+            from_date = datetime(2001, 1, 1)
+        try:
+            to_date = datetime.strptime(self.request.form.get(
+                'to_date', '01.01.2100'), "%d.%m.%Y")
+        except ValueError:
+            to_date = datetime(2100, 1, 1)
+        self.supplier_filter = self.request.form.get('supplier',
+            'all_suppliers')
+        self.order_results = self.getOrders(from_date, to_date)
+        if self.request.form.get('filter'):
             return self.template()
-        elif self.request.get('download_csv'):
+        elif self.request.form.get('download_csv'):
             return self.download_csv()
         else:
             return self.template()
@@ -154,21 +161,7 @@ class OrderManagerView(BrowserView):
         # Write header row
         csv_writer.writerow(column_titles)
 
-        self.from_date = self.request.get('from_date')
-        self.to_date = self.request.get('to_date')
-        self.supplier_filter = self.request.get('supplier')
-
-        if self.from_date == "None":
-            self.from_date = None
-        elif self.from_date:
-            self.from_date = DateTime(self.from_date)
-
-        if self.to_date == "None":
-            self.to_date = None
-        elif self.to_date:
-            self.to_date = DateTime(self.to_date)
-
-        for order in self.getOrders(self.from_date, self.to_date):
+        for order in self.order_results:
             order_data = [getattr(order, attr, '') for attr in columns]
 
             # Get the total via getTotal accessor to convert it to Decimal
@@ -227,12 +220,6 @@ class OrderManagerView(BrowserView):
     def getOrders(self, from_date=None, to_date=None):
         order_storage = self.order_storage
         all_orders = order_storage.getAllOrders()
-        if from_date and to_date:
-            from_date = datetime.strptime(from_date, "%d.%m.%Y")
-            to_date = datetime.strptime(to_date, "%d.%m.%Y")
-        else:
-            from_date = datetime(1982, 1, 1)
-            to_date = datetime.today() + timedelta(days=1)
 
         if any([from_date and to_date, self.supplier_filter]):
             # Filter orders

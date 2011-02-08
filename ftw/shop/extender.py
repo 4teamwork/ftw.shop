@@ -11,13 +11,11 @@ if HAS_LINGUA_PLONE:
     from Products.LinguaPlone.public import StringField
     from Products.LinguaPlone.public import LinesField
     from Products.LinguaPlone.public import FixedPointField
-    from Products.LinguaPlone.public import registerType
 else:
     from Products.Archetypes.atapi import BooleanField
     from Products.Archetypes.atapi import StringField
     from Products.Archetypes.atapi import LinesField
     from Products.Archetypes.atapi import FixedPointField
-    from Products.Archetypes.atapi import registerType
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopItem
@@ -69,7 +67,7 @@ class ShopItemExtender(object):
         ),
 
         ExtStringField('skuCode',
-            required = 1,
+            required = 0,
             languageIndependent=True,
             widget = atapi.StringWidget(
                 label = _(u"label_sku_code", default=u"SKU code"),
@@ -83,6 +81,7 @@ class ShopItemExtender(object):
                 label = _(u"label_variation1_attr",
                           default=u"Variation 1 Attribute"),
                 description = _(u"desc_variation1_attr", default=u""),
+                visible={'view': 'invisible', 'edit': 'invisible'},
             ),
         ),
 
@@ -92,6 +91,7 @@ class ShopItemExtender(object):
                 label = _(u"label_variation1_values",
                           default=u"Variation 1 Values"),
                 description = _(u"desc_variation1_values", default=u""),
+                visible={'view': 'invisible', 'edit': 'invisible'},
             ),
         ),
 
@@ -102,6 +102,7 @@ class ShopItemExtender(object):
                 label = _(u"label_variation2_attr",
                           default=u"Variation 2 Attribute"),
                 description = _(u"desc_variation2_attr", default=u""),
+                visible={'view': 'invisible', 'edit': 'invisible'},
             ),
         ),
 
@@ -112,6 +113,7 @@ class ShopItemExtender(object):
                 label = _(u"label_variation2_values",
                           default=u"Variation 2 Values"),
                 description = _(u"desc_variation2_values", default=u""),
+                visible={'view': 'invisible', 'edit': 'invisible'},
             ),
         ),
 
