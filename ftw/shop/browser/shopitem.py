@@ -138,10 +138,11 @@ class EditVariationsView(BrowserView):
 
         """
         form = self.request.form
-
+        self.show_config_variations = False
         if form.get('remove_level'):
             variation_config = IVariationConfig(self.context)
             variation_config.remove_level()
+            self.show_config_variations = True
 
         if form.get('reduce_level'):
             variation_config = IVariationConfig(self.context)
@@ -150,6 +151,7 @@ class EditVariationsView(BrowserView):
         if form.get('add_level'):
             variation_config = IVariationConfig(self.context)
             variation_config.add_level()
+            self.show_config_variations = True
 
 
         if form.get('addvalue'):
@@ -163,6 +165,7 @@ class EditVariationsView(BrowserView):
             values = list(self.context.getField(fn).get(self.context))
             values.append('Neuer Wert')
             self.context.getField(fn).set(self.context, values)
+            self.show_config_variations = True
 
 
         if form.get('delvalue'):
@@ -176,13 +179,14 @@ class EditVariationsView(BrowserView):
             values = list(self.context.getField(fn).get(self.context))
             values.pop(int(pos))
             self.context.getField(fn).set(self.context, values)
-            
+            self.show_config_variations = True
 
 
         if form.get('update_structure'):
             var_config = IVariationConfig(self.context)
             vattr0 = form.get('vattr-0', None)
             vattr1 = form.get('vattr-1', None)
+            self.show_config_variations = True
 
             if len(var_config.getVariationAttributes()) >= 1:
                 self.context.getField('variation1_attribute').set(self.context, vattr0)
