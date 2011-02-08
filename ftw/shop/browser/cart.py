@@ -105,13 +105,11 @@ class CartView(BrowserView):
         # get current items in cart
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
-
+        variation_code = varConf.variation_code(var1choice, var2choice)
+        
+        # We got no skuCode, so look it up by variation key
         if not skuCode:
-            # We got no skuCode, so look it up by variation key
-            if len(varConf.getVariationAttributes()) == 2:
-                skuCode = varConf.getVariationDict()['var-%s-%s' % (var1choice, var2choice)]['skuCode']
-            elif len(varConf.getVariationAttributes()) == 1:
-                skuCode = varConf.getVariationDict()['var-%s' % var1choice]['skuCode']
+            skuCode = varConf.sku_code(var1choice, var2choice)
 
         item_key = varConf.key(var1choice, var2choice)
         item = cart_items.get(item_key, None)
@@ -124,11 +122,6 @@ class CartView(BrowserView):
         has_variations = varConf.hasVariations()
         if has_variations:
             variation_dict = varConf.getVariationDict()
-            variation_code = None
-            for vcode in variation_dict.keys():
-                if variation_dict[vcode]['active'] and variation_dict[vcode]['skuCode'] == skuCode:
-                    variation_code = vcode
-                    break
             if not variation_dict[variation_code]['active']:
                 # Item is disabled
                 return False

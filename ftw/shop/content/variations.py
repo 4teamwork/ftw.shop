@@ -41,6 +41,24 @@ class VariationConfig(object):
         if varcode2 is None:
             return '%s-%s' % (self.context.UID(), varcode1)
         return '%s-%s-%s' % (self.context.UID(), varcode1, varcode2)
+
+    def variation_code(self, var1choice=None, var2choice=None):
+        """
+        """
+        if var1choice is None:
+            return ''
+        if var2choice is None:
+            return 'var-%s' % var1choice
+        return 'var-%s-%s' % (var1choice, var2choice)
+    
+    def sku_code(self, var1choice=None, var2choice=None):
+        """Returns the sku code for the given variation combination.
+        """ 
+        vcode = self.variation_code(var1choice, var2choice)
+        if not vcode:
+            return self.context.getField('skuCode').get(self.context)
+        return self.getVariationDict().get(vcode)
+            
         
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
