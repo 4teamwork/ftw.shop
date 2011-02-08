@@ -65,12 +65,19 @@
                     <div style="clear: both">&nbsp;</div>
                     <div>
                         <input name="update_structure" type="submit" value="Update" style="float: left">
-                        <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
-                        <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+                        <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) < 2">
+                            <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
+                        </tal:cond>
+                        <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) > 0">
+                            <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+                        </tal:cond>
                     </div>
                     <div style="clear: both"></div>
                 </form>
-                <br />
+                <p tal:condition="python:len(varConf.getVariationAttributes()) == 0">
+                    <br/>
+                    (Dieser Artikel enthält noch keine Variationen)
+                </p>
             </dd>
             <dt>
                 <span class="toggleHead" i18n:translate="label_edit_variations">Edit Variations</span>
@@ -131,7 +138,7 @@
                             </tbody>
                         </table>
                     </div>
-                   <input type="submit"/>
+                   <input type="submit" name="form.button.save" value="Speichern"/>
                    <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
 
@@ -198,7 +205,7 @@
                             </table>
                         </fieldset>
                     </div>
-                    <input type="submit" name="form.button.save" value="Save"/>
+                    <input type="submit" name="form.button.save" value="Speichern"/>
                     <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
             </dd>
