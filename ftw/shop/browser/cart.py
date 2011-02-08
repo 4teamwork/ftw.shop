@@ -113,7 +113,8 @@ class CartView(BrowserView):
             elif len(varConf.getVariationAttributes()) == 1:
                 skuCode = varConf.getVariationDict()['var-%s' % var1choice]['skuCode']
 
-        item = cart_items.get(skuCode, None)
+        item_key = varConf.key(var1choice, var2choice)
+        item = cart_items.get(item_key, None)
 
         item_title = context.Title()
         quantity = int(quantity)
@@ -177,7 +178,7 @@ class CartView(BrowserView):
 
 
         # store cart in session
-        cart_items[skuCode] = item
+        cart_items[item_key] = item
         session[CART_KEY] = cart_items
         return True
 
@@ -204,28 +205,28 @@ class CartView(BrowserView):
                 total += Decimal(item['total'])
         return str(total)
 
-    def remove_item(self, skuCode):
-        """Remove item from cart by skuCode.
+    def remove_item(self, key):
+        """Remove the item with the given key from the cart.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
 
-        if skuCode in cart_items:
-            del cart_items[skuCode]
+        if key in cart_items:
+            del cart_items[key]
 
         session[CART_KEY] = cart_items
 
-    def update_item(self, skuCode, quantity):
+    def update_item(self, key, quantity):
         """Update the quantity of an item.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
 
-        if skuCode in cart_items:
-            item = cart_items[skuCode]
+        if key in cart_items:
+            item = cart_items[key]
             item['quantity'] = int(quantity)
             item['total'] = str(Decimal(item['price']) * item['quantity'])
-            cart_items[skuCode] = item
+            cart_items[key] = item
 
         session[CART_KEY] = cart_items
 

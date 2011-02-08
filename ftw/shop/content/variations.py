@@ -33,6 +33,15 @@ class VariationConfig(object):
         """
         return self.context.UID()
 
+    def key(self, varcode1=None, varcode2=None):
+        """A unique id for each item and variation combination.
+        """
+        if varcode1 is None:
+            return self.context.UID()
+        if varcode2 is None:
+            return '%s-%s' % (self.context.UID(), varcode1)
+        return '%s-%s-%s' % (self.context.UID(), varcode1, varcode2)
+        
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
         """
