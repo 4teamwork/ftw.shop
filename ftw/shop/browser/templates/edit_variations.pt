@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <div metal:fill-slot="main">
+        <div metal:fill-slot="main" tal:define="portal_url context/@@plone_portal_state/portal_url">
             <h1 class="documentFirstHeading" tal:content="context/Title"> 
                 <metal:field use-macro="python:here.widget('Title', mode='view')">
                 Title
@@ -39,10 +39,12 @@
                                 <tal:block tal:condition="python: idx == 0">
                                     <tal:values tal:repeat="val varConf/getVariation1Values">
                                         <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
-                                        <input type="image" name="delvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
-                                               src="++resource++ftw-shop-resources/16x16-delete.png">
-                                        <input type="image" name="addvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
-                                               src="++resource++ftw-shop-resources/16x16-add.png">
+                                        <a tal:attributes="href string:${context/absolute_url}/edit_variations?delvalue=${idx}-${repeat/val/index}">
+                                            <img tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/16x16-delete.png">
+                                        </a>
+                                        <a tal:attributes="href string:${context/absolute_url}/edit_variations?addvalue=${idx}-${repeat/val/index}">
+                                            <img tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/16x16-add.png" />
+                                        </a>
                                         <!-- <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/> -->
                                         <br/>
                                     </tal:values>
@@ -51,10 +53,12 @@
                                 <tal:block tal:condition="python: idx == 1">
                                     <tal:values tal:repeat="val varConf/getVariation2Values">
                                         <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
-                                        <input type="image" name="delvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
-                                               src="++resource++ftw-shop-resources/16x16-delete.png">
-                                        <input type="image" name="addvalue" tal:attributes="value string:${idx}-${repeat/val/index}"
-                                               src="++resource++ftw-shop-resources/16x16-add.png">
+                                        <a tal:attributes="href string:${context/absolute_url}/edit_variations?delvalue=${idx}-${repeat/val/index}">
+                                            <img tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/16x16-delete.png">
+                                        </a>
+                                        <a tal:attributes="href string:${context/absolute_url}/edit_variations?addvalue=${idx}-${repeat/val/index}">
+                                            <img tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/16x16-add.png" />
+                                        </a>
                                         <!-- <img class="drag-variant" src="++resource++ftw-shop-resources/16x16-drag.png" title="Variante verschieben"/> -->
                                         <br/>
                                     </tal:values>
