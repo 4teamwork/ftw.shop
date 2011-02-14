@@ -26,13 +26,15 @@
                     <label i18n:translate="label_from_date" for="from_date">From: </label>
                 </td>
                 <td>
-                    <input name="from_date" id="from_date"/>
+                    <input name="from_date" id="from_date"
+                           tal:attributes="value python:request.form.get('from_date', None);"/>
                 </td>
                 <td>
                     <label i18n:translate="label_to_date" for="to_date">To: </label>
                 </td>
                 <td>
-                    <input name="to_date" id="to_date"/><br/>
+                    <input name="to_date" id="to_date"
+                           tal:attributes="value python:request.form.get('to_date', None);"/><br/>
                 </td>
             </tr>
             <tr>
