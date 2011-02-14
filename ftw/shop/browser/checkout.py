@@ -363,18 +363,20 @@ class CheckoutWizard(wizard.Wizard):
         self.currentStep.applyChanges(data)
         self.finish()
 
-        self.request.SESSION[SESSION_ADDRESS_KEY] = {}
-        self.request.SESSION[SESSION_ADDRESS_KEY].update(
-                                        self.session['contact_information'])
+        address_data = {}
+        address_data.update(self.session['contact_information'])
+        self.request.SESSION[SESSION_ADDRESS_KEY] = address_data
 
-        self.request.SESSION[SESSION_SHIPPING_KEY] = {}
-        self.request.SESSION[SESSION_SHIPPING_KEY].update(
-                                        self.session['shipping_address'])
+        shipping_data = {}
+        shipping_data.update(self.session['shipping_address'])
+        self.request.SESSION[SESSION_SHIPPING_KEY] = shipping_data
+
         self.request.SESSION['order_confirmation'] = True
-        self.request.SESSION['payment_processor_choice'] = {}
+
+        payment_processor_choice = {}
         if 'payment_processor_choice' in self.session.keys():
-            self.request.SESSION['payment_processor_choice'].update(
-                                    self.session['payment_processor_choice'])
+            payment_processor_choice.update(self.session['payment_processor_choice'])
+        self.request.SESSION['payment_processor_choice'] = payment_processor_choice
 
         # Save contact information in a cookie in order to prefill
         # form if customer returns
