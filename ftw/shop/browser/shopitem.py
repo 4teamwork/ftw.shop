@@ -158,12 +158,15 @@ class EditVariationsView(BrowserView):
             fn = None
             idx_and_pos = form.get('addvalue')
             idx, pos = idx_and_pos.split('-')
-            if int(idx) == 0:
+            idx = int(idx)
+            pos = int(pos)
+
+            if idx == 0:
                 fn = 'variation1_values'
-            elif int(idx) == 1:
+            elif idx == 1:
                 fn = 'variation2_values'
             values = list(self.context.getField(fn).get(self.context))
-            values.append('Neuer Wert')
+            values.insert(pos + 1, 'Neuer Wert')
             self.context.getField(fn).set(self.context, values)
             self.show_config_variations = True
 
