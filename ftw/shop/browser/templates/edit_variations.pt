@@ -197,7 +197,7 @@
                                         <td>
                                             <input type="text" class="width100"
                                                    tal:attributes="name string:${vcode}-description;
-                                                                   value python:varConf.getVariationData(v2idx, v2idx, 'description')"/>
+                                                                   value python:varConf.getVariationData(v1idx, v2idx, 'description')"/>
                                         </td>
                                     </tal:vcode>
                                     </tal:v2idx>

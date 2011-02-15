@@ -81,7 +81,8 @@ jq(function () {
                 var varcode_right_part = jq(this).attr("value");
                 other_select.find('option').each(function () {
                     option_vcode = "var-" + jq(this).attr("value") + "-" + varcode_right_part;
-                    if (varDicts[uid][option_vcode]['active'] === false) {
+                    var active = varDicts[uid][option_vcode]['active'];
+                    if (active === false) {
                         jq(this).addClass("greyed-out");
                     }
                     else {

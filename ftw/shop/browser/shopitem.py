@@ -157,15 +157,92 @@ class EditVariationsView(BrowserView):
             idx_and_pos = form.get('addvalue')
             idx, pos = idx_and_pos.split('-')
             idx = int(idx)
-            pos = int(pos)
+            pos = int(pos) + 1
 
             if idx == 0:
                 fn = 'variation1_values'
             elif idx == 1:
                 fn = 'variation2_values'
+
+            variation_config = IVariationConfig(self.context)
             values = list(self.context.getField(fn).get(self.context))
-            values.insert(pos + 1, 'Neuer Wert')
+            var_dict = variation_config.getVariationDict()
+            new_var_dict = {}
+            DEFAULT_VARDATA = {'active':True, 'price': '0.00', 'skuCode': '99999', 'description': "Neue Beschreibung"}
+
+
+            if len(variation_config.getVariationAttributes()) == 2:
+                values1 = list(self.context.getField('variation1_values').get(self.context))
+                values2 = list(self.context.getField('variation2_values').get(self.context))
+
+                # Create a dict mapping old combination indexes to the new ones
+                code_map = {}
+                if idx == 0:
+                    for i in range(len(values1)):
+                        for j in range(len(values2)):
+                            old_vcode = "var-%s-%s" % (i, j)
+                            if i >= pos:
+                                new_vcode = "var-%s-%s" % (i + 1, j)
+                                code_map[old_vcode] = new_vcode
+                            else:
+                                code_map[old_vcode] = old_vcode
+                elif idx == 1:
+                    for i in range(len(values1)):
+                        for j in range(len(values2)):
+                            old_vcode = "var-%s-%s" % (i, j)
+                            if j >= pos:
+                                new_vcode = "var-%s-%s" % (i, j + 1)
+                                code_map[old_vcode] = new_vcode
+                            else:
+                                code_map[old_vcode] = old_vcode
+
+                # Based on the code map, reorder the var_dict
+                for old_vcode in code_map.keys():
+                    new_vcode = code_map[old_vcode]
+                    new_var_dict[new_vcode] = var_dict[old_vcode]
+
+                # Now add some default variation data for the value just added
+                if idx == 0:
+                    for j in range(len(values2)):
+                        vcode = "var-%s-%s" % (pos, j)
+                        new_var_dict[vcode] = DEFAULT_VARDATA
+                elif idx == 1:
+                    for i in range(len(values1)):
+                        vcode = "var-%s-%s" % (i, pos)
+                        new_var_dict[vcode] = DEFAULT_VARDATA
+
+
+            elif len(variation_config.getVariationAttributes()) == 1:
+                assert(idx == 0)
+                values1 = list(self.context.getField('variation1_values').get(self.context))
+
+                # Create a dict mapping old combination indexes to the new ones
+                code_map = {}
+                for i in range(len(values1)):
+                    old_vcode = "var-%s" % (i)
+                    if i >= pos:
+                        new_vcode = "var-%s" % (i + 1)
+                        code_map[old_vcode] = new_vcode
+                    else:
+                        code_map[old_vcode] = old_vcode
+
+                # Based on the code map, reorder the var_dict
+                for old_vcode in code_map.keys():
+                    new_vcode = code_map[old_vcode]
+                    new_var_dict[new_vcode] = var_dict[old_vcode]
+
+                # Now add some default variation data for the value just added
+                vcode = "var-%s" % pos
+                new_var_dict[vcode] = DEFAULT_VARDATA
+
+
+            # Finally purge and update the var_dict
+            variation_config.purge_dict()
+            variation_config.updateVariationConfig(new_var_dict)
+
+            values.insert(pos, 'Neuer Wert')
             self.context.getField(fn).set(self.context, values)
+
 
 
         if form.get('delvalue'):
