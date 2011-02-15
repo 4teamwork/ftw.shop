@@ -217,6 +217,7 @@ class EditVariationsView(BrowserView):
                 values1 = list(self.context.getField('variation1_values').get(self.context))
 
                 # Create a dict mapping old combination indexes to the new ones
+                import pdb; pdb.set_trace( )
                 code_map = {}
                 for i in range(len(values1)):
                     old_vcode = "var-%s" % (i)

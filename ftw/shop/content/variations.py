@@ -238,11 +238,33 @@ class VariationConfig(object):
 
 
     def add_level(self):
+        fields = ['active', 'skuCode', 'price', 'description']
         if len(self.getVariationAttributes()) == 1:
             self.context.getField('variation2_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
             self.context.getField('variation2_attribute').set(self.context, 'Neues Attribut')
 
+            # Initialize var data for newly added level with default values
+            for i in range(len(self.getVariation1Values())):
+                for j in range(len(self.getVariation2Values())):
+                    vardata = {}
+                    for f in fields:
+                        vcode = "var-%s-%s" % (i, j)
+                        data = self.getVariationData(i, j, f)
+                        vardata[f] = data
+                        partial_vardict = {vcode: vardata}
+                        self.updateVariationConfig(partial_vardict)
+
         elif len(self.getVariationAttributes()) == 0:
             self.context.getField('variation1_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
             self.context.getField('variation1_attribute').set(self.context, 'Neues Attribut')
+
+            # Initialize var data for newly added level with default values
+            for i in range(len(self.getVariation1Values())):
+                vardata = {}
+                for f in fields:
+                    vcode = "var-%s" % (i)
+                    data = self.getVariationData(i, None, f)
+                    vardata[f] = data
+                    partial_vardict = {vcode: vardata}
+                    self.updateVariationConfig(partial_vardict)
 
