@@ -293,7 +293,6 @@ class EditVariationsView(BrowserView):
                                 code_map[old_vcode] = old_vcode
 
                 # Based on the code map, reorder the var_dict
-                import pdb; pdb.set_trace( )
                 for old_vcode in code_map.keys():
                     new_vcode = code_map[old_vcode]
                     new_var_dict[new_vcode] = var_dict[old_vcode]
