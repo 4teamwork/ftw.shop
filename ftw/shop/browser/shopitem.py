@@ -217,7 +217,6 @@ class EditVariationsView(BrowserView):
                 values1 = list(self.context.getField('variation1_values').get(self.context))
 
                 # Create a dict mapping old combination indexes to the new ones
-                import pdb; pdb.set_trace( )
                 code_map = {}
                 for i in range(len(values1)):
                     old_vcode = "var-%s" % (i)
@@ -250,13 +249,79 @@ class EditVariationsView(BrowserView):
             fn = None
             idx_and_pos = form.get('delvalue')
             idx, pos = idx_and_pos.split('-')
-            if int(idx) == 0:
+            idx = int(idx)
+            pos = int(pos) + 1
+
+            if idx == 0:
                 fn = 'variation1_values'
-            elif int(idx) == 1:
+            elif idx == 1:
                 fn = 'variation2_values'
             values = list(self.context.getField(fn).get(self.context))
-            values.pop(int(pos))
+
+
+            variation_config = IVariationConfig(self.context)
+            var_dict = variation_config.getVariationDict()
+            new_var_dict = {}
+
+            if len(variation_config.getVariationAttributes()) == 2:
+                values1 = list(self.context.getField('variation1_values').get(self.context))
+                values2 = list(self.context.getField('variation2_values').get(self.context))
+
+                # Create a dict mapping old combination indexes to the new ones
+                code_map = {}
+                if idx == 0:
+                    for i in range(len(values1)):
+                        for j in range(len(values2)):
+                            old_vcode = "var-%s-%s" % (i, j)
+                            if i >= pos:
+                                new_vcode = "var-%s-%s" % (i - 1, j)
+                                code_map[old_vcode] = new_vcode
+                            else:
+                                code_map[old_vcode] = old_vcode
+                elif idx == 1:
+                    for i in range(len(values1)):
+                        for j in range(len(values2)):
+                            old_vcode = "var-%s-%s" % (i, j)
+                            if j >= pos:
+                                new_vcode = "var-%s-%s" % (i, j - 1)
+                                code_map[old_vcode] = new_vcode
+                            else:
+                                code_map[old_vcode] = old_vcode
+
+                # Based on the code map, reorder the var_dict
+                for old_vcode in code_map.keys():
+                    new_vcode = code_map[old_vcode]
+                    new_var_dict[new_vcode] = var_dict[old_vcode]
+
+
+            elif len(variation_config.getVariationAttributes()) == 1:
+                assert(idx == 0)
+                values1 = list(self.context.getField('variation1_values').get(self.context))
+
+                # Create a dict mapping old combination indexes to the new ones
+                code_map = {}
+                for i in range(len(values1)):
+                    old_vcode = "var-%s" % (i)
+                    if i >= pos:
+                        new_vcode = "var-%s" % (i - 1)
+                        code_map[old_vcode] = new_vcode
+                    else:
+                        code_map[old_vcode] = old_vcode
+
+                # Based on the code map, reorder the var_dict
+                for old_vcode in code_map.keys():
+                    new_vcode = code_map[old_vcode]
+                    new_var_dict[new_vcode] = var_dict[old_vcode]
+
+
+            # # Finally purge and update the var_dict
+            variation_config.purge_dict()
+            variation_config.updateVariationConfig(new_var_dict)
+
+            values.pop(int(pos - 1))
             self.context.getField(fn).set(self.context, values)
+
+
 
 
         if form.get('update_structure'):
