@@ -69,7 +69,7 @@ class VariationConfig(object):
         vcode = self.variation_code(var1choice, var2choice)
         if not vcode:
             return self.context.getField('skuCode').get(self.context)
-        return self.getVariationDict().get(vcode)
+        return self.getVariationDict().get(vcode).get('skuCode')
             
         
     def getVariationDict(self):
