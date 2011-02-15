@@ -250,7 +250,7 @@ class EditVariationsView(BrowserView):
             idx_and_pos = form.get('delvalue')
             idx, pos = idx_and_pos.split('-')
             idx = int(idx)
-            pos = int(pos) + 1
+            pos = int(pos)
 
             if idx == 0:
                 fn = 'variation1_values'
@@ -273,22 +273,27 @@ class EditVariationsView(BrowserView):
                     for i in range(len(values1)):
                         for j in range(len(values2)):
                             old_vcode = "var-%s-%s" % (i, j)
-                            if i >= pos:
+                            if i > pos:
                                 new_vcode = "var-%s-%s" % (i - 1, j)
                                 code_map[old_vcode] = new_vcode
+                            elif i == pos:
+                                code_map[old_vcode] = None
                             else:
                                 code_map[old_vcode] = old_vcode
                 elif idx == 1:
                     for i in range(len(values1)):
                         for j in range(len(values2)):
                             old_vcode = "var-%s-%s" % (i, j)
-                            if j >= pos:
+                            if j > pos:
                                 new_vcode = "var-%s-%s" % (i, j - 1)
                                 code_map[old_vcode] = new_vcode
+                            elif j == pos:
+                                code_map[old_vcode] = None
                             else:
                                 code_map[old_vcode] = old_vcode
 
                 # Based on the code map, reorder the var_dict
+                import pdb; pdb.set_trace( )
                 for old_vcode in code_map.keys():
                     new_vcode = code_map[old_vcode]
                     new_var_dict[new_vcode] = var_dict[old_vcode]
@@ -318,7 +323,7 @@ class EditVariationsView(BrowserView):
             variation_config.purge_dict()
             variation_config.updateVariationConfig(new_var_dict)
 
-            values.pop(int(pos - 1))
+            values.pop(int(pos))
             self.context.getField(fn).set(self.context, values)
 
 
