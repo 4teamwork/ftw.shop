@@ -81,7 +81,7 @@
                 </p>
             </dd>
             <dt>
-                <span class="toggleHead" i18n:translate="label_edit_variations">Edit Variations</span>
+                <span class="toggleHead" i18n:translate="label_edit_variations">Edit variations</span>
             </dt>
             <dd>
                 <!-- One Variation -->
@@ -100,9 +100,7 @@
                                         <strong class="attribute-label" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" />
                                     </th>
                                     <th i18n:translate="label_price">Price</th>
-                                    <th i18n:translate="label_sku_code_required" style="white-space: nowrap;">SKU code
-                                        <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
-                                    </th>
+                                    <th i18n:translate="label_sku_code_required">SKU code</th>
                                     <th i18n:translate="label_description">Description</th>
                                 </tr>
                             </thead>
@@ -124,8 +122,8 @@
                                                                value python:varConf.getVariationData(v1idx, None, 'price')"/>
                                     </td>
                                     <td width="%4">
-                                        <input type="text" class="required uniqueSkuCode width100"
-                                               tal:attributes="name string:${vcode}-skuCode:required;
+                                        <input type="text" class="width100"
+                                               tal:attributes="name string:${vcode}-skuCode;
                                                                value python:varConf.getVariationData(v1idx, None, 'skuCode')"/>
                                     </td>
                                     <td>
@@ -163,9 +161,7 @@
                                             <strong class="attribute-label" tal:content="python:context.Schema().getField('variation2_attribute').get(context)" />
                                         </th>
                                         <th i18n:translate="label_price">Price</th>
-                                        <th i18n:translate="label_sku_code_required" style="white-space: nowrap;">SKU code
-                                            <span i18n:name="required" class="required" title="Erforderlich" style="color: #f00;">&#x25a0;</span>
-                                        </th>
+                                        <th i18n:translate="label_sku_code_required" >SKU code</th>
                                         <th i18n:translate="label_description">Description</th>
                                     </tr>
                                 </thead>
@@ -190,8 +186,8 @@
                                                                    value python:varConf.getVariationData(v1idx, v2idx, 'price')"/>
                                         </td>
                                         <td width="%4">
-                                            <input type="text" class="required uniqueSkuCode width100"
-                                                   tal:attributes="name string:${vcode}-skuCode:required;
+                                            <input type="text" class="width100"
+                                                   tal:attributes="name string:${vcode}-skuCode;
                                                                    value python:varConf.getVariationData(v1idx, v2idx, 'skuCode')"/>
                                         </td>
                                         <td>
