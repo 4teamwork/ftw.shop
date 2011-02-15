@@ -164,15 +164,10 @@ class VariationConfig(object):
 
 
     def isValid(self):
-        var_dict = self.getVariationDict()
-        variation_states = []
+        # Since skuCode uniqueness isn't required any more,
+        # variation configs are always assumed to be valid
+        return True
 
-        for key in var_dict:
-            variation_states.append(var_dict[key].get('hasUniqueSKU', False))
-        if False in variation_states or variation_states == []:
-            return False
-        else:
-            return True
 
     def allPricesZero(self):
         var_dict = self.getVariationDict()
