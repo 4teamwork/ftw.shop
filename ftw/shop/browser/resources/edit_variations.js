@@ -1,20 +1,9 @@
 jq(function () {
     // toggle
-    var span='';
-    
-    if (jq('.showConfigVariations').attr('value')==1) {
-        toggleVariations();
-    }
-    
     jq("#content dl.toggleVariation dt").click(function () {
-        toggleVariations();
+        jq(this).next().slideToggle();
     });
-    
-    function toggleVariations() {
-        jq('#content dl.toggleVariation dd').slideToggle();
-        jq('span.toggleHead').toggleClass('collapsed');
-    }
-    
+
     var update_vcodes = function () {
         // Updates all vcodes in the inputs name attributes
         jq('.varTable').each(function(tbl_idx, tbl) {

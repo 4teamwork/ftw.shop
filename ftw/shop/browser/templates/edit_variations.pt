@@ -16,13 +16,10 @@
                 Title
                 </metal:field>
             </h1>
-            <input type="hidden"
-                   class="showConfigVariations"
-                   tal:attributes="value python:view.show_config_variations and '1' or '0'"
-                   />
+
             <dl class="toggleVariation">
-                <dt><span class="collapsed toggleHead" i18n:translate="label_config_variations">Configurate Variations</span></dt>
-            <dd style="display: none"
+                <dt><span class="toggleHead" i18n:translate="label_config_variations">Configurate Variations</span></dt>
+            <dd
                 tal:define="varConf python:view.getVariationsConfig();">
                 <form id="variation-structure" method="post"
                       tal:attributes="action python:here.absolute_url() + '/edit_variations'"
