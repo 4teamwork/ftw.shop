@@ -73,11 +73,12 @@
                             <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
                         </tal:cond>
                     </div>
+                    <br/><br/>
                     <div style="clear: both"></div>
                 </form>
                 <p tal:condition="python:len(varConf.getVariationAttributes()) == 0">
                     <br/>
-                    (Dieser Artikel enthält noch keine Variationen)
+                    (Dieser Artikel enthält keine Variationen)
                 </p>
             </dd>
             <dt>
