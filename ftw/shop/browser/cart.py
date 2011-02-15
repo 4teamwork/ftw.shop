@@ -84,13 +84,14 @@ class CartView(BrowserView):
         parent_category = aq_parent(context)
         if parent_category.getField('supplier') is not None:
             category_supplier = parent_category.getField('supplier').get(parent_category)
-            if category_supplier is not None:
+            if category_supplier not in (None, ''):
                 supplier_name = category_supplier.getField('title').get(category_supplier)
                 supplier_email = category_supplier.getField('email').get(category_supplier)
+
         # If item itself has a supplier, override parent category supplier
         if context.getField('supplier') is not None:
             supplier = context.getField('supplier').get(context)
-            if supplier is not None:
+            if supplier not in (None, ''):
                 supplier_name = supplier.getField('title').get(supplier)
                 supplier_email = supplier.getField('email').get(supplier)
         return supplier_name, supplier_email
