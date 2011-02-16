@@ -18,50 +18,69 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
     <div tal:replace="structure provider:plone.abovecontentbody" />
-    
+
     <h2 i18n:translate="title_order_status">Status</h2>
     <p tal:content="order/status"></p>
 
     <h2 i18n:translate="title_personal_information">Personal Information</h2>
-            
+
         <p>
             <span tal:replace="order/customer_title" /><br />
-              
+
             <span tal:replace="order/customer_firstname" />
             <span tal:replace="order/customer_lastname" /><br />
-                
+
             <span tal:replace="order/customer_street1" /><br />
-                
+
             <tal:block condition="order/customer_street2">
             <span tal:replace="order/customer_street2" /><br />
             </tal:block>
-                
+
             <span tal:replace="order/customer_zipcode" />
-            <span tal:replace="order/customer_city" />                
+            <span tal:replace="order/customer_city" />
         </p>
-      
+
         <p>
             <span i18n:translate="label_email">Email</span>:
             <span tal:replace="order/customer_email" />
-                
+
             <tal:block condition="order/customer_phone">
             <br /><span i18n:translate="label_phone">Phone</span>:
             <span tal:replace="order/customer_phone"></span>
             </tal:block>
         </p>
 
-            <span i18n:translate="label_shipping_address">Shipping Address</span>:
-            <p tal:content="order/customer_shipping_address" />
+        <h3 i18n:translate="title_shipping_address">Shipping Address</h3>
 
-      
+            <p>
+                <span tal:replace="order/shipping_title" /><br />
+
+                <span tal:replace="order/shipping_firstname" />
+                <span tal:replace="order/shipping_lastname" /><br />
+
+                <tal:block condition="order/shipping_company">
+                    <span tal:replace="order/shipping_company" /><br />
+                </tal:block>
+
+                <span tal:replace="order/shipping_street1" /><br />
+
+                <tal:block condition="order/shipping_street2">
+                    <span tal:replace="order/shipping_street2" /><br />
+                </tal:block>
+
+                <span tal:replace="order/shipping_zipcode" />
+                <span tal:replace="order/shipping_city" />
+            </p>
+
+
         <p>
             <tal:block condition="order/customer_newsletter">
-             <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
+             <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />
             </tal:block>
-        </p>    
+        </p>
         <p tal:condition="order/customer_comments">
             <span i18n:translate="label_details_comments">Comments</span>:
-            <span tal:replace="order/customer_comments" />            
+            <span tal:replace="order/customer_comments" />
         </p>
 
     <h2 i18n:translate="title_ordered_items">Ordered Items</h2>
@@ -84,7 +103,7 @@
               <td tal:content="item/quantity"></td>
               <td tal:content="item/getPrice"></td>
               <td tal:content="item/getTotal"></td>
-            </tr> 
+            </tr>
           </metal:block>
         </tbody>
       </table>
@@ -99,5 +118,5 @@
 </metal:main>
 </body>
 </html>
-        
+
         
