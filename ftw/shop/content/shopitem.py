@@ -5,6 +5,7 @@ from Acquisition import aq_parent
 from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 from zope.interface import implements, alsoProvides
+from zope.lifecycleevent import ObjectRemovedEvent
 
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 if HAS_LINGUA_PLONE:
@@ -28,14 +29,16 @@ class ShopItem(Categorizeable, ATDocument):
     schema = ShopItemSchema
 
 
-def object_initialized_handler(context, event):
+def add_to_containing_category(context, event):
     """
     @param context: Zope object for which the event was fired for.
     Usually this is Plone content object.
 
     @param event: Subclass of event.
     """
-    parent = aq_parent(context)
-    context.addToCategory(parent.UID())
+
+    if not event.__class__ ==  ObjectRemovedEvent:
+        parent = aq_parent(context)
+        context.addToCategory(parent.UID())
 
 registerType(ShopItem, PROJECTNAME)

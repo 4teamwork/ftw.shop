@@ -25,4 +25,31 @@
       factory=".variations.VariationConfig"
       />
 
+  <!-- Event subscribers to automatically add items/categories to
+       their containing parent category  -->
+
+  <subscriber
+    for="..interfaces.IShopItem
+         zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    handler=".shopitem.add_to_containing_category"
+    />
+
+  <subscriber
+    for="..interfaces.IShopItem
+         zope.lifecycleevent.interfaces.IObjectMovedEvent"
+    handler=".shopitem.add_to_containing_category"
+    />
+
+  <subscriber
+    for="..interfaces.IShopCategory
+         zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    handler=".shopcategory.add_to_containing_category"
+    />
+
+  <subscriber
+    for="..interfaces.IShopCategory
+         zope.lifecycleevent.interfaces.IObjectMovedEvent"
+    handler=".shopcategory.add_to_containing_category"
+    />
+
 </configure>

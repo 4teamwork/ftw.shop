@@ -130,31 +130,6 @@
       factory="ftw.shop.extender.ShopItemExtender"
       />
 
-    <subscriber
-      for=".interfaces.IShopItem
-           zope.lifecycleevent.interfaces.IObjectAddedEvent"
-      handler=".content.shopitem.object_initialized_handler"
-      />
-
-    <subscriber
-      for=".interfaces.IShopItem
-           zope.lifecycleevent.interfaces.IObjectMovedEvent"
-      handler=".content.shopitem.object_initialized_handler"
-      />
-
-
-    <subscriber
-      for=".interfaces.IShopCategory
-           zope.lifecycleevent.interfaces.IObjectAddedEvent"
-      handler=".content.shopcategory.object_initialized_handler"
-      />
-
-    <subscriber
-      for=".interfaces.IShopCategory
-           zope.lifecycleevent.interfaces.IObjectMovedEvent"
-      handler=".content.shopcategory.object_initialized_handler"
-      />
-
     <adapter
       factory="ftw.shop.mailer.MailHostAdapter"
     />
