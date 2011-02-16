@@ -73,35 +73,57 @@ jq(function () {
         }
         else {
             // We've got two variations
-            varcode = "var-" + jq(this).parents("form").find("select[name=var1choice] option:selected").attr("value") + "-" + jq(this).parents("form").find("select[name=var2choice] option:selected").attr("value");
+            var var1choice = jq("select[name=var1choice] option:selected").attr("value");
+            var var2choice = jq("select[name=var2choice] option:selected").attr("value");
+            varcode = "var-" + var1choice + "-" + var2choice;
 
             // Grey out variations that are deactivated
             var other_select = jq(this).parents("form").find("select").not(jq(this));
             if (other_select.attr("name") === "var1choice") {
                 var varcode_right_part = jq(this).attr("value");
                 other_select.find('option').each(function () {
+                    var option_val = jq(this).attr("value");
+                    var option_text = jq(this).text();
                     option_vcode = "var-" + jq(this).attr("value") + "-" + varcode_right_part;
                     var active = varDicts[uid][option_vcode]['active'];
                     if (active === false) {
-                        jq(this).addClass("greyed-out");
+                        // add css class "greyed-out"
+                        // because IE doesn't detect css class changes in options we remove
+                        // the option and add a new one with the desired class.
+                        jq(this).remove();
+                        other_select.append('<option class="greyed-out" value="' + option_val + '">' + option_text + '</option>');
                     }
                     else {
-                        jq(this).removeClass("greyed-out");
+                        // remove css class "greyed-out"
+                        // because IE doesn't detect css class changes in options we remove
+                        // the option and add a new one without the class attribute.
+                        jq(this).remove();
+                        other_select.append('<option value="' + option_val + '">' + option_text + '</option>');
                     }
-                })
-
+                });
+                // restore selection
+                jq('select[name="var1choice"] option[value="'+var1choice+'"]').attr('selected', 'selected');
+                
             }
             else {
                 var varcode_left_part = jq(this).attr("value");
                 other_select.find('option').each(function () {
+                    var option_val = jq(this).attr("value");
+                    var option_text = jq(this).text();
                     option_vcode =  "var-" + varcode_left_part + "-" + jq(this).attr("value");
                     if (varDicts[uid][option_vcode]['active'] === false) {
-                        jq(this).addClass("greyed-out");
+                        // add css class "greyed-out"
+                        jq(this).remove();
+                        other_select.append('<option class="greyed-out" value="' + option_val + '">' + option_text + '</option>');
                     }
                     else {
-                        jq(this).removeClass("greyed-out");
+                        // remove css class "greyed-out"
+                        jq(this).remove();
+                        other_select.append('<option value="' + option_val + '">' + option_text + '</option>');
                     }
-                })
+                });
+                // restore selection
+                jq('select[name="var2choice"] option[value="'+var2choice+'"]').attr('selected', 'selected');
             }
         }
 
@@ -109,9 +131,9 @@ jq(function () {
 
         // Place Price and SKU code directly in variation selection table
         varSelectTable = jq(this).parents(".variation-toplevel-group").find("table.variationSelection");
-        varPrice = varDicts[uid][varcode]['price']
-        varSkuCode = varDicts[uid][varcode]['skuCode']
-        varDescription = varDicts[uid][varcode]['description']
+        varPrice = varDicts[uid][varcode]['price'];
+        varSkuCode = varDicts[uid][varcode]['skuCode'];
+        varDescription = varDicts[uid][varcode]['description'];
 
         varSelectTable.find("td.variationPrice").text(varPrice);
         varSelectTable.find("td.variationSKUCode").text(varSkuCode);
