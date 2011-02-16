@@ -195,8 +195,7 @@ class CartView(BrowserView):
         items = self.cart_items()
         total = Decimal('0.00')
         for item in items.values():
-            if item['show_price']:
-                total += Decimal(item['total'])
+            total += Decimal(item['total'])
         return str(total)
 
     def remove_item(self, key):
