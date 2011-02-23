@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.shop">
 
   <!-- configure your content components here -->
@@ -25,31 +26,67 @@
       factory=".variations.VariationConfig"
       />
 
+
   <!-- Event subscribers to automatically add items/categories to
        their containing parent category  -->
 
-  <subscriber
-    for="..interfaces.IShopItem
-         zope.lifecycleevent.interfaces.IObjectAddedEvent"
-    handler=".shopitem.add_to_containing_category"
-    />
+    <configure zcml:condition="have plone-4">
+        <!-- For Plone4, use events from zope.lifecycleevent -->
 
-  <subscriber
-    for="..interfaces.IShopItem
-         zope.lifecycleevent.interfaces.IObjectMovedEvent"
-    handler=".shopitem.add_to_containing_category"
-    />
+      <subscriber
+        for="..interfaces.IShopItem
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".shopitem.add_to_containing_category"
+        />
 
-  <subscriber
-    for="..interfaces.IShopCategory
-         zope.lifecycleevent.interfaces.IObjectAddedEvent"
-    handler=".shopcategory.add_to_containing_category"
-    />
+      <subscriber
+        for="..interfaces.IShopItem
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
+        handler=".shopitem.add_to_containing_category"
+        />
 
-  <subscriber
-    for="..interfaces.IShopCategory
-         zope.lifecycleevent.interfaces.IObjectMovedEvent"
-    handler=".shopcategory.add_to_containing_category"
-    />
+      <subscriber
+        for="..interfaces.IShopCategory
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".shopcategory.add_to_containing_category"
+        />
+
+      <subscriber
+        for="..interfaces.IShopCategory
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
+        handler=".shopcategory.add_to_containing_category"
+        />
+
+    </configure>
+
+
+    <configure zcml:condition="not-have plone-4">
+        <!-- For Plone3, use events from zope.app.container -->
+
+      <subscriber
+        for="..interfaces.IShopItem
+              zope.app.container.interfaces.IObjectAddedEvent"
+        handler=".shopitem.add_to_containing_category"
+        />
+
+      <subscriber
+        for="..interfaces.IShopItem
+              zope.app.container.interfaces.IObjectMovedEvent"
+        handler=".shopitem.add_to_containing_category"
+        />
+
+      <subscriber
+        for="..interfaces.IShopCategory
+              zope.app.container.interfaces.IObjectAddedEvent"
+        handler=".shopcategory.add_to_containing_category"
+        />
+
+      <subscriber
+        for="..interfaces.IShopCategory
+              zope.app.container.interfaces.IObjectMovedEvent"
+        handler=".shopcategory.add_to_containing_category"
+        />
+
+    </configure>
 
 </configure>
