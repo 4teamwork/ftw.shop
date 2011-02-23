@@ -6,7 +6,13 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from zope.interface import implements
-from zope.lifecycleevent import ObjectRemovedEvent
+
+try:
+    # Plone 4
+    from zope.lifecycleevent import ObjectRemovedEvent
+except ImportError:
+    # Plone 3
+    from zope.app.container.contained import ObjectRemovedEvent
 
 from ftw.shop.interfaces import IShopCategory
 from ftw.shop.config import PROJECTNAME
