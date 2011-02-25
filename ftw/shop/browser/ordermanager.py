@@ -324,7 +324,8 @@ class OrderManagerView(BrowserView):
             self._send_supplier_mail(supplier, order)
 
         # Send order notification to shop owner
-        self._send_owner_mail(order)
+        if self.shop_config.always_notify_shop_owner:
+            self._send_owner_mail(order)
 
         return
 
