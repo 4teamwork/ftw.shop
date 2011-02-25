@@ -1,8 +1,7 @@
 Changelog
 =========
 
-1.0 (2010-01-10)
+1.0 (unreleased)
 ----------------
 
-- Created recipe with ZopeSkel
-  [Thomas Buchberger]
+- Initial release.
