@@ -5,7 +5,14 @@ from Acquisition import aq_parent
 from Products.ATContentTypes.content.document import ATDocument
 from Products.ATContentTypes.content.document import ATDocumentSchema
 from zope.interface import implements, alsoProvides
-from zope.lifecycleevent import ObjectRemovedEvent
+
+try:
+    # Plone 4
+    from zope.lifecycleevent import ObjectRemovedEvent
+except ImportError:
+    # Plone 3
+    from zope.app.container.contained import ObjectRemovedEvent
+
 
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
 if HAS_LINGUA_PLONE:
