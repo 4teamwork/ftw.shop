@@ -53,7 +53,7 @@ jq(function () {
             var status_message = response['status_message'];
             jq('.portletCartPortlet').replaceWith(portlet_html);
             jq('#kssPortalMessage').html(status_message);
-            jq('#kssPortalMessage').fadeIn().delay(2000).fadeOut();
+            jq('#kssPortalMessage').fadeIn().animate({opacity: 1.0}, 2000).fadeOut();
         });
 
         // Reset quantity to 1
