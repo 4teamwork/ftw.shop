@@ -74,6 +74,7 @@ class CartItems(object):
         self.quantity = None
         self.title = None
         self.price = None
+        self.show_price = False
         self.total = None
         self.supplier_name = None
         self.supplier_email = None
@@ -153,6 +154,7 @@ class BTreeOrderStorage(Persistent):
             cart_items.quantity = cart_data[sku_code]['quantity']
             cart_items.title = cart_data[sku_code]['title']
             cart_items.price = Decimal(cart_data[sku_code]['price'])
+            cart_items.show_price = cart_data[sku_code]['show_price']
             cart_items.total = Decimal(cart_data[sku_code]['total'])
             cart_items.supplier_name = cart_data[sku_code]['supplier_name']
             cart_items.supplier_email = cart_data[sku_code]['supplier_email']
