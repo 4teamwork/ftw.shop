@@ -30,6 +30,27 @@ from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
 
+try:
+    # Python > 2.5
+    strptime = datetime.strptime
+except AttributeError:
+    # Python 2.4
+    import time
+    def strptime(date_string, format):
+        return datetime(*(time.strptime(date_string, format)[0:6]))
+
+try:
+    dummy = type(any)
+except NameError:
+    # Python 2.4
+    def any(iterable):
+        for element in iterable:
+            if element:
+                return True
+        return False
+
+
+
 DEBUG = False
 
 COLUMN_TITLES = {
@@ -97,12 +118,12 @@ class OrderManagerView(BrowserView):
 
     def __call__(self):
         try:
-            from_date = datetime.strptime(self.request.form.get(
+            from_date = strptime(self.request.form.get(
                 'from_date', '01.01.2001'), "%d.%m.%Y")
         except ValueError:
             from_date = datetime(2001, 1, 1)
         try:
-            to_date = datetime.strptime(self.request.form.get(
+            to_date = strptime(self.request.form.get(
                 'to_date', '01.01.2100'), "%d.%m.%Y")
         except ValueError:
             to_date = datetime(2100, 1, 1)
@@ -436,4 +457,6 @@ class OrderView(BrowserView):
         order_view = OrderView(self.context, self.request)
         order_view.order_id = int(id)
         order_view.__name__ = str(id)
-        return order_view
+        # In Plone 3, somehow the view isn't acquisition wrapped
+        # any more, therefore we fix that here
+        return order_view.__of__(self.context)

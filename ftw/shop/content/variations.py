@@ -15,12 +15,11 @@ try:
     dummy = type(all)
 except NameError:
     # Python 2.4
-    def all(lst):
-        all_true = True
-        for item in lst:
-            if not item:
-                all_true = False
-        return all_true
+    def all(iterable):
+        for element in iterable:
+            if not element:
+                return False
+        return True
 
 
 class VariationConfig(object):
