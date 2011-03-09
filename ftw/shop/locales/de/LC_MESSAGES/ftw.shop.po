@@ -255,7 +255,7 @@ msgstr "Stornieren"
 #. Default: "Cart"
 #: ./ftw/shop/browser/templates/order_manager.pt:76
 msgid "label_cart"
-msgstr "Warenkorb"
+msgstr "Artikel"
 
 #. Default: "Cart Contents"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:50
@@ -460,6 +460,11 @@ msgstr "Storage-Methode für Bestellungen"
 #: ./ftw/shop/browser/templates/order_manager.pt:74
 msgid "label_order_title"
 msgstr "Titel"
+
+#. Default: "Order No."
+#: ./ftw/shop/browser/templates/order_manager.pt:74
+msgid "label_order_no"
+msgstr "Bestellnummer"
 
 #. Default: "Payment Processor"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:84

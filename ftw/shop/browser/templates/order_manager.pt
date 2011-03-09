@@ -67,8 +67,7 @@
 
     <table class="listing">
     <thead>
-        <th>ID</th>
-        <th i18n:translate="label_order_title">Title</th>
+        <th i18n:translate="label_order_no">Order No.</th>
         <th>Total</th>
         <th i18n:translate="label_cart">Cart</th>
         <th i18n:translate="label_customer">Customer</th>
@@ -78,8 +77,7 @@
     <tbody>
         <tal:order tal:repeat="order view/order_results">
             <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
-                <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/order_id"></a></td>
-                <td tal:content="order/title"/>
+                <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/title"></a></td>
                 <td tal:content="order/getTotal"/>
                 <td>
                     <tal:block tal:repeat="item_set order/cartitems">
