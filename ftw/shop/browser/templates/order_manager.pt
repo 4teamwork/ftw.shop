@@ -81,7 +81,12 @@
                 <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/order_id"></a></td>
                 <td tal:content="order/title"/>
                 <td tal:content="order/getTotal"/>
-                <td><tal:block tal:repeat="item_set order/cartitems"><span tal:content="item_set/sku_code" /><span tal:content="string:(${item_set/quantity})" /><br/></tal:block></td>
+                <td>
+                    <tal:block tal:repeat="item_set order/cartitems">
+                        <span tal:content="item_set/sku_code" tal:attributes="title item_set/title"/>
+                        <span tal:content="string:(${item_set/quantity})" /><br/>
+                    </tal:block>
+                </td>
                 <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
                     tal:content="customer"/>
                 <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
