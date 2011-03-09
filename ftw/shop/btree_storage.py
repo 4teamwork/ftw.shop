@@ -148,16 +148,16 @@ class BTreeOrderStorage(Persistent):
 
         # store cart in order
         all_cart_items = []
-        for sku_code in cart_data.keys():
+        for key in cart_data.keys():
             cart_items = CartItems()
-            cart_items.sku_code = sku_code
-            cart_items.quantity = cart_data[sku_code]['quantity']
-            cart_items.title = cart_data[sku_code]['title']
-            cart_items.price = Decimal(cart_data[sku_code]['price'])
-            cart_items.show_price = cart_data[sku_code]['show_price']
-            cart_items.total = Decimal(cart_data[sku_code]['total'])
-            cart_items.supplier_name = cart_data[sku_code]['supplier_name']
-            cart_items.supplier_email = cart_data[sku_code]['supplier_email']
+            cart_items.sku_code = cart_data[key]['sku_code']
+            cart_items.quantity = cart_data[key]['quantity']
+            cart_items.title = cart_data[key]['title']
+            cart_items.price = Decimal(cart_data[key]['price'])
+            cart_items.show_price = cart_data[key]['show_price']
+            cart_items.total = Decimal(cart_data[key]['total'])
+            cart_items.supplier_name = cart_data[key]['supplier_name']
+            cart_items.supplier_email = cart_data[key]['supplier_email']
             cart_items.order_id = order_id
             cart_items.order = new_order
             all_cart_items.append(cart_items)
