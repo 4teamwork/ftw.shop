@@ -150,7 +150,7 @@ class BTreeOrderStorage(Persistent):
         all_cart_items = []
         for key in cart_data.keys():
             cart_items = CartItems()
-            cart_items.sku_code = cart_data[key]['sku_code']
+            cart_items.sku_code = cart_data[key]['skucode']
             cart_items.quantity = cart_data[key]['quantity']
             cart_items.title = cart_data[key]['title']
             cart_items.price = Decimal(cart_data[key]['price'])
