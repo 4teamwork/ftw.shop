@@ -81,8 +81,14 @@ class ManageCategories(BrowserView):
             )
         categories = []
         for brain in catalog(query):
+            # Context can also be the portal obj, which doesn't have a UID
+            try:
+                context_UID = context.UID()
+            except AttributeError:
+                context_UID = None
+
             if brain.UID not in except_uids and \
-               brain.UID != context.UID():
+               brain.UID != context_UID:
                 categories.append(brain.getObject())
             # shop root is a shop category
             elif depth == 0:
