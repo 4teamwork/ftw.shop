@@ -2,20 +2,21 @@
 import cStringIO
 import csv
 from datetime import datetime
+from datetime import date
 from email.Utils import formataddr
 
-from Acquisition import aq_inner
 from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl.SecurityManagement import noSecurityManager
+from Acquisition import aq_inner
+from plone.registry.interfaces import IRegistry
 from Products.Archetypes.utils import contentDispositionHeader
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFCore.utils import getToolByName
-from plone.registry.interfaces import IRegistry
-from zope.publisher.interfaces.browser import IBrowserView
 from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
+from zope.publisher.interfaces.browser import IBrowserView
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import SESSION_ADDRESS_KEY
@@ -117,16 +118,7 @@ class OrderManagerView(BrowserView):
 
 
     def __call__(self):
-        try:
-            from_date = strptime(self.request.form.get(
-                'from_date', '01.01.2001'), "%d.%m.%Y")
-        except ValueError:
-            from_date = datetime(2001, 1, 1)
-        try:
-            to_date = strptime(self.request.form.get(
-                'to_date', '01.01.2100'), "%d.%m.%Y")
-        except ValueError:
-            to_date = datetime(2100, 1, 1)
+        from_date, to_date = self.parse_date_range()
         self.supplier_filter = self.request.form.get('supplier',
             'all_suppliers')
         self.order_results = self.getOrders(from_date, to_date)
@@ -136,6 +128,26 @@ class OrderManagerView(BrowserView):
             return self.download_csv()
         else:
             return self.template()
+
+
+    def parse_date_range(self):
+        """Parse the from_date and to_date strings,
+        assuming the jQuery UI datepicker widget always
+        stores them in the request in the "%d.%m.%Y"
+        format.
+        """
+
+        try:
+            from_date = strptime(self.request.form.get(
+                'from_date', ''), "%d.%m.%Y").date()
+        except ValueError:
+            from_date = date(2001, 1, 1)
+        try:
+            to_date = strptime(self.request.form.get(
+                'to_date', ''), "%d.%m.%Y").date()
+        except ValueError:
+            to_date = date(2100, 1, 1)
+        return (from_date, to_date)
 
 
     def getSuppliers(self):
@@ -249,8 +261,8 @@ class OrderManagerView(BrowserView):
                 suppliers = [item.supplier_name for item in order.cartitems]
                 if (self.supplier_filter in suppliers
                 or self.supplier_filter in ["all_suppliers", "", None]) \
-                and from_date.date() <= order.date.date() \
-                and to_date.date() >= order.date.date():
+                and from_date <= order.date.date() \
+                and to_date >= order.date.date():
                     orders.append(order)
         else:
             orders = all_orders

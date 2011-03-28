@@ -121,7 +121,10 @@
                     var language = 'de';
 
                 jq( "#from_date" ).datepicker(jq.datepicker.regional[language]);
+                jq( "#from_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
+                
                 jq( "#to_date" ).datepicker(jq.datepicker.regional[language]);
+                jq( "#to_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
             });
         </script>
 
