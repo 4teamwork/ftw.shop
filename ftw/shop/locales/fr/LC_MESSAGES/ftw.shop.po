@@ -104,7 +104,6 @@ msgstr "Prix"
 #: ./ftw/shop/browser/templates/cart_edit.pt:27
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:58
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:100
-#, fuzzy
 msgid "cart_header_product"
 msgstr "Produit"
 
@@ -178,7 +177,6 @@ msgstr ""
 
 #. Default: "Details of your order"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:23
-#, fuzzy
 msgid "header_orderdetails"
 msgstr "Détails de votre commande"
 
@@ -186,7 +184,6 @@ msgstr "Détails de votre commande"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:95
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:95
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:95
-#, fuzzy
 msgid "header_ordereditems"
 msgstr "Articles commandés"
 
@@ -251,7 +248,6 @@ msgstr "notifier toujour le proprietaire boutique d'une commande'"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:99
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:99
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:99
-#, fuzzy
 msgid "label_article_no"
 msgstr "Numméro de commande"
 
@@ -378,7 +374,6 @@ msgstr "Modifier votre panier"
 #: ./ftw/shop/browser/templates/edit_variations.pt:72
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:33
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:60
-#, fuzzy
 msgid "label_edit_variations"
 msgstr "Modifier les variations"
 
@@ -386,7 +381,6 @@ msgstr "Modifier les variations"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:20
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:51
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:52
-#, fuzzy
 msgid "label_email"
 msgstr "E-mail"
 
@@ -491,7 +485,6 @@ msgstr "Information personelle"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:21
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:55
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:56
-#, fuzzy
 msgid "label_phone"
 msgstr "Tél."
 
@@ -635,7 +628,6 @@ msgstr "Le panier a été vidé"
 
 #. Default: "Invalid Values specified. Cart not updated."
 #: ./ftw/shop/browser/cart.py:244
-#, fuzzy
 msgid "msg_cart_invalidvalue"
 msgstr "Nombre non valable. Le panier n'a pas été actualisé."
 
@@ -796,13 +788,11 @@ msgstr "Adresse de livraison"
 
 #. Default: "For inquiries please contact us: Phone ${phone}, E-Mail ${email}"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:124
-#, fuzzy
 msgid "txt_contact"
 msgstr "Pour demandes, veuillez vous adresser à: Tél 031 307 22 22, E-mail <a href=\"mailto:webmaster@amnesty.ch\">webmaster@amnesty.ch</a> "
 
 #. Default: "Your order number is"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:25
-#, fuzzy
 msgid "txt_ordernumber"
 msgstr "Votre commande"
 
@@ -810,7 +800,6 @@ msgstr "Votre commande"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:120
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:120
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:120
-#, fuzzy
 msgid "txt_shipping"
 msgstr "Les frais d'emballage et d'envoi ne sont pas compris et seront facturés en sus."
 
@@ -835,7 +824,6 @@ msgstr "J'aimerais recevoir la Newsletter par e-mail."
 
 #. Default: "Thank you for your order in our shop on the ${date}"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:20
-#, fuzzy
 msgid "txt_thankyou"
 msgstr "Merci pour votre commande sur www.amnesty.ch du ${date}"
 
@@ -848,7 +836,6 @@ msgstr "Chère, cher"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:116
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:116
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:116
-#, fuzzy
 msgid "txt_total"
 msgstr "Total"
 
@@ -856,7 +843,6 @@ msgstr "Total"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:118
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:118
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:118
-#, fuzzy
 msgid "txt_vat"
 msgstr "TVA comprise"
 
