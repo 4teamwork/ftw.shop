@@ -179,6 +179,11 @@ class CartView(BrowserView):
     def cart_items(self):
         """Get all items currently contained in shopping cart
         """
+        # Avoid creating a session if there doesn't exist one yet.
+        bid_manager = getToolByName(self.context, 'browser_id_manager')
+        browser_id = bid_manager.getBrowserId(create=0)
+        if not browser_id:
+            return {}
         session = self.request.SESSION
         items = session.get(CART_KEY, {})
         return items

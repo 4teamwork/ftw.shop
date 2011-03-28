@@ -5,6 +5,11 @@ Changelog
 1.0dev
 ------
 
+* Avoid creating a session if there doesn't exist one yet.
+  Accessing REQUEST.SESSION causes a _ZopeID cookie to be created, therefore
+  we use the browser_id_manager to check first if a session already exists.
+  [lgraf]
+
 * Moved translations in plone domain from locales to i18n folder for Plone3 bbb
   [lgraf]
 
