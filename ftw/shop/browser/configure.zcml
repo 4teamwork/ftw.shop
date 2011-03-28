@@ -210,8 +210,8 @@
 
 
   <browser:resource
-    name="jquery-ui-i18n.js"
-    file="resources/jquery-ui-i18n.js"
+    name="jquery-ui-i18n-manual.js"
+    file="resources/jquery-ui-i18n-manual.js"
     />
 
 </configure>

@@ -110,7 +110,7 @@
         <div metal:use-macro="context/batch_macros/macros/navigation" />
 
         <!-- XXX -->
-        <script type="text/javascript" src="++resource++jquery-ui-i18n.js"></script>
+        <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>
         <script>
             jq(function() {
                 //read out language cookie
