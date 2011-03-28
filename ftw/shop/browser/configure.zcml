@@ -208,4 +208,10 @@
     file="resources/contactform_prefill.js"
     />
 
+
+  <browser:resource
+    name="jquery-ui-i18n.js"
+    file="resources/jquery-ui-i18n.js"
+    />
+
 </configure>

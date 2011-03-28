@@ -6,108 +6,127 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="ftw.shop">
 <body>
+    
+<tal:batch>
 
-<metal:main fill-slot="main">
-<tal:daterange tal:define="from_date python:request.get('from_date');
-                           to_date python:request.get('to_date');
-                           supplier python:request.get('supplier')">
+    <metal:main fill-slot="main" tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+                                            b_size python:5; b_size request/b_size | b_size;
+                                            b_start python:0;b_start request/b_start | b_start;
+                                            batch python:Batch(view.order_results, b_size, int(b_start), orphan=1);">
 
-    <form action="./order_manager" method="post">
+    <tal:daterange tal:define="from_date python:request.get('from_date');
+                               to_date python:request.get('to_date');
+                               supplier python:request.get('supplier')">
 
-        <h1 class="documentFirstHeading" i18n:translate="title_orders">
-        Orders
-        </h1>
-        <br/>
+        <form action="./order_manager" method="post">
+
+            <h1 class="documentFirstHeading" i18n:translate="title_orders">
+            Orders
+            </h1>
+            <br/>
 
 
-        <table class="listing">
-            <tr>
-                <td>
-                    <label i18n:translate="label_from_date" for="from_date">From: </label>
-                </td>
-                <td>
-                    <input name="from_date" id="from_date"
-                           tal:attributes="value python:request.form.get('from_date', None);"/>
-                </td>
-                <td>
-                    <label i18n:translate="label_to_date" for="to_date">To: </label>
-                </td>
-                <td>
-                    <input name="to_date" id="to_date"
-                           tal:attributes="value python:request.form.get('to_date', None);"/><br/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="supplier"><span i18n:translate="label_supplier">Supplier</span>:</label>
-                </td>
-                <td>
-                    <select name="supplier" id="supplier">
-                        <option value="all_suppliers" i18n:translate="label_all_suppliers">All Suppliers</option>
-                        <option tal:repeat="supplier view/getSuppliers"
-                                tal:attributes="value supplier/name;
-                                                selected python:supplier['name']==request.get('supplier') and 'selected' or ''"
-                                tal:content="supplier/name">
-                        </option>
-                    </select>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                <input type="submit" name="download_csv" value="CSV export"/>
-                <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
-                </td>
-            </tr>
+            <table class="listing">
+                <tr>
+                    <td>
+                        <label i18n:translate="label_from_date" for="from_date">From: </label>
+                    </td>
+                    <td>
+                        <input name="from_date" id="from_date"
+                               tal:attributes="value python:request.form.get('from_date', None);"/>
+                    </td>
+                    <td>
+                        <label i18n:translate="label_to_date" for="to_date">To: </label>
+                    </td>
+                    <td>
+                        <input name="to_date" id="to_date"
+                               tal:attributes="value python:request.form.get('to_date', None);"/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="supplier"><span i18n:translate="label_supplier">Supplier</span>:</label>
+                    </td>
+                    <td>
+                        <select name="supplier" id="supplier">
+                            <option value="all_suppliers" i18n:translate="label_all_suppliers">All Suppliers</option>
+                            <option tal:repeat="supplier view/getSuppliers"
+                                    tal:attributes="value supplier/name;
+                                                    selected python:supplier['name']==request.get('supplier') and 'selected' or ''"
+                                    tal:content="supplier/name">
+                            </option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    <input type="submit" name="download_csv" value="CSV export"/>
+                    <input i18n:attributes="value" name="filter" type="submit" value="Filter"/>
+                    </td>
+                </tr>
+
+            </table>
+            </form>
+
+
+        <div metal:use-macro="context/batch_macros/macros/navigation" />
+
+        <table id="ordermanager_controls" class="listing">
+        <thead>
+            <th i18n:translate="label_order_no">Order No.</th>
+            <th>Total</th>
+            <th i18n:translate="label_cart">Cart</th>
+            <th i18n:translate="label_customer">Customer</th>
+            <th i18n:translate="label_date">Date</th>
+            <th i18n:translate="label_cancel_order">Cancel</th>
+        </thead>
+        <tbody>
+            <tal:order tal:repeat="order batch">
+                <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
+                    <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/title"></a></td>
+                    <td tal:content="order/getTotal"/>
+                    <td>
+                        <tal:block tal:repeat="item_set order/cartitems">
+                            <span tal:content="item_set/sku_code" tal:attributes="title item_set/title"/>
+                            <span tal:content="string:(${item_set/quantity})" /><br/>
+                        </tal:block>
+                    </td>
+                    <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
+                        tal:content="customer"/>
+                    <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
+                    <td><a href=""
+                        tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}&amp;cancel=1">
+                        <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
+                        </a>
+                    </td>
+                </tr>
+            </tal:order>
+        </tbody>
 
         </table>
-        </form>
 
+        <div metal:use-macro="context/batch_macros/macros/navigation" />
 
-    <table class="listing">
-    <thead>
-        <th i18n:translate="label_order_no">Order No.</th>
-        <th>Total</th>
-        <th i18n:translate="label_cart">Cart</th>
-        <th i18n:translate="label_customer">Customer</th>
-        <th i18n:translate="label_date">Date</th>
-        <th i18n:translate="label_cancel_order">Cancel</th>
-    </thead>
-    <tbody>
-        <tal:order tal:repeat="order view/order_results">
-            <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
-                <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/title"></a></td>
-                <td tal:content="order/getTotal"/>
-                <td>
-                    <tal:block tal:repeat="item_set order/cartitems">
-                        <span tal:content="item_set/sku_code" tal:attributes="title item_set/title"/>
-                        <span tal:content="string:(${item_set/quantity})" /><br/>
-                    </tal:block>
-                </td>
-                <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
-                    tal:content="customer"/>
-                <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
-                <td><a href=""
-                    tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}&amp;cancel=1">
-                    <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
-                    </a>
-                </td>
-            </tr>
-        </tal:order>
-    </tbody>
+        <!-- XXX -->
+        <script type="text/javascript" src="++resource++jquery-ui-i18n.js"></script>
+        <script>
+            jq(function() {
+                //read out language cookie
+                var language_cookie = document.cookie.match ( '(^|;) ?' + 'I18N_LANGUAGE' + '=([^;]*)(;|$)' );
+                if (language_cookie != null) 
+                    var language = language_cookie[2].substring(1,3);
+                if (language_cookie == null) 
+                    var language = 'de';
 
-    </table>
+                jq( "#from_date" ).datepicker(jq.datepicker.regional[language]);
+                jq( "#to_date" ).datepicker(jq.datepicker.regional[language]);
+            });
+        </script>
 
-
-    <script>
-        jq(function() {
-            jq( "#from_date" ).datepicker();
-            jq( "#to_date" ).datepicker();
-        });
-    </script>
-
-</tal:daterange>
-</metal:main>
+    </tal:daterange>
+    </metal:main>
+</tal:batch>
 </body>
 </html>
