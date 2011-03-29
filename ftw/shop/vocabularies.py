@@ -12,6 +12,7 @@ from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
+from ftw.shop.interfaces import IStatusSet
 
 
 def create_terms_from_adapters(adapters):
@@ -129,4 +130,16 @@ def OrderStorageVocabulary(context):
     terms = create_terms_from_adapters(order_storages)
 
     directlyProvides(OrderStorageVocabulary, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+
+def StatusSetsVocabulary(context):
+    """Returns a vocabulary of the currently registered utilities
+    that implement IStatusSet.
+    """
+    # context is the portal config options, whose context is the portal
+    status_sets = getAdapters((context,), IStatusSet)
+    terms = create_terms_from_adapters(status_sets)
+
+    directlyProvides(StatusSetsVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

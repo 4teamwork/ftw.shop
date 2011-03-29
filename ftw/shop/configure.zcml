@@ -125,6 +125,18 @@
       component=".vocabularies.OrderStorageVocabulary"
       />
 
+    <!-- Status Sets Vocabulary -->
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.status_sets_vocabulary"
+      component=".vocabularies.StatusSetsVocabulary"
+      />
+
+    <adapter
+      name="ftw.shop.DefaultStatusSet"
+      factory="ftw.shop.default_status_set.DefaultStatusSet"
+    />
+
     <adapter 
       name="ftw.shop.extender.ShopItemExtender"
       factory="ftw.shop.extender.ShopItemExtender"

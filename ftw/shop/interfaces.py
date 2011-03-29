@@ -231,6 +231,13 @@ class IShopConfiguration(Interface):
             default=u"ftw.shop.DefaultOrderReviewStepGroup",
             required=True)
 
+    status_set = schema.Choice(
+            title=_(u"label_status_set",
+                    default="Status Set"),
+            vocabulary="ftw.shop.status_sets_vocabulary",
+            default=u'ftw.shop.DefaultStatusSet',
+            required=True)
+
 
 class IDefaultContactInformation(Interface):
     """Schema defining a common contact address form
@@ -298,6 +305,11 @@ class IShippingAddress(Interface):
     used = schema.Bool(
             title=_(u'label_used', default=u'Different from invoice address'),
             required=False)
+
+class IStatusSet(Interface):
+    """Interface defining a set of statuses that an order can
+    be in.
+    """
 
 class IFtwShopSpecific(IDefaultPloneLayer):
     """Marker interface for a zope 3 browser layer.
