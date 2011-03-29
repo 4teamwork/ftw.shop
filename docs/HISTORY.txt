@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added option to display cart portlet only if there are items in the current folder / context
+  [lgraf]
+
 
 1.0.1
 -----
@@ -15,9 +18,6 @@ Changelog
 * Avoid creating a session if there doesn't exist one yet.
   Accessing REQUEST.SESSION causes a _ZopeID cookie to be created, therefore
   we use the browser_id_manager to check first if a session already exists.
-  [lgraf]
-
-* Added option to display cart portlet only if there are items in the current folder / context
   [lgraf]
 
 * Moved translations in plone domain from locales to i18n folder for Plone3 bbb
