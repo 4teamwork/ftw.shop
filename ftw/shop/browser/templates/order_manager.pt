@@ -26,7 +26,7 @@
             <br/>
 
 
-            <table class="listing">
+            <table class="listing" id="ordermanager-controls">
                 <tr>
                     <td>
                         <label i18n:translate="label_from_date" for="from_date">From: </label>
@@ -73,7 +73,7 @@
 
         <div metal:use-macro="context/batch_macros/macros/navigation" />
 
-        <table id="ordermanager_controls" class="listing">
+        <table class="listing">
         <thead>
             <th i18n:translate="label_order_no">Order No.</th>
             <th>Total</th>
