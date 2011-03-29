@@ -17,6 +17,9 @@ Changelog
   we use the browser_id_manager to check first if a session already exists.
   [lgraf]
 
+* Added option to display cart portlet only if there are items in the current folder / context
+  [lgraf]
+
 * Moved translations in plone domain from locales to i18n folder for Plone3 bbb
   [lgraf]
 

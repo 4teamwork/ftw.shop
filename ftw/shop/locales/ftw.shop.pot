@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-02-15 13:02+0000\n"
+"POT-Creation-Date: 2011-03-29 13:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -37,11 +37,23 @@ msgstr ""
 msgid "Checkout"
 msgstr ""
 
+#: ./ftw/shop/portlets/cart.py:34
+msgid "Conditions under which portlet should be shown"
+msgstr ""
+
+#: ./ftw/shop/portlets/cart.py:33
+msgid "Display mode"
+msgstr ""
+
+#: ./ftw/shop/portlets/cart.py:111
+msgid "Edit Shopping Cart portlet"
+msgstr ""
+
 #: ./ftw/shop/browser/templates/cart_edit.pt:85
 msgid "Empty Shopping Cart"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/order_manager.pt:63
+#: ./ftw/shop/browser/templates/order_manager.pt:66
 msgid "Filter"
 msgstr ""
 
@@ -51,6 +63,10 @@ msgstr ""
 
 #: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Shop Item"
+msgstr ""
+
+#: ./ftw/shop/portlets/cart.py:112
+msgid "This portlet displays the Shopping Cart."
 msgstr ""
 
 #: ./ftw/shop/browser/templates/edit_categories.pt:126
@@ -197,7 +213,7 @@ msgid "heading_shop_setup"
 msgstr ""
 
 #. Default: "This portlet displays the shopping cart contents."
-#: ./ftw/shop/portlets/cart.py:60
+#: ./ftw/shop/portlets/cart.py:101
 msgid "help_add_cart_portlet"
 msgstr ""
 
@@ -228,13 +244,18 @@ msgid "help_order_review_step"
 msgstr ""
 
 #. Default: "Add Shopping Cart Portlet"
-#: ./ftw/shop/portlets/cart.py:58
+#: ./ftw/shop/portlets/cart.py:99
 msgid "label_add_cart_portlet"
 msgstr ""
 
 #. Default: "All Suppliers"
-#: ./ftw/shop/browser/templates/order_manager.pt:46
+#: ./ftw/shop/browser/templates/order_manager.pt:52
 msgid "label_all_suppliers"
+msgstr ""
+
+#. Default: "Always"
+#: ./ftw/shop/portlets/cart.py:18
+msgid "label_always"
 msgstr ""
 
 #. Default: "Always notify shop owner about orders"
@@ -250,12 +271,12 @@ msgid "label_article_no"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/shop/browser/templates/order_manager.pt:79
+#: ./ftw/shop/browser/templates/order_manager.pt:83
 msgid "label_cancel_order"
 msgstr ""
 
 #. Default: "Cart"
-#: ./ftw/shop/browser/templates/order_manager.pt:76
+#: ./ftw/shop/browser/templates/order_manager.pt:80
 msgid "label_cart"
 msgstr ""
 
@@ -265,7 +286,7 @@ msgid "label_cart_contents"
 msgstr ""
 
 #. Default: "Cart Portlet"
-#: ./ftw/shop/portlets/cart.py:32
+#: ./ftw/shop/portlets/cart.py:57
 msgid "label_cart_portlet"
 msgstr ""
 
@@ -311,14 +332,14 @@ msgid "label_country"
 msgstr ""
 
 #. Default: "Customer"
-#: ./ftw/shop/browser/templates/order_manager.pt:77
+#: ./ftw/shop/browser/templates/order_manager.pt:81
 msgid "label_customer"
 msgstr ""
 
 #. Default: "Date"
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:22
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:22
-#: ./ftw/shop/browser/templates/order_manager.pt:78
+#: ./ftw/shop/browser/templates/order_manager.pt:82
 msgid "label_date"
 msgstr ""
 
@@ -338,7 +359,7 @@ msgid "label_default_shipping_address_step"
 msgstr ""
 
 #. Default: "Description"
-#: ./ftw/shop/browser/templates/edit_variations.pt:104
+#: ./ftw/shop/browser/templates/edit_variations.pt:105
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:13
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:78
 msgid "label_description"
@@ -369,7 +390,7 @@ msgid "label_edit_cart"
 msgstr ""
 
 #. Default: "Edit variations"
-#: ./ftw/shop/browser/templates/edit_variations.pt:84
+#: ./ftw/shop/browser/templates/edit_variations.pt:85
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:33
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:60
 msgid "label_edit_variations"
@@ -393,7 +414,7 @@ msgid "label_firstname"
 msgstr ""
 
 #. Default: "From:"
-#: ./ftw/shop/browser/templates/order_manager.pt:26
+#: ./ftw/shop/browser/templates/order_manager.pt:32
 msgid "label_from_date"
 msgstr ""
 
@@ -432,9 +453,19 @@ msgstr ""
 msgid "label_no"
 msgstr ""
 
+#. Default: "Only if ShopItems available in current folder"
+#: ./ftw/shop/portlets/cart.py:23
+msgid "label_only_if_items"
+msgstr ""
+
 #. Default: "Order Manager"
 #: ./ftw/shop/portlets/cart.pt:49
 msgid "label_order_manager"
+msgstr ""
+
+#. Default: "Order No."
+#: ./ftw/shop/browser/templates/order_manager.pt:78
+msgid "label_order_no"
 msgstr ""
 
 #. Default: "Order Review"
@@ -456,11 +487,6 @@ msgstr ""
 #. Default: "Order Storage method"
 #: ./ftw/shop/interfaces.py:207
 msgid "label_order_storage"
-msgstr ""
-
-#. Default: "Title"
-#: ./ftw/shop/browser/templates/order_manager.pt:74
-msgid "label_order_title"
 msgstr ""
 
 #. Default: "Payment Processor"
@@ -492,7 +518,7 @@ msgid "label_phone_number"
 msgstr ""
 
 #. Default: "Price"
-#: ./ftw/shop/browser/templates/edit_variations.pt:102
+#: ./ftw/shop/browser/templates/edit_variations.pt:103
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
@@ -505,7 +531,6 @@ msgstr ""
 
 #. Default: "Shipping Address"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:35
-#: ./ftw/shop/browser/templates/order_view.pt:53
 msgid "label_shipping_address"
 msgstr ""
 
@@ -542,7 +567,7 @@ msgid "label_sku_code"
 msgstr ""
 
 #. Default: "SKU code"
-#: ./ftw/shop/browser/templates/edit_variations.pt:103
+#: ./ftw/shop/browser/templates/edit_variations.pt:104
 msgid "label_sku_code_required"
 msgstr ""
 
@@ -562,7 +587,7 @@ msgid "label_summary"
 msgstr ""
 
 #. Default: "Supplier"
-#: ./ftw/shop/browser/templates/order_manager.pt:42
+#: ./ftw/shop/browser/templates/order_manager.pt:48
 msgid "label_supplier"
 msgstr ""
 
@@ -572,7 +597,7 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "To:"
-#: ./ftw/shop/browser/templates/order_manager.pt:33
+#: ./ftw/shop/browser/templates/order_manager.pt:39
 msgid "label_to_date"
 msgstr ""
 
@@ -620,17 +645,17 @@ msgid "link_agb"
 msgstr ""
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:287
+#: ./ftw/shop/browser/cart.py:286
 msgid "msg_cart_emptied"
 msgstr ""
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: ./ftw/shop/browser/cart.py:242
+#: ./ftw/shop/browser/cart.py:241
 msgid "msg_cart_invalidvalue"
 msgstr ""
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:258
+#: ./ftw/shop/browser/cart.py:257
 msgid "msg_cart_updated"
 msgstr ""
 
@@ -665,7 +690,7 @@ msgid "msg_label_info"
 msgstr ""
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:304
+#: ./ftw/shop/browser/cart.py:303
 msgid "msg_no_cart"
 msgstr ""
 
@@ -677,7 +702,7 @@ msgid "msg_not_buyable"
 msgstr ""
 
 #. Default: "Order cancelled."
-#: ./ftw/shop/browser/ordermanager.py:215
+#: ./ftw/shop/browser/ordermanager.py:248
 msgid "msg_order_cancelled"
 msgstr ""
 
@@ -706,7 +731,7 @@ msgid "msg_thank_you_title"
 msgstr ""
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:357
+#: ./ftw/shop/browser/shopitem.py:359
 msgid "msg_variations_saved"
 msgstr ""
 
@@ -761,12 +786,12 @@ msgid "title_order_status"
 msgstr ""
 
 #. Default: "Ordered Items"
-#: ./ftw/shop/browser/templates/order_view.pt:67
+#: ./ftw/shop/browser/templates/order_view.pt:86
 msgid "title_ordered_items"
 msgstr ""
 
 #. Default: "Orders"
-#: ./ftw/shop/browser/templates/order_manager.pt:17
+#: ./ftw/shop/browser/templates/order_manager.pt:23
 msgid "title_orders"
 msgstr ""
 

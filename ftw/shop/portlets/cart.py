@@ -1,15 +1,40 @@
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from zope.interface import implements
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope import schema
 from zope.component import getMultiAdapter
+from zope.interface import implements
+
+from zope.schema.vocabulary import SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm
+from zope.formlib import form
 
 from ftw.shop import shopMessageFactory as _
+
+displayChoices = SimpleVocabulary(
+    [SimpleTerm(value='always',
+                token='always',
+                title=_(u'label_always',
+                        default=u'Always'),
+                ),
+     SimpleTerm(value='only_if_items',
+                token='only_if_items',
+                title=_(u'label_only_if_items',
+                        default=u'Only if ShopItems available in current folder'),
+                )
+      ]
+    )
 
 
 class ICartPortlet(IPortletDataProvider):
     """A portlet that displays the shopping cart
     """
+    mode = schema.Choice(title=_(u'Display mode'),
+        description=_(u'Conditions under which portlet should be shown'),
+        vocabulary=displayChoices,
+        default='always'
+        )
 
 
 class Assignment(base.Assignment):
@@ -21,8 +46,8 @@ class Assignment(base.Assignment):
 
     implements(ICartPortlet)
 
-    def __init__(self):
-        pass
+    def __init__(self, mode='always'):
+        self.mode = mode
 
     @property
     def title(self):
@@ -42,23 +67,46 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('cart.pt')
 
-    def __init__(self, context, request, view, manager, data):
-        base.Renderer.__init__(self, context, request, view, manager, data)
-
-        portal_state = getMultiAdapter((self.context, self.request),
-                                       name=u'plone_portal_state')
-        self.navroot_url = portal_state.navigation_root_url()
-
     @property
     def available(self):
+        # If the shopping cart contains items, we ALWAYS display the portlet
+        if self.items_in_cart():
+            return True
+
+        if self.data.mode == 'only_if_items':
+            # Only display portlet if there are shop items in current folder
+            if self.context_has_shopitems():
+                return True
+            else:
+                return False
         return True
 
+    def context_has_shopitems(self):
+        shop_types = ['ShopCategory', 'ShopItem', 'ShopItemBlock']
+        shop_contents = self.context.getFolderContents(
+                            contentFilter={'portal_type': shop_types})
+        if shop_contents:
+            return True
+        return False
 
-class AddForm(base.NullAddForm):
+    def items_in_cart(self):
+        cart_view = getMultiAdapter((self.context, self.request), name='cart_view')
+        return cart_view.cart_items()
+
+
+class AddForm(base.AddForm):
+    form_fields = form.Fields(ICartPortlet)
     label = _(u"label_add_cart_portlet",
               default=u"Add Shopping Cart Portlet")
     description = _(u"help_add_cart_portlet",
                 default=u"This portlet displays the shopping cart contents.")
 
-    def create(self):
-        return Assignment()
+    def create(self, data):
+        assignment = Assignment(**data)
+        return assignment
+
+
+class EditForm(base.EditForm):
+    form_fields = form.Fields(ICartPortlet)
+    label = _(u"Edit Shopping Cart portlet")
+    description = _(u"This portlet displays the Shopping Cart.")

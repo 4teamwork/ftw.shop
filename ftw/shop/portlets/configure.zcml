@@ -16,6 +16,7 @@
       edit_permission="cmf.ManagePortal"
       renderer=".cart.Renderer"
       addview="ftw.shop.portlets.cart.AddForm"
+      editview="ftw.shop.portlets.cart.EditForm"
       />
 
 </configure>
