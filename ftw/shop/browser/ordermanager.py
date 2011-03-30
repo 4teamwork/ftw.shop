@@ -283,7 +283,7 @@ class OrderManagerView(BrowserView):
         session = self.context.REQUEST.SESSION
 
         # check for cart
-        cart_view = getMultiAdapter((self, self.context.REQUEST),
+        cart_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'cart_view')
         cart_data = cart_view.cart_items()
 
