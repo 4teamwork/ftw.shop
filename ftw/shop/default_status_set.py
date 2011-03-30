@@ -12,6 +12,8 @@ from ftw.shop import shopMessageFactory as _
 class DefaultStatusSet(object):
     implements(IStatusSet)
     adapts(Interface)
+    # plone.registry.interfaces.IRecordsProxy
+    # ftw.shop.interfaces.IShopConfiguration
     title = u"Default Status Set"
 
     vocabulary = SimpleVocabulary(
@@ -32,5 +34,7 @@ class DefaultStatusSet(object):
                     )
           ]
         )
+
     def __init__(self, context):
+        self.context = context
         pass

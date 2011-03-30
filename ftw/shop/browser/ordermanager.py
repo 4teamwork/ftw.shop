@@ -13,7 +13,10 @@ from Products.Archetypes.utils import contentDispositionHeader
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getUtility, getMultiAdapter, getAdapters
+from zope.component import getAdapter
+from zope.component import getAdapters
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
 from zope.publisher.interfaces.browser import IBrowserView
@@ -441,19 +444,35 @@ class OrderManagerView(BrowserView):
                 return True
         return False
 
+    def showStatus(self):
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+        return shop_config.show_status_column
+
 class OrderView(BrowserView):
     """Lists a single order stored in a IOrderStorage
     """
 
     implements(IBrowserView, IPublishTraverse)
-
-    __call__ = ViewPageTemplateFile('templates/order_view.pt')
+    template = ViewPageTemplateFile('templates/order_view.pt')
 
     def __init__(self, context, request):
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
         self.order_storage_name = self.shop_config.order_storage
         super(OrderView, self).__init__(context, request)
+
+    def __call__(self):
+        new_status = self.request.form.get('form.widgets.status', '')
+        try:
+            new_status = int(new_status)
+        except ValueError:
+            new_status = None
+
+        if new_status:
+            order = self.getOrder()
+            order.status = new_status
+        return self.template()
 
     def getOrder(self, order_id=None):
         if not order_id:
@@ -462,6 +481,26 @@ class OrderView(BrowserView):
                                    name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
         return order
+
+    def getStatus(self, order_id=None):
+        order = self.getOrder()
+        status = order.status
+
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+
+        status_set_name = shop_config.status_set
+        status_set = getAdapter((self.context,), name=status_set_name)
+        status_title = status_set.vocabulary.by_value[status].title
+        return status_title
+
+    def getStatusSet(self):
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+
+        status_set_name = shop_config.status_set
+        status_set = getAdapter((self.context,), name=status_set_name)
+        return status_set.vocabulary
 
     def publishTraverse(self, request, id):
         """

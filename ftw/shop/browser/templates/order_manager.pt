@@ -80,11 +80,13 @@
             <th i18n:translate="label_cart">Cart</th>
             <th i18n:translate="label_customer">Customer</th>
             <th i18n:translate="label_date">Date</th>
+            <th i18n:translate="label_status" tal:condition="view/showStatus">Status</th>
             <th i18n:translate="label_cancel_order">Cancel</th>
         </thead>
         <tbody>
             <tal:order tal:repeat="order batch">
-                <tr tal:define="oddrow repeat/order/odd" tal:attributes="class python:oddrow and 'odd' or ''">
+                <tr tal:define="oddrow repeat/order/odd"
+                    tal:attributes="class python:' '.join([oddrow and 'odd' or '', 'status-%s' % order.status])">
                     <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/title"></a></td>
                     <td tal:content="order/getTotal"/>
                     <td>
@@ -96,11 +98,15 @@
                     <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
                         tal:content="customer"/>
                     <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
+                    <td tal:condition="view/showStatus">
+                        <span tal:content="order/status"/>
+                    </td>
                     <td><a href=""
                         tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}&amp;cancel=1">
                         <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
                         </a>
                     </td>
+
                 </tr>
             </tal:order>
         </tbody>

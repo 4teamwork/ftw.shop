@@ -238,6 +238,14 @@ class IShopConfiguration(Interface):
             default=u'ftw.shop.DefaultStatusSet',
             required=True)
 
+    show_status_column = schema.Bool(
+            title=_(u"label_show_status_column",
+                    default=u"Show status column in order manager"),
+            description=_(u"help_show_status_column",
+                    default=u""),
+            default=True,
+            required=False)
+
 
 class IDefaultContactInformation(Interface):
     """Schema defining a common contact address form

@@ -20,7 +20,24 @@
     <div tal:replace="structure provider:plone.abovecontentbody" />
 
     <h2 i18n:translate="title_order_status">Status</h2>
-    <p tal:content="order/status"></p>
+    <p><strong tal:content="order/status"/> - <span tal:content="view/getStatus"/></p>
+
+    <form method="post" tal:define="statusSet view/getStatusSet" tal:attributes="action string:${context/absolute_url}/order_view/${view/__name__}">
+        <select size="1" class="select-widget choice-field"
+                         name="form.widgets.status"
+                         id="form-widgets-status">
+
+            <option tal:repeat="term statusSet" 
+                    tal:attributes="value term/value; selected python:order.status == term.value and 'selected' or ''"
+                    tal:content="term/title">Status Title</option>
+            <!-- <option selected="selected" value="3" id="form-widgets-status-0">On account</option>
+            <option value="1" id="form-widgets-status-1">Pending (online payment)</option>
+            <option value="2" id="form-widgets-status-2">Confirmed (online payment)</option> -->
+
+        </select>
+
+        <input type="submit" value="Change status" class="submit-widget button-field context" name="form.buttons.save" id="form-buttons-save">
+    </form>
 
     <h2 i18n:translate="title_personal_information">Personal Information</h2>
 
