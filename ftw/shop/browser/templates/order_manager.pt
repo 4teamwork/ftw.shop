@@ -6,7 +6,7 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="ftw.shop">
 <body>
-    
+
 <tal:batch>
 
     <metal:main fill-slot="main" tal:define="Batch python:modules['Products.CMFPlone'].Batch;
@@ -68,25 +68,26 @@
                 </tr>
 
             </table>
-            </form>
+
 
 
         <div metal:use-macro="context/batch_macros/macros/navigation" />
 
         <table class="listing">
         <thead>
+            <th></th>
             <th i18n:translate="label_order_no">Order No.</th>
             <th>Total</th>
             <th i18n:translate="label_cart">Cart</th>
             <th i18n:translate="label_customer">Customer</th>
             <th i18n:translate="label_date">Date</th>
             <th i18n:translate="label_status" tal:condition="view/showStatus">Status</th>
-            <th i18n:translate="label_cancel_order">Cancel</th>
         </thead>
         <tbody>
             <tal:order tal:repeat="order batch">
                 <tr tal:define="oddrow repeat/order/odd"
                     tal:attributes="class python:' '.join([oddrow and 'odd' or '', 'status-%s' % order.status])">
+                    <td><input type="checkbox" name="orders:list" tal:attributes="value order/order_id"/></td>
                     <td><a href="" tal:attributes="href string:order_view/${order/order_id}" tal:content="order/title"></a></td>
                     <td tal:content="order/getTotal"/>
                     <td>
@@ -101,11 +102,6 @@
                     <td tal:condition="view/showStatus">
                         <span tal:content="order/status"/>
                     </td>
-                    <td><a href=""
-                        tal:attributes="href string:${context/absolute_url}/order_manager/cancel_order?order_id=${order/order_id}&amp;cancel=1">
-                        <img class="cancelOrder" src="++resource++ftw-shop-resources/16x16-delete.png" title="Bestellung stornieren"/>
-                        </a>
-                    </td>
 
                 </tr>
             </tal:order>
@@ -115,7 +111,22 @@
 
         <div metal:use-macro="context/batch_macros/macros/navigation" />
 
-        <!-- XXX -->
+        <p tal:define="statusSet view/getStatusSet">
+
+            <select size="1" class="select-widget choice-field"
+                             name="form.widgets.status"
+                             id="form-widgets-status">
+
+                <option tal:repeat="term statusSet" 
+                        tal:attributes="value term/value"
+                        tal:content="term/title">Status Title</option>
+            </select>
+
+           <input type="submit" name="change_status" value="Change status">
+           <input type="submit" name="cancel_orders" value="Cancel orders" class="link-overlay" rel="#pb_2">
+
+        </p>
+
         <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>
         <script>
             jq(function() {
@@ -134,6 +145,7 @@
             });
         </script>
 
+        </form>
     </tal:daterange>
     </metal:main>
 </tal:batch>

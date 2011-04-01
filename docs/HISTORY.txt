@@ -5,6 +5,12 @@ Changelog
 1.0.2dev
 --------
 
+* Improved UI for cancelling orders in order_manager
+  [lgraf]
+
+* Implemented pluggable status sets and option to manually change status of orders
+  [lgraf]
+
 * Added option to display cart portlet only if there are items in the current folder / context
   [lgraf]
 

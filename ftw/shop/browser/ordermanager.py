@@ -129,6 +129,8 @@ class OrderManagerView(BrowserView):
             return self.template()
         elif self.request.form.get('download_csv'):
             return self.download_csv()
+        elif self.request.form.get('cancel_orders'):
+            return self.cancel_orders()
         else:
             return self.template()
 
@@ -237,20 +239,25 @@ class OrderManagerView(BrowserView):
         stream.seek(0)
         return stream.read()
 
-    def cancel_order(self):
-        """Cancel an order by its order_id
+    def cancel_orders(self):
+        """Cancel orders by their order_ids
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
-        order_id = self.request.get('order_id')
-        cancel = self.request.get('cancel')
-        if cancel:
-            order_storage = self.getOrderStorage()
+        order_storage = self.getOrderStorage()
+
+        orders = self.request.form.get('orders', [])
+        for order_id in orders:
+            try:
+                order_id = int(order_id)
+            except ValueError:
+                # Invalid order_id - continue with next one
+                continue
             order_storage.cancelOrder(order_id)
-            ptool.addPortalMessage(
-                _(u'msg_order_cancelled',
-                  default=u"Order cancelled."),
-                'info')
+        msg = _(u'msg_order_cancelled',
+                default=u"${no_orders} orders cancelled.", 
+                mapping={ u"no_orders" : len(orders)})
+        ptool.addPortalMessage(msg, 'info')
         self.request.response.redirect("%s/order_manager" % context.absolute_url())
 
     def getOrders(self, from_date=None, to_date=None):
@@ -449,6 +456,15 @@ class OrderManagerView(BrowserView):
         shop_config = registry.forInterface(IShopConfiguration)
         return shop_config.show_status_column
 
+    def getStatusSet(self):
+        """Return the vocabulary for the currently
+        selected StatusSet
+        """
+        status_set_name = self.shop_config.status_set
+        status_set = getAdapter((self.context,), name=status_set_name)
+        return status_set.vocabulary
+
+
 class OrderView(BrowserView):
     """Displays a single order stored in a IOrderStorage
     """
@@ -457,6 +473,7 @@ class OrderView(BrowserView):
     template = ViewPageTemplateFile('templates/order_view.pt')
 
     def __init__(self, context, request):
+        request.set('disable_border', True)
         registry = getUtility(IRegistry)
         self.shop_config = registry.forInterface(IShopConfiguration)
         self.order_storage_name = self.shop_config.order_storage
