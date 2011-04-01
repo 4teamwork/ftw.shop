@@ -8,19 +8,19 @@
 <body>
 
 
-    <metal:main fill-slot="main">
+    <metal:main fill-slot="main" tal:define="orders context/REQUEST/form/orders|nothing">
 
         <span>Selected orders:</span>
 
         <ul>
-            <li tal:repeat="order_id context/REQUEST/form/orders">
+            <li tal:repeat="order_id orders">
                 <span tal:content="python: view.getOrder(int(order_id)).title"></span>
             </li>
         </ul>
 
         <form action="./order_manager" method="post">
 
-            <tal:orders tal:repeat="order_id context/REQUEST/form/orders">
+            <tal:orders tal:repeat="order_id orders">
                 <input type="hidden" name="orders:list" tal:attributes="value order_id"/>
             </tal:orders>
 

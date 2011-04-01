@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Implemented filtering by status in order_manager
+  [lgraf]
+
 * Implemented UI for changing status or deleting several orders at once
   [lgraf]
 

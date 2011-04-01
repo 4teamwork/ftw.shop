@@ -12,11 +12,13 @@
     <metal:main fill-slot="main" tal:define="Batch python:modules['Products.CMFPlone'].Batch;
                                             b_size python:5; b_size request/b_size | b_size;
                                             b_start python:0;b_start request/b_start | b_start;
-                                            batch python:Batch(view.order_results, b_size, int(b_start), orphan=1);">
+                                            batch python:Batch(view.order_results, b_size, int(b_start), orphan=1);
+                                            statusSet view/getStatusSet">
 
     <tal:daterange tal:define="from_date python:request.get('from_date');
                                to_date python:request.get('to_date');
-                               supplier python:request.get('supplier')">
+                               supplier python:request.get('supplier');
+                               status_filter python:request.get('form.widgets.status_filter')">
 
         <form action="./order_manager" method="post">
 
@@ -57,8 +59,20 @@
                             </option>
                         </select>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td><label i18n:translate="label_status" for="form-widgets-status_filter">Status: </label></td>
+                    <td>
+                        <p>
+                            <select size="1" class="select-widget choice-field"
+                                             name="form.widgets.status_filter"
+                                             id="form-widgets-status_filter">
+                                <option value="all">Any</option>
+                                <option tal:repeat="term statusSet"
+                                        tal:attributes="value term/value;
+                                        selected python:str(term.value)==status_filter and 'selected' or ''"
+                                        tal:content="term/title">Status Title</option>
+                            </select>
+                        </p>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -113,7 +127,7 @@
 
         <p>
            <input type="submit" name="change_status_step1" value="Change status">
-           <input type="submit" name="cancel_orders" value="Cancel orders">
+           <input type="submit" name="cancel_orders" value="Delete orders">
         </p>
 
         <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>

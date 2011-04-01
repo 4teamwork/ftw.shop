@@ -125,6 +125,7 @@ class OrderManagerView(BrowserView):
         from_date, to_date = self.parse_date_range()
         self.supplier_filter = self.request.form.get('supplier',
             'all_suppliers')
+        self.status_filter = self.request.form.get('form.widgets.status_filter', 'all')
         self.order_results = self.getOrders(from_date, to_date)
         if self.request.form.get('filter'):
             return self.template()
@@ -296,13 +297,15 @@ class OrderManagerView(BrowserView):
         order_storage = self.order_storage
         all_orders = order_storage.getAllOrders()
 
-        if any([from_date and to_date, self.supplier_filter]):
+        if any([from_date and to_date, self.supplier_filter, self.status_filter]):
             # Filter orders
             orders = []
             for order in all_orders:
                 suppliers = [item.supplier_name for item in order.cartitems]
                 if (self.supplier_filter in suppliers
                 or self.supplier_filter in ["all_suppliers", "", None]) \
+                and self.status_filter == str(order.status) \
+                or self.status_filter == "all" \
                 and from_date <= order.date.date() \
                 and to_date >= order.date.date():
                     orders.append(order)
