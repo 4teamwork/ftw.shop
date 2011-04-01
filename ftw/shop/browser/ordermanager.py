@@ -450,7 +450,7 @@ class OrderManagerView(BrowserView):
         return shop_config.show_status_column
 
 class OrderView(BrowserView):
-    """Lists a single order stored in a IOrderStorage
+    """Displays a single order stored in a IOrderStorage
     """
 
     implements(IBrowserView, IPublishTraverse)
@@ -475,6 +475,9 @@ class OrderView(BrowserView):
         return self.template()
 
     def getOrder(self, order_id=None):
+        """Return the order identified by `order_id` or
+        `self.order_id` (set during publishTraverse)
+        """
         if not order_id:
             order_id = self.order_id
         order_storage = getUtility(IOrderStorage,
@@ -483,22 +486,22 @@ class OrderView(BrowserView):
         return order
 
     def getStatus(self, order_id=None):
+        """Return the human readable title of the status for
+        this order.
+        """
         order = self.getOrder()
         status = order.status
 
-        registry = getUtility(IRegistry)
-        shop_config = registry.forInterface(IShopConfiguration)
-
-        status_set_name = shop_config.status_set
+        status_set_name = self.shop_config.status_set
         status_set = getAdapter((self.context,), name=status_set_name)
         status_title = status_set.vocabulary.by_value[status].title
         return status_title
 
     def getStatusSet(self):
-        registry = getUtility(IRegistry)
-        shop_config = registry.forInterface(IShopConfiguration)
-
-        status_set_name = shop_config.status_set
+        """Return the vocabulary for the currently
+        selected StatusSet
+        """
+        status_set_name = self.shop_config.status_set
         status_set = getAdapter((self.context,), name=status_set_name)
         return status_set.vocabulary
 
