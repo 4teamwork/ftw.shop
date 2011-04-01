@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Implemented UI for changing status or deleting several orders at once
+  [lgraf]
+
 * Improved UI for cancelling orders in order_manager
   [lgraf]
 

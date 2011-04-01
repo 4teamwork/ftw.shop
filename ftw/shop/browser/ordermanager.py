@@ -107,6 +107,7 @@ class OrderManagerView(BrowserView):
     """
 
     template = ViewPageTemplateFile('templates/order_manager.pt')
+    change_status_tmpl = ViewPageTemplateFile('templates/status.pt')
 
     def __init__(self, context, request):
         self.context = context
@@ -131,6 +132,10 @@ class OrderManagerView(BrowserView):
             return self.download_csv()
         elif self.request.form.get('cancel_orders'):
             return self.cancel_orders()
+        elif self.request.form.get('change_status_step1'):
+            return self.change_status_tmpl()
+        elif self.request.form.get('change_status'):
+            return self.change_status()
         else:
             return self.template()
 
@@ -259,6 +264,33 @@ class OrderManagerView(BrowserView):
                 mapping={ u"no_orders" : len(orders)})
         ptool.addPortalMessage(msg, 'info')
         self.request.response.redirect("%s/order_manager" % context.absolute_url())
+
+    def change_status(self):
+        """Change status of several orders at once
+        """
+        context = aq_inner(self.context)
+        ptool = getToolByName(context, 'plone_utils')
+        order_storage = self.getOrderStorage()
+
+        orders = self.request.form.get('orders', [])
+        new_status = self.request.form.get('form.widgets.status', None)
+
+        # Change status of the orders
+        for order_id in orders:
+            try:
+                order_id = int(order_id)
+            except ValueError:
+                # Invalid order_id - continue with next one
+                continue
+            order = order_storage.getOrder(order_id)
+            order.status = int(new_status)
+
+        msg = _(u'msg_status_changed',
+                default=u"Changed status for ${no_orders} orders.", 
+                mapping={ u"no_orders" : len(orders)})
+        ptool.addPortalMessage(msg, 'info')
+        return self.template()
+
 
     def getOrders(self, from_date=None, to_date=None):
         order_storage = self.order_storage

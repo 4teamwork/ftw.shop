@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="ftw.shop">
+<body>
+
+
+    <metal:main fill-slot="main">
+
+        <span>Selected orders:</span>
+
+        <ul>
+            <li tal:repeat="order_id context/REQUEST/form/orders">
+                <span tal:content="python: view.getOrder(int(order_id)).title"></span>
+            </li>
+        </ul>
+
+        <form action="./order_manager" method="post">
+
+            <tal:orders tal:repeat="order_id context/REQUEST/form/orders">
+                <input type="hidden" name="orders:list" tal:attributes="value order_id"/>
+            </tal:orders>
+
+            <p tal:define="statusSet view/getStatusSet">
+
+                <select size="1" class="select-widget choice-field"
+                                 name="form.widgets.status"
+                                 id="form-widgets-status">
+
+                    <option tal:repeat="term statusSet" 
+                            tal:attributes="value term/value"
+                            tal:content="term/title">Status Title</option>
+                </select>
+
+               <input type="submit" name="change_status" value="Change status">
+
+            </p>
+
+        </form>
+
+    </metal:main>
+
+</body>
+</html>
