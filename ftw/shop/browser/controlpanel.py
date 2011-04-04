@@ -16,7 +16,7 @@ from ftw.shop import shopMessageFactory as _
 
 
 class MailGroup(group.Group):
-    label = u'Mail'
+    label = _('label_mail_group', default=u'Mail')
     fields = field.Fields(IShopConfiguration).select(
         'shop_email',
         'mail_bcc',
@@ -26,13 +26,21 @@ class MailGroup(group.Group):
 
 
 class CheckoutGroup(group.Group):
-    label = u'Checkout'
+    label = _('label_checkout_group', default=u'Checkout')
     fields = field.Fields(IShopConfiguration).select(
         'payment_processor_step_group',
         'enabled_payment_processors',
         'contact_info_step_group',
         'shipping_address_step_group',
         'order_review_step_group')
+
+
+class VATGroup(group.Group):
+    label = _('label_vat_group', default=u'VAT')
+    fields = field.Fields(IShopConfiguration).select(
+        'vat_enabled',
+        'vat_number',
+        'vat_rates')
 
 
 class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
@@ -48,8 +56,11 @@ class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
                                                    'enabled_payment_processors',
                                                    'contact_info_step_group',
                                                    'shipping_address_step_group',
-                                                   'order_review_step_group')
-    groups = (MailGroup, CheckoutGroup)
+                                                   'order_review_step_group',
+                                                   'vat_enabled',
+                                                   'vat_number',
+                                                   'vat_rates')
+    groups = (MailGroup, CheckoutGroup, VATGroup)
     label = _(u'label_shop_configuration', default=u"Shop configuration")
 
     def updateFields(self):

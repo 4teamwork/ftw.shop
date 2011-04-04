@@ -1,16 +1,18 @@
+from plone.registry.interfaces import IRegistry
+from zope.component import getAdapters, getUtility, getUtilitiesFor
+from zope.interface import directlyProvides
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
-from zope.component import getAdapters, getUtility, getUtilitiesFor
-from zope.interface import directlyProvides
-from plone.registry.interfaces import IRegistry
 
+
+from ftw.shop.config import DEFAULT_VAT_RATES
 from ftw.shop.interfaces import IContactInformationStepGroup
-from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
-from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessor
+from ftw.shop.interfaces import IPaymentProcessorStepGroup
+from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IStatusSet
 
@@ -142,4 +144,19 @@ def StatusSetsVocabulary(context):
     terms = create_terms_from_adapters(status_sets)
 
     directlyProvides(StatusSetsVocabulary, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+
+def VATRatesVocabulary(context):
+    """Returns a vocabulary of the VAT rates that are available
+    to choose from.
+    """
+    # context is the portal config options, whose context is the portal
+    registry = getUtility(IRegistry)
+    shop_config = registry.forInterface(IShopConfiguration)
+    vat_rates = shop_config.vat_rates
+
+    terms = [SimpleTerm(value=str(rate), token=rate, title=str(rate)) for rate in vat_rates]
+
+    directlyProvides(VATRatesVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

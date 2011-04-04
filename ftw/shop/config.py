@@ -1,6 +1,7 @@
 """Common configuration constants
 """
 from Products.Archetypes.public import DisplayList
+from decimal import Decimal
 
 PROJECTNAME = 'ftw.shop'
 
@@ -29,3 +30,5 @@ ONACCOUNT_KEY = 3
 CART_KEY = 'shop_cart_items'
 
 CATEGORY_RELATIONSHIP = 'shop_category'
+
+DEFAULT_VAT_RATES = [Decimal('0.0'), Decimal('7.6'), Decimal('2.5')]

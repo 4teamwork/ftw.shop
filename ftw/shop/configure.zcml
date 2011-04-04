@@ -137,6 +137,15 @@
       factory="ftw.shop.default_status_set.DefaultStatusSet"
     />
 
+
+    <!-- VAT Rates Vocabulary -->
+    <utility
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      name="ftw.shop.VATRatesVocabulary"
+      component=".vocabularies.VATRatesVocabulary"
+      />
+
+
     <adapter 
       name="ftw.shop.extender.ShopItemExtender"
       factory="ftw.shop.extender.ShopItemExtender"

@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added fields and settings for VAT (MwSt) support
+  [lgraf]
+
 * Implemented filtering by status in order_manager
   [lgraf]
 

@@ -117,6 +117,20 @@ class ShopItemExtender(object):
             ),
         ),
 
+        ExtFixedPointField('vat',
+            default = "0.0",
+            required = 0,
+            languageIndependent=True,
+            widget = atapi.SelectionWidget(
+                label = _(u"label_vat", default=u"VAT rate"),
+                description = _(u"desc_vat", default=u"Please select the value-added tax rate for this item."),
+                size=8,
+                format='select',
+            ),
+            vocabulary_factory = 'ftw.shop.VATRatesVocabulary',
+        ),
+
+
     ]
 
     def __init__(self, context):

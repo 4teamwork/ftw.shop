@@ -246,6 +246,31 @@ class IShopConfiguration(Interface):
             default=True,
             required=False)
 
+    vat_enabled = schema.Bool(
+            title=_(u"label_vat_enabled",
+                    default=u"Enable VAT support"),
+            description=_(u"help_vat_enabled",
+                    default=u""),
+            default=True,
+            required=False)
+
+    vat_number = schema.TextLine(
+            title=_(u"label_vat_number",
+                    default=u"VAT number"),
+            description=_(u"help_vat_number",
+                    default=u""),
+            default=u'',
+            required=False)
+
+    vat_rates = schema.List(
+            title=_(u"label_vat_rates",
+                    default=u"VAT rates"),
+            description=_(u"help_vat_rates",
+                    default=u""),
+            value_type=schema.Decimal(),
+            default=['0.0', '2.5', '7.6'],
+            required=False)
+
 
 class IDefaultContactInformation(Interface):
     """Schema defining a common contact address form
