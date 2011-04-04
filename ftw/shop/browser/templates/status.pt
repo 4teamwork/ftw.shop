@@ -10,7 +10,7 @@
 
     <metal:main fill-slot="main" tal:define="orders context/REQUEST/form/orders|nothing">
 
-        <span>Selected orders:</span>
+        <span><span i18n:translate="label_selected_orders">Selected orders</span>:</span>
 
         <ul>
             <li tal:repeat="order_id orders">
@@ -30,12 +30,12 @@
                                  name="form.widgets.status"
                                  id="form-widgets-status">
 
-                    <option tal:repeat="term statusSet" 
+                    <option tal:repeat="term statusSet"
                             tal:attributes="value term/value"
                             tal:content="term/title">Status Title</option>
                 </select>
 
-               <input type="submit" name="change_status" value="Change status">
+               <input i18n:attributes="value" type="submit" name="change_status" value="Change status">
 
             </p>
 

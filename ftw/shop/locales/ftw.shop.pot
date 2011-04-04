@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-04-04 11:28+0000\n"
+"POT-Creation-Date: 2011-04-04 11:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -33,12 +33,20 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
+#: ./ftw/shop/browser/templates/order_manager.pt:129
+msgid "Change status"
+msgstr ""
+
 #: ./ftw/shop/browser/templates/cart_edit.pt:91
 msgid "Checkout"
 msgstr ""
 
 #: ./ftw/shop/portlets/cart.py:34
 msgid "Conditions under which portlet should be shown"
+msgstr ""
+
+#: ./ftw/shop/browser/templates/order_manager.pt:130
+msgid "Delete orders"
 msgstr ""
 
 #: ./ftw/shop/portlets/cart.py:33
@@ -286,6 +294,11 @@ msgstr ""
 #. Default: "Always notify shop owner about orders"
 #: ./ftw/shop/interfaces.py:183
 msgid "label_always_notify_shop_owner"
+msgstr ""
+
+#. Default: "Any status"
+#: ./ftw/shop/browser/templates/order_manager.pt:68
+msgid "label_any_status"
 msgstr ""
 
 #. Default: "Article number"
@@ -557,6 +570,11 @@ msgstr ""
 #. Default: "Receive Newsletter"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:26
 msgid "label_receive_newsletter"
+msgstr ""
+
+#. Default: "Selected orders"
+#: ./ftw/shop/browser/templates/status.pt:13
+msgid "label_selected_orders"
 msgstr ""
 
 #. Default: "Shipping Address"

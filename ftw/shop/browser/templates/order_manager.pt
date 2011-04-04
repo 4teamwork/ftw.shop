@@ -65,7 +65,7 @@
                             <select size="1" class="select-widget choice-field"
                                              name="form.widgets.status_filter"
                                              id="form-widgets-status_filter">
-                                <option value="all">Any</option>
+                                <option value="all" i18n:translate="label_any_status">Any status</option>
                                 <option tal:repeat="term statusSet"
                                         tal:attributes="value term/value;
                                         selected python:str(term.value)==status_filter and 'selected' or ''"
@@ -126,8 +126,8 @@
         <div metal:use-macro="context/batch_macros/macros/navigation" />
 
         <p>
-           <input type="submit" name="change_status_step1" value="Change status">
-           <input type="submit" name="cancel_orders" value="Delete orders">
+           <input i18n:attributes="value" type="submit" name="change_status_step1" value="Change status">
+           <input i18n:attributes="value" type="submit" name="cancel_orders" value="Delete orders">
         </p>
 
         <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>
