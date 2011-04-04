@@ -1,13 +1,13 @@
 <tal:block 
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="ftw.shop">       
+      i18n:domain="ftw.shop">
 
       <h1 i18n:translate="label_summary">Summary</h1>
       
       <h2 i18n:translate="label_personal_information">Personal Information</h2>
 
       <ul style="list-style:none" tal:define="customer python:view.wizard.session['contact_information'];">
-                                              
+
           <li tal:content="customer/title"></li>
           <li tal:content="python:customer['firstname'] + ' ' + customer['lastname'] "></li>
           <li tal:content="customer/company|nothing"></li>
@@ -46,9 +46,9 @@
 
 
 
-      
+
       <h2 i18n:translate="label_cart_contents">Cart Contents</h2>
-      
+
         <table class="cartListing"
                cellpadding="0"
                cellspacing="0"
@@ -70,23 +70,29 @@
               <td tal:content="item/quantity"></td>
               <td tal:content="item/price"></td>
               <td tal:content="item/total"></td>
-            </tr> 
+            </tr>
           </metal:block>
           <tr><td>&nbsp;</td></tr>
-          <tr>
-          <td><strong>Total</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
+
+          <tr tal:condition="python:context.REQUEST['cart_view'].shop_config().vat_enabled">
+              <td><strong i18n:translate="label_vat">VAT</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_vat"></td>
           </tr>
+
+          <tr>
+              <td><strong>Total</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
+          </tr>
+
         </tbody>
       </table>
-      
+
       <tal:block tal:define="payment_processor view/wizard/getSelectedPaymentProcessor"
                  tal:condition="payment_processor">
-	  <h2 i18n:translate="label_payment_processor">Payment Processor</h2>
-	  <img tal:replace="structure payment_processor/image" />
-	  <p tal:content="payment_processor/title"></p>
-      <p>&nbsp;</p>
-      <div i18n:translate="msg_external_redirect"
-           tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
-	  </tal:block>    
+          <h2 i18n:translate="label_payment_processor">Payment Processor</h2>
+          <img tal:replace="structure payment_processor/image" />
+          <p tal:content="payment_processor/title"></p>
+          <p>&nbsp;</p>
+          <div i18n:translate="msg_external_redirect"
+               tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
+      </tal:block>
 
 </tal:block>

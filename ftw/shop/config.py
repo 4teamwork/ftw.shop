@@ -31,4 +31,4 @@ CART_KEY = 'shop_cart_items'
 
 CATEGORY_RELATIONSHIP = 'shop_category'
 
-DEFAULT_VAT_RATES = [Decimal('0.0'), Decimal('7.6'), Decimal('2.5')]
+DEFAULT_VAT_RATES = [Decimal('0.0'), Decimal('8.0'), Decimal('2.5')]

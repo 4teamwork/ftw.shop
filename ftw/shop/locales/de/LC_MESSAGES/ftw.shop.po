@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-04-04 11:41+0000\n"
+"POT-Creation-Date: 2011-04-04 13:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -32,6 +32,7 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: ./ftw/shop/browser/templates/order_manager.pt:129
+#: ./ftw/shop/browser/templates/status.pt:38
 msgid "Change status"
 msgstr "Status ändern"
 
@@ -201,8 +202,8 @@ msgstr ""
 
 #. Default: "Please select the value-added tax rate for this item."
 #: ./ftw/shop/extender.py:126
-msgid "desc_vat"
-msgstr "Wählen Sie die im Preis enthaltene Mehrwertsteuer"
+msgid "desc_vat_rate"
+msgstr ""
 
 #. Default: "Details of your order"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:23
@@ -531,7 +532,7 @@ msgid "label_order_storage"
 msgstr "Storage-Methode für Bestellungen"
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:84
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:88
 #: ./ftw/shop/interfaces.py:123
 msgid "label_payment_processor"
 msgstr "Zahlungsanbieter"
@@ -692,10 +693,10 @@ msgstr "Variations-Attribut 2"
 msgid "label_variation2_values"
 msgstr "Werte für Variation 2"
 
-#. Default: "VAT rate"
-#: ./ftw/shop/extender.py:125
+#. Default: "VAT"
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:81
 msgid "label_vat"
-msgstr "MwSt-Satz"
+msgstr "MwSt"
 
 #. Default: "Enable VAT support"
 #: ./ftw/shop/interfaces.py:250
@@ -711,6 +712,11 @@ msgstr "MwSt"
 #: ./ftw/shop/interfaces.py:258
 msgid "label_vat_number"
 msgstr "Mehrwertsteuernummer"
+
+#. Default: "VAT rate"
+#: ./ftw/shop/extender.py:125
+msgid "label_vat_rate"
+msgstr "MwSt-Satz"
 
 #. Default: "VAT rates"
 #: ./ftw/shop/interfaces.py:266
@@ -731,17 +737,17 @@ msgid "link_agb"
 msgstr "http://www.4teamwork.ch"
 
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:291
+#: ./ftw/shop/browser/cart.py:316
 msgid "msg_cart_emptied"
 msgstr "Der Warenkorb wurde geleert."
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: ./ftw/shop/browser/cart.py:246
+#: ./ftw/shop/browser/cart.py:271
 msgid "msg_cart_invalidvalue"
 msgstr "Ungültige Mengenangabe. Der Warenkorb wurde nicht aktualisiert."
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:262
+#: ./ftw/shop/browser/cart.py:287
 msgid "msg_cart_updated"
 msgstr "Der Warenkorb wurde aktualisiert."
 
@@ -751,32 +757,32 @@ msgid "msg_categories_updated"
 msgstr "Kategorien wurden aktualisiert."
 
 #. Default: "You will now be redirected to an external site."
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:88
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:92
 msgid "msg_external_redirect"
 msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
 #. Default: "Added item to cart."
-#: ./ftw/shop/browser/cart.py:40
+#: ./ftw/shop/browser/cart.py:48
 msgid "msg_item_added"
 msgstr "Der Artikel wurde in den Warenkorb gelegt."
 
 #. Default: "Item is disabled and can't be added."
-#: ./ftw/shop/browser/cart.py:43
+#: ./ftw/shop/browser/cart.py:51
 msgid "msg_item_disabled"
 msgstr "Artikel ist deaktiviert und kann nicht hinzugefügt werden"
 
 #. Default: "Error"
-#: ./ftw/shop/browser/cart.py:42
+#: ./ftw/shop/browser/cart.py:50
 msgid "msg_label_error"
 msgstr "Fehler"
 
 #. Default: "Information"
-#: ./ftw/shop/browser/cart.py:39
+#: ./ftw/shop/browser/cart.py:47
 msgid "msg_label_info"
 msgstr "Information"
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:308
+#: ./ftw/shop/browser/cart.py:333
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 

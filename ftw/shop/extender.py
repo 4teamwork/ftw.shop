@@ -122,8 +122,8 @@ class ShopItemExtender(object):
             required = 0,
             languageIndependent=True,
             widget = atapi.SelectionWidget(
-                label = _(u"label_vat", default=u"VAT rate"),
-                description = _(u"desc_vat", default=u"Please select the value-added tax rate for this item."),
+                label = _(u"label_vat_rate", default=u"VAT rate"),
+                description = _(u"desc_vat_rate", default=u"Please select the value-added tax rate for this item."),
                 size=8,
                 format='select',
             ),

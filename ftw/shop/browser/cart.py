@@ -5,7 +5,10 @@ from Acquisition import aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.component import getAdapters, getMultiAdapter
+from zope.component import getAdapters
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 
 from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
@@ -15,8 +18,18 @@ from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
 from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.interfaces import IPaymentProcessor
+from ftw.shop.interfaces import IShopConfiguration
+
 from ftw.shop.utils import get_shop_root_object
 from ftw.shop import shopMessageFactory as _
+
+
+def calc_vat(rate, price, qty=1):
+    """Calculate VAT and round to correct precision.
+    """
+    vat_amount = (Decimal(rate)/100) * Decimal(price) * qty
+    vat_amount = vat_amount.quantize(Decimal('.01'))
+    return vat_amount
 
 
 class CartView(BrowserView):
@@ -107,7 +120,7 @@ class CartView(BrowserView):
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
         variation_code = varConf.variation_code(var1choice, var2choice)
-        
+
         # We got no skuCode, so look it up by variation key
         if not skuCode:
             skuCode = varConf.sku_code(var1choice, var2choice)
@@ -117,6 +130,7 @@ class CartView(BrowserView):
 
         item_title = context.Title()
         quantity = int(quantity)
+        vat_rate = Decimal(context.getField('vat').get(context))
 
         supplier_name, supplier_email = self._get_supplier(context)
 
@@ -144,16 +158,20 @@ class CartView(BrowserView):
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'variation_code': variation_code,
+                        'vat_rate': vat_rate,
+                        'vat_amount': str(calc_vat(vat_rate, price))
                 }
             # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
+                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
 
         else:
             price = Decimal(context.Schema().getField('price').get(context))
             # add item to cart
             if item is None:
+
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
@@ -164,12 +182,14 @@ class CartView(BrowserView):
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
+                        'vat_rate': vat_rate,
+                        'vat_amount': str(calc_vat(vat_rate, price))
                 }
             # item already in cart, update quantitiy
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 item['total'] = str(item['quantity'] * price)
-
+                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
 
         # store cart in session
         cart_items[item_key] = item
@@ -203,6 +223,15 @@ class CartView(BrowserView):
             total += Decimal(item['total'])
         return str(total)
 
+    def cart_vat(self):
+        """Return the cart's total VAT as a string
+        """
+        items = self.cart_items()
+        vat_total = Decimal('0.00')
+        for item in items.values():
+            vat_total += Decimal(item['vat_amount'])
+        return str(vat_total)
+
     def remove_item(self, key):
         """Remove the item with the given key from the cart.
         """
@@ -224,6 +253,7 @@ class CartView(BrowserView):
             item = cart_items[key]
             item['quantity'] = int(quantity)
             item['total'] = str(Decimal(item['price']) * item['quantity'])
+            item['vat_amount'] = str(calc_vat(item['vat'], item['price'], quantity))
             cart_items[key] = item
 
         session[CART_KEY] = cart_items
@@ -253,7 +283,7 @@ class CartView(BrowserView):
         for skuCode in del_items:
             self.remove_item(skuCode)
 
-        # now update quantities
+        # now update quantities (and VAT amounts, done by update_item)
         for skuCode, item in self.cart_items().items():
             quantity = int(float(self.request.get('quantity_%s' % skuCode)))
             if quantity != item['quantity'] and quantity != 0:
@@ -371,3 +401,10 @@ class CartView(BrowserView):
         context = aq_inner(self.context)
         shop_root = get_shop_root_object(context)
         return shop_root.absolute_url()
+
+    def shop_config(self):
+        """Return the shop configuration stored in the registry
+        """
+        registry = getUtility(IRegistry)
+        shop_config = registry.forInterface(IShopConfiguration)
+        return shop_config

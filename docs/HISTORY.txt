@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Implemented calculation and display (in order_review) of VAT (MwSt)
+  [lgraf]
+
 * Added fields and settings for VAT (MwSt) support
   [lgraf]
 
