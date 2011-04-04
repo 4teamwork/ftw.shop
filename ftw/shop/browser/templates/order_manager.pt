@@ -59,7 +59,7 @@
                             </option>
                         </select>
                     </td>
-                    <td><label i18n:translate="label_status" for="form-widgets-status_filter">Status: </label></td>
+                    <td><label i18n:translate="label_status" for="form-widgets-status_filter">Status</label></td>
                     <td>
                         <p>
                             <select size="1" class="select-widget choice-field"

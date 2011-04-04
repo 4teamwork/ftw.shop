@@ -2,20 +2,20 @@
 <object 
   name="portal_controlpanel" 
   meta_type="Plone Control Panel Tool"
-  i18n:domain="plone" 
+  i18n:domain="ftw.shop" 
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   purge="False">
-  
-   <configlet 
-     title="Shop Configuration" 
-     action_id="ShopConfiguration" 
+
+   <configlet
+     title="Shop Configuration" i18n:attributes="title"
+     action_id="ShopConfiguration"
      appId="ftw.shop"
      category="Products" condition_expr=""
      icon_expr="string:$portal_url/product_icon.png"
      url_expr="string:${portal_url}/shop-configuration"
-     visible="True" i18n:attributes="title">
+     visible="True">
       <permission>Manage portal</permission>
    </configlet>
- 
+
 </object>
  
