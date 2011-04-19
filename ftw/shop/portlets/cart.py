@@ -82,9 +82,10 @@ class Renderer(base.Renderer):
         return True
 
     def context_has_shopitems(self):
-        shop_types = ['ShopCategory', 'ShopItem', 'ShopItemBlock']
+        shopitem_ifaces = ['ftw.shop.interfaces.IShopItem',
+                            'ftwshop.simplelayout.interfaces.IShopItemBlock']
         shop_contents = self.context.getFolderContents(
-                            contentFilter={'portal_type': shop_types})
+                            contentFilter={'object_provides': shopitem_ifaces})
         if shop_contents:
             return True
         return False
