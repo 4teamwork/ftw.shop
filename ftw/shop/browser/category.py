@@ -7,6 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.memoize import instance
 
 from ftw.shop.config import CATEGORY_RELATIONSHIP
+from ftw.shop.interfaces import IShopItem
 from ftw.shop.interfaces import IVariationConfig
 
 
@@ -24,7 +25,7 @@ class CategoryView(BrowserView):
         """Returns a list of ShopItems directly contained in this category
         """
         return [item for item in self.category_contents
-                if item.portal_type == 'ShopItem']
+                if IShopItem.providedBy(item)]
 
     def single_item(self, item):
         return self.single_item_template(item=item)
@@ -42,7 +43,7 @@ class CategoryView(BrowserView):
         """
         results = []
         for item in self.getItems():
-            assert(item.portal_type == 'ShopItem')
+            assert(IShopItem.providedBy(item))
             varConf = IVariationConfig(item)
 
             has_variations = varConf.hasVariations()

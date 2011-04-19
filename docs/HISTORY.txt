@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Listing items in ShopCategory based on IShopItem interface, not portal_type
+  [lgraf]
+
 * Implemented calculation and display (in order_review) of VAT (MwSt)
   [lgraf]
 
