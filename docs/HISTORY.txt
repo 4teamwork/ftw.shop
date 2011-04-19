@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Fixed type of default values for IShopConfiguration.var_rates
+  [lgraf]
+
 * Listing items in ShopCategory based on IShopItem interface, not portal_type
   [lgraf]
 

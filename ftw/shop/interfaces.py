@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from plone.theme.interfaces import IDefaultPloneLayer
 from zope import schema
 from zope.interface import Interface
@@ -268,7 +270,10 @@ class IShopConfiguration(Interface):
             description=_(u"help_vat_rates",
                     default=u""),
             value_type=schema.Decimal(),
-            default=['0.0', '2.5', '7.6'],
+            default=[Decimal('0.0'),
+                     Decimal('2.5'),
+                     Decimal('7.6'),
+                     ],
             required=False)
 
 
