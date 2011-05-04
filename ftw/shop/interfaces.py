@@ -342,6 +342,7 @@ class IShippingAddress(Interface):
 
     used = schema.Bool(
             title=_(u'label_used', default=u'Different from invoice address'),
+            default=False,
             required=False)
 
 class IStatusSet(Interface):

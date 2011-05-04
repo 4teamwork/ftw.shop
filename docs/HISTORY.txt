@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Changed default for IShippingAddress.used to False
+  [lgraf]
+
 * Made order_review template not require the ``newsletter`` field
   [lgraf]
 
