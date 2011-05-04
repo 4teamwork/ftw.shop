@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Made order_review template not require the ``newsletter`` field
+  [lgraf]
+
 * Using interfaces instead of portal_type to determine if context has shop items
   [lgraf]
 
