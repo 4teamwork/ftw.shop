@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Improved display of VAT (MwSt)
+  [lgraf]
+
 * Changed default for IShippingAddress.used to False
   [lgraf]
 

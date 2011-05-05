@@ -107,16 +107,30 @@
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>
-     <td tal:condition="show_prices" tal:content="python:str(item.getPrice()).replace('0.00', '').replace('0.0', '')"/>
+     <td tal:condition="show_prices" tal:content="python:str(item.getPrice()) in ('0.00', '0.0') and ' ' or str(item.getPrice())"/>
      <td tal:condition="show_prices" tal:content="item/getTotal"/>
    </tr>
+
+   <tr tal:condition="python:shop_config.vat_enabled">
+    <td style="border-top: 2px solid black;"><span i18n:translate="label_included_vat">VAT</span></td>
+    <td style="border-top: 2px solid black;"></td>
+    <td style="border-top: 2px solid black;"></td>
+    <td style="border-top: 2px solid black;"></td>
+    <td style="border-top: 2px solid black;"><span tal:content="order/vat_amount"/></td>
+   </tr>
+
+   <tr>
+    <td style="border-top: 3px solid black;"><span i18n:translate="txt_total">Total (incl.VAT)</span></td>
+    <td style="border-top: 3px solid black;"></td>
+    <td style="border-top: 3px solid black;"></td>
+    <td style="border-top: 3px solid black;"></td>
+    <td style="border-top: 3px solid black;"><strong tal:content="order/getTotal" /></td>
+   </tr>
+
 </table>
 
 <br/>
-<span i18n:translate="txt_total">Total amount of this order</span>:
-<b tal:content="view/getTotal" />
-<span i18n:translate="txt_vat">(incl. VAT)</span>
-<br />
+
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
 <hr/>

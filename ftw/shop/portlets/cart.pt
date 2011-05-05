@@ -26,7 +26,7 @@
 
                 <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
                 <span tal:condition="item/show_price"
-                      tal:replace="python:item['total'].replace('0.00', '').replace('0.0', '')" />
+                      tal:replace="python:item['total'] in ('0.00', '0.0') and ' ' or item['total']" />
 
                 (<span tal:replace="item/quantity" />)
             </li>
