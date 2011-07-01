@@ -58,7 +58,7 @@ class ShopItemExtender(object):
         ),
 
         ExtBooleanField('showPrice',
-            default = False,
+            default = True,
             languageIndependent=True,
             widget = atapi.BooleanWidget(
                 label = _(u"label_show_price", default=u"Show price"),

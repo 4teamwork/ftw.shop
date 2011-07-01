@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Changed default for ShopItem.showPrice to True
+  [lgraf]
+
 * Improved display of VAT (MwSt)
   [lgraf]
 
