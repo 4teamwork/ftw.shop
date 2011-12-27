@@ -4,6 +4,8 @@ Changelog
 1.1 (unreleased)
 ----------------
 
+- Made ShopItem inherit from ATCTContent instead of ATDocument.
+
 - Avoid creating a session if there doesn't exist one yet.
   Accessing REQUEST.SESSION causes a _ZopeID cookie to be created, therefore
   we use the browser_id_manager to check first if a session already exists.
