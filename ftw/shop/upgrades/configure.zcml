@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:gs="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.shop">
+
+    <gs:registerProfile
+        name="1.0-1.1"
+        title="Upgrade profile for ftw.shop 1.0 to 1.1"
+        description=""
+        directory="profiles/to_v11"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <gs:upgradeStep
+        title="Upgrade profile"
+        description=""
+        source="1"
+        destination="1100"
+        handler="ftw.shop.upgrades.to_v11"
+        profile="ftw.shop:default"
+        />
+
+</configure>

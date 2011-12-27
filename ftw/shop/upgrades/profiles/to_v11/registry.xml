@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<registry>
+    <record name="ftw.shop.interfaces.IShopConfiguration.mail_subject_de" delete="true" />
+    <record name="ftw.shop.interfaces.IShopConfiguration.mail_subject_en" delete="true" />
+    <records interface="ftw.shop.interfaces.IShopConfiguration" />
+</registry>

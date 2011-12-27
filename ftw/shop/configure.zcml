@@ -48,6 +48,7 @@
       handler="ftw.shop.setuphandlers.import_various" 
       />
 
+    <include package=".upgrades" />
 
     <!-- Adapters for registering steps with checkout wizard -->
     <adapter

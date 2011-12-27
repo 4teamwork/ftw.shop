@@ -1,15 +1,8 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.z3cform.layout import wrap_form
 from z3c.form import field, group
-
-try:
-    # plone.app.registry 1.0b1
-    from plone.app.registry.browser.form import RegistryEditForm
-    from plone.app.registry.browser.form import ControlPanelFormWrapper
-except ImportError:
-    # plone.app.registry 1.0b2+
-    from plone.app.registry.browser.controlpanel import RegistryEditForm
-    from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
+from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop import shopMessageFactory as _
@@ -20,8 +13,7 @@ class MailGroup(group.Group):
     fields = field.Fields(IShopConfiguration).select(
         'shop_email',
         'mail_bcc',
-        'mail_subject_de',
-        'mail_subject_en',
+        'mail_subject',
         'always_notify_shop_owner')
 
 
@@ -41,8 +33,7 @@ class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
     schema = IShopConfiguration
     fields = field.Fields(IShopConfiguration).omit('shop_email',
                                                    'mail_bcc',
-                                                   'mail_subject_de',
-                                                   'mail_subject_en',
+                                                   'mail_subject',
                                                    'always_notify_shop_owner',
                                                    'payment_processor_step_group',
                                                    'enabled_payment_processors',

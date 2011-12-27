@@ -16,6 +16,7 @@ from zope.publisher.interfaces.browser import IBrowserView
 from zope.component import getUtility, getMultiAdapter, getAdapters
 from zope.interface import implements
 from zope.publisher.interfaces import IPublishTraverse
+from zope.i18n import translate
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import SESSION_ADDRESS_KEY
@@ -355,9 +356,11 @@ class OrderManagerView(BrowserView):
                                    order.customer_lastname)
         mail_to = formataddr((customer_name, order.customer_email))
 
-        mail_subject = getattr(self.shop_config, 'mail_subject_%s' % lang)
+        mail_subject = self.shop_config.mail_subject
         if not mail_subject:
-            mail_subject = '%s Webshop' % self.shop_config.shop_name
+            mail_subject = u'Your Webshop Order'
+        mail_subject = translate(mail_subject, domain='ftw.shop',
+                                 context=self.request, default=mail_subject)
 
         mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'mail_view')
