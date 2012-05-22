@@ -20,7 +20,9 @@ long_description = (
     read('docs', 'HISTORY.txt')
     )
 
-tests_require=['zope.testing']
+tests_require = ['zope.testing',
+                 'Products.PloneTestCase',
+                ]
 
 setup(name='ftw.shop',
       version=version,
