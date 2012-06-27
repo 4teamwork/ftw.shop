@@ -121,31 +121,9 @@ Now we fill the form and submit it.
     >>> browser.getControl('Title').value = 'T-Shirt'
     >>> browser.getControl('Price').value = '7.00'
     >>> browser.getControl('SKU code').value = '7777'
-
-We want this item to have two variation levels, 'Color' and 'Size', so we
-set the respective fields:
-
-    >>> browser.getControl('Variation 1 Attribute').value = 'Color'
-    >>> browser.getControl('Variation 1 Values').value = 'Red\nBlue'
-    >>> browser.getControl('Variation 2 Attribute').value = 'Size'
-    >>> browser.getControl('Variation 2 Values').value = 'S\nM\nL'
     >>> browser.getControl('Save').click()
 
-Now we need to fill in the data for the variations we defined. For that we
-click on the 'Variations' tab and fill in the form:
-
-    >>> browser.getLink('Variations').click()
-    >>> browser.getControl(name='red-s-skuCode:required').value = '77771'
-    >>> browser.getControl(name='red-m-skuCode:required').value = '77772'
-    >>> browser.getControl(name='red-l-skuCode:required').value = '77773'
-    >>> browser.getControl(name='blue-s-skuCode:required').value = '77774'
-    >>> browser.getControl(name='blue-m-skuCode:required').value = '77775'
-    >>> browser.getControl(name='blue-l-skuCode:required').value = '77776'
-    >>> browser.getControl(name='red-l-price').value = '8.00'
-    >>> browser.getControl(name='blue-l-price').value = '8.00'
-    >>> browser.getControl('Save').click()
-
-And we are done! We added a new 'Shop Item' content item with two variations.
+And we are done! We added a new 'Shop Item' content item.
 
 
 
@@ -186,7 +164,7 @@ add it to the 'New' category:
 
     >>> browser.open(portal_url + '/shop/clothing')
     >>> browser.getLink(id='shopitem').click()
-    >>> browser.getControl('Title').value = 'Sweater'
+    >>> browser.getControl('Title').value = 'Zope Sweater'
     >>> browser.getControl('Price').value = '15.00'
     >>> browser.getControl('SKU code').value = '9999'
     >>> browser.getControl('Save').click()
@@ -197,16 +175,17 @@ add it to the 'New' category:
     >>> 'Categories updated' in browser.contents
     True
 
-Currently the item 'T-Shirt' is listed before the 'Sweater', because it was added first:
+Currently the item 'T-Shirt' is listed before the 'Zope Sweater', because if items have the same rank,
+they get sorted alphabetically by title:
 
     >>> browser.open(portal_url + '/shop/new')
-    >>> browser.contents.find('T-Shirt</a></h2>') < browser.contents.find('Sweater</a></h2>')
+    >>> browser.contents.find('T-Shirt</a></h2>') < browser.contents.find('Zope Sweater</a></h2>')
     True
 
 In order to change that order, we decrease the Sweater's rank for the 'New' category to 10,
 putting it above the T-Shirt (which has a default rank of 100):
 
-    >>> browser.open(portal_url + '/shop/clothing/sweater')
+    >>> browser.open(portal_url + '/shop/clothing/zope-sweater')
     >>> browser.getLink('Categories').click()
     >>> rank_input = browser.getControl(name='rank_%s' % browser.getControl(name='categories:list').controls[1].optionValue)
     >>> rank_input.value = '10'
@@ -214,10 +193,10 @@ putting it above the T-Shirt (which has a default rank of 100):
     >>> 'Categories updated' in browser.contents
     True
 
-Now the Sweater is listed before the T-Shirt:
+Now the Zope Sweater is listed before the T-Shirt:
 
     >>> browser.open(portal_url + '/shop/new')
-    >>> browser.contents.find('T-Shirt</a></h2>') < browser.contents.find('Sweater</a></h2>')
+    >>> browser.contents.find('T-Shirt</a></h2>') < browser.contents.find('Zope Sweater</a></h2>')
     False
 
 

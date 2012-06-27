@@ -45,12 +45,20 @@ MOCK_SHIPPING = {'title': u'Mr.',
                 'zipcode': u'4242',
                 'city': u'Exampletown'}
 
-MOCK_CART = {'12345': {'quantity':2,
-                       'price': '4.15',
-                       'title': 'Item Title',
-                       'total': '8.30',
-                       'supplier_name': 'Supplier Name',
-                       'supplier_email': 'supplier@example.org'}}
+
+MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
+                          'price': '4.15',
+                          'quantity': 2,
+                          'show_price': False,
+                          'skucode': '12345',
+                          'supplier_email': 'supplier@example.org',
+                          'supplier_name': 'Supplier Name',
+                          'title': 'Item Title',
+                          'total': '8.30',
+                          'url': 'http://nohost/plone/shop/products/item',
+                          'vat_amount': '0.00',
+                          'vat_rate': Decimal('0.00')}}
+
 
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
@@ -111,6 +119,10 @@ class FtwShopTestCase(ptc.PloneTestCase):
         # Set up sessioning objects
         ztc.utils.setupCoreSessions(self.app)
 
+        # Create an initial browser_id by requesting it
+ 	bid_manager = getToolByName(self.app, 'browser_id_manager')
+        browser_id = bid_manager.getBrowserId()
+
         self.workflow = getToolByName(self.portal, 'portal_workflow')
         self.acl_users = getToolByName(self.portal, 'acl_users')
         self.types = getToolByName(self.portal, 'portal_types')
@@ -124,18 +136,22 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         # Create a shop category
         self.portal.shop.invokeFactory("ShopCategory", "products")
+        self.portal.shop.products.reindexObject()
 
         # Create a Shop Item with no variations
         self.portal.shop.products.invokeFactory('ShopItem', 'movie')
         self.movie = self.portal.shop.products['movie']
         self.movie.getField('skuCode').set(self.movie, "12345")
         self.movie.getField('price').set(self.movie, "7.15")
+        self.movie.getField('showPrice').set(self.movie, True)
         self.movie.getField('title').set(self.movie, "A Movie")
         self.movie.getField('description').set(self.movie, "A Shop Item with no variations")
 
         # Fire ObjectInitializedEvent to add item to containing category
         event = ObjectInitializedEvent(self.movie, self.portal.REQUEST)
         zope.event.notify(event)
+        
+        self.movie.reindexObject()
 
         self.movie_vc = IVariationConfig(self.movie)
 
@@ -151,18 +167,20 @@ class FtwShopTestCase(ptc.PloneTestCase):
         event = ObjectInitializedEvent(self.book, self.portal.REQUEST)
         zope.event.notify(event)
 
+        self.book.reindexObject()
+
         self.book_vc = IVariationConfig(self.book)
         book_var_dict = {
-        'hardcover': {'active': True, 
-                      'price': Decimal('1.00'),
-                      'skuCode': 'b11',
-                      'description': 'A hard and durable cover',
-                      'hasUniqueSKU': True},
-        'paperback': {'active': True, 
-                      'price': Decimal('2.00'),
-                      'skuCode': 'b22',
-                      'description': 'A less durable but cheaper cover',
-                      'hasUniqueSKU': True},
+        'var-Hardcover': {'active': True, 
+                          'price': Decimal('1.00'),
+                          'skuCode': 'b11',
+                          'description': 'A hard and durable cover',
+                          'hasUniqueSKU': True},
+        'var-Paperback': {'active': True, 
+                          'price': Decimal('2.00'),
+                          'skuCode': 'b22',
+                          'description': 'A less durable but cheaper cover',
+                          'hasUniqueSKU': True},
         }
         self.book_vc.updateVariationConfig(book_var_dict)
 
@@ -180,17 +198,19 @@ class FtwShopTestCase(ptc.PloneTestCase):
         event = ObjectInitializedEvent(self.tshirt, self.portal.REQUEST)
         zope.event.notify(event)
 
+        self.tshirt.reindexObject()
+
         self.tshirt_vc = IVariationConfig(self.tshirt)
         tshirt_var_dict = {
-        'red-s': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'description': '', 'hasUniqueSKU': True},
-        'red-m': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'description': '', 'hasUniqueSKU': True},
-        'red-l': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'description': '', 'hasUniqueSKU': True},
-        'green-s': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'description': '', 'hasUniqueSKU': True},
-        'green-m': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'description': '', 'hasUniqueSKU': True},
-        'green-l': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'description': '', 'hasUniqueSKU': True},
-        'blue-s': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'description': '', 'hasUniqueSKU': True},
-        'blue-m': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'description': '', 'hasUniqueSKU': True},
-        'blue-l': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'description': '', 'hasUniqueSKU': True},
+        'var-Red-S': {'active': True, 'price': Decimal('1.00'), 'skuCode': '11', 'description': '', 'hasUniqueSKU': True},
+        'var-Red-M': {'active': True, 'price': Decimal('2.00'), 'skuCode': '22', 'description': '', 'hasUniqueSKU': True},
+        'var-Red-L': {'active': True, 'price': Decimal('3.00'), 'skuCode': '33', 'description': '', 'hasUniqueSKU': True},
+        'var-Green-S': {'active': True, 'price': Decimal('4.00'), 'skuCode': '44', 'description': '', 'hasUniqueSKU': True},
+        'var-Green-M': {'active': True, 'price': Decimal('5.00'), 'skuCode': '55', 'description': '', 'hasUniqueSKU': True},
+        'var-Green-L': {'active': True, 'price': Decimal('6.00'), 'skuCode': '66', 'description': '', 'hasUniqueSKU': True},
+        'var-Blue-S': {'active': True, 'price': Decimal('7.00'), 'skuCode': '77', 'description': '', 'hasUniqueSKU': True},
+        'var-Blue-M': {'active': True, 'price': Decimal('8.00'), 'skuCode': '88', 'description': '', 'hasUniqueSKU': True},
+        'var-Blue-L': {'active': True, 'price': Decimal('9.00'), 'skuCode': '99', 'description': '', 'hasUniqueSKU': True},
         }
         self.tshirt_vc.updateVariationConfig(tshirt_var_dict)
 

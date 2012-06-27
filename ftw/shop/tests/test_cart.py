@@ -21,18 +21,19 @@ class TestCart(FtwShopTestCase):
         cart.addtocart("12345", quantity=2)
         cart_items = cart.cart_items()
         self.assertEquals(len(cart_items), 1)
-        self.assertEquals(cart_items['12345']['price'], '7.15')
-        self.assertEquals(cart_items['12345']['total'], '14.30')
-        self.assertEquals(cart_items['12345']['skucode'], '12345')
-        self.assertEquals(cart_items['12345']['quantity'], 2)
-        self.assertEquals(cart_items['12345']['title'], 'A Movie')
-        self.assertEquals(cart_items['12345']['description'], 'A Shop Item with no variations')
+        item_uid = self.movie.UID()
+        self.assertEquals(cart_items[item_uid]['price'], '7.15')
+        self.assertEquals(cart_items[item_uid]['total'], '14.30')
+        self.assertEquals(cart_items[item_uid]['skucode'], '12345')
+        self.assertEquals(cart_items[item_uid]['quantity'], 2)
+        self.assertEquals(cart_items[item_uid]['title'], 'A Movie')
+        self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with no variations')
         
         self.assertEquals(cart.cart_total(), '14.30')
         
         # Add an item type that's already in the cart
         cart.addtocart("12345", quantity=1)
-        self.assertEquals(cart.cart_items()['12345']['quantity'], 3)
+        self.assertEquals(cart.cart_items()[item_uid]['quantity'], 3)
         self.assertEquals(cart.cart_total(), '21.45')
         
 
@@ -41,18 +42,20 @@ class TestCart(FtwShopTestCase):
         cart.addtocart(var1choice='Paperback', quantity=3)
         cart_items = cart.cart_items()
         self.assertEquals(len(cart_items), 2)
-        self.assertEquals(cart_items['b22']['price'], '2.00')
-        self.assertEquals(cart_items['b22']['total'], '6.00')
-        self.assertEquals(cart_items['b22']['skucode'], 'b22')
-        self.assertEquals(cart_items['b22']['quantity'], 3)
-        self.assertEquals(cart_items['b22']['title'], 'Professional Plone Development - Paperback')
-        self.assertEquals(cart_items['b22']['description'], 'A Shop Item with one variation')
+        item_uid = "%s-Paperback" % self.book.UID()
+
+        self.assertEquals(cart_items[item_uid]['price'], '2.00')
+        self.assertEquals(cart_items[item_uid]['total'], '6.00')
+        self.assertEquals(cart_items[item_uid]['skucode'], 'b22')
+        self.assertEquals(cart_items[item_uid]['quantity'], 3)
+        self.assertEquals(cart_items[item_uid]['title'], 'Professional Plone Development - None')
+        self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with one variation')
         
         self.assertEquals(cart.cart_total(), '27.45')
 
         # Add an item type with variations that's already in the cart
         cart.addtocart(var1choice='Paperback', quantity=1)
-        self.assertEquals(cart.cart_items()['b22']['quantity'], 4)
+        self.assertEquals(cart.cart_items()[item_uid]['quantity'], 4)
         self.assertEquals(cart.cart_total(), '29.45')
         
 
@@ -61,12 +64,13 @@ class TestCart(FtwShopTestCase):
         cart.addtocart(var1choice='Green', var2choice='M', quantity=4)
         cart_items = cart.cart_items()
         self.assertEquals(len(cart_items), 3)
-        self.assertEquals(cart_items['55']['price'], '5.00')
-        self.assertEquals(cart_items['55']['total'], '20.00')
-        self.assertEquals(cart_items['55']['skucode'], '55')
-        self.assertEquals(cart_items['55']['quantity'], 4)
-        self.assertEquals(cart_items['55']['title'], 'A T-Shirt - Green-M')
-        self.assertEquals(cart_items['55']['description'], 'A Shop Item with two variations')
+        item_uid = "%s-Green-M" % self.tshirt.UID()
+        self.assertEquals(cart_items[item_uid]['price'], '5.00')
+        self.assertEquals(cart_items[item_uid]['total'], '20.00')
+        self.assertEquals(cart_items[item_uid]['skucode'], '55')
+        self.assertEquals(cart_items[item_uid]['quantity'], 4)
+        self.assertEquals(cart_items[item_uid]['title'], 'A T-Shirt - None')
+        self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with two variations')
         
         self.assertEquals(cart.cart_total(), '49.45')
         cart.cart_delete()
@@ -91,24 +95,24 @@ class TestCart(FtwShopTestCase):
         cart_item_count = len(cart.cart_items())
         cart.addtocart(skuCode='12345')
         self.assertEquals(len(cart.cart_items()), cart_item_count + 1)
-        self.assertTrue('12345' in cart.cart_items())
-        cart.remove_item('12345')
+        self.assertTrue(self.movie.UID() in cart.cart_items())
+        cart.remove_item(self.movie.UID())
         self.assertEquals(len(cart.cart_items()), cart_item_count)
-        self.assertTrue('12345' not in cart.cart_items())
+        self.assertTrue(self.movie.UID() not in cart.cart_items())
         
     def test_update_item(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='12345', quantity=1)
-        cart.update_item('12345', 2)
-        self.assertEquals(cart.cart_items()['12345']['quantity'], 2)
-        self.assertEquals(cart.cart_items()['12345']['total'], '14.30')
+        cart.update_item(self.movie.UID(), 2)
+        self.assertEquals(cart.cart_items()[self.movie.UID()]['quantity'], 2)
+        self.assertEquals(cart.cart_items()[self.movie.UID()]['total'], '14.30')
         
     def test_cart_update(self):
         ptool = getToolByName(self.portal, 'plone_utils')
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='12345', quantity=1)
         cart = getMultiAdapter((self.book, self.portal.REQUEST), name='cart_view')
-        cart.addtocart(skuCode='b11', quantity=2)
+        cart.addtocart(skuCode='b11', var1choice='Hardcover', quantity=2)
         
         # Try to update cart with no values in request (invalid)
         cart.cart_update()
@@ -117,10 +121,10 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(len(cart.cart_items()), 2)
         
         # Modify quantities
-        self.portal.REQUEST['quantity_12345'] = 2
-        self.portal.REQUEST['quantity_b11'] = 0
+        self.portal.REQUEST['quantity_%s' % self.movie.UID()] = 2
+        self.portal.REQUEST['quantity_%s-Hardcover' % self.book.UID()] = 0
         cart.cart_update()
-        self.assertEquals(cart.cart_items()['12345']['quantity'], 2)
+        self.assertEquals(cart.cart_items()[self.movie.UID()]['quantity'], 2)
         self.assertTrue('b11' not in cart.cart_items())
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u'Cart updated.')
@@ -131,7 +135,9 @@ class TestCart(FtwShopTestCase):
         cart.addtocart('12345')
         
         # Remove the item we just added
-        self.portal.REQUEST['skuCode'] = '12345'
+        item_key = self.movie.UID()
+        # XXX - this is not an skuCode but an item key - rename!
+        self.portal.REQUEST['skuCode'] = item_key
         cart.cart_remove()
         self.assertEquals(len(cart.cart_items()), 0)
         last_msg = ptool.showPortalMessages()[-1].message

@@ -15,8 +15,9 @@ class TestCategoryView(FtwShopTestCase):
                                  name='view')
 
     def test_get_items(self):
+        # Should be sorted aphabetically by Title
         self.assertEquals(self.category_view.getItems(), 
-                          [self.movie, self.book, self.tshirt])
+                          [self.movie, self.tshirt, self.book])
         
     def test_single_item(self):
         item_datas = self.category_view.getItemDatas()
@@ -27,7 +28,7 @@ class TestCategoryView(FtwShopTestCase):
 
     def test_one_variation(self):
         item_datas = self.category_view.getItemDatas()
-        item = item_datas[1]
+        item = item_datas[2]
         item_listing = self.category_view.one_variation(item)
         self.assertTrue('Paperback' in item_listing)
         self.assertTrue('Hardcover' in item_listing)
@@ -38,7 +39,7 @@ class TestCategoryView(FtwShopTestCase):
 
     def test_two_variations(self):
         item_datas = self.category_view.getItemDatas()
-        item = item_datas[2]
+        item = item_datas[1]
         item_listing = self.category_view.two_variations(item)
         self.assertTrue('<input type="hidden" name="skuCode" value="11" />' \
                             in item_listing)
@@ -46,8 +47,8 @@ class TestCategoryView(FtwShopTestCase):
     def test_get_item_datas(self):
         item_datas = self.category_view.getItemDatas()
         movie_data = item_datas[0]
-        book_data = item_datas[1]
-        tshirt_data = item_datas[2]
+        tshirt_data = item_datas[1]
+        book_data = item_datas[2]
         
         self.assertEquals(movie_data['description'], 
                           'A Shop Item with no variations')
@@ -58,7 +59,7 @@ class TestCategoryView(FtwShopTestCase):
         self.assertEquals(movie_data['title'], 'A Movie')
         self.assertEquals(movie_data['varConf'], None)
         self.assertEquals(movie_data['variants'], None)
-        
+       
         self.assertEquals(book_data['description'], 
                           'A Shop Item with one variation')
         self.assertEquals(book_data['hasVariations'], True)
@@ -87,11 +88,11 @@ class TestCategoryView(FtwShopTestCase):
         
     def test_category_contents(self):
         category_contents = self.category_view.category_contents
-        self.assertEquals(category_contents,
-                          [self.movie,
-                           self.book,
-                           self.tshirt,
-                           self.subcategory])
+        self.assertEquals(len(category_contents), 4)
+        self.assertTrue(self.movie in category_contents)
+        self.assertTrue(self.book in category_contents)
+        self.assertTrue(self.tshirt in category_contents)
+        self.assertTrue(self.subcategory in category_contents)
 
     def test_category_contents_ordering(self):
         self.tshirt.setRankForCategory(self.portal.shop.products, 10)

@@ -11,6 +11,7 @@ from ftw.shop.tests.base import MOCK_CUSTOMER
 from ftw.shop.tests.base import MOCK_SHIPPING
 from ftw.shop.tests.base import MOCK_CART
 
+from ftw.shop.browser.ordermanager import COLUMN_TITLES
 
 class TestOrderManager(FtwShopTestCase):
 
@@ -33,11 +34,14 @@ class TestOrderManager(FtwShopTestCase):
         order_date = order.date
         order_number = order.title
 
+        # Call the OrderManager view to initialize om.order_results
+        order_manager()
+
         csv = order_manager.download_csv()
         csv_header = csv.split('\r\n')[0]
         csv_data = csv.split('\r\n')[1]
 
-        expected_csv_header = ','.join([
+        expected_header_ids = [
             'order_id',
             'title',
             'status',
@@ -46,6 +50,7 @@ class TestOrderManager(FtwShopTestCase):
             'customer_title',
             'customer_firstname',
             'customer_lastname',
+            'customer_company',
             'customer_email',
             'customer_street1',
             'customer_street2',
@@ -56,7 +61,6 @@ class TestOrderManager(FtwShopTestCase):
             'customer_country',
             'customer_newsletter',
             'customer_comments',
-            'customer_company',
             'shipping_city',
             'shipping_company',
             'shipping_firstname',
@@ -65,15 +69,17 @@ class TestOrderManager(FtwShopTestCase):
             'shipping_street2',
             'shipping_title',
             'shipping_zipcode',
+            'vat_amount',
             'sku_code',
             'quantity',
             'title',
             'price',
             'item_total',
             'supplier_name',
-            'supplier_email'])
+            'supplier_email']
+        expected_csv_header = ';'.join([COLUMN_TITLES[h] for h in expected_header_ids])
 
-        expected_csv_data = ','.join([
+        expected_csv_data = ';'.join([
             '1',
             order_number,
             '1',
@@ -82,6 +88,7 @@ class TestOrderManager(FtwShopTestCase):
             MOCK_CUSTOMER['title'],
             MOCK_CUSTOMER['firstname'],
             MOCK_CUSTOMER['lastname'],
+            MOCK_CUSTOMER['company'],
             MOCK_CUSTOMER['email'],
             MOCK_CUSTOMER['street1'],
             '',
@@ -92,7 +99,6 @@ class TestOrderManager(FtwShopTestCase):
             MOCK_CUSTOMER['country'],
             'False',
             '',
-            MOCK_CUSTOMER['company'],
             MOCK_SHIPPING['city'],
             MOCK_SHIPPING['company'],
             MOCK_SHIPPING['firstname'],
@@ -103,7 +109,8 @@ class TestOrderManager(FtwShopTestCase):
             MOCK_SHIPPING['title'],
             MOCK_SHIPPING['zipcode'],
 
-            MOCK_CART.keys()[0],
+            MOCK_CART['some-uid']['vat_amount'],
+            MOCK_CART['some-uid']['skucode'],
             str(MOCK_CART.values()[0]['quantity']),
             MOCK_CART.values()[0]['title'],
             str(MOCK_CART.values()[0]['price']),

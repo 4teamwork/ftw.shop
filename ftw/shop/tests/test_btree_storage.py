@@ -51,13 +51,13 @@ class TestBTreeStorage(FtwShopTestCase):
         self.assertEquals(order.customer_email, MOCK_CUSTOMER['email'])
         
         cart_items = order.cartitems
-        self.assertEquals(cart_items[0].sku_code, '12345')
-        self.assertEquals(cart_items[0].quantity, MOCK_CART['12345']['quantity'])
-        self.assertEquals(cart_items[0].title, MOCK_CART['12345']['title'])
-        self.assertEquals(cart_items[0].price, Decimal(MOCK_CART['12345']['price']))
-        self.assertEquals(cart_items[0].total, Decimal(MOCK_CART['12345']['total']))
-        self.assertEquals(cart_items[0].supplier_name, MOCK_CART['12345']['supplier_name'])
-        self.assertEquals(cart_items[0].supplier_email, MOCK_CART['12345']['supplier_email'])
+        self.assertEquals(cart_items[0].sku_code, MOCK_CART['some-uid']['skucode'])
+        self.assertEquals(cart_items[0].quantity, MOCK_CART['some-uid']['quantity'])
+        self.assertEquals(cart_items[0].title, MOCK_CART['some-uid']['title'])
+        self.assertEquals(cart_items[0].price, Decimal(MOCK_CART['some-uid']['price']))
+        self.assertEquals(cart_items[0].total, Decimal(MOCK_CART['some-uid']['total']))
+        self.assertEquals(cart_items[0].supplier_name, MOCK_CART['some-uid']['supplier_name'])
+        self.assertEquals(cart_items[0].supplier_email, MOCK_CART['some-uid']['supplier_email'])
 
         self.assertEquals(cart_items[0].order_id, order_id)
         self.assertEquals(cart_items[0].order, order)
@@ -90,7 +90,8 @@ class TestBTreeStorage(FtwShopTestCase):
                                  'shipping_zipcode',
                                  'status',
                                  'title',
-                                 'total']
+                                 'total',
+                                 'vat_amount']
         field_names = btree_order_storage.getFieldNames()
         self.assertEquals(sorted(field_names), sorted(expected_field_names))
 
