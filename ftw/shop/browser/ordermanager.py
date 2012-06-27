@@ -119,6 +119,8 @@ class OrderManagerView(BrowserView):
         self.mhost = IMailHostAdapter(self.context)
         self.order_storage = getUtility(IOrderStorage,
                                         name=self.shop_config.order_storage)
+        self.supplier_filter = None
+        self.status_filter = None
         super(OrderManagerView, self).__init__(context, request)
 
 
