@@ -99,6 +99,7 @@ COLUMN_TITLES = {
     'item_total': 'Subtotal',
     'supplier_name': 'Lieferant',
     'supplier_email': 'Lieferant e-Mail',
+    'vat_amount': 'MwSt',
 }
 
 

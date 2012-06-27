@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added column title for vat_amount when exporting CSV
+  [lgraf]
+
 * Fixed bug in calculation of VAT amount
   [lgraf]
 
