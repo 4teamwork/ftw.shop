@@ -253,7 +253,7 @@ class CartView(BrowserView):
             item = cart_items[key]
             item['quantity'] = int(quantity)
             item['total'] = str(Decimal(item['price']) * item['quantity'])
-            item['vat_amount'] = str(calc_vat(item['vat'], item['price'], quantity))
+            item['vat_amount'] = str(calc_vat(item['vat_rate'], item['price'], quantity))
             cart_items[key] = item
 
         session[CART_KEY] = cart_items
@@ -266,6 +266,7 @@ class CartView(BrowserView):
 
         # first delete items with quantity 0
         del_items = []
+        # XXX - these are not skuCodes but item keys - rename!
         for skuCode in self.cart_items().keys():
             try:
                 qty = int(float(self.request.get('quantity_%s' % skuCode)))
@@ -300,6 +301,7 @@ class CartView(BrowserView):
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
+        # remove_item doesn't expect skuCode but item keys - rename!
         skuCode = self.request.get('skuCode')
         if skuCode:
             self.remove_item(skuCode)

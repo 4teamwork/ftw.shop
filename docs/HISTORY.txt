@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Fixed bug in calculation of VAT amount
+  [lgraf]
+
 * Improved display of VAT (MwSt)
   [lgraf]
 
