@@ -131,17 +131,17 @@ class OrderManagerView(BrowserView):
         self.status_filter = self.request.form.get('form.widgets.status_filter', 'all')
         self.order_results = self.getOrders(from_date, to_date)
         if self.request.form.get('filter'):
-            return self.template()
+            return self.__of__(self.context).template()
         elif self.request.form.get('download_csv'):
             return self.download_csv()
         elif self.request.form.get('cancel_orders'):
             return self.cancel_orders()
         elif self.request.form.get('change_status_step1'):
-            return self.change_status_tmpl()
+            return self.__of__(self.context).change_status_tmpl()
         elif self.request.form.get('change_status'):
             return self.change_status()
         else:
-            return self.template()
+            return self.__of__(self.context).template()
 
 
     def parse_date_range(self):
