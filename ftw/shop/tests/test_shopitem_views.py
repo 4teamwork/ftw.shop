@@ -4,7 +4,7 @@ from decimal import Decimal
 from zope.component import getMultiAdapter
 
 from ftw.shop.tests.base import FtwShopTestCase
-
+from pyquery import PyQuery as pq
 
 
 class TestShopItemViews(FtwShopTestCase):
@@ -39,8 +39,9 @@ class TestShopItemViews(FtwShopTestCase):
         item_datas = self.movie_view.getItemDatas()
         item = item_datas[0]
         item_listing = self.movie_view.single_item(item)
-        self.assertTrue('<input type="hidden" name="skuCode" value="12345" />' \
-                            in item_listing)
+
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=12345]")), 1)
 
     def test_one_variation(self):
         item_datas = self.book_view.getItemDatas()
@@ -48,17 +49,17 @@ class TestShopItemViews(FtwShopTestCase):
         item_listing = self.book_view.one_variation(item)
         self.assertTrue('Paperback' in item_listing)
         self.assertTrue('Hardcover' in item_listing)
-        self.assertTrue('<input type="hidden" name="skuCode" value="b11" />' \
-                            in item_listing)
-        self.assertTrue('<input type="hidden" name="skuCode" value="b22" />' \
-                            in item_listing)
+
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=b11]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=b22]")), 1)
 
     def test_two_variations(self):
         item_datas = self.tshirt_view.getItemDatas()
         item = item_datas[0]
         item_listing = self.tshirt_view.two_variations(item)
-        self.assertTrue('<input type="hidden" name="skuCode" value="11" />' \
-                            in item_listing)
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=11]")), 1)
 
     def test_get_item_datas(self):
         movie_data = self.movie_view.getItemDatas()[0]
@@ -113,10 +114,14 @@ class TestShopItemViews(FtwShopTestCase):
         item = item_datas[0]
         item_listing = self.tshirt_view.two_variations(item)
 
-        red_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="11" />')
-        green_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="44" />')
-        blue_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="77" />')
-        self.assertTrue(red_s_pos < green_s_pos and green_s_pos < blue_s_pos)
+        pq_doc = pq(item_listing)
+        all_sku_codes = pq_doc('input[name=skuCode]')
+        red_s = [e for e in all_sku_codes if e.value=='11'][0]
+        green_s = [e for e in all_sku_codes if e.value=='44'][0]
+        blue_s = [e for e in all_sku_codes if e.value=='77'][0]
+
+        self.assertTrue(all_sku_codes.index(red_s) < all_sku_codes.index(green_s) \
+            and all_sku_codes.index(green_s) < all_sku_codes.index(blue_s))
 
         # Now we swap 'Red' and 'Blue' and check if the listing reflects
         # the new order
@@ -126,10 +131,14 @@ class TestShopItemViews(FtwShopTestCase):
         item = item_datas[0]
         item_listing = self.tshirt_view.two_variations(item)
 
-        red_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="11" />')
-        green_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="44" />')
-        blue_s_pos = item_listing.find('<input type="hidden" name="skuCode" value="77" />')
-        self.assertTrue(red_s_pos > green_s_pos and green_s_pos > blue_s_pos)
+        pq_doc = pq(item_listing)
+        all_sku_codes = pq_doc('input[name=skuCode]')
+        red_s = [e for e in all_sku_codes if e.value=='11'][0]
+        green_s = [e for e in all_sku_codes if e.value=='44'][0]
+        blue_s = [e for e in all_sku_codes if e.value=='77'][0]
+
+        self.assertTrue(all_sku_codes.index(red_s) > all_sku_codes.index(green_s) \
+            and all_sku_codes.index(green_s) > all_sku_codes.index(blue_s))
 
 
 def test_suite():

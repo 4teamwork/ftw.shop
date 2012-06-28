@@ -146,8 +146,6 @@ in the 'Clothing' category we created it in, but also be listed in the 'New' cat
     >>> browser.getLink('Categories').click()
     >>> browser.getControl(name='categories:list').controls[1].click()
     >>> browser.getControl('Update').click()
-    >>> 'Categories updated' in browser.contents
-    True
 
 If we now view the 'New' category, our item is being listed:
     >>> browser.open(portal_url + '/shop/new')
@@ -172,8 +170,7 @@ add it to the 'New' category:
     >>> browser.getLink('Categories').click()
     >>> browser.getControl(name='categories:list').controls[1].click()
     >>> browser.getControl('Update').click()
-    >>> 'Categories updated' in browser.contents
-    True
+
 
 Currently the item 'T-Shirt' is listed before the 'Zope Sweater', because if items have the same rank,
 they get sorted alphabetically by title:
@@ -190,8 +187,7 @@ putting it above the T-Shirt (which has a default rank of 100):
     >>> rank_input = browser.getControl(name='rank_%s' % browser.getControl(name='categories:list').controls[1].optionValue)
     >>> rank_input.value = '10'
     >>> browser.getControl('Update').click()
-    >>> 'Categories updated' in browser.contents
-    True
+
 
 Now the Zope Sweater is listed before the T-Shirt:
 

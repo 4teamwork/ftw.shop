@@ -7,18 +7,23 @@ slows down test runner startup.
 """
 from decimal import Decimal
 
-from Products.Five import zcml
-from Products.Five import fiveconfigure
-from Products.CMFCore.utils import getToolByName
-import zope.event
-from zope.component import getMultiAdapter
-from zope.interface import Interface
+from ftw.shop.interfaces import IMailHostAdapter
+from ftw.shop.interfaces import IVariationConfig
+
 from Products.Archetypes.event import ObjectInitializedEvent
-from Testing import ZopeTestCase as ztc
+from Products.CMFCore.utils import getToolByName
+from Products.Five import fiveconfigure
+from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
+from Testing import ZopeTestCase as ztc
+from zope.component import adapts
+from zope.component import getMultiAdapter
+from zope.component import provideAdapter
+from zope.interface import implements
+from zope.interface import Interface
+import zope.event
 
-from ftw.shop.interfaces import IVariationConfig
 
 # Mock data to be used in various tests in ftw.shop but also
 # other ftwshop.* products
@@ -59,6 +64,19 @@ MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
                           'vat_amount': '0.00',
                           'vat_rate': Decimal('0.00')}}
 
+
+class FakeMailHostAdapter(object):
+    """Fake MailHost Adapter used in tests.
+    """
+    implements(IMailHostAdapter)
+    adapts(Interface)
+
+    def __init__(self, context):
+      self.context = context
+
+    def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None,
+           encode=None, immediate=False, charset=None, msg_type=None):
+        return None
 
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
@@ -116,11 +134,15 @@ class FtwShopTestCase(ptc.PloneTestCase):
     """
 
     def afterSetUp(self):
+        provideAdapter(FakeMailHostAdapter,
+                 (Interface, ),
+                 IMailHostAdapter)
+
         # Set up sessioning objects
         ztc.utils.setupCoreSessions(self.app)
 
         # Create an initial browser_id by requesting it
- 	bid_manager = getToolByName(self.app, 'browser_id_manager')
+        bid_manager = getToolByName(self.app, 'browser_id_manager')
         browser_id = bid_manager.getBrowserId()
 
         self.workflow = getToolByName(self.portal, 'portal_workflow')

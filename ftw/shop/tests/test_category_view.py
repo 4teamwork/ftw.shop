@@ -3,6 +3,7 @@ import unittest
 from zope.component import getMultiAdapter
 
 from ftw.shop.tests.base import FtwShopTestCase
+from pyquery import PyQuery as pq
 
 
 class TestCategoryView(FtwShopTestCase):
@@ -23,8 +24,9 @@ class TestCategoryView(FtwShopTestCase):
         item_datas = self.category_view.getItemDatas()
         item = item_datas[0]
         item_listing = self.category_view.single_item(item)
-        self.assertTrue('<input type="hidden" name="skuCode" value="12345" />' \
-                            in item_listing)
+
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=12345]")), 1)
 
     def test_one_variation(self):
         item_datas = self.category_view.getItemDatas()
@@ -32,18 +34,19 @@ class TestCategoryView(FtwShopTestCase):
         item_listing = self.category_view.one_variation(item)
         self.assertTrue('Paperback' in item_listing)
         self.assertTrue('Hardcover' in item_listing)
-        self.assertTrue('<input type="hidden" name="skuCode" value="b11" />' \
-                            in item_listing)
-        self.assertTrue('<input type="hidden" name="skuCode" value="b22" />' \
-                            in item_listing)
+
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=b11]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=b22]")), 1)
 
     def test_two_variations(self):
         item_datas = self.category_view.getItemDatas()
         item = item_datas[1]
         item_listing = self.category_view.two_variations(item)
-        self.assertTrue('<input type="hidden" name="skuCode" value="11" />' \
-                            in item_listing)
-    
+
+        pq_doc = pq(item_listing)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value=11]")), 1)
+
     def test_get_item_datas(self):
         item_datas = self.category_view.getItemDatas()
         movie_data = item_datas[0]

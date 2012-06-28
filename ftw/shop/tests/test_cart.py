@@ -156,7 +156,8 @@ class TestCart(FtwShopTestCase):
         pp_choice = {'payment_processor': 'ftw.shop.InvoicePaymentProcessor'}
         customer_info = {'title': 'Mr.',
                          'firstname': "Hugo",
-                         'lastname': "Boss"}
+                         'lastname': "Boss",
+                         'email': 'hugo.boss@example.org'}
         shipping_info = {'title': 'Mr.',
                          'firstname': "Hugo",
                          'lastname': "Boss"}
@@ -191,7 +192,8 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(order.total, Decimal('7.15'))
         self.assertEquals(order.status, 3)
         self.assertEquals(order.customer_firstname, "Hugo")
-        self.assertEquals(order.customer_lastname, "Boss")      
+        self.assertEquals(order.customer_lastname, "Boss")
+        self.assertEquals(order.customer_email, "hugo.boss@example.org")
 
 
 def test_suite():

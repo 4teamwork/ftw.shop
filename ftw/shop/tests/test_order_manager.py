@@ -35,6 +35,7 @@ class TestOrderManager(FtwShopTestCase):
         order_number = order.title
 
         # Call the OrderManager view to initialize om.order_results
+        self.login()
         order_manager()
 
         csv = order_manager.download_csv()
