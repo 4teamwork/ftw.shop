@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* CSS fix for title field in checkout wizard
+  [lgraf]
+
 * Added some Plone 3 compatibility fixes
   [lgraf]
 

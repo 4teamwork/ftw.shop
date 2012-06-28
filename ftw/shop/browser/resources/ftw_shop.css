@@ -229,3 +229,10 @@ form#variations legend {
     background-color: #88dd88;
 }
 */
+
+/* Archetypes widgets with name 'title' are styled large and bold by default, override */
+
+input#shipping_address-widgets-title, input#contact_information-widgets-title {
+    font-size: 100% !important;
+    font-weight: normal !important;
+}
