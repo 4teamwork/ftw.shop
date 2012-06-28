@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Fixed invalid HTML in payment processor widget
+  [lgraf]
+
 * Assigned Add Order permission to Manager role in rolemap.xml
   [lgraf]
 
