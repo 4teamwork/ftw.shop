@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added test dependency on pyquery
+  [lgraf]
+
 * Fixed invalid HTML in payment processor widget
   [lgraf]
 

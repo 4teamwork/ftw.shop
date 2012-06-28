@@ -22,6 +22,7 @@ long_description = (
 
 tests_require = ['zope.testing',
                  'Products.PloneTestCase',
+                 'pyquery<=0.6.1',
                 ]
 
 setup(name='ftw.shop',
