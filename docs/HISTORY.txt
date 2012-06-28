@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Assigned Add Order permission to Manager role in rolemap.xml
+  [lgraf]
+
 * Fixed bug where supplier and status filters weren't initialized in OrderManager view
   [lgraf]
 
