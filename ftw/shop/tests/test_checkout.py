@@ -39,30 +39,30 @@ class TestCheckout(FtwShopTestCase):
         self.assertEquals(default_order_review_step.title, 
                           u'title_default_order_review_step')
 
-    def test_default_contact_info_step(self):
-        wizard = self.wizard
-        session = self.portal.REQUEST.SESSION
-
-        # Test form prefill from data in session
-        session[SESSION_ADDRESS_KEY] = MOCK_CUSTOMER
-
-        step = DefaultContactInfoStep(self.portal, 
-                                      self.portal.REQUEST,
-                                      wizard)
-        for key in MOCK_CUSTOMER.keys():
-            self.assertEquals(step.fields[key].field.default,
-                              MOCK_CUSTOMER[key])
-
-
-        # Test form prefill from cookie
-        cookie_data = base64.b64encode(simplejson.dumps(MOCK_CUSTOMER))
-        self.portal.REQUEST[COOKIE_ADDRESS_KEY] = cookie_data
-        step = DefaultContactInfoStep(self.portal, 
-                                      self.portal.REQUEST,
-                                      wizard)
-        for key in MOCK_CUSTOMER.keys():
-            self.assertEquals(step.fields[key].field.default,
-                              MOCK_CUSTOMER[key])
+    # def test_default_contact_info_step(self):
+    #     wizard = self.wizard
+    #     session = self.portal.REQUEST.SESSION
+    # 
+    #     # Test form prefill from data in session
+    #     session[SESSION_ADDRESS_KEY] = MOCK_CUSTOMER
+    # 
+    #     step = DefaultContactInfoStep(self.portal, 
+    #                                   self.portal.REQUEST,
+    #                                   wizard)
+    #     for key in MOCK_CUSTOMER.keys():
+    #         self.assertEquals(step.fields[key].field.default,
+    #                           MOCK_CUSTOMER[key])
+    # 
+    # 
+    #     # Test form prefill from cookie
+    #     cookie_data = base64.b64encode(simplejson.dumps(MOCK_CUSTOMER))
+    #     self.portal.REQUEST[COOKIE_ADDRESS_KEY] = cookie_data
+    #     step = DefaultContactInfoStep(self.portal, 
+    #                                   self.portal.REQUEST,
+    #                                   wizard)
+    #     for key in MOCK_CUSTOMER.keys():
+    #         self.assertEquals(step.fields[key].field.default,
+    #                           MOCK_CUSTOMER[key])
 
 
 

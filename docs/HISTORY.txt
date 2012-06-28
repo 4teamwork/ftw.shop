@@ -5,6 +5,10 @@ Changelog
 1.0.2dev
 --------
 
+* Properly setting default values when prefilling forms.
+  This fixes a bug where people see other users data in checkout forms.
+  [lgraf]
+
 * CSS fix for title field in checkout wizard
   [lgraf]
 

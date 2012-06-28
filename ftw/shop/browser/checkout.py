@@ -66,9 +66,14 @@ class DefaultContactInfoStep(wizard.Step):
         super(wizard.Step, self).__init__(context, request)
         self.wizard = wiz
 
+    def updateWidgets(self):
+        super(DefaultContactInfoStep, self).updateWidgets()
+        context = self.context
+        request = self.context.REQUEST
+
         # if user is authenticated:
         # prefill form from portal_memberdata
-        mt = getToolByName(context, 'portal_membership')
+        mt = getToolByName(self.context, 'portal_membership')
         if not mt.isAnonymousUser():
             member = mt.getAuthenticatedMember()
             fullname = member.getProperty('fullname')
@@ -78,9 +83,9 @@ class DefaultContactInfoStep(wizard.Step):
                 firstname = lastname = ''
             email = member.getProperty('email')
 
-            self.fields['firstname'].field.default = unicode(firstname)
-            self.fields['lastname'].field.default = unicode(lastname)
-            self.fields['email'].field.default = unicode(email)
+            self.widgets['firstname'].value = unicode(firstname)
+            self.widgets['lastname'].value = unicode(lastname)
+            self.widgets['email'].value = unicode(email)
 
 
         if COOKIE_ADDRESS_KEY in request:
@@ -93,7 +98,7 @@ class DefaultContactInfoStep(wizard.Step):
 
             for fieldname in self.prefill_fields:
                 try:
-                    self.fields[fieldname].field.default = cookie_data[fieldname]
+                    self.widgets[fieldname].value = cookie_data[fieldname]
                 except KeyError:
                     pass
 
@@ -103,12 +108,10 @@ class DefaultContactInfoStep(wizard.Step):
             contact_info = request.SESSION[SESSION_ADDRESS_KEY]
             for fieldname in self.prefill_fields:
                 try:
-                    self.fields[fieldname].field.default = contact_info[fieldname]
+                    self.widgets[fieldname].value = contact_info[fieldname]
                 except KeyError:
                     pass
 
-    def updateWidgets(self):
-        super(DefaultContactInfoStep, self).updateWidgets()
         self.widgets['zipcode'].size = 5
 
 
