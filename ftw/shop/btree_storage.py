@@ -21,7 +21,7 @@ from ftw.shop.utils import to_decimal
 security = ClassSecurityInfo()
 
 
-class Order(object):
+class Order(Persistent):
 
     def __init__(self):
         self.order_id = None
@@ -64,7 +64,7 @@ class Order(object):
         return to_decimal(self.total)
 
 
-class CartItems(object):
+class CartItems(Persistent):
     """Cart items model.
     """
 

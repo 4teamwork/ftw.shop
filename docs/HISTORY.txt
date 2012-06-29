@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Made sure Order and CartItems classes inherit from Persistent
+  [lgraf]
+
 * Properly setting default values when prefilling forms.
   This fixes a bug where people see other users data in checkout forms.
   [lgraf]
