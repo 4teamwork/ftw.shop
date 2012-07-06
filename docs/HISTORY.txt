@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Improved styling for PaymentProcessor widget a bit
+  [lgraf]
+
 * Made sure Order and CartItems classes inherit from Persistent
   [lgraf]
 

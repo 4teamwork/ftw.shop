@@ -2,13 +2,12 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       tal:omit-tag="">
 <table>
-	<tr tal:repeat="item view/items">
-	<td width="25%">
+	<tr tal:repeat="item view/items" style="border-top: 1px solid #BBBBBB;">
+	<td width="25%" style="padding-top: 2em; padding-bottom: 2em">
 	<span class="option">
 	  <label for=""
 	         tal:attributes="for item/id" style="display:block">
 	    <span class="label" tal:content="item/label">Label</span>
-
 	  </label>
             <input id="" name="" class="" alt="" title=""
                    tabindex="" disabled="" readonly="" accesskey="" value=""
@@ -47,7 +46,7 @@
 	<td>
 		<span tal:replace="structure item/image">FancyImage</span>
 	</td>
-	<td style="padding-bottom: 10px; padding-left: 15px">
+	<td style="padding-bottom: 10px; padding-left: 15px; padding-top: 1em">
 		<span class="description" tal:content="structure item/description">Description</span>
 	</td>
 	</tr>
