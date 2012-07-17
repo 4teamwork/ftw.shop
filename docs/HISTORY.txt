@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Made sure supplier_mail template gets needed options
+  [lgraf]
+
 * Improved styling for PaymentProcessor widget a bit
   [lgraf]
 
