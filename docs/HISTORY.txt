@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added  __bobo_traverse__ method on ShopItem to make image scales traversable on Plone 3
+  [lgraf]
+
 * Added image field to standard ShopItem type
   [lgraf]
 

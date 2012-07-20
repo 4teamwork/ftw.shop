@@ -35,6 +35,28 @@ class ShopItem(Categorizeable, ATDocument):
     meta_type = "ShopItem"
     schema = ShopItemSchema
 
+    def __bobo_traverse__(self, REQUEST, name):
+        """Give transparent access to image scales. This hooks into the
+        low-level traversal machinery, checking to see if we are trying to
+        traverse to /path/to/object/image_<scalename>, and if so, returns
+        the appropriate image content.
+        """
+        if name.startswith('image'):
+            field = self.getField('image')
+            image = None
+            if name == 'image':
+                image = field.getScale(self)
+            else:
+                scalename = name[len('image_'):]
+                if scalename in field.getAvailableSizes(self):
+                    image = field.getScale(self, scale=scalename)
+
+            if image is not None and not isinstance(image, basestring):
+                # image might be None or '' for empty images
+                return image
+
+        return super(ShopItem, self).__bobo_traverse__(REQUEST, name)
+
 
 def add_to_containing_category(context, event):
     """
