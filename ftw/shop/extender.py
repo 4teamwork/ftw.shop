@@ -165,20 +165,9 @@ class ShopItemExtender(object):
 
         @return: Dictionary of reordered field lists per schemata.
         """
-        schematas["default"] = ['id',
-                                'title',
-                                'description',
-                                'image',
-                                'text',
-                                'supplier',
-                                'price',
-                                'showPrice',
-                                'skuCode',
-                                'variation1_attribute',
-                                'variation1_values',
-                                'variation2_attribute',
-                                'variation2_values',
-                                'vat']
+        if 'image' in schematas["default"]:
+            schematas["default"].remove('image')
+            schematas["default"].insert(3, 'image')
 
         return schematas
 
