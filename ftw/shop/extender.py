@@ -1,8 +1,9 @@
 from zope.component import adapts
 from zope.interface import implements
 
+from Products.Archetypes.public import AnnotationStorage
 from archetypes.schemaextender.field import ExtensionField
-from archetypes.schemaextender.interfaces import ISchemaExtender
+from archetypes.schemaextender.interfaces import IOrderableSchemaExtender
 from Products.Archetypes import atapi
 
 from Products.ATContentTypes.config import HAS_LINGUA_PLONE
@@ -10,11 +11,13 @@ if HAS_LINGUA_PLONE:
     from Products.LinguaPlone.public import BooleanField
     from Products.LinguaPlone.public import StringField
     from Products.LinguaPlone.public import LinesField
+    from Products.LinguaPlone.public import ImageField
     from Products.LinguaPlone.public import FixedPointField
 else:
     from Products.Archetypes.atapi import BooleanField
     from Products.Archetypes.atapi import StringField
     from Products.Archetypes.atapi import LinesField
+    from Products.Archetypes.atapi import ImageField
     from Products.Archetypes.atapi import FixedPointField
 
 from ftw.shop import shopMessageFactory as _
@@ -36,12 +39,14 @@ class ExtFixedPointField(ExtensionField, FixedPointField):
 class ExtLinesField(ExtensionField, LinesField):
     """A lines field."""
 
+class ExtImageField(ExtensionField, ImageField):
+    """An image field."""
 
 class ShopItemExtender(object):
     """Extends the base type ShopItem with fields `price`
     and `skuCode`.
     """
-    implements(ISchemaExtender)
+    implements(IOrderableSchemaExtender)
     adapts(IShopItem)
 
 
@@ -55,6 +60,20 @@ class ShopItemExtender(object):
                 description = _(u"desc_price", default=u""),
                 size=8,
             ),
+        ),
+
+        ExtImageField('image',
+            required = 0,
+            languageIndependent=True,
+            widget = atapi.ImageWidget(
+                label = _(u"label_image", default=u"Image"),
+                description = _(u"desc_Image", default=u""),
+            ),
+            storage=AnnotationStorage(),
+                sizes= {'large': (768, 768),
+                         'mini': (200, 200),
+                         'thumb': (128, 128),
+                  },
         ),
 
         ExtBooleanField('showPrice',
@@ -138,3 +157,28 @@ class ShopItemExtender(object):
 
     def getFields(self):
         return self.fields
+
+    def getOrder(self, schematas):
+        """ Manipulate the order in which fields appear.
+
+        @param schematas: Dictonary of schemata name -> field lists
+
+        @return: Dictionary of reordered field lists per schemata.
+        """
+        schematas["default"] = ['id',
+                                'title',
+                                'description',
+                                'image',
+                                'text',
+                                'supplier',
+                                'price',
+                                'showPrice',
+                                'skuCode',
+                                'variation1_attribute',
+                                'variation1_values',
+                                'variation2_attribute',
+                                'variation2_values',
+                                'vat']
+
+        return schematas
+

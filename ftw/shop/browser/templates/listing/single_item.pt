@@ -1,6 +1,21 @@
             <!-- Single Item with no Variations -->
             <tal:block tal:define="item options/item" i18n:domain="ftw.shop">
             <div class="listItemTable" tal:condition="not:item/hasVariations">
+
+                <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none">
+                    <img src="#" tal:attributes="src string:${item/url}/image_thumb" />
+                </a>
+
+                <form tal:attributes="action string:${item/url}/addtocart">
+                    <span style="float: right">
+                        <br/>
+                        <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
+                        <label>Menge</label>
+                        <input type="text" size="2" name="quantity:int" value="1"/>
+                        <input class="allowMultiSubmit compact" name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
+                    </span>
+                </form>
+
                 <table class="shopItemTable">
                     <tr>
                         <th tal:condition="item/skuCode" i18n:translate="label_sku_code">SKU code</th>
@@ -13,14 +28,5 @@
                     </tr>
                 </table>
 
-                <form tal:attributes="action string:${item/url}/addtocart">
-                    <span style="float: right">
-                        <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
-                        <label>Menge</label>
-                        <input type="text" size="2" name="quantity:int" value="1"/>
-                        <input class="allowMultiSubmit compact" name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
-                    </span>
-                </form>
-                <br/><br/>
             </div>
             </tal:block>

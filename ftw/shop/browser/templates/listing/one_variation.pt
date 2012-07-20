@@ -2,6 +2,11 @@
              <tal:block tal:define="item options/item;
                                     varConf item/varConf"
                         i18n:domain="ftw.shop">
+
+                <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none;">
+                    <img  src="#" tal:attributes="src string:${item/url}/image_thumb" />
+                </a>
+
                  <div class="variation-toplevel-group"
                         tal:condition="python:len(varConf.getVariationAttributes()) == 1">
                      <table>

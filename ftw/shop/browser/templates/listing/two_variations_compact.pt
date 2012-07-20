@@ -4,11 +4,27 @@
                                    normalizeString nocall: context/@@plone/normalizeString"
                         i18n:domain="ftw.shop">
 
+                <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none">
+                    <img  src="#" tal:attributes="src string:${item/url}/image_thumb" />
+                </a>
+
                 <div class="variation-toplevel-group" 
                      tal:condition="python:item['hasVariations'] and len(varConf.getVariationAttributes()) > 1" 
                      tal:define="varConf item/varConf">
 
+
+                     <!-- Add to cart button and quantity-->
+                     <span style="float: right" tal:condition="varConf/isValid">
+                         <label>Menge</label>
+                         <input name="quantity:int" type="text" value="1" size="2" />
+
+                         <input name="addtocart" class="compact allowMultiSubmit" type="submit" 
+                            value="Add to cart" i18n:attributes="value"/>
+                     </span>
+
+
                     <form tal:attributes="action string:${item/url}/addtocart">
+
 
                         <!-- Variation selection -->
                         <table class="variationSelection">
@@ -55,14 +71,7 @@
                             </tr>
                         </table>
 
-                        <!-- Add to cart button and quantity-->
-                        <span style="float: right" tal:condition="varConf/isValid">
-                            <label>Menge</label>
-                            <input name="quantity:int" type="text" value="1" size="2" />
 
-                            <input name="addtocart" class="compact allowMultiSubmit" type="submit" 
-                               value="Add to cart" i18n:attributes="value"/>
-                        </span>
 
                         <!-- Warning if variations not configured -->
                         <dl class="portalMessage warning"
@@ -102,6 +111,6 @@
                          </tbody>
                      </table>
 
-                     <span class="variationDescription" style="display:none;"></span><br/><br/>
+                     <span class="variationDescription" style="display:none;"></span>
                  </div>
              </tal:block>

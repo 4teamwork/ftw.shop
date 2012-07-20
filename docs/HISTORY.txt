@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+* Added image field to standard ShopItem type
+  [lgraf]
+
 * Made sure supplier_mail template gets needed options
   [lgraf]
 

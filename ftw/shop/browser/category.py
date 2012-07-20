@@ -48,7 +48,6 @@ class CategoryView(BrowserView):
 
             has_variations = varConf.hasVariations()
 
-            image = None
             tag = None
             if has_variations:
                 skuCode = None
@@ -58,14 +57,17 @@ class CategoryView(BrowserView):
                 skuCode = item.Schema().getField('skuCode').get(item)
                 price = item.Schema().getField('price').get(item)
 
+            hasImage = False
+            image = item.getField('image').get(item)
             if image:
-                tag = image.tag(scale='tile')
+                hasImage = True
 
             results.append(
                 dict(
                     title = item.Title(),
                     description = item.Description(),
                     url = item.absolute_url(),
+                    hasImage = hasImage,
                     imageTag = tag,
                     variants = None,
                     skuCode = skuCode,
