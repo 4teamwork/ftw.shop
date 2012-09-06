@@ -82,14 +82,7 @@
 			<div class="listItemHeading">
 				<h2><a href="" tal:content="item/title" tal:attributes="href item/url" /></h2>
 			</div>
-			
-			<p class="listItemBody">
-				<span tal:replace="item/description" />
-				<a href="" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
-			</p>
 
-            
-			
 			<!-- Single Item, no variations -->
 	        <div tal:condition="not:item/hasVariations"
 	             tal:replace="structure python:view.single_item(item)" />
