@@ -25,7 +25,7 @@ from ftw.shop.content.categorizeable import Categorizeable
 from ftw.shop.config import PROJECTNAME
 
 ShopItemSchema = ATDocumentSchema.copy()
-
+ShopItemSchema["description"].widget.visible = {"edit": "invisible" }
 
 class ShopItem(Categorizeable, ATDocument):
     """A simple shop item"""
