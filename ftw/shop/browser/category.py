@@ -66,6 +66,7 @@ class CategoryView(BrowserView):
                 dict(
                     title = item.Title(),
                     description = item.Description(),
+                    text = item.getText(),
                     url = item.absolute_url(),
                     hasImage = hasImage,
                     imageTag = tag,

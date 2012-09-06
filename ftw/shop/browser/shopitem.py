@@ -70,6 +70,7 @@ class ShopItemView(BrowserView):
 
             results.append(dict(title = item.Title(),
                                 description = item.Description(),
+                                text = item.getText(),
                                 url = item.absolute_url(),
                                 imageTag = tag,
                                 hasImage = hasImage,

@@ -1,11 +1,16 @@
              <!-- One Variation -->
              <tal:block tal:define="item options/item;
+                                    text item/text;
                                     varConf item/varConf"
                         i18n:domain="ftw.shop">
 
-                <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none;">
+                <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none; float: left; margin:0.5em;">
                     <img  src="#" tal:attributes="src string:${item/url}/image_thumb" />
                 </a>
+
+                <div tal:replace="structure text" />
+
+                <div class="visualClear"><!-- --></div>
 
                  <div class="variation-toplevel-group"
                         tal:condition="python:len(varConf.getVariationAttributes()) == 1">

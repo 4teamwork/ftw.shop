@@ -5,6 +5,10 @@ Changelog
 1.0.2dev
 --------
 
+* Always display body text of ShopItems.
+  (Customization for Wetzikon)
+  [lgraf]
+
 * Added  __bobo_traverse__ method on ShopItem to make image scales traversable on Plone 3
   [lgraf]
 
