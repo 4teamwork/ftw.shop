@@ -62,7 +62,7 @@
     name="checkout" 
     class=".cart.CartView" 
     attribute="checkout" 
-    permission="zope2.View" 
+    permission="zope2.Public" 
     />
 
 </configure>

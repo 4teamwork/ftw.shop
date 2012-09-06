@@ -15,11 +15,12 @@ class SupplierMailView(BrowserView):
         self.order = order
         self.shop_config = shop_config
         self.supplier = supplier
-
+        cartitems = self.cartitems()
         return self.template(order=order,
                              shop_config=shop_config,
                              supplier=supplier,
-                             show_prices=show_prices)
+                             show_prices=show_prices,
+                             cartitems=cartitems)
 
     def cartitems(self):
         """Returns the subset of items from the order that are supplied

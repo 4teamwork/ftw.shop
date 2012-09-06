@@ -128,7 +128,7 @@
     for="*"
     name="checkout-wizard"
     class=".checkout.CheckoutView"
-    permission= "zope2.View"
+    permission= "zope2.Public"
   />
 
   <browser:page

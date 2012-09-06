@@ -7,7 +7,7 @@
 
 <body style="font-family: Helvetica, Arial, 'Lucida Grande', Verdana, Lucida, sans-serif;"
       tal:define="order options/order;
-                  show_prices view/show_prices;
+                  show_prices options/show_prices;
                   shop_config options/shop_config">
 
 <p>
@@ -103,7 +103,7 @@
        <th tal:condition="show_prices" i18n:translate="cart_header_total">Total</th>
    </tr>
 
-   <tr tal:repeat="item view/cartitems">
+   <tr tal:repeat="item options/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
      <td tal:content="item/quantity"/>

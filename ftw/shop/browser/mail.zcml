@@ -7,7 +7,7 @@
   <browser:page
     for="*"
     name="mail_view"
-    permission="zope2.View"
+    permission="zope2.Public"
     template="templates/mail/order_confirmation.pt"
     />
     
@@ -15,7 +15,7 @@
   <browser:page
     for="*"
     name="shopowner_mail_view"
-    permission="zope2.View"
+    permission="zope2.Public"
     template="templates/mail/order_notification.pt"
     />
 
@@ -23,7 +23,7 @@
   <browser:page
     for="*"
     name="supplier_mail_view"
-    permission="zope2.View"
+    permission="zope2.Public"
     class=".supplier_mail.SupplierMailView"
     />
 
