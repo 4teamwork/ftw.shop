@@ -51,7 +51,6 @@ class ShopItemView(BrowserView):
         """
         results = []
         for item in self.getItems():
-            assert(item.portal_type == 'ShopItem')
             varConf = IVariationConfig(item)
 
             has_variations = varConf.hasVariations()
