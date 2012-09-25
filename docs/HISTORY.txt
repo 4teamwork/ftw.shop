@@ -5,6 +5,9 @@ Changelog
 1.0.2dev
 --------
 
+- Allow multiple email addresses for supplier seperated by comma.
+  [Julian Infanger]
+
 * Made sure supplier_mail template gets needed options
   [lgraf]
 
