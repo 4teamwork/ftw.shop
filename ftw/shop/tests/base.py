@@ -115,9 +115,7 @@ def setup_product():
 
     fiveconfigure.debug_mode = True
     import ftw.shop
-    import ftwshop.suppliers
 
-    zcml.load_config('configure.zcml', ftwshop.suppliers)
     zcml.load_config('configure.zcml', ftw.shop)
 
     fiveconfigure.debug_mode = False
@@ -133,7 +131,6 @@ def setup_product():
     # We may also need to load dependencies, e.g.:
     #   ztc.installPackage('borg.localrole')
 
-    ztc.installPackage('ftwshop.suppliers')
     ztc.installPackage('ftw.shop')
 
 
