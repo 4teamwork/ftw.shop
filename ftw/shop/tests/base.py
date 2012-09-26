@@ -9,9 +9,11 @@ from decimal import Decimal
 
 from ftw.shop.interfaces import IMailHostAdapter
 from ftw.shop.interfaces import IVariationConfig
+from ftw.shop.mailer import MailHostAdapter
 
 from Products.Archetypes.event import ObjectInitializedEvent
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.tests.utils import MockMailHost
 from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
@@ -64,8 +66,22 @@ MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
                           'vat_amount': '0.00',
                           'vat_rate': Decimal('0.00')}}
 
+MOCK_CART_TWO_SUPPLIERS = {
+    'other-uid': {'description': 'A Shop Item with no variations',
+                  'price': '4.15',
+                  'quantity': 2,
+                  'show_price': False,
+                  'skucode': '12345',
+                  'supplier_email': 'supplier@example.org, other@example.org',
+                  'supplier_name': 'Supplier Name',
+                  'title': 'Item Title',
+                  'total': '8.30',
+                  'url': 'http://nohost/plone/shop/products/item',
+                  'vat_amount': '0.00',
+                  'vat_rate': Decimal('0.00')}}
 
-class FakeMailHostAdapter(object):
+
+class FakeMailHostAdapter(MailHostAdapter):
     """Fake MailHost Adapter used in tests.
     """
     implements(IMailHostAdapter)
@@ -73,10 +89,8 @@ class FakeMailHostAdapter(object):
 
     def __init__(self, context):
       self.context = context
-
-    def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None,
-           encode=None, immediate=False, charset=None, msg_type=None):
-        return None
+      mockmailhost = MockMailHost('MailHost')
+      self.context.MailHost = mockmailhost
 
 
 # When ZopeTestCase configures Zope, it will *not* auto-load products
@@ -98,12 +112,14 @@ def setup_product():
 
     # Load the ZCML configuration for the example.tests package.
     # This can of course use <include /> to include other packages.
-    
+
     fiveconfigure.debug_mode = True
     import ftw.shop
-    
+    import ftwshop.suppliers
+
+    zcml.load_config('configure.zcml', ftwshop.suppliers)
     zcml.load_config('configure.zcml', ftw.shop)
-    
+
     fiveconfigure.debug_mode = False
 
     # We need to tell the testing framework that these products
@@ -117,8 +133,9 @@ def setup_product():
     # We may also need to load dependencies, e.g.:
     #   ztc.installPackage('borg.localrole')
 
-    ztc.installPackage('ftw.shop')    
-    
+    ztc.installPackage('ftwshop.suppliers')
+    ztc.installPackage('ftw.shop')
+
 
 # The order here is important: We first call the (deferred) function
 # which installs the products we need for this product. Then, we let
@@ -172,7 +189,7 @@ class FtwShopTestCase(ptc.PloneTestCase):
         # Fire ObjectInitializedEvent to add item to containing category
         event = ObjectInitializedEvent(self.movie, self.portal.REQUEST)
         zope.event.notify(event)
-        
+
         self.movie.reindexObject()
 
         self.movie_vc = IVariationConfig(self.movie)
@@ -193,12 +210,12 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         self.book_vc = IVariationConfig(self.book)
         book_var_dict = {
-        'var-Hardcover': {'active': True, 
+        'var-Hardcover': {'active': True,
                           'price': Decimal('1.00'),
                           'skuCode': 'b11',
                           'description': 'A hard and durable cover',
                           'hasUniqueSKU': True},
-        'var-Paperback': {'active': True, 
+        'var-Paperback': {'active': True,
                           'price': Decimal('2.00'),
                           'skuCode': 'b22',
                           'description': 'A less durable but cheaper cover',

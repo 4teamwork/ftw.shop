@@ -1,9 +1,17 @@
 import unittest
 
+from datetime import datetime
 from ftw.shop.browser.checkout import CheckoutView
 from ftw.shop.browser.checkout import CheckoutWizard
 from ftw.shop.browser.cart import CartView
+from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.tests.base import FtwShopTestCase
+from ftw.shop.tests.base import MOCK_CART
+from ftw.shop.tests.base import MOCK_CART_TWO_SUPPLIERS
+from ftw.shop.tests.base import MOCK_CUSTOMER
+from ftw.shop.tests.base import MOCK_SHIPPING
+from ftw.shop.config import  ONLINE_PENDING_KEY
+from zope.component import getMultiAdapter, getUtility
 
 
 class TestCheckout(FtwShopTestCase):
@@ -33,6 +41,48 @@ class TestCheckout(FtwShopTestCase):
                           u'title_default_payment_processor_step')
         self.assertEquals(default_order_review_step.title,
                           u'title_default_order_review_step')
+
+    def test_send_ordermails_one_supplier(self):
+        btree_order_storage = getUtility(IOrderStorage, 'ftw.shop.BTreeOrderStorage')
+        now = datetime.now()
+        oid1 = btree_order_storage.createOrder(
+            status=ONLINE_PENDING_KEY,
+            date=now,
+            customer_data=MOCK_CUSTOMER,
+            shipping_data=MOCK_SHIPPING,
+            cart_data=MOCK_CART,
+            total='8.30')
+
+        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+                                   name=u'order_manager')
+
+        # send order mail
+        omanager.sendOrderMails(oid1)
+        messages = omanager.context.MailHost.messages
+        self.assertEqual(len(messages), 2)
+        self.assertTrue('To: Supplier Name <supplier@example.org>' in messages[1])
+
+    def test_send_ordermails_two_suppliers(self):
+        btree_order_storage = getUtility(IOrderStorage, 'ftw.shop.BTreeOrderStorage')
+        now = datetime.now()
+        oid2 = btree_order_storage.createOrder(
+            status=ONLINE_PENDING_KEY,
+            date=now,
+            customer_data=MOCK_CUSTOMER,
+            shipping_data=MOCK_SHIPPING,
+            cart_data=MOCK_CART_TWO_SUPPLIERS,
+            total='8.30')
+
+        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+                                   name=u'order_manager')
+
+        # send order mail
+        omanager.sendOrderMails(oid2)
+        messages = omanager.context.MailHost.messages
+        self.assertEqual(len(messages), 3)
+        self.assertTrue('To: Supplier Name <other@example.org>' in messages[1])
+        self.assertTrue('To: Supplier Name <supplier@example.org>' in messages[2])
+
 
     # def test_default_contact_info_step(self):
     #     wizard = self.wizard
