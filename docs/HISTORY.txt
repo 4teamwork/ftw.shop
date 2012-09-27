@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.2 (unreleased)
+1.1.2 (2012-09-27)
 ------------------
 
 - Allow multiple email addresses for supplier seperated by comma.
