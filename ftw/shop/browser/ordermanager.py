@@ -318,8 +318,9 @@ class OrderManagerView(BrowserView):
         for item_type in order.cartitems:
             if not (item_type.supplier_name == '' \
                 or item_type.supplier_email == ''):
-                suppliers.append((item_type.supplier_name,
-                                  item_type.supplier_email))
+                for email_address in item_type.supplier_email.split(','):
+                    suppliers.append((item_type.supplier_name,
+                                      email_address.strip()))
         unique_suppliers = set(suppliers)
         for supplier in unique_suppliers:
             self._send_supplier_mail(supplier, order)

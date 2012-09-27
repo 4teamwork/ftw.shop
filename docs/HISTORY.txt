@@ -4,7 +4,8 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Allow multiple email addresses for supplier seperated by comma.
+  [Julian Infanger]
 
 
 1.1.1 (2012-09-24)
