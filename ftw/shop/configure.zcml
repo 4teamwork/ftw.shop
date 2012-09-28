@@ -20,9 +20,13 @@
      title="ftw.shop: Add Order"
      />
 
+    <permission
+        id="ftw.shop.AddSupplier"
+        title="ftw.shop: Add Supplier"
+        />
+
     <five:registerPackage package="." initialize=".initialize" />
 
-    <include package="archetypes.schemaextender" />
     <include package="plone.app.z3cform" />
     <include package="plone.app.registry" />
 
@@ -126,10 +130,12 @@
       component=".vocabularies.OrderStorageVocabulary"
       />
 
-    <adapter 
-      name="ftw.shop.extender.ShopItemExtender"
-      factory="ftw.shop.extender.ShopItemExtender"
-      />
+    <!-- Suppliers vocabulary -->
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="ftw.shop.suppliers_vocabulary"
+        component=".vocabularies.SuppliersVocabulary"
+        />
 
     <adapter
       factory="ftw.shop.mailer.MailHostAdapter"
