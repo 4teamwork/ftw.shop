@@ -8,9 +8,26 @@ from Products.ATContentTypes.content.folder import ATFolderSchema
 from zope.interface import implements
 from zope.lifecycleevent import ObjectRemovedEvent
 
+from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopCategory
 from ftw.shop.config import PROJECTNAME
 from ftw.shop.content.categorizeable import Categorizeable
+
+
+ShopCategorySchema = ATFolderSchema.copy() + atapi.Schema((
+        atapi.ReferenceField(
+            'supplier',
+            required = 0,
+            languageIndependent=True,
+            relationship = 'item_supplier',
+            vocabulary_factory="ftw.shop.suppliers_vocabulary",
+            widget = atapi.ReferenceWidget(
+                label = _(u"label_supplier", default=u"Supplier"),
+                description = _(u"desc_supplier", default=u""),
+                checkbox_bound = 10,
+                ),
+            ),
+        ))
 
 
 class ShopCategory(Categorizeable, ATFolder):
@@ -18,7 +35,7 @@ class ShopCategory(Categorizeable, ATFolder):
     implements(IShopCategory)
 
     meta_type = "ShopCategory"
-    schema = ATFolderSchema.copy()
+    schema = ShopCategorySchema
 
     def fullTitle(self):
         """Returns a fully qualified title for the category, including
