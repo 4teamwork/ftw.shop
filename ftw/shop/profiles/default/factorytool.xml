@@ -12,5 +12,6 @@
     <!-- -*- extra stuff goes here -*- -->
     <type portal_type="ShopCategory" />
     <type portal_type="ShopItem" />
+    <type portal_type="Supplier" />
   </factorytypes>
 </object>

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <rolemap>
   <permissions>
 
@@ -7,6 +7,10 @@
       <role name="Contributor" />
     </permission>
     <permission name="ftw.shop: Add Shop Item" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
+    <permission name="ftw.shop: Add Supplier" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
     </permission>

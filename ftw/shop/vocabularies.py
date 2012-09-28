@@ -4,7 +4,9 @@ from zope.schema.vocabulary import SimpleTerm
 from zope.component import getAdapters, getUtility, getUtilitiesFor
 from zope.interface import directlyProvides
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 
+from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
@@ -129,4 +131,23 @@ def OrderStorageVocabulary(context):
     terms = create_terms_from_adapters(order_storages)
 
     directlyProvides(OrderStorageVocabulary, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+
+def SuppliersVocabulary(context):
+    """Returns a vocabulary of the available suppliers
+    """
+    # context is the portal config options, whose context is the portal
+    catalog = getToolByName(context, 'portal_catalog')
+    suppliers = catalog(portal_type="Supplier")
+    items = [(brain.UID, brain.Title) for brain in suppliers]
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+    terms.insert(0, SimpleTerm(value='',
+                            token='none',
+                            title=_("label_supplier_from_parent",
+                                default="Supplier from parent category")))
+
+    directlyProvides(SuppliersVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

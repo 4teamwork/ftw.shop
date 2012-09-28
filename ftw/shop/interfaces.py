@@ -295,6 +295,12 @@ class IShippingAddress(Interface):
             title=_(u'label_used', default=u'Different from invoice address'),
             required=False)
 
+
+class ISupplier(Interface):
+    """A supplier
+    """
+
+
 class IFtwShopSpecific(IDefaultPloneLayer):
     """Marker interface for a zope 3 browser layer.
     """
