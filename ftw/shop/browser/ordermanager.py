@@ -318,9 +318,8 @@ class OrderManagerView(BrowserView):
         for item_type in order.cartitems:
             if not (item_type.supplier_name == '' \
                 or item_type.supplier_email == ''):
-                for email_address in item_type.supplier_email.split(','):
-                    suppliers.append((item_type.supplier_name,
-                                      email_address.strip()))
+                suppliers.append((item_type.supplier_name,
+                                  item_type.supplier_email))
         unique_suppliers = set(suppliers)
         for supplier in unique_suppliers:
             self._send_supplier_mail(supplier, order)
@@ -374,7 +373,6 @@ class OrderManagerView(BrowserView):
         """Send order notification to a (single) supplier.
         """
         show_prices = self.show_prices(order)
-        mail_to = formataddr(supplier)
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
         mail_subject = '[%s] Order %s by %s' % (self.shop_config.shop_name,
@@ -383,11 +381,14 @@ class OrderManagerView(BrowserView):
 
         mail_view = getMultiAdapter((self.context, self.context.REQUEST),
                                     name=u'supplier_mail_view')
-        msg_body = mail_view(order=order,
-                             show_prices=show_prices,
-                             shop_config=self.shop_config,
-                             supplier=supplier)
-        self._send_mail(mail_to, mail_subject, msg_body)
+
+        for supplier_email in supplier[1].split(','):
+            mail_to = formataddr((supplier[0], supplier_email))
+            msg_body = mail_view(order=order,
+                                 show_prices=show_prices,
+                                 shop_config=self.shop_config,
+                                 supplier=supplier)
+            self._send_mail(mail_to, mail_subject, msg_body)
 
     def _send_mail(self, to, subject, body):
         """Send mail originating from the shop.
