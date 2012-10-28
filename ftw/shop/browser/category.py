@@ -147,7 +147,8 @@ class CategoryView(BrowserView):
         contents = context.getBRefs(CATEGORY_RELATIONSHIP)
 
         contents = [item for item in contents
-                    if mtool.checkPermission('View', item) and filter_language(item)]
+                    if item and mtool.checkPermission('View', item)
+                    and filter_language(item)]
 
         # Sort alphabetically first
         contents.sort(key=lambda x: x.Title())
