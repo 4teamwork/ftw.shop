@@ -4,7 +4,9 @@ from decimal import Decimal
 from AccessControl import ClassSecurityInfo
 from persistent import Persistent
 from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
+from zope.app.component.hooks import getSite
 
 from BTrees.IOBTree import IOBTree
 try:
@@ -62,6 +64,14 @@ class Order(Persistent):
         returns to two decimal places and convert it to Decimal. If that
         fails, return the total as-is."""
         return to_decimal(self.total)
+
+    def getLocalizedDate(self):
+        """Returns the localized order date and time.
+        """
+        site = getSite()
+        util = getToolByName(site, 'translation_service')
+        return util.ulocalized_time(self.date, long_format=True,
+                                    context=site, domain='plonelocales')
 
 
 class CartItems(Persistent):

@@ -17,7 +17,7 @@
 
 <p i18n:translate="txt_thankyou">
 Thank you for your order in our shop on the
-<span i18n:name="date" tal:replace="order/date"></span>
+<span i18n:name="date" tal:replace="order/getLocalizedDate"></span>
 </p>
 
 <h3 i18n:translate="header_orderdetails">Details of your order</h3>
