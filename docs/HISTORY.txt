@@ -1,9 +1,11 @@
 Changelog
 =========
 
+1.1.3 (unreleased)
+------------------
 
-1.0.2dev (unreleased)
----------------------
+- Display the shopitems image if the item has a image field.
+  [Julian Infanger]
 
 * Fix category view so that it filters "None" references.
   [jone]
@@ -88,6 +90,33 @@ Changelog
   [lgraf]
 
 
+1.1.2 (2012-09-27)
+------------------
+
+- Allow multiple email addresses for supplier seperated by comma.
+  [Julian Infanger]
+
+
+1.1.1 (2012-09-24)
+------------------
+
+- Do not raise an AssertionError if the objects type is not ShopItem.
+  [Julian Infanger]
+
+
+1.1 (2011-12-27)
+----------------
+
+- Made ShopItem inherit from ATCTContent instead of ATDocument.
+
+- Avoid creating a session if there doesn't exist one yet.
+  Accessing REQUEST.SESSION causes a _ZopeID cookie to be created, therefore
+  we use the browser_id_manager to check first if a session already exists.
+
+- Removed language specific subjects for order mails from settings and handle
+  translation with i18n.
+
+
 1.0.1 (2011-03-28)
 ------------------
 
@@ -148,7 +177,6 @@ Changelog
 * Merged branch 'plone3bbb'
   (Register eventhandlers based on a zcml:condition="have plone-4")
   [lgraf]
-
 
 1.0 (2011-02-25)
 ----------------

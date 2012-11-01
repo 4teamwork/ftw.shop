@@ -1,12 +1,5 @@
-from plone.registry.interfaces import IRegistry
-from zope.component import getAdapters, getUtility, getUtilitiesFor
-from zope.interface import directlyProvides
-from zope.schema import vocabulary
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm
-
-
-from ftw.shop.config import DEFAULT_VAT_RATES
+from Products.CMFCore.utils import getToolByName
+from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.interfaces import IOrderStorage
@@ -15,6 +8,12 @@ from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IStatusSet
+from plone.registry.interfaces import IRegistry
+from zope.component import getAdapters, getUtility, getUtilitiesFor
+from zope.interface import directlyProvides
+from zope.schema import vocabulary
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
 
 
 def create_terms_from_adapters(adapters):
@@ -159,4 +158,22 @@ def VATRatesVocabulary(context):
     terms = [SimpleTerm(value=str(rate), token=rate, title=str(rate)) for rate in vat_rates]
 
     directlyProvides(VATRatesVocabulary, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)
+
+def SuppliersVocabulary(context):
+    """Returns a vocabulary of the available suppliers
+    """
+    # context is the portal config options, whose context is the portal
+    catalog = getToolByName(context, 'portal_catalog')
+    suppliers = catalog(portal_type="Supplier")
+    items = [(brain.UID, brain.Title) for brain in suppliers]
+    terms = [SimpleTerm(value=pair[0],
+                         token=pair[0],
+                         title=pair[1]) for pair in items]
+    terms.insert(0, SimpleTerm(value='',
+                            token='none',
+                            title=_("label_supplier_from_parent",
+                                default="Supplier from parent category")))
+
+    directlyProvides(SuppliersVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

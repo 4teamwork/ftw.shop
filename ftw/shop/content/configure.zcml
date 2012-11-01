@@ -20,6 +20,13 @@
         />
   </class>
 
+  <class class=".supplier.Supplier">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.ISupplier"
+        />
+  </class>
+
   <adapter
       provides="..interfaces.IVariationConfig"
       for="..interfaces.IShopItem"

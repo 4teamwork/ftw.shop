@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <rolemap>
   <permissions>
 
@@ -12,6 +12,10 @@
     </permission>
     <permission name="ftw.shop: Add Order" acquire="False">
       <role name="Manager" />
+    </permission>
+    <permission name="ftw.shop: Add Supplier" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
     </permission>
 
   </permissions>
