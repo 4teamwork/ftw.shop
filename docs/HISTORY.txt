@@ -7,86 +7,86 @@ Changelog
 - Display the shopitems image if the item has a image field.
   [Julian Infanger]
 
-* Fix category view so that it filters "None" references.
+- Fix category view so that it filters "None" references.
   [jone]
 
-* Allow multiple email addresses for supplier seperated by comma.
+- Allow multiple email addresses for supplier seperated by comma.
   [Julian Infanger]
 
-* Made sure supplier_mail template gets needed options
+- Made sure supplier_mail template gets needed options
   [lgraf]
 
-* Improved styling for PaymentProcessor widget a bit
+- Improved styling for PaymentProcessor widget a bit
   [lgraf]
 
-* Made sure Order and CartItems classes inherit from Persistent
+- Made sure Order and CartItems classes inherit from Persistent
   [lgraf]
 
-* Properly setting default values when prefilling forms.
+- Properly setting default values when prefilling forms.
   This fixes a bug where people see other users data in checkout forms.
   [lgraf]
 
-* CSS fix for title field in checkout wizard
+- CSS fix for title field in checkout wizard
   [lgraf]
 
-* Added some Plone 3 compatibility fixes
+- Added some Plone 3 compatibility fixes
   [lgraf]
 
-* Added test dependency on pyquery
+- Added test dependency on pyquery
   [lgraf]
 
-* Fixed invalid HTML in payment processor widget
+- Fixed invalid HTML in payment processor widget
   [lgraf]
 
-* Assigned Add Order permission to Manager role in rolemap.xml
+- Assigned Add Order permission to Manager role in rolemap.xml
   [lgraf]
 
-* Fixed bug where supplier and status filters weren't initialized in OrderManager view
+- Fixed bug where supplier and status filters weren't initialized in OrderManager view
   [lgraf]
 
-* Added column title for vat_amount when exporting CSV
+- Added column title for vat_amount when exporting CSV
   [lgraf]
 
-* Fixed bug in calculation of VAT amount
+- Fixed bug in calculation of VAT amount
   [lgraf]
 
-* Improved display of VAT (MwSt)
+- Improved display of VAT (MwSt)
   [lgraf]
 
-* Changed default for IShippingAddress.used to False
+- Changed default for IShippingAddress.used to False
   [lgraf]
 
-* Made order_review template not require the ``newsletter`` field
+- Made order_review template not require the ``newsletter`` field
   [lgraf]
 
-* Using interfaces instead of portal_type to determine if context has shop items
+- Using interfaces instead of portal_type to determine if context has shop items
   [lgraf]
 
-* Fixed type of default values for IShopConfiguration.var_rates
+- Fixed type of default values for IShopConfiguration.var_rates
   [lgraf]
 
-* Listing items in ShopCategory based on IShopItem interface, not portal_type
+- Listing items in ShopCategory based on IShopItem interface, not portal_type
   [lgraf]
 
-* Implemented calculation and display (in order_review) of VAT (MwSt)
+- Implemented calculation and display (in order_review) of VAT (MwSt)
   [lgraf]
 
-* Added fields and settings for VAT (MwSt) support
+- Added fields and settings for VAT (MwSt) support
   [lgraf]
 
-* Implemented filtering by status in order_manager
+- Implemented filtering by status in order_manager
   [lgraf]
 
-* Implemented UI for changing status or deleting several orders at once
+- Implemented UI for changing status or deleting several orders at once
   [lgraf]
 
-* Improved UI for cancelling orders in order_manager
+- Improved UI for cancelling orders in order_manager
   [lgraf]
 
-* Implemented pluggable status sets and option to manually change status of orders
+- Implemented pluggable status sets and option to manually change status of orders
   [lgraf]
 
-* Added option to display cart portlet only if there are items in the current folder / context
+- Added option to display cart portlet only if there are items in the current folder / context
   [lgraf]
 
 
@@ -120,65 +120,65 @@ Changelog
 1.0.1 (2011-03-28)
 ------------------
 
-* Cleaned up translations (fuzzy entries)
+- Cleaned up translations (fuzzy entries)
   [lgraf]
 
-* Avoid creating a session if there doesn't exist one yet.
+- Avoid creating a session if there doesn't exist one yet.
   Accessing REQUEST.SESSION causes a _ZopeID cookie to be created, therefore
   we use the browser_id_manager to check first if a session already exists.
   [lgraf]
 
-* Moved translations in plone domain from locales to i18n folder for Plone3 bbb
+- Moved translations in plone domain from locales to i18n folder for Plone3 bbb
   [lgraf]
 
-* Made date parsing in order_manager more robust
+- Made date parsing in order_manager more robust
   [lgraf]
 
-* Included jquery-ui-i18n.js and i18ned datepicker widget
+- Included jquery-ui-i18n.js and i18ned datepicker widget
   [lgraf]
 
-* Fixed manage_categories view for ShopRoot == portal
+- Fixed manage_categories view for ShopRoot == portal
   [lgraf]
 
-* Eliminated unnecessary order ID column in order_manager view
+- Eliminated unnecessary order ID column in order_manager view
   [lgraf]
 
-* Displaying item title as tooltip in order_manager
+- Displaying item title as tooltip in order_manager
   [lgraf]
 
-* Minor styling fix
+- Minor styling fix
   [lgraf]
 
-* Fixed typo - sku_code -> skucode
+- Fixed typo - sku_code -> skucode
   [lgraf]
 
-* Store sku_code in cart item instead of the key.
+- Store sku_code in cart item instead of the key.
   [lgraf]
 
-* Removed Image and File from allowed_content_types for ShopCategory and ShopItems
+- Removed Image and File from allowed_content_types for ShopCategory and ShopItems
   [lgraf]
 
-* Added show_price attribute to CartItems model
+- Added show_price attribute to CartItems model
   [lgraf]
 
-* Plone 3 compatibility fixes
+- Plone 3 compatibility fixes
   (the builtin `any` and datetime.strptime don't exist yet in Python 2.4)
   [lgraf]
 
-* Removed assertion that doesn't hold true any more
+- Removed assertion that doesn't hold true any more
   item.portal_type == 'ShopItem' - if SimpleLayout support is enabled, there's also
   a type called 'ShopItemBlock'
   [lgraf]
 
-* Minor JS fix: Compatibility with jQuery 1.3
+- Minor JS fix: Compatibility with jQuery 1.3
   jq.delay() doesn't exist yet in 1.3, so implement the same behavior using .animate()
   [lgraf]
 
-* Merged branch 'plone3bbb'
+- Merged branch 'plone3bbb'
   (Register eventhandlers based on a zcml:condition="have plone-4")
   [lgraf]
 
 1.0 (2011-02-25)
 ----------------
 
-* Initial release.
+- Initial release.
