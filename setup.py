@@ -15,23 +15,27 @@ tests_require = ['zope.testing',
 setup(name='ftw.shop',
       version=version,
       description="A web shop solution for Plone",
-      long_description=open("README.rst").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" + \
                        open(os.path.join("docs", "HISTORY.txt")).read(),
+
       classifiers=[
         'Framework :: Plone',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
-      keywords='',
-      author='Thomas Buchberger',
-      author_email='t.buchberger@4teamwork.ch',
-      url='http://www.4teamwork.ch',
-      license='GPL',
+
+      keywords='ftw shop plone',
+      author='4teamwork GmbH',
+      author_email='mailto:@4teamwork.ch',
+      url='https://github.com/4teamwork/ftw.shop',
+      license='GPL2',
+
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['ftw', ],
       include_package_data=True,
       zip_safe=False,
+
       install_requires=[
         'setuptools',
         'plone.app.z3cform',
@@ -41,9 +45,11 @@ setup(name='ftw.shop',
         'collective.js.jqueryui',
 #        'Products.ATCountryWidget',
       ],
+
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
       test_suite = 'ftw.shop.tests.test_docs.test_suite',
+
       entry_points="""
       # -*- entry_points -*-
       [z3c.autoinclude.plugin]
