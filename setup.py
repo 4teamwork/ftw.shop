@@ -15,7 +15,7 @@ tests_require = ['zope.testing',
 setup(name='ftw.shop',
       version=version,
       description="A web shop solution for Plone",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         'Framework :: Plone',
