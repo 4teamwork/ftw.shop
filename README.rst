@@ -4,7 +4,7 @@ Introduction
 `ftw.shop` is a general purpose web shop product for Plone.
 It features item variations, an extensible checkout wizard, pluggable
 payment processors and optional SQLAlchemy storage.
- 
+
 `ftw.shop` supports Plone 4.x.
 
 
@@ -48,7 +48,7 @@ Configuration
 ============
 
 After you installed ``ftw.shop`` on your Plone site, you need to create a shop
-root. This needs to be a folderish container that provides the marker interface 
+root. This needs to be a folderish container that provides the marker interface
 ``IShopRoot``. This is where you will add your ShopCategory and ShopItem objects.
 
 You can either do this yourself, by adding an ATFolder anywhere you like, and
@@ -69,8 +69,9 @@ control panel.
 Links
 =====
 
-- Main github project repository: https://github.com/4teamwork/ftw.shop
+- Github project repository: https://github.com/4teamwork/ftw.shop
 - Issue tracker: https://github.com/4teamwork/ftw.shop/issues
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.shop
 
 
 Licensing
