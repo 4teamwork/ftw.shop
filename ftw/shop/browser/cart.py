@@ -387,7 +387,7 @@ class CartView(BrowserView):
             omanager.sendOrderMails(order_id)
 
             self.request.response.redirect(
-                        '%s/thankyou?order_id=%s' % (url, order_id))
+                        '%s/thankyou?order_id=%s' % (url, order.title))
             return
         else:
             #self.request.SESSION.invalidate()

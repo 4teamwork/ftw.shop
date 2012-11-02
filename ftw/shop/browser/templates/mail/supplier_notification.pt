@@ -20,7 +20,7 @@
 <span i18n:translate="txt_shopowner_ordernumber">Order number</span>: 
 <span tal:replace="order/title"></span><br/>
 <span i18n:translate="label_date">Date</span>: 
-<span tal:replace="order/date"></span><br/>
+<span tal:replace="order/getLocalizedDate"></span><br/>
 <span i18n:translate="label_order_status">Order Status</span>: 
 <span tal:replace="order/status"></span><br/>
 
