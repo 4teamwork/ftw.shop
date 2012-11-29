@@ -7,7 +7,10 @@ from setuptools import setup, find_packages
 
 version = '1.1.4.dev0'
 
-tests_require=['zope.testing']
+tests_require=[
+    'zope.testing',
+    'Products.PloneTestCase',
+    ]
 
 setup(name='ftw.shop',
       version=version,
