@@ -18,11 +18,15 @@ setup(name='ftw.shop',
       long_description=open("README.rst").read() + "\n" + \
                        open(os.path.join("docs", "HISTORY.txt")).read(),
 
+      # Get more strings from
+      # http://www.python.org/pypi?%3Aaction=list_classifiers
+
       classifiers=[
         'Framework :: Plone',
-        'Intended Audience :: Developers',
+            'Framework :: Plone :: 4.1',
+        'Framework :: Plone :: 4.2',
+        'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'License :: OSI Approved :: GNU General Public License (GPL)',
         ],
 
       keywords='ftw shop plone',
