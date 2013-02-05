@@ -10,7 +10,6 @@ from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import FormWrapper
 from z3c.form import field, button
 from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
-from zope.app.pagetemplate import viewpagetemplatefile as zvptf
 from zope.interface import implements, Interface
 from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
@@ -34,6 +33,16 @@ from ftw.shop.interfaces import IOrderReviewStep
 from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 from ftw.shop import shopMessageFactory as _
+
+
+try:
+    # Plone >= 4.1
+    from zope.browserpage import viewpagetemplatefile as zvptf
+
+except ImportError:
+    # Plone < 4.1
+    from zope.app.pagetemplate import viewpagetemplatefile as zvptf
+
 
 
 class BaseStepGroup(object):

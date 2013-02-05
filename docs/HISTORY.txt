@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Plone 4.3 compatibility: fix imports.
+  [jone]
+
 - Use DEFAULT_VAT_RATES in IShopConfiguration's vat_rates.
   [mathias.leimgruber]
 
