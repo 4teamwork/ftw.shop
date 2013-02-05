@@ -4,6 +4,7 @@ from plone.theme.interfaces import IDefaultPloneLayer
 from zope import schema
 from zope.interface import Interface
 from z3c.form.interfaces import IRadioWidget
+from ftw.shop.config import DEFAULT_VAT_RATES
 
 from ftw.shop import shopMessageFactory as _
 
@@ -266,10 +267,7 @@ class IShopConfiguration(Interface):
             description=_(u"help_vat_rates",
                     default=u""),
             value_type=schema.Decimal(),
-            default=[Decimal('0.0'),
-                     Decimal('2.5'),
-                     Decimal('7.6'),
-                     ],
+            default=DEFAULT_VAT_RATES,
             required=False)
 
 
