@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Use DEFAULT_VAT_RATES in IShopConfiguration's vat_rates.
+  [mathias.leimgruber]
+
 - Display the shopitems image if the item has a image field.
   [Julian Infanger]
 
