@@ -6,7 +6,16 @@ from persistent import Persistent
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
-from zope.app.component.hooks import getSite
+
+try:
+    # Plone >= 4.0
+    from zope.component.hooks import getSite
+
+except ImportError:
+    # Plone < 4.0
+    from zope.app.component.hooks import getSite
+
+
 
 from BTrees.IOBTree import IOBTree
 try:
