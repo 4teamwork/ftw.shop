@@ -1,7 +1,6 @@
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from Products.Archetypes import atapi
-from Products.Archetypes.Widget import TextAreaWidget
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import PROJECTNAME
 from ftw.shop.interfaces import ISupplier
@@ -25,8 +24,12 @@ SupplierSchema = ATContentTypeSchema.copy() + atapi.Schema((
         atapi.TextField(
             name='address',
             required=False,
+            allowable_content_types=('text/plain', ),
+            default_content_type='text/plain',
+            default_input_type='text/plain',
+            default_output_type='text/x-html-safe',
 
-            widget=TextAreaWidget(
+            widget=atapi.RichWidget(
                 label=_(u'label_supplier_address', default=u"Address"),
                 description=_(u'help_supplier_address',
                               default=u"Supplier's postal address")))))
