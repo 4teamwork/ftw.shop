@@ -36,6 +36,10 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
             searchable=True,
             primary=True,
             storage=atapi.AnnotationStorage(migrate=True),
+            allowable_content_types=('text/html', ),
+            default_content_type='text/html',
+            validators=('isTidyHtmlWithCleanup', ),
+            default_input_type='text/html',
             default_output_type='text/x-html-safe',
             widget=atapi.RichWidget(
                 description='',
