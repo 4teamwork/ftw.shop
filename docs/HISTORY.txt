@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Suppliers: fix address content types / formatting.
+  [jone]
+
 - Shop item: use text/x-html-safe output format and only allow text/html input.
   [jone]
 
