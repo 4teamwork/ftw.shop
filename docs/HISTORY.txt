@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Lawgiver support: map permissions.
+  [jone]
+
 - Suppliers: fix address content types / formatting.
   [jone]
 
