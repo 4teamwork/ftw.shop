@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+    i18n_domain="ftw.shop">
+
+    <include package="ftw.lawgiver" file="meta.zcml" />
+
+    <lawgiver:map_permissions
+        action_group="add"
+        permissions="ftw.shop: Add Shop Category,
+                     ftw.shop: Add Shop Item,
+                     ftw.shop: Add Supplier"
+        />
+
+    <lawgiver:map_permissions
+        action_group="manage"
+        permissions="ftw.shop: Add Order"
+        />
+
+</configure>
