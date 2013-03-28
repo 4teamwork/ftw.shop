@@ -49,7 +49,7 @@
       name="ftw.shop"
       title="ftw.shop special import handlers"
       description=""
-      handler="ftw.shop.setuphandlers.import_various" 
+      handler="ftw.shop.setuphandlers.import_various"
       />
 
     <include package=".upgrades" />
@@ -108,14 +108,14 @@
       name="ftw.shop.payment_processor_step_groups"
       component=".vocabularies.PaymentProcessorStepGroups"
       />
-    
+
     <!-- Installed Payment Processors Vocabulary -->
     <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="ftw.shop.payment_processors"
       component=".vocabularies.PaymentProcessors"
       />
-    
+
     <!-- Enabled Payment Processors Vocabulary -->
     <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
@@ -151,7 +151,7 @@
       />
 
 
-    <adapter 
+    <adapter
       name="ftw.shop.extender.ShopItemExtender"
       factory="ftw.shop.extender.ShopItemExtender"
       />
