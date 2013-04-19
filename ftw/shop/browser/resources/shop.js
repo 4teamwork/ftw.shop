@@ -1,6 +1,6 @@
 jq(function () {
     // Add item to cart through AJAX request
-    jq('input[name=addtocart]').click(function (event) {
+    jq('input[name="addtocart"]').click(function (event) {
         event.preventDefault();
 
         if (jq(this).hasClass('compact')) {
@@ -9,14 +9,14 @@ jq(function () {
             // Get the containing form's action URL
             var url;
             url = jq(this).parents('form').attr('action');
-            var var1choice = jq(this).parents('form').find('select[name=var1choice]').find('option:selected').val();
-            var var2choice = jq(this).parents('form').find('select[name=var2choice]').find('option:selected').val();
+            var var1choice = jq(this).parents('form').find('select[name="var1choice"]').find('option:selected').val();
+            var var2choice = jq(this).parents('form').find('select[name="var2choice"]').find('option:selected').val();
             var itemdata;
             if (var1choice == undefined) {
                 // We don't have variations - reference the item by its skuCode
                 itemdata = {
-                    skuCode: jq(this).parents('form').find('input[name=skuCode]').val(),
-                    quantity: jq(this).parents('form').find('input[name=quantity:int]').val()
+                    skuCode: jq(this).parents('form').find('input[name="skuCode"]').val(),
+                    quantity: jq(this).parents('form').find('input[name="quantity:int"]').val()
                 };
             }
             else {
@@ -24,7 +24,7 @@ jq(function () {
                     // We've got one variation
                     itemdata = {
                         var1choice: var1choice,
-                        quantity: jq(this).parents('form').find('input[name=quantity:int]').val()
+                        quantity: jq(this).parents('form').find('input[name="quantity:int"]').val()
                     };
                 }
                 else {
@@ -32,7 +32,7 @@ jq(function () {
                     itemdata = {
                         var1choice: var1choice,
                         var2choice: var2choice,
-                        quantity: jq(this).parents('form').find('input[name=quantity:int]').val()
+                        quantity: jq(this).parents('form').find('input[name="quantity:int"]').val()
                     };
                 }
             }
@@ -42,8 +42,8 @@ jq(function () {
             url = jq(this).parent().attr('action');
             // Get skuCode and quantity from adjacent input fields
             itemdata = {
-                skuCode: jq(this).parents('form').find('input[name=skuCode]').val(),
-                quantity: jq(this).parents('form').find('input[name=quantity:int]').val()
+                skuCode: jq(this).parents('form').find('input[name="skuCode"]').val(),
+                quantity: jq(this).parents('form').find('input[name="quantity:int"]').val()
             };
         }
 
@@ -57,24 +57,24 @@ jq(function () {
         });
 
         // Reset quantity to 1
-        jq(this).parents('form').find('input[name=quantity:int]').val('1');
+        jq(this).parents('form').find('input[name="quantity:int"]').val('1');
     });
 
 
     // Only show matching item variation depending on user selection
     jq(".variation-toplevel-group select").change(function () {
-        var uid = jq(this).parents("form").find("input[name=uid]").val();
+        var uid = jq(this).parents("form").find('input[name="uid"]').val();
 
         var varcode;
-        var v2select = jq(this).parents("form").find("select[name=var2choice]");
+        var v2select = jq(this).parents("form").find('select[name="var2choice"]');
         if (v2select.length == 0) {
             // We only have one variation
-            varcode = "var-" + jq(this).parent().find("select[name=var1choice] option:selected").attr("value");
+            varcode = "var-" + jq(this).parent().find('select[name="var1choice"] option:selected').attr("value");
         }
         else {
             // We've got two variations
-            var var1choice = jq("select[name=var1choice] option:selected").attr("value");
-            var var2choice = jq("select[name=var2choice] option:selected").attr("value");
+            var var1choice = jq('select[name="var1choice"] option:selected').attr("value");
+            var var2choice = jq('select[name="var2choice"] option:selected').attr("value");
             varcode = "var-" + var1choice + "-" + var2choice;
 
             // Grey out variations that are deactivated
@@ -148,8 +148,8 @@ jq(function () {
 
         // Disable "add to cart" button if variation is disabled
         if (varDicts[uid][varcode]['active']) {
-            jq(this).parents("form").find("input[name=addtocart]").attr("disabled", false);
-            jq(this).parents("form").find("input[name=quantity:int]").attr("disabled", false);
+            jq(this).parents("form").find('input[name="addtocart"]').attr("disabled", false);
+            jq(this).parents("form").find('input[name="quantity:int"]').attr("disabled", false);
 
             // Only un-hide the item data if item is active
             jq(this).parents(".variation-toplevel-group").find("table.itemDataTable tr").each(function () {
@@ -161,8 +161,8 @@ jq(function () {
         else {
             // Inactive variation
             // Hide 'add to cart' button, quantity, price, SKU code and description
-            jq(this).parents("form").find("input[name=addtocart]").attr("disabled", true);
-            jq(this).parents("form").find("input[name=quantity:int]").attr("disabled", true);
+            jq(this).parents("form").find('input[name="addtocart"]').attr("disabled", true);
+            jq(this).parents("form").find('input[name="quantity:int"]').attr("disabled", true);
             varSelectTable.find("td.variationPrice").text("");
             varSelectTable.find("td.variationSKUCode").text("");
             jq(this).parents(".variation-toplevel-group").find("span.variationDescription").text("");

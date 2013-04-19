@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Fixed attribute selector syntax in shop.js.
+  [lgraf]
+
 - Check enabled payment processors for availability before offering them.
   [lgraf]
 
