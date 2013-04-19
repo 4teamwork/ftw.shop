@@ -13,7 +13,7 @@ from ftw.shop.mailer import MailHostAdapter
 
 from Products.Archetypes.event import ObjectInitializedEvent
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.tests.utils import MockMailHost
+
 from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
@@ -88,6 +88,7 @@ class FakeMailHostAdapter(MailHostAdapter):
     adapts(Interface)
 
     def __init__(self, context):
+      from Products.CMFPlone.tests.utils import MockMailHost
       self.context = context
       mockmailhost = MockMailHost('MailHost')
       self.context.MailHost = mockmailhost
