@@ -11,6 +11,8 @@ from zope.schema.vocabulary import SimpleTerm
 from zope.formlib import form
 
 from ftw.shop import shopMessageFactory as _
+from ftw.shop.interfaces import IShopItem
+
 
 displayChoices = SimpleVocabulary(
     [SimpleTerm(value='always',
@@ -86,7 +88,7 @@ class Renderer(base.Renderer):
                             'ftwshop.simplelayout.interfaces.IShopItemBlock']
         shop_contents = self.context.getFolderContents(
                             contentFilter={'object_provides': shopitem_ifaces})
-        if shop_contents:
+        if shop_contents or IShopItem.providedBy(self.context):
             return True
         return False
 

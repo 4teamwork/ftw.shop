@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Fixed evaluation of shopping cart portlet available() condition.
+  [lgraf]
+
 - Fixed attribute selector syntax in shop.js.
   [lgraf]
 
