@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Check enabled payment processors for availability before offering them.
+  [lgraf]
+
 - Moved shopping cart functionality into its own adapter (IShoppingCart).
   [lgraf]
 

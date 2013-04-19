@@ -56,6 +56,9 @@ class BasePaymentProcessor(object):
     def __init__(self, context, request, dummy):
         pass
 
+    def available(self):
+        return True
+
 
 class DefaultContactInfoStep(wizard.Step):
     implements(IContactInformationStep)
@@ -216,6 +219,9 @@ class InvoicePaymentProcessor(BasePaymentProcessor):
     title = "Gegen Rechnung"
     image = """<img src="++resource++ftw-shop-resources/einzahlungsschein.png" />"""
     description = """<em>Bezahlung gegen Rechnung</em>"""
+
+    def available(self):
+        return True
 
 
 class DefaultOrderReviewStep(wizard.Step):
