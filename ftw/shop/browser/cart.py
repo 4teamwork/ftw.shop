@@ -125,6 +125,13 @@ class ShoppingCartAdapter(object):
                 return True
         return False
 
+    def has_single_supplier(self):
+        """Returns true if all the suppliers are the same, or there are no
+        suppliers whatsoever.
+        """
+        suppliers = self.get_suppliers()
+        return all(x == suppliers[0] for x in suppliers)
+
     def update_item(self, key, quantity):
         """Update the quantity of an item.
         """
