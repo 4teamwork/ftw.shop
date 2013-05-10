@@ -302,11 +302,6 @@ msgstr ""
 msgid "label_more_link"
 msgstr ""
 
-#. Default: "Newsletter"
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:281
-msgid "label_newsletter"
-msgstr ""
-
 #. Default: "Next"
 #: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:301
 #: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:121
@@ -420,11 +415,6 @@ msgstr ""
 msgid "text_foreign_orders"
 msgstr ""
 
-#. Default: "I would like to subscribe to the newsletter."
-#: ftw.shop/ftw/shop/skins/ftw_shop/customer.cpt:282
-msgid "text_subscribe_newsletter"
-msgstr ""
-
 #: ftw.shop/ftw/shop/skins/ftw_shop/thankyou.pt:25
 msgid "thank_you_info"
 msgstr ""
@@ -479,12 +469,6 @@ msgstr ""
 #: ftw.shop/ftw/shop/browser/order_mail.pt:90
 #: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:104
 msgid "txt_shipping"
-msgstr ""
-
-#. Default: "Subscribe to newsletter"
-#: ftw.shop/ftw/shop/browser/order_mail.pt:56
-#: ftw.shop/ftw/shop/skins/ftw_shop/order_review.cpt:64
-msgid "txt_subscribe_newsletter"
 msgstr ""
 
 #. Default: "Besten Dank fuer Ihre Bestellung auf www.amnesty.ch vom ${date}"

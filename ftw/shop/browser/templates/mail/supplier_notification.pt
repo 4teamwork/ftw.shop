@@ -57,11 +57,6 @@
             <span tal:replace="order/customer_phone"></span>
         </tal:block>
     </p>
-    <p>
-    <tal:block condition="order/customer_newsletter">
-        <span i18n:translate="txt_subscribe_newsletter">Subscribe to newsletter</span><br />                           
-    </tal:block>
-    </p>
 
     <p tal:condition="order/customer_comments">
          <span i18n:translate="label_details_comments">Comments</span>:

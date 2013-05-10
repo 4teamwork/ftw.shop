@@ -4,6 +4,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Dropped 'newsletter' field from checkout form.
+  [lgraf]
+
 - Lawgiver support: map permissions.
   [jone]
 

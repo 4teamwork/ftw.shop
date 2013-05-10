@@ -54,7 +54,6 @@ class Order(Persistent):
         self.customer_city = None
         self.customer_country = None
         self.customer_shipping_address = None
-        self.customer_newsletter = None
         self.customer_comments = None
 
         self.shipping_title = None
