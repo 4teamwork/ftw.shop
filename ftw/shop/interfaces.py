@@ -318,13 +318,6 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_country', default=u'Country'),
             required=True)
 
-    newsletter = schema.Bool(
-            title=_(u'label_newsletter', default=u'Newsletter'),
-            description=_(u'help_newsletter',
-                    default=u'I would like to subscribe to the newsletter.'),
-            required=False,
-            default=False)
-
     comments = schema.Text(
             title=_(u'label_comments', default=u'Comments'),
             required=False)

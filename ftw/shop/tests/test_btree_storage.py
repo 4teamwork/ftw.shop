@@ -71,7 +71,6 @@ class TestBTreeStorage(FtwShopTestCase):
                                  'customer_email',
                                  'customer_firstname',
                                  'customer_lastname',
-                                 'customer_newsletter',
                                  'customer_phone',
                                  'customer_shipping_address',
                                  'customer_street1',

@@ -282,11 +282,6 @@ msgstr ""
 msgid "help_name"
 msgstr ""
 
-#. Default: "I would like to subscribe to the newsletter."
-#: ./ftw/shop/interfaces.py:325
-msgid "help_newsletter"
-msgstr ""
-
 #: ./ftw/shop/browser/checkout.py:218
 msgid "help_order_review_step"
 msgstr ""
@@ -534,11 +529,6 @@ msgstr ""
 msgid "label_name"
 msgstr ""
 
-#. Default: "Newsletter"
-#: ./ftw/shop/interfaces.py:324
-msgid "label_newsletter"
-msgstr ""
-
 #. Default: "No"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:29
 msgid "label_no"
@@ -613,11 +603,6 @@ msgstr ""
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:11
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
-msgstr ""
-
-#. Default: "Receive Newsletter"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:27
-msgid "label_receive_newsletter"
 msgstr ""
 
 #. Default: "Selected orders"
@@ -1019,13 +1004,6 @@ msgstr ""
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:20
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:20
 msgid "txt_shopowner_ordernumber"
-msgstr ""
-
-#. Default: "Subscribe to newsletter"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:62
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:63
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:62
-msgid "txt_subscribe_newsletter"
 msgstr ""
 
 #. Default: "Thank you for your order in our shop on the ${date}"
