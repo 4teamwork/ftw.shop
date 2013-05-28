@@ -346,3 +346,8 @@ class ISupplier(Interface):
 class IFtwShopSpecific(IDefaultPloneLayer):
     """Marker interface for a zope 3 browser layer.
     """
+
+
+class IShoppingCart(Interface):
+    """ShoppingCart adapter
+    """

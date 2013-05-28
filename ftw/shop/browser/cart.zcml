@@ -3,6 +3,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.shop">
 
+  <!-- IShoppingCart adapter -->
+  <adapter factory=".cart.ShoppingCartAdapter" />
+
   <browser:page
     for="..interfaces.IShopItem" 
     name="addtocart" 

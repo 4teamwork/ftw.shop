@@ -96,7 +96,7 @@ class TestCart(FtwShopTestCase):
         cart.addtocart(skuCode='12345')
         self.assertEquals(len(cart.cart_items()), cart_item_count + 1)
         self.assertTrue(self.movie.UID() in cart.cart_items())
-        cart.remove_item(self.movie.UID())
+        cart.cart._remove_item(self.movie.UID())
         self.assertEquals(len(cart.cart_items()), cart_item_count)
         self.assertTrue(self.movie.UID() not in cart.cart_items())
         

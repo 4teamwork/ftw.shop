@@ -18,6 +18,7 @@ documentation, though, is in the underlying zope.testbrower package.
 
     >>> from Products.Five.testbrowser import Browser
     >>> browser = Browser()
+    >>> browser.handleErrors = False
     >>> portal_url = self.portal.absolute_url()
     
 The following is useful when writing and debugging testbrowser tests. It lets

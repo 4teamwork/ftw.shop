@@ -29,10 +29,15 @@ class PaymentProcessorWidget(RadioWidget):
         super(PaymentProcessorWidget, self).update()
         widget.addFieldClass(self)
         self.items = []
-        payment_processors = dict(list(getAdapters((None, None, None),
-                                       IPaymentProcessor)))
+
+        pp_list = list(getAdapters((self.form.context, self.request, None),
+                                   IPaymentProcessor))
+        pp_list = filter(lambda pp: pp[1].available(), pp_list)
+        available_payment_processors = dict(pp_list)
 
         for count, term in enumerate(self.terms):
+            if not term.value in available_payment_processors:
+                continue
             checked = self.isChecked(term)
             id = '%s-%i' % (self.id, count)
             label = term.token
@@ -42,8 +47,8 @@ class PaymentProcessorWidget(RadioWidget):
             self.items.append(
                 {'id': id, 'name': self.name + ':list', 'value': term.token,
                  'label': label, 'checked': checked,
-                 'image': payment_processors[term.token].image,
-                 'description': payment_processors[term.token].description})
+                 'image': available_payment_processors[term.token].image,
+                 'description': available_payment_processors[term.token].description})
 
 
 @zope.component.adapter(zope.schema.interfaces.IField, interfaces.IFormLayer)
