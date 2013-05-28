@@ -5,7 +5,7 @@ This module contains the tool of ftw.shop
 import os
 from setuptools import setup, find_packages
 
-version = '1.1.3.dev0'
+version = '1.2'
 
 tests_require = ['zope.testing',
                  'Products.PloneTestCase',
