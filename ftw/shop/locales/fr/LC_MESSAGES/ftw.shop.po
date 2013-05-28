@@ -220,11 +220,6 @@ msgstr ""
 msgid "help_default_shipping_address_step"
 msgstr ""
 
-#. Default: "I would like to subscribe to the newsletter."
-#: ./ftw/shop/interfaces.py:284
-msgid "help_newsletter"
-msgstr ""
-
 #: ./ftw/shop/browser/checkout.py:215
 msgid "help_order_review_step"
 msgstr ""
@@ -424,11 +419,6 @@ msgstr "Objet de commande-message (anglais)."
 msgid "label_more_link"
 msgstr "» Plus"
 
-#. Default: "Newsletter"
-#: ./ftw/shop/interfaces.py:283
-msgid "label_newsletter"
-msgstr "Newsletter"
-
 #. Default: "No"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:28
 msgid "label_no"
@@ -499,11 +489,6 @@ msgstr "Mobile"
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
 msgstr "Prix"
-
-#. Default: "Receive Newsletter"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:26
-msgid "label_receive_newsletter"
-msgstr "Obtenir lettre d'information'"
 
 #. Default: "Shipping Address"
 #: ./ftw/shop/browser/templates/checkout/order_review.pt:35
@@ -814,13 +799,6 @@ msgstr "Bonjour, un client a envoyé une commande dans votre boutique"
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:20
 msgid "txt_shopowner_ordernumber"
 msgstr "Numéro de commande"
-
-#. Default: "Subscribe to newsletter"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:62
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:63
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:62
-msgid "txt_subscribe_newsletter"
-msgstr "J'aimerais recevoir la Newsletter par e-mail."
 
 #. Default: "Thank you for your order in our shop on the ${date}"
 #: ./ftw/shop/browser/templates/mail/order_confirmation.pt:20

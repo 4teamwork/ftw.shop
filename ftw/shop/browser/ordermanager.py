@@ -79,7 +79,6 @@ COLUMN_TITLES = {
     'customer_city': 'Ort',
     'customer_shipping_address': 'Bestelladresse',
     'customer_country': 'Land',
-    'customer_newsletter': 'Newsletter',
     'customer_comments': 'Kommentare',
 
     'shipping_title': 'Lieferadresse Anrede',
@@ -196,7 +195,6 @@ class OrderManagerView(BrowserView):
                       'customer_city',
                       'customer_shipping_address',
                       'customer_country',
-                      'customer_newsletter',
                       'customer_comments']
 
         # Create union of core_cols + all_cols to retain order

@@ -16,6 +16,9 @@ Changelog
 - Moved shopping cart functionality into its own adapter (IShoppingCart).
   [lgraf]
 
+- Dropped 'newsletter' field from checkout form.
+  [lgraf]
+
 - Lawgiver support: map permissions.
   [jone]
 

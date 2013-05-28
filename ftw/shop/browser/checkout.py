@@ -9,7 +9,6 @@ from collective.z3cform.wizard import wizard
 from plone.registry.interfaces import IRegistry
 from plone.z3cform.layout import FormWrapper
 from z3c.form import field, button
-from z3c.form.browser.checkbox import SingleCheckBoxFieldWidget
 from zope.interface import implements, Interface
 from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
@@ -69,10 +68,10 @@ class DefaultContactInfoStep(wizard.Step):
               default="Default Contact Information")
     description = _(u'help_default_contact_info_step', default=u"")
     fields = field.Fields(IDefaultContactInformation)
-    fields['newsletter'].widgetFactory = SingleCheckBoxFieldWidget
+
     prefill_fields = ['title', 'firstname', 'lastname', 'email',
                       'company', 'street1', 'street2', 'phone',
-                      'zipcode', 'city', 'country', 'newsletter']
+                      'zipcode', 'city', 'country']
 
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)

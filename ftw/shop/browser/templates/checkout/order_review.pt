@@ -23,11 +23,6 @@
 
           <li tal:condition="customer/comments"> 
               <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
-          <li tal:define="newsletter customer/newsletter|nothing" tal:condition="newsletter">
-              <span i18n:translate="label_receive_newsletter">Receive Newsletter</span>: 
-              <span i18n:translate="label_yes" tal:condition="customer/newsletter">Yes</span>
-              <span i18n:translate="label_no" tal:condition="not:customer/newsletter">No</span>
-          </li>
           <li><br/></li>
       </ul>
 

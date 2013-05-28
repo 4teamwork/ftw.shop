@@ -40,8 +40,7 @@ MOCK_CUSTOMER = {'title': u'Mr.',
                  'city': u'Exampletown',
                  'email': u'hugo@example.org',
                  'phone': u'099 999 99 99',
-                 'country': u'Switzerland',
-                 'newsletter': False}
+                 'country': u'Switzerland'}
 
 MOCK_SHIPPING = {'title': u'Mr.',
                 'firstname': u'Hugo',
