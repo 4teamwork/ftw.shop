@@ -13,10 +13,6 @@ from ftw.shop import config
 
 shopMessageFactory = MessageFactory('ftw.shop')
 
-# Needed for Plone 3 compatibility
-from Products.CMFCore.permissions import setDefaultRoles
-setDefaultRoles("ftw.shop: Add Order", ('Manager',))
-
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
