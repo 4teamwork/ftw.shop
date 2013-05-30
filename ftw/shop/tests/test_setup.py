@@ -1,12 +1,11 @@
 import unittest
-from Products.CMFCore.utils import getToolByName
 import zope.event
 from Products.Archetypes.event import ObjectInitializedEvent
 from ftw.shop.tests.base import FtwShopTestCase
 
 
 class TestSetup(FtwShopTestCase):
-    
+
     def afterSetUp(self):
         super(TestSetup, self).afterSetUp()
 
@@ -15,18 +14,15 @@ class TestSetup(FtwShopTestCase):
         # closely up in the permission management screen's user interface
         roles = ['Manager', 'Contributor']
         for r in roles:
-            selected_permissions = [p['name'] for p in 
+            selected_permissions = [p['name'] for p in
                                     self.portal.permissionsOfRole(r) if p['selected']]
             self.failUnless('ftw.shop: Add Shop Item' in selected_permissions)
             self.failUnless('ftw.shop: Add Shop Category' in selected_permissions)
-            if r == 'Manager':
-                self.failUnless('ftw.shop: Add Order' in selected_permissions)
 
-            
     def test_shop_types_installed(self):
         self.failUnless('ShopCategory' in self.types.objectIds())
         self.failUnless('ShopItem' in self.types.objectIds())
-        
+
     def test_shop_category_fti(self):
         document_fti = getattr(self.types, 'ShopCategory')
         self.failUnless(document_fti.global_allow)
@@ -47,7 +43,7 @@ class TestSetup(FtwShopTestCase):
 
         event = ObjectInitializedEvent(item, self.portal.REQUEST)
         zope.event.notify(event)
-        
+
         self.failUnless(self.portal.shop.products in item.listCategories())
 
 

@@ -10,9 +10,6 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
-    <permission name="ftw.shop: Add Order" acquire="False">
-      <role name="Manager" />
-    </permission>
     <permission name="ftw.shop: Add Supplier" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

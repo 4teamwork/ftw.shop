@@ -12,9 +12,4 @@
                      ftw.shop: Add Supplier"
         />
 
-    <lawgiver:map_permissions
-        action_group="manage"
-        permissions="ftw.shop: Add Order"
-        />
-
 </configure>

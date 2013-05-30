@@ -16,10 +16,6 @@
      id="ftw.shop.AddShopItem"
      title="ftw.shop: Add Shop Item"
      />
-    <permission
-     id="ftw.shop.AddOrder"
-     title="ftw.shop: Add Order"
-     />
 
     <permission
         id="ftw.shop.AddSupplier"
