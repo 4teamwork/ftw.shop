@@ -4,6 +4,9 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
+- Added image field to default ShopItem content type.
+  [lgraf]
+
 - Remove unused permission "ftw.shop: Add Order".
   [jone]
 

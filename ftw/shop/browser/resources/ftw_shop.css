@@ -1,3 +1,21 @@
+a.shopItemDetailImage {
+    float: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+table.shopItemListingTable {
+    width: 100%;
+}
+
+td.shopItemImage {
+    width: 128px;
+    min-width: 128px;
+    text-align: center;
+    padding-right: 20px;
+}
+
+
 .variation-details {
     font-size: 90%;
     margin-left: 2em;

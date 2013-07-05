@@ -48,6 +48,13 @@ class CategoryView(BrowserView):
 
             has_variations = varConf.hasVariations()
 
+            image = item.getField('image')
+            if image and image.get_size(item):
+                hasImage = True
+                tag = image.tag(item, scale='mini')
+            else:
+                hasImage = False
+                tag = None
             if has_variations:
                 skuCode = None
                 price = None
@@ -56,16 +63,12 @@ class CategoryView(BrowserView):
                 skuCode = item.Schema().getField('skuCode').get(item)
                 price = item.Schema().getField('price').get(item)
 
-            image = item.getField('image')
-            tag = None
-            if image and image.get_size(item):
-                tag = image.tag(item, scale='mini')
-
             results.append(
                 dict(
                     title = item.Title(),
                     description = item.Description(),
                     url = item.absolute_url(),
+                    hasImage = hasImage,
                     imageTag = tag,
                     variants = None,
                     skuCode = skuCode,

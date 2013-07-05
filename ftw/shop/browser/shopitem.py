@@ -54,8 +54,14 @@ class ShopItemView(BrowserView):
             varConf = IVariationConfig(item)
             has_variations = varConf.hasVariations()
 
-            image = None
-            tag = None
+            image = item.getField('image')
+            if image and image.get_size(item):
+                hasImage = True
+                tag = image.tag(item, scale='tile')
+            else:
+                hasImage = False
+                tag = None
+
             if has_variations:
                 skuCode = None
                 price = None
@@ -64,12 +70,10 @@ class ShopItemView(BrowserView):
                 skuCode = item.Schema().getField('skuCode').get(item)
                 price = item.Schema().getField('price').get(item)
 
-            if image:
-                tag = image.tag(scale='tile')
-
             results.append(dict(title = item.Title(),
                                 description = item.Description(),
                                 url = item.absolute_url(),
+                                hasImage = hasImage,
                                 imageTag = tag,
                                 variants = None,
                                 skuCode = skuCode,
