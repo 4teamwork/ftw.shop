@@ -25,7 +25,6 @@
         </h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
-
         <div tal:replace="structure provider:plone.abovecontentbody" />
 
         <metal:field use-macro="python:here.widget('description', mode='view')">
@@ -33,88 +32,91 @@
         </metal:field>
 
         <tal:categories repeat="item view/categories">
-        <div class="listItem">
-        
-            <div class="listItemImage" tal:condition="item/image">
-                <a href="#" tal:attributes="href item/url">
-                    <img src="" tal:replace="structure item/image" /></a>
+            <div class="listItem">
+
+                <div class="listItemImage" tal:condition="item/image">
+                    <a href="#" tal:attributes="href item/url">
+                        <img src="" tal:replace="structure item/image" /></a>
+                </div>
+
+                <div class="listItemHeading">
+                    <h2><a href="#" tal:content="item/title" tal:attributes="href item/url" /></h2>
+                </div>
+
+                <p class="listItemBody">
+                    <span tal:replace="item/description" />
+                    <a href="#" tal:attributes="href item/url"
+                                i18n:translate="label_more_link">More</a>
+                </p>
+                <div class="visualClear"><!-- --></div>
             </div>
-        
-            <div class="listItemHeading">
-                <h2><a href="#" tal:content="item/title" tal:attributes="href item/url" /></h2>
-            </div>
-        
-            <p class="listItemBody">
-                <span tal:replace="item/description" />
-                <a href="#" tal:attributes="href item/url"
-                            i18n:translate="label_more_link">More</a>
-            </p>
-            <div class="visualClear"></div>
-        </div>
         </tal:categories>
 
         <tal:folders repeat="item python:context.getFolderContents(contentFilter={'portal_type':'Folder'})">
-        <div class="listItem">
-             <div class="listItemHeading">
-                <h2><a href="#" tal:content="item/Title" tal:attributes="href item/getURL" /></h2>
+            <div class="listItem">
+                 <div class="listItemHeading">
+                    <h2><a href="#" tal:content="item/Title" tal:attributes="href item/getURL" /></h2>
+                </div>
+
+                <p class="listItemBody">
+                    <span tal:replace="item/Description" />
+                    <a href="#" tal:attributes="href item/getURL"
+                                i18n:translate="label_more_link">More</a>
+                </p>
+                <div class="visualClear"></div>
             </div>
-        
-            <p class="listItemBody">
-                <span tal:replace="item/Description" />
-                <a href="#" tal:attributes="href item/getURL"
-                            i18n:translate="label_more_link">More</a>
-            </p>
-            <div class="visualClear"></div>       
-        </div>
         </tal:folders>
-        
-	<script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
+
+    <script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
+
     <tal:shopitems repeat="item view/getItemDatas">
 
-        <div class="listItem shopItem">
-            
-			<div class="listItemImage" tal:condition="item/imageTag">
-				<a href="" tal:attributes="href item/url">
-				<img src="" tal:replace="structure item/imageTag" /></a>
-			</div>
-			
-			
-			<div class="listItemHeading">
-				<h2><a href="" tal:content="item/title" tal:attributes="href item/url" /></h2>
-			</div>
-			
-			<p class="listItemBody">
-				<span tal:replace="item/description" />
-				<a href="" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
-			</p>
+        <table class="shopItemListingTable">
+            <tr>
+                <td class="shopItemImage">
+                    <a tal:condition="item/hasImage" tal:attributes="href item/url" style="border: none">
+                        <img src="#" tal:attributes="src string:${item/url}/image_thumb" />
+                    </a>
+                </td>
 
-            
-			
-			<!-- Single Item, no variations -->
-	        <div tal:condition="not:item/hasVariations"
-	             tal:replace="structure python:view.single_item(item)" />
-	             
-	        <tal:variations tal:condition="item/hasVariations"
-	                        tal:define="varConf item/varConf">
-				<!-- One Variation -->
-		           <div tal:condition="python:len(varConf.getVariationAttributes()) == 1"
-		                tal:replace="structure python:view.one_variation(item)" />
-		           
-				<!-- Two Variations -->
-		           <div tal:condition="python:len(varConf.getVariationAttributes()) == 2"
-		                tal:replace="structure python:view.two_variations(item)" />
-	        </tal:variations> 
-		            
-		  </div>
-		  
-	</tal:shopitems>
-	
+                <td class="shopItemContent">
 
-	<script type="text/javascript" src="++resource++shop.js"></script>
+                    <div class="listItem shopItem">
 
+                        <div class="listItemHeading">
+                            <h2><a href="" tal:content="item/title" tal:attributes="href item/url" /></h2>
+                        </div>
+
+                        <p class="listItemBody">
+                            <span tal:replace="item/description" />
+                            <a href="" tal:attributes="href item/url" i18n:translate="label_more_link">More</a>
+                        </p>
+
+                        <!-- Single Item, no variations -->
+                        <div tal:condition="not:item/hasVariations"
+                             tal:replace="structure python:view.single_item(item)" />
+
+                        <tal:variations tal:condition="item/hasVariations"
+                                        tal:define="varConf item/varConf">
+                            <!-- One Variation -->
+                            <div tal:condition="python:len(varConf.getVariationAttributes()) == 1"
+                                 tal:replace="structure python:view.one_variation(item)" />
+
+                            <!-- Two Variations -->
+                            <div tal:condition="python:len(varConf.getVariationAttributes()) == 2"
+                                 tal:replace="structure python:view.two_variations(item)" />
+                        </tal:variations>
+
+                      </div>
+                </td>
+            </tr>
+        </table>
+
+    </tal:shopitems>
+
+    <script type="text/javascript" src="++resource++shop.js"></script>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
-
 
     </tal:main-macro>
 </metal:main>

@@ -17,53 +17,56 @@
                        text here/getText|nothing">
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
-        
-        <h1 class="documentFirstHeading" tal:content="context/Title"> 
+
+        <h1 class="documentFirstHeading" tal:content="context/Title">
             <metal:field use-macro="python:here.widget('Title', mode='view')">
             Title
             </metal:field>
         </h1>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
-        <div tal:replace="structure provider:plone.abovecontentbody" />        
-        <div tal:replace="structure text" />
 
-    <script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
- 
-      
-    <tal:shopitems repeat="item view/getItemDatas">
+        <tal:shopitems repeat="item view/getItemDatas">
 
-        <div class="listItem shopItem">
-            
-            <div class="listItemImage" tal:condition="item/imageTag">
-                <a href="#" tal:attributes="href item/url">
-                <img src="" tal:replace="structure item/imageTag" /></a>
-            </div>
-            
+            <a class="shopItemDetailImage" tal:condition="item/hasImage" tal:attributes="href string:${item/url}/image/image_view_fullscreen" style="border: none;">
+                <img src="#" tal:attributes="src string:${item/url}/image_mini" />
+            </a>
 
-			<!-- Single Item, no variations -->
-	        <div tal:condition="not:item/hasVariations"
-	             tal:replace="structure python:view.single_item(item)" />
+            <div tal:replace="structure provider:plone.abovecontentbody" />
+            <div tal:replace="structure text" />
 
-	        <tal:variations tal:condition="item/hasVariations"
-	                        tal:define="varConf item/varConf">
+            <script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
 
-				<!-- One Variation -->
-		           <div tal:condition="python:len(varConf.getVariationAttributes()) == 1"
-		                tal:replace="structure python:view.one_variation(item)" />
-		                
+            <div class="visualClear"><!-- --></div>
 
-		           
-				<!-- Two Variations -->
-		           <div tal:condition="python:len(varConf.getVariationAttributes()) == 2"
-		                tal:replace="structure python:view.two_variations(item)" />
-	        </tal:variations> 
-		            
-		  </div>
-		  
-	</tal:shopitems>
-	
-		<script type="text/javascript" src="++resource++shop.js"></script>
+            <div class="listItem shopItem">
+
+                <div class="listItemImage" tal:condition="item/imageTag">
+                    <a href="#" tal:attributes="href item/url">
+                    <img src="" tal:replace="structure item/imageTag" /></a>
+                </div>
+
+                <!-- Single Item, no variations -->
+                <div tal:condition="not:item/hasVariations"
+                     tal:replace="structure python:view.single_item(item)" />
+
+                <tal:variations tal:condition="item/hasVariations"
+                                tal:define="varConf item/varConf">
+
+                    <!-- One Variation -->
+                    <div tal:condition="python:len(varConf.getVariationAttributes()) == 1"
+                         tal:replace="structure python:view.one_variation(item)" />
+
+                    <!-- Two Variations -->
+                    <div tal:condition="python:len(varConf.getVariationAttributes()) == 2"
+                         tal:replace="structure python:view.two_variations(item)" />
+                </tal:variations>
+
+              </div>
+
+        </tal:shopitems>
+
+        <script type="text/javascript" src="++resource++shop.js"></script>
 
         <div tal:replace="structure provider:plone.belowcontentbody" />
 

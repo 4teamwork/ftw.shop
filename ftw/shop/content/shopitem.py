@@ -6,6 +6,7 @@ from Products.Archetypes import atapi
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from Products.ATContentTypes.configuration import zconf
+from Products.Archetypes.public import AnnotationStorage
 
 from zope.interface import implements, alsoProvides
 
@@ -30,6 +31,22 @@ from ftw.shop import shopMessageFactory as _
 
 
 ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
+
+        atapi.ImageField(
+            'image',
+            required=False,
+            languageIndependent=True,
+            widget = atapi.ImageWidget(
+                label = _(u"label_image", default=u"Image"),
+            ),
+            storage=AnnotationStorage(),
+                sizes= {'large': (768, 768),
+                         'mini': (200, 200),
+                         'thumb': (128, 128),
+                  },
+            ),
+
+
         atapi.TextField(
             'text',
             required=False,
