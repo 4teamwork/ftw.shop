@@ -41,11 +41,6 @@
 
             <div class="listItem shopItem">
 
-                <div class="listItemImage" tal:condition="item/imageTag">
-                    <a href="#" tal:attributes="href item/url">
-                    <img src="" tal:replace="structure item/imageTag" /></a>
-                </div>
-
                 <!-- Single Item, no variations -->
                 <div tal:condition="not:item/hasVariations"
                      tal:replace="structure python:view.single_item(item)" />
