@@ -376,6 +376,7 @@ class CartView(BrowserView):
 <dd>%s</dd>""" % (translate(status_msg_label),
                translate(status_msg_text))
 
+        self.request.response.setHeader('Content-Type', 'application/json')
         return simplejson.dumps(dict(portlet_html=self.portlet_template(),
                     status_message=status_message))
 

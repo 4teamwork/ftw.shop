@@ -7,6 +7,9 @@ Changelog
 - Added image field to default ShopItem content type.
   [lgraf]
 
+- Fixed content-type header of ajax response when adding an item to the cart.
+  [buchi]
+
 
 1.2.1 (2013-05-30)
 ------------------
