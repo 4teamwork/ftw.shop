@@ -8,7 +8,7 @@
                     </tr>
                     <tr>
                         <td tal:condition="item/skuCode" tal:content="item/skuCode" />
-                        <td tal:condition="item/showPrice" tal:content="item/price" />
+                        <td>CHF <span tal:condition="item/showPrice" tal:content="item/price" /></td>
 
                     </tr>
                 </table>

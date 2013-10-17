@@ -25,7 +25,7 @@
                 <a href="" tal:content="item/title" tal:attributes="href item/url"/>
 
                 <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
-                <span tal:condition="item/show_price"
+                CHF <span tal:condition="item/show_price"
                       tal:replace="python:item['total'] in ('0.00', '0.0') and ' ' or item['total']" />
 
                 (<span tal:replace="item/quantity" />)

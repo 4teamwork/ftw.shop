@@ -135,7 +135,7 @@ jq(function () {
         varSkuCode = varDicts[uid][varcode]['skuCode'];
         varDescription = varDicts[uid][varcode]['description'];
 
-        varSelectTable.find("td.variationPrice").text(varPrice);
+        varSelectTable.find("td.variationPrice").text("CHF " + varPrice);
         varSelectTable.find("td.variationSKUCode").text(varSkuCode);
         jq(this).parents(".variation-toplevel-group").find("span.variationDescription").text(varDescription);
         jq(this).parents(".variation-toplevel-group").find("span.variationDescription").show();

@@ -81,7 +81,7 @@
                          <tal:variations tal:repeat="vcode varDict">
                              <tr tal:attributes="id vcode" tal:condition="python: varDict[vcode]['active']">
                                  <td tal:content="python:varConf.getPrettyName(vcode)"></td>
-                                 <td tal:content="python: varDict[vcode]['price']"></td>
+                                 <td>CHF <span tal:content="python: varDict[vcode]['price']"></span></td>
                                  <td tal:content="python: varDict[vcode]['skuCode']"></td>
                                  <td><span tal:condition="python: 'description' in varDict[vcode].keys()"
                                            tal:content="python: varDict[vcode]['description']"/></td>
