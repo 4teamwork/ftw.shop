@@ -10,6 +10,8 @@ version = '1.3.1.dev0'
 tests_require = ['zope.testing',
                  'Products.PloneTestCase',
                  'pyquery<=0.6.1',
+                 'ftw.builder',
+                 'ftw.testbrowser',
                 ]
 
 setup(name='ftw.shop',
