@@ -1,6 +1,9 @@
+from ftw.builder import Builder
 from ftw.builder import builder_registry
-from ftw.shop.portlets import cart
+from ftw.builder import create
 from ftw.builder.archetypes import ArchetypesBuilder
+from ftw.shop.interfaces import IShopCategory
+from ftw.shop.portlets import cart
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from zope.component import getMultiAdapter
@@ -12,6 +15,11 @@ import transaction
 class ShopItemBuilder(ArchetypesBuilder):
 
     portal_type = 'ShopItem'
+
+    def before_create(self):
+        super(ShopItemBuilder, self).before_create()
+        if not IShopCategory.providedBy(self.container):
+            self.container = create(Builder('shop category'))
 
 builder_registry.register('shop item', ShopItemBuilder)
 
