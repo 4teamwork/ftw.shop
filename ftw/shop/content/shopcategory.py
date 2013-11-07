@@ -14,6 +14,12 @@ except ImportError:
     # Plone 3
     from zope.app.container.contained import ObjectRemovedEvent
 
+from Products.ATContentTypes.config import HAS_LINGUA_PLONE
+if HAS_LINGUA_PLONE:
+    from Products.LinguaPlone.public import registerType
+else:
+    from Products.Archetypes.atapi import registerType
+
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopCategory
 from ftw.shop.config import PROJECTNAME
@@ -55,7 +61,7 @@ class ShopCategory(Categorizeable, ATFolder):
         title_chain.reverse()
         return title_chain
 
-atapi.registerType(ShopCategory, PROJECTNAME)
+registerType(ShopCategory, PROJECTNAME)
 
 
 def add_to_containing_category(context, event):
