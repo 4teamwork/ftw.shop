@@ -6,7 +6,8 @@
       
       <h2 i18n:translate="label_personal_information">Personal Information</h2>
 
-      <ul style="list-style:none" tal:define="customer python:view.wizard.session['contact_information'];">
+      <ul style="list-style:none" tal:define="customer python:view.wizard.session['contact_information'];"
+          class="contact-information">
 
           <li tal:content="customer/title"></li>
           <li tal:content="python:customer['firstname'] + ' ' + customer['lastname'] "></li>
@@ -31,7 +32,8 @@
 
       <h2 i18n:translate="label_shipping_address">Shipping Address</h2>
 
-      <ul style="list-style:none" tal:define="shipping_address python:view.wizard.session['shipping_address'];">
+      <ul style="list-style:none" tal:define="shipping_address python:view.wizard.session['shipping_address'];"
+          class="shipping-address">
           <li tal:content="shipping_address/title"></li>
           <li tal:content="python:shipping_address['firstname'] + ' ' + shipping_address['lastname'] "></li>
           <li tal:content="shipping_address/company|nothing"></li>
@@ -70,6 +72,8 @@
             </tr>
           </metal:block>
 
+        </tbody>
+        <tfoot>
           <tr tal:condition="python:context.REQUEST['cart_view'].shop_config().vat_enabled">
               <td><strong i18n:translate="label_vat">VAT</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_vat"></td>
           </tr>
@@ -78,7 +82,7 @@
               <td><strong>Total</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
           </tr>
 
-        </tbody>
+        </tfoot>
       </table>
 
       <tal:block tal:define="payment_processor view/wizard/getSelectedPaymentProcessor"

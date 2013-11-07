@@ -12,6 +12,7 @@ tests_require = ['zope.testing',
                  'pyquery<=0.6.1',
                  'ftw.builder',
                  'ftw.testbrowser',
+                 'ftw.testing',
                 ]
 
 setup(name='ftw.shop',
