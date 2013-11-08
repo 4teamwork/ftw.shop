@@ -15,11 +15,12 @@
                     cart_items python:cview.cart_items().values()">
 
         <tal:emptycart condition="not:cart_items">
-        <span i18n:translate="cart_is_empty">Your cart is empty</span>
+        <span i18n:translate="cart_is_empty"
+              class="cart-empty">Your cart is empty</span>
         </tal:emptycart>
 
         <tal:cartcontents condition="cart_items">
-        <ul>
+        <ul class="cart-items">
         <tal:items repeat="item cart_items">
             <li>
                 <a href="" tal:content="item/title" tal:attributes="href item/url"/>
