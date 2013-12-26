@@ -22,14 +22,14 @@ Thank you for your order in our shop on the
 
 <h3 i18n:translate="header_orderdetails">Details of your order</h3>
 
-<span i18n:translate="txt_ordernumber">Your order number is</span>: 
+<span i18n:translate="txt_ordernumber">Your order number is</span>:
 <span tal:replace="order/title"></span>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
-    
+
     <p>
         <span tal:replace="order/customer_title" /><br />
-        
+
         <span tal:replace="order/customer_firstname" />
         <span tal:replace="order/customer_lastname" /><br />
 
@@ -42,7 +42,7 @@ Thank you for your order in our shop on the
         <tal:block condition="order/customer_street2">
             <span tal:replace="order/customer_street2" /><br />
         </tal:block>
-        
+
         <span tal:replace="order/customer_zipcode" />
         <span tal:replace="order/customer_city" />
     </p>
@@ -50,7 +50,7 @@ Thank you for your order in our shop on the
     <p>
         <span i18n:translate="label_email">Email</span>:
         <span tal:replace="order/customer_email" />
-        
+
         <tal:block condition="order/customer_phone">
             <br /><span i18n:translate="label_phone">Phone</span>:
             <span tal:replace="order/customer_phone"></span>
@@ -129,7 +129,7 @@ Thank you for your order in our shop on the
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
 <p i18n:translate="txt_contact">
-For inquiries please contact us: 
+For inquiries please contact us:
 Phone <span i18n:name="phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
 </p>
 
