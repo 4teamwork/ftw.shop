@@ -17,17 +17,20 @@
 
 <h3 i18n:translate="header_shopowner_orderdetails">Details of the order</h3>
 
+<div id="order-details">
 <span i18n:translate="txt_shopowner_ordernumber">Order number</span>:
 <span tal:replace="order/title"></span><br/>
 <span i18n:translate="label_date">Date</span>:
 <span tal:replace="order/getLocalizedDate"></span><br/>
 <span i18n:translate="label_order_status">Order Status</span>:
 <span tal:replace="order/status"></span><br/>
+</div>
 
 <hr/>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
 
+<div id="personal-information">
     <p>
         <span tal:replace="order/customer_title" /><br />
 
@@ -62,10 +65,11 @@
          <span i18n:translate="label_details_comments">Comments</span>:
          <span tal:replace="order/customer_comments" />
     </p>
-
+</div>
 
 <h4 i18n:translate="title_shipping_address">Shipping Address</h4>
 
+<div id="shipping-address">
     <p>
         <span tal:replace="order/shipping_title" /><br />
 
@@ -85,10 +89,12 @@
         <span tal:replace="order/shipping_zipcode" />
         <span tal:replace="order/shipping_city" />
     </p>
+</div>
 
 <h4 i18n:translate="header_ordereditems">Ordered items</h4>
 
 <table border="1" cellspacing="0" cellpadding="2">
+  <thead>
    <tr>
        <th i18n:translate="label_article_no">Article number</th>
        <th i18n:translate="cart_header_product">Product</th>
@@ -96,7 +102,9 @@
        <th tal:condition="show_prices" i18n:translate="cart_header_price">Price</th>
        <th tal:condition="show_prices" i18n:translate="cart_header_total">Total</th>
    </tr>
+  </thead>
 
+  <tbody>
    <tr tal:repeat="item order/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
@@ -104,7 +112,9 @@
      <td tal:condition="show_prices" tal:content="python:str(item.getPrice()) in ('0.00', '0.0') and ' ' or str(item.getPrice())"/>
      <td tal:condition="show_prices" tal:content="item/getTotal"/>
    </tr>
+  </tbody>
 
+  <tfoot>
    <tr tal:condition="python:shop_config.vat_enabled">
     <td style="border-top: 2px solid black;"><span i18n:translate="label_included_vat">VAT</span></td>
     <td style="border-top: 2px solid black;"></td>
@@ -120,6 +130,7 @@
     <td style="border-top: 3px solid black;"></td>
     <td style="border-top: 3px solid black;"><strong tal:content="order/getTotal" /></td>
    </tr>
+  </tfoot>
 
 </table>
 
