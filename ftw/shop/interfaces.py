@@ -1,12 +1,9 @@
-from decimal import Decimal
-
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.config import DEFAULT_VAT_RATES
 from plone.theme.interfaces import IDefaultPloneLayer
+from z3c.form.interfaces import IRadioWidget
 from zope import schema
 from zope.interface import Interface
-from z3c.form.interfaces import IRadioWidget
-from ftw.shop.config import DEFAULT_VAT_RATES
-
-from ftw.shop import shopMessageFactory as _
 
 
 class IShopRoot(Interface):

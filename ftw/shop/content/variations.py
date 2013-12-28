@@ -1,14 +1,11 @@
 from decimal import Decimal
 from decimal import InvalidOperation
-import itertools
-
-from persistent.mapping import PersistentMapping
-from plone.i18n.normalizer.interfaces import IIDNormalizer
-from zope.annotation.interfaces import IAnnotations
-from zope.interface import implements
-from zope.component import adapts, getUtility
-
 from ftw.shop.interfaces import IVariationConfig, IShopItem
+from persistent.mapping import PersistentMapping
+from zope.annotation.interfaces import IAnnotations
+from zope.component import adapts
+from zope.interface import implements
+import itertools
 
 
 try:
@@ -61,16 +58,16 @@ class VariationConfig(object):
         if var2choice is None:
             return 'var-%s' % var1choice
         return 'var-%s-%s' % (var1choice, var2choice)
-    
+
     def sku_code(self, var1choice=None, var2choice=None):
         """Returns the sku code for the given variation combination.
-        """ 
+        """
         vcode = self.variation_code(var1choice, var2choice)
         if not vcode:
             return self.context.getField('skuCode').get(self.context)
         return self.getVariationDict().get(vcode).get('skuCode')
-            
-        
+
+
     def getVariationDict(self):
         """Returns a nested dict with the variation config for the item
         """
@@ -261,4 +258,3 @@ class VariationConfig(object):
                     vardata[f] = data
                     partial_vardict = {vcode: vardata}
                     self.updateVariationConfig(partial_vardict)
-

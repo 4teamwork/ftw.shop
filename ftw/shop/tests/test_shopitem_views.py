@@ -1,10 +1,7 @@
-import unittest
-from decimal import Decimal
-
-from zope.component import getMultiAdapter
-
 from ftw.shop.tests.base import FtwShopTestCase
 from pyquery import PyQuery as pq
+from zope.component import getMultiAdapter
+import unittest
 
 
 class TestShopItemViews(FtwShopTestCase):
@@ -66,7 +63,7 @@ class TestShopItemViews(FtwShopTestCase):
         book_data = self.book_view.getItemDatas()[0]
         tshirt_data = self.tshirt_view.getItemDatas()[0]
 
-        self.assertEquals(movie_data['description'], 
+        self.assertEquals(movie_data['description'],
                           'A Shop Item with no variations')
         self.assertEquals(movie_data['hasVariations'], False)
         self.assertEquals(movie_data['imageTag'], None)
@@ -76,7 +73,7 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertEquals(movie_data['varConf'], None)
         self.assertEquals(movie_data['variants'], None)
 
-        self.assertEquals(book_data['description'], 
+        self.assertEquals(book_data['description'],
                           'A Shop Item with one variation')
         self.assertEquals(book_data['hasVariations'], True)
         self.assertEquals(book_data['imageTag'], None)
@@ -86,7 +83,7 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertTrue(book_data['varConf'])
         self.assertEquals(book_data['variants'], None)
 
-        self.assertEquals(tshirt_data['description'], 
+        self.assertEquals(tshirt_data['description'],
                           'A Shop Item with two variations')
         self.assertEquals(tshirt_data['hasVariations'], True)
         self.assertEquals(tshirt_data['imageTag'], None)

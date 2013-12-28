@@ -79,7 +79,6 @@ class DefaultContactInfoStep(wizard.Step):
 
     def updateWidgets(self):
         super(DefaultContactInfoStep, self).updateWidgets()
-        context = self.context
         request = self.context.REQUEST
 
         # if user is authenticated:
