@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record interface="ftw.shop.interfaces.IShopConfiguration" field="phone_number">
+        <value></value>
+    </record>
+
+</registry>

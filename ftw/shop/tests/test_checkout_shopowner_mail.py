@@ -65,8 +65,8 @@ class TestCheckoutMailToShopOwner(TestCase):
         self.assertEquals(['Shop Owner <webshop@example.org>'],
                           get_mail_header(mail, 'To'))
 
-        self.assertEquals(['[Webshop] Order 1 by Hugo Boss'],
-                          get_mail_header(mail, 'Subject'))
+        self.assertRegexpMatches(get_mail_header(mail, 'Subject')[0],
+                                 r'^\[Webshop\] Order \d* by Hugo Boss$')
 
     @browsing
     def test_personal_information(self, browser):

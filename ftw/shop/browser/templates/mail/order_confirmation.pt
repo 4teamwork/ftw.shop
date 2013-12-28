@@ -137,9 +137,13 @@ Thank you for your order in our shop on the
 
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
-<p i18n:translate="txt_contact">
+<p i18n:translate="txt_contact" id="contact-information">
 For inquiries please contact us:
-Phone <span i18n:name="phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
+<i18n:phone name="phone" tal:condition="shop_config/phone_number">
+    <i18n:phone translate="txt_contact_phone">Phone</i18n:phone>
+    <span tal:replace="shop_config/phone_number" />,
+</i18n:phone>
+E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
 </p>
 
 </body>

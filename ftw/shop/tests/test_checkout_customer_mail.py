@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IShopRoot
 from ftw.shop.testing import FTW_SHOP_FUNCTIONAL_TESTING
 from ftw.shop.tests.helpers import get_mail_header
@@ -10,10 +11,13 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
+from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zope.component import getUtility
 from zope.interface import alsoProvides
 import email
 import email.header
+import transaction
 
 
 class TestCheckoutMailToCustomer(TestCase):
@@ -108,3 +112,27 @@ class TestCheckoutMailToCustomer(TestCase):
         self.assertEquals([['VAT', '', '', '', '0.00'],
                            ['Total (incl.VAT)', '', '', '', '15.00']],
                           browser.css('table').first.lists(head=False, body=False))
+
+    @browsing
+    def test_default_contact_information(self, browser):
+        self.open_mail_in_browser(self.checkout_and_get_mail(), browser)
+
+        self.assertEquals(
+            'For inquiries please contact us: E-Mail webshop@example.org',
+
+            browser.css('#contact-information').first.text)
+
+    @browsing
+    def test_phone_in_contact_information_when_configured(self, browser):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IShopConfiguration)
+        settings.phone_number = u'01 234 56 78'
+        transaction.commit()
+
+        self.open_mail_in_browser(self.checkout_and_get_mail(), browser)
+
+        self.assertEquals(
+            'For inquiries please contact us: Phone 01 234 56 78,'
+            ' E-Mail webshop@example.org',
+
+            browser.css('#contact-information').first.text)
