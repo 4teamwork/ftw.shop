@@ -1,5 +1,8 @@
-import logging
 from Products.CMFCore.utils import getToolByName
+from ftw.shop.interfaces import IShopRoot
+from zope.interface import alsoProvides
+import logging
+
 
 # The profile id of our package:
 PROFILE_ID = 'profile-ftw.shop:default'
@@ -52,6 +55,12 @@ def add_catalog_indexes(context, logger=None):
         catalog.manage_reindexIndex(ids=indexables)
 
 
+def set_shop_root(site):
+    """Lets the plone site provide the IShopRoot interface.
+    """
+    alsoProvides(site, IShopRoot)
+
+
 def import_various(context):
     """Import step for configuration that is not handled in xml files.
     """
@@ -61,3 +70,4 @@ def import_various(context):
     logger = context.getLogger('ftw.shop')
     site = context.getSite()
     add_catalog_indexes(site, logger)
+    set_shop_root(site)

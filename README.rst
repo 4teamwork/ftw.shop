@@ -47,20 +47,13 @@ Installation
 Configuration
 ============
 
-After you installed ``ftw.shop`` on your Plone site, you need to create a shop
-root. This needs to be a folderish container that provides the marker interface
-``IShopRoot``. This is where you will add your ShopCategory and ShopItem objects.
+When installing ``ftw.shop``, the Plone site is automatically configured as
+shop root (``IShopRoot`` interface).
+If you'd like another container to be the shop root you can change this by
+removing the ``IShopRoot`` from the Plone site and let another container
+provide it.
 
-You can either do this yourself, by adding an ATFolder anywhere you like, and
-use the ZMI "Interfaces" tab to make it provide the ``IShopRoot`` interface.
-
-The easier alternative is using the ``initialize-shop-structure`` view on the
-Plone site root. Simply visit
-
-http://localhost:8080/Plone/initialize-shop-structure
-
-and it will create an ATFolder named ``'shop'`` at the top level of your Plone
-site and make it provide the ``IShopRoot`` interface.
+You might also want to add a shop cart portlet.
 
 After that, most configuration can be done through the "Shop configuration"
 control panel.
