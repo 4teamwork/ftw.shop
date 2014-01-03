@@ -32,7 +32,7 @@ def visit_checkout_with_one_item_in_cart(item=None):
 
 
 def current_step():
-    return browser.css('ul.wizard-steps > li.selected').first.normalized_text()
+    return browser.css('ul.wizard-steps > li.selected').first.text
 
 
 def assert_step(expected):
@@ -129,9 +129,9 @@ def goto(target):
 
 def review_contact_information():
     assert_step(ORDER_REVIEW)
-    return browser.css('.contact-information li').normalized_text()
+    return browser.css('.contact-information li').text
 
 
 def review_shipping_address():
     assert_step(ORDER_REVIEW)
-    return browser.css('.shipping-address li').normalized_text()
+    return browser.css('.shipping-address li').text

@@ -1,17 +1,14 @@
-from plone.app.portlets.portlets import base
-from plone.portlets.interfaces import IPortletDataProvider
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope import schema
-from zope.component import getMultiAdapter
-from zope.interface import implements
-
-from zope.schema.vocabulary import SimpleVocabulary
-from zope.schema.vocabulary import SimpleTerm
-from zope.formlib import form
-
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IShopItem
+from plone.app.portlets.portlets import base
+from plone.portlets.interfaces import IPortletDataProvider
+from zope import schema
+from zope.component import getMultiAdapter
+from zope.formlib import form
+from zope.interface import implements
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 displayChoices = SimpleVocabulary(

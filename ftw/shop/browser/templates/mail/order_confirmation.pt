@@ -22,14 +22,17 @@ Thank you for your order in our shop on the
 
 <h3 i18n:translate="header_orderdetails">Details of your order</h3>
 
-<span i18n:translate="txt_ordernumber">Your order number is</span>: 
+<div id="order-details">
+<span i18n:translate="txt_ordernumber">Your order number is</span>:
 <span tal:replace="order/title"></span>
+</div>
 
 <h4 i18n:translate="title_personal_information">Personal Information</h4>
-    
+
+<div id="personal-information">
     <p>
         <span tal:replace="order/customer_title" /><br />
-        
+
         <span tal:replace="order/customer_firstname" />
         <span tal:replace="order/customer_lastname" /><br />
 
@@ -42,7 +45,7 @@ Thank you for your order in our shop on the
         <tal:block condition="order/customer_street2">
             <span tal:replace="order/customer_street2" /><br />
         </tal:block>
-        
+
         <span tal:replace="order/customer_zipcode" />
         <span tal:replace="order/customer_city" />
     </p>
@@ -50,7 +53,7 @@ Thank you for your order in our shop on the
     <p>
         <span i18n:translate="label_email">Email</span>:
         <span tal:replace="order/customer_email" />
-        
+
         <tal:block condition="order/customer_phone">
             <br /><span i18n:translate="label_phone">Phone</span>:
             <span tal:replace="order/customer_phone"></span>
@@ -61,10 +64,10 @@ Thank you for your order in our shop on the
          <span i18n:translate="label_details_comments">Comments</span>:
          <span tal:replace="order/customer_comments" />
     </p>
-
+</div>
 
 <h4 i18n:translate="title_shipping_address">Shipping Address</h4>
-
+<div id="shipping-address">
     <p>
         <span tal:replace="order/shipping_title" /><br />
 
@@ -84,11 +87,12 @@ Thank you for your order in our shop on the
         <span tal:replace="order/shipping_zipcode" />
         <span tal:replace="order/shipping_city" />
     </p>
-
+</div>
 
 <h4 i18n:translate="header_ordereditems">Ordered items</h4>
 
 <table border="1" cellspacing="0" cellpadding="2">
+  <thead>
    <tr>
        <th i18n:translate="label_article_no">Article number</th>
        <th i18n:translate="cart_header_product">Product</th>
@@ -96,7 +100,9 @@ Thank you for your order in our shop on the
        <th tal:condition="show_prices" i18n:translate="cart_header_price">Price</th>
        <th tal:condition="show_prices" i18n:translate="cart_header_total">Total</th>
    </tr>
+ </thead>
 
+ <tbody>
    <tr tal:repeat="item order/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
@@ -104,7 +110,9 @@ Thank you for your order in our shop on the
      <td tal:condition="show_prices" tal:content="python:str(item.getPrice()) in ('0.00', '0.0') and ' ' or str(item.getPrice())"/>
      <td tal:condition="show_prices" tal:content="item/getTotal"/>
    </tr>
+ </tbody>
 
+ <tfoot>
    <tr tal:condition="python:shop_config.vat_enabled">
     <td style="border-top: 2px solid black;"><span i18n:translate="label_included_vat">VAT</span></td>
     <td style="border-top: 2px solid black;"></td>
@@ -120,6 +128,7 @@ Thank you for your order in our shop on the
     <td style="border-top: 3px solid black;"></td>
     <td style="border-top: 3px solid black;"><strong tal:content="order/getTotal" /></td>
    </tr>
+ </tfoot>
 
 </table>
 
@@ -128,9 +137,13 @@ Thank you for your order in our shop on the
 
 <span  i18n:translate="txt_shipping">Shipping and packaging costs are not included and will be charged individually.</span>
 
-<p i18n:translate="txt_contact">
-For inquiries please contact us: 
-Phone <span i18n:name="phone">999 99 99 99</span>, E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
+<p i18n:translate="txt_contact" id="contact-information">
+For inquiries please contact us:
+<i18n:phone name="phone" tal:condition="shop_config/phone_number">
+    <i18n:phone translate="txt_contact_phone">Phone</i18n:phone>
+    <span tal:replace="shop_config/phone_number" />,
+</i18n:phone>
+E-Mail <a i18n:name="email" href="" tal:attributes="href string:mailto:${shop_config/shop_email}" tal:content="shop_config/shop_email">example@example.org</a>
 </p>
 
 </body>

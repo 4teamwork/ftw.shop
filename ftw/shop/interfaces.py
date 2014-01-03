@@ -1,12 +1,9 @@
-from decimal import Decimal
-
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.config import DEFAULT_VAT_RATES
 from plone.theme.interfaces import IDefaultPloneLayer
+from z3c.form.interfaces import IRadioWidget
 from zope import schema
 from zope.interface import Interface
-from z3c.form.interfaces import IRadioWidget
-from ftw.shop.config import DEFAULT_VAT_RATES
-
-from ftw.shop import shopMessageFactory as _
 
 
 class IShopRoot(Interface):
@@ -177,6 +174,15 @@ class IShopConfiguration(Interface):
                     default=u"The subject for order mails."),
             required=False,
             default=u"")
+
+    phone_number = schema.TextLine(
+        title=_(u'label_phone_number',
+                default=u'Phone number'),
+        description=_(u'help_phone_number',
+                      default=u'Will be displayed in the customer confirmation mail'
+                      ' as contact information when configured.'),
+        required=False,
+        default=u'')
 
     always_notify_shop_owner = schema.Bool(
             title=_(u"label_always_notify_shop_owner",

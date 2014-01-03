@@ -8,13 +8,13 @@ def is_visible():
 def is_empty():
     empty = browser.css('.portletCartPortlet .cart-empty')
     if empty:
-        return empty.first.normalized_text()
+        return empty.first.text
     else:
         return False
 
 
 def items():
-    return browser.css('.portletCartPortlet .cart-items li a').normalized_text()
+    return browser.css('.portletCartPortlet .cart-items li a').text
 
 
 def edit_cart_link():

@@ -157,7 +157,7 @@ class FtwShopTestCase(ptc.PloneTestCase):
 
         # Create an initial browser_id by requesting it
         bid_manager = getToolByName(self.app, 'browser_id_manager')
-        browser_id = bid_manager.getBrowserId()
+        bid_manager.getBrowserId()
 
         self.workflow = getToolByName(self.portal, 'portal_workflow')
         self.acl_users = getToolByName(self.portal, 'acl_users')

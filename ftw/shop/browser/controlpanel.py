@@ -24,7 +24,8 @@ class CheckoutGroup(group.Group):
         'enabled_payment_processors',
         'contact_info_step_group',
         'shipping_address_step_group',
-        'order_review_step_group')
+        'order_review_step_group',
+        'phone_number')
 
 
 class VATGroup(group.Group):
@@ -48,6 +49,7 @@ class ShopConfigurationForm(RegistryEditForm, group.GroupForm):
                                                    'contact_info_step_group',
                                                    'shipping_address_step_group',
                                                    'order_review_step_group',
+                                                   'phone_number',
                                                    'vat_enabled',
                                                    'vat_number',
                                                    'vat_rates')
