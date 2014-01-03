@@ -1,6 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.shop.interfaces import IShopRoot
 from ftw.shop.testing import FTW_SHOP_FUNCTIONAL_TESTING
 from ftw.shop.tests.pages import cartportlet
 from ftw.shop.tests.pages import shopitem
@@ -11,7 +10,6 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
 from unittest2 import TestCase
-from zope.interface import alsoProvides
 import transaction
 
 
@@ -24,7 +22,6 @@ class TestBrowserCart(TestCase):
         setRoles(portal, TEST_USER_ID, ['Manager'])
         login(portal, TEST_USER_NAME)
 
-        alsoProvides(portal, IShopRoot)
         create(Builder('cart portlet'))
         transaction.commit()
 
