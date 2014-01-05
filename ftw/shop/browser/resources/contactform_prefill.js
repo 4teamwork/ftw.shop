@@ -1,32 +1,32 @@
-jq(function () {
+jQuery(function ($) {
     // Load contact info depending on personnel no.
-    jq('input#contact_information-widgets-personnel_no').blur(function (event) {
+    $('input#contact_information-widgets-personnel_no').blur(function (event) {
         // Do something here
     });
 
 
     // Grey-out address field unless "Different from invoice address" is checked
-    jq('input#shipping_address-widgets-used-0').click(function (event) {
-        var state = !(jq(this).attr('checked'));
+    $('input#shipping_address-widgets-used-0').click(function (event) {
+        var state = !($(this).attr('checked'));
         toggle_fields(state);
     });
 
     var toggle_fields = function (state) {
-        var fields = jq('#wizard-step-shipping_address input')
+        var fields = $('#wizard-step-shipping_address input')
                      .not('input#shipping_address-widgets-used-0')
                      .not('.submit-widget');
         fields.each(function () {
-            jq(this).attr("readonly", state);
+            $(this).attr("readonly", state);
             if (state == true) {
-                jq(this).addClass("greyed-out");
+                $(this).addClass("greyed-out");
             }
             else {
-                jq(this).removeClass("greyed-out");
+                $(this).removeClass("greyed-out");
             }
         });
     };
 
     // Set initial state of fields on page load
-    toggle_fields(!(jq('input#shipping_address-widgets-used-0').attr('checked')));
+    toggle_fields(!($('input#shipping_address-widgets-used-0').attr('checked')));
 
 });
