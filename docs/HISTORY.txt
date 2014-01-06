@@ -4,6 +4,9 @@ Changelog
 1.3.1 (unreleased)
 ------------------
 
+- Javascript: replace jq with jQuery / $ for Plone 4.3 compatibility.
+  [jone]
+
 - Make phone number in customer confirmation mail configurable and optional.
   [jone]
 
