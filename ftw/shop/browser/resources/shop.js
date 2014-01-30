@@ -47,7 +47,7 @@ jQuery(function ($) {
             };
         }
 
-        jq.getJSON(url + "_ajax", itemdata, function (response) {
+        $.getJSON(url + "_ajax", itemdata, function (response) {
             // Add item to cart, receive updated portlet html and translated status message
             var portlet_html = response['portlet_html'];
             var status_message = response['status_message'];
