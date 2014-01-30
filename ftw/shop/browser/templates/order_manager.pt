@@ -110,7 +110,7 @@
                             <span tal:content="string:(${item_set/quantity})" /><br/>
                         </tal:block>
                     </td>
-                    <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}" 
+                    <td tal:define="customer string:${order/customer_firstname|nothing} ${order/customer_lastname|nothing}"
                         tal:content="customer"/>
                     <td tal:content="python: order.date.strftime('%Y-%m-%d')"/>
                     <td tal:condition="view/showStatus">
@@ -132,19 +132,19 @@
 
         <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>
         <script>
-            jq(function() {
+            jQuery(function($) {
                 //read out language cookie
                 var language_cookie = document.cookie.match ( '(^|;) ?' + 'I18N_LANGUAGE' + '=([^;]*)(;|$)' );
-                if (language_cookie != null) 
+                if (language_cookie != null)
                     var language = language_cookie[2].substring(1,3);
-                if (language_cookie == null) 
+                if (language_cookie == null)
                     var language = 'de';
 
-                jq( "#from_date" ).datepicker(jq.datepicker.regional[language]);
-                jq( "#from_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
-                
-                jq( "#to_date" ).datepicker(jq.datepicker.regional[language]);
-                jq( "#to_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
+                $( "#from_date" ).datepicker($.datepicker.regional[language]);
+                $( "#from_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
+
+                $( "#to_date" ).datepicker($.datepicker.regional[language]);
+                $( "#to_date" ).datepicker("option", "dateFormat", 'dd.mm.yy');
             });
         </script>
 
