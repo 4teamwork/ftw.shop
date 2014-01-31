@@ -5,38 +5,38 @@
 <body metal:use-macro="here/main_template/macros/master">
 <metal:js fill-slot="javascript_head_slot">
     <script type="text/javascript">
-        jq(function() {
+        jQuery(function($) {
             // toggle
-            jq('.toggleCategory a').live('click', function(e) {
-                uid = jq(this).attr('id');
-                if (jq(this).html() == '+') {
-                    jq(this).html('-');
-                    jq('tr.'+uid).show();
+            $('.toggleCategory a').live('click', function(e) {
+                uid = $(this).attr('id');
+                if ($(this).html() == '+') {
+                    $(this).html('-');
+                    $('tr.'+uid).show();
                 }
                 else {
-                    jq(this).html('+');
-                    jq('tr.'+uid).hide();
+                    $(this).html('+');
+                    $('tr.'+uid).hide();
                 }
                 e.preventDefault();
             });
-            jq('input[type=checkbox]').click(function() {
-                var parent_tr = jq(this).parents('tr');
+            $('input[type=checkbox]').click(function() {
+                var parent_tr = $(this).parents('tr');
                 if (parent_tr.hasClass('active')) {
-                    jq(this).parents('tr').removeClass('active');
+                    $(this).parents('tr').removeClass('active');
                 }
                 else {
-                    jq(this).parents('tr').addClass('active');
+                    $(this).parents('tr').addClass('active');
                 }
             });
             // show if selected
-            jq('input[type=checkbox]:checked').each(function(){
-                var chbox = jq(this);
+            $('input[type=checkbox]:checked').each(function(){
+                var chbox = $(this);
                 chbox.parents('tbody').find('.toggleCategory a').click();
                 chbox.parents('tr').addClass('active');
             });
             // indent
-            jq('.categoryListing a.indent').each(function() {
-                var me = jq(this);
+            $('.categoryListing a.indent').each(function() {
+                var me = $(this);
                 indent = me.attr('title').split('>').length;
                 indent = (indent -1) * 20;
                 me.css('padding-left', indent+'px');
@@ -46,7 +46,7 @@
 </metal:js>
 <div metal:fill-slot="main">
     <h1 i18n:translate="categories_title">Categories</h1>
-    <form method="post" 
+    <form method="post"
           tal:attributes="action python:here.absolute_url() + '/edit_categories'"
           tal:define="all_categories python:view.list_all_categories(here.UID())">
         <table class="listing categoryListing" cellpadding="0" cellspacing="0">
@@ -77,7 +77,7 @@
                                     />
                         </td>
                         <td>
-                            <a tal:attributes="href category/absolute_url" 
+                            <a tal:attributes="href category/absolute_url"
                                tal:content="category/Title"
                                />
                         </td>
