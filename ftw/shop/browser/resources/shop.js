@@ -50,6 +50,8 @@ jQuery(function ($) {
         $.ajax({
         dataType: "json",
         url: url + "_ajax",
+        type: "POST",
+        cache: false,
         data: itemdata,
         success: function (response) {
             // Add item to cart, receive updated portlet html and translated status message

@@ -4,6 +4,9 @@ Changelog
 1.3.1 (unreleased)
 ------------------
 
+- JS: Use POST method and explicitely disable caching for addtocart_ajax requests.
+  [lgraf]
+
 - Javascript: replace jq with jQuery / $ for Plone 4.3 compatibility.
   [jone]
 
