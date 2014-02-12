@@ -47,13 +47,20 @@ jQuery(function ($) {
             };
         }
 
-        $.getJSON(url + "_ajax", itemdata, function (response) {
+        $.ajax({
+        dataType: "json",
+        url: url + "_ajax",
+        type: "POST",
+        cache: false,
+        data: itemdata,
+        success: function (response) {
             // Add item to cart, receive updated portlet html and translated status message
             var portlet_html = response['portlet_html'];
             var status_message = response['status_message'];
             $('.portletCartPortlet').replaceWith(portlet_html);
             $('#kssPortalMessage').html(status_message);
             $('#kssPortalMessage').fadeIn().animate({opacity: 1.0}, 2000).fadeOut();
+            }
         });
 
         // Reset quantity to 1
