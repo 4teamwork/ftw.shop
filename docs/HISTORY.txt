@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3.1 (unreleased)
+1.3.1 (2014-02-19)
 ------------------
 
 - JS: Use POST method and explicitely disable caching for addtocart_ajax requests.
