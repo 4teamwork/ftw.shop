@@ -4,7 +4,11 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Rebuild logic behind manage_categories view:
+  Don't search for categories to list downwards from shop root, but instead upwards
+  from current context. This will only return contiguous shop category structures,
+  and should therefore work nicely for setups with decentralized shop structures.
+  [lgraf] 
 
 
 1.3.1 (2014-02-19)
