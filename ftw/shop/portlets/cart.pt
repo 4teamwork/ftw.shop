@@ -1,6 +1,7 @@
 <dl class="portlet portletCartPortlet"
     i18n:domain="ftw.shop"
-    tal:define="mtool context/@@plone_tools/membership">
+    tal:define="mtool context/@@plone_tools/membership;
+                navroot context/@@plone_portal_state/navigation_root_url">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
@@ -39,15 +40,15 @@
 
         <div class="cartActions">
             <ul>
-                <li><a href="#" tal:attributes="href string:${cview/shop_url}/cart_edit"
+                <li><a href="#" tal:attributes="href string:${navroot}/cart_edit"
                                 i18n:translate="label_edit_cart">Edit cart</a></li>
-                <li><a href="#" tal:attributes="href string:${cview/shop_url}/checkout-wizard"
+                <li><a href="#" tal:attributes="href string:${navroot}/checkout-wizard"
                                 i18n:translate="label_checkout">Order</a></li>
             </ul>
         </div>
         </tal:cartcontents>
         <ul><li tal:condition="python:mtool.checkPermission('Modify portal content', context)">
-            <a href="#" tal:attributes="href string:${cview/shop_url}/order_manager"
+            <a href="#" tal:attributes="href string:${navroot}/order_manager"
                         i18n:translate="label_order_manager">Order Manager</a></li></ul>
         <span class="portletBottomLeft"></span>
         <span class="portletBottomRight"></span>

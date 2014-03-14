@@ -52,6 +52,7 @@ setup(name='ftw.shop',
         'simplejson',
         'ftw.upgrade',
         'collective.js.jqueryui',
+        'plone.api',
 #        'Products.ATCountryWidget',
       ],
 

@@ -1,17 +1,16 @@
-import unittest
-import simplejson
 from decimal import Decimal
-
-from zope.component import getMultiAdapter
-from Products.CMFCore.utils import getToolByName
-
 from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.tests.base import FtwShopTestCase
+from plone import api
+from Products.CMFCore.utils import getToolByName
+from zope.component import getMultiAdapter
+import simplejson
+import unittest
 
 
 class TestCart(FtwShopTestCase):
-    
+
     def afterSetUp(self):
         super(TestCart, self).afterSetUp()
 
@@ -28,14 +27,14 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(cart_items[item_uid]['quantity'], 2)
         self.assertEquals(cart_items[item_uid]['title'], 'A Movie')
         self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with no variations')
-        
+
         self.assertEquals(cart.cart_total(), '14.30')
-        
+
         # Add an item type that's already in the cart
         cart.addtocart("12345", quantity=1)
         self.assertEquals(cart.cart_items()[item_uid]['quantity'], 3)
         self.assertEquals(cart.cart_total(), '21.45')
-        
+
 
         # Add an item with one variation to cart
         cart = getMultiAdapter((self.book, self.portal.REQUEST), name='cart_view')
@@ -50,14 +49,14 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(cart_items[item_uid]['quantity'], 3)
         self.assertEquals(cart_items[item_uid]['title'], 'Professional Plone Development - None')
         self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with one variation')
-        
+
         self.assertEquals(cart.cart_total(), '27.45')
 
         # Add an item type with variations that's already in the cart
         cart.addtocart(var1choice='Paperback', quantity=1)
         self.assertEquals(cart.cart_items()[item_uid]['quantity'], 4)
         self.assertEquals(cart.cart_total(), '29.45')
-        
+
 
         # Add an item with two variations to cart
         cart = getMultiAdapter((self.tshirt, self.portal.REQUEST), name='cart_view')
@@ -71,7 +70,7 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(cart_items[item_uid]['quantity'], 4)
         self.assertEquals(cart_items[item_uid]['title'], 'A T-Shirt - None')
         self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with two variations')
-        
+
         self.assertEquals(cart.cart_total(), '49.45')
         cart.cart_delete()
 
@@ -89,7 +88,7 @@ class TestCart(FtwShopTestCase):
         self.assertTrue('<div class="cartTotal">Total: CHF 14.30</div>' in portlet_html)
         self.assertEquals(cart.cart_total(), '14.30')
         cart.cart_delete()
-        
+
     def test_remove_item(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart_item_count = len(cart.cart_items())
@@ -99,27 +98,27 @@ class TestCart(FtwShopTestCase):
         cart.cart._remove_item(self.movie.UID())
         self.assertEquals(len(cart.cart_items()), cart_item_count)
         self.assertTrue(self.movie.UID() not in cart.cart_items())
-        
+
     def test_update_item(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='12345', quantity=1)
         cart.update_item(self.movie.UID(), 2)
         self.assertEquals(cart.cart_items()[self.movie.UID()]['quantity'], 2)
         self.assertEquals(cart.cart_items()[self.movie.UID()]['total'], '14.30')
-        
+
     def test_cart_update(self):
         ptool = getToolByName(self.portal, 'plone_utils')
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='12345', quantity=1)
         cart = getMultiAdapter((self.book, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='b11', var1choice='Hardcover', quantity=2)
-        
+
         # Try to update cart with no values in request (invalid)
         cart.cart_update()
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u'Invalid Values specified. Cart not updated.')
         self.assertEquals(len(cart.cart_items()), 2)
-        
+
         # Modify quantities
         self.portal.REQUEST['quantity_%s' % self.movie.UID()] = 2
         self.portal.REQUEST['quantity_%s-Hardcover' % self.book.UID()] = 0
@@ -133,7 +132,7 @@ class TestCart(FtwShopTestCase):
         ptool = getToolByName(self.portal, 'plone_utils')
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart('12345')
-        
+
         # Remove the item we just added
         item_key = self.movie.UID()
         # XXX - this is not an skuCode but an item key - rename!
@@ -147,10 +146,10 @@ class TestCart(FtwShopTestCase):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart('12345')
         self.assertEquals(len(cart.cart_items()), 1)
-        
+
         cart.cart_delete()
         self.assertEquals(len(cart.cart_items()), 0)
-        
+
     def test_checkout(self):
         ptool = getToolByName(self.portal, 'plone_utils')
         pp_choice = {'payment_processor': 'ftw.shop.InvoicePaymentProcessor'}
@@ -162,12 +161,12 @@ class TestCart(FtwShopTestCase):
                          'firstname': "Hugo",
                          'lastname': "Boss"}
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        
-        # Test checkout with empty cart 
+
+        # Test checkout with empty cart
         cart.checkout()
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u"Can't proceed with empty cart.")
-        
+
         # Test checkout with item in cart but missing order confirmation
         cart.addtocart('12345')
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
@@ -177,9 +176,10 @@ class TestCart(FtwShopTestCase):
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
         self.portal.REQUEST.SESSION['order_confirmation'] = True
         cart.checkout()
-        
+
         # Test checkout with item and all necessary information
-        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+        navroot = api.portal.get_navigation_root(self.movie)
+        omanager = getMultiAdapter((navroot, self.portal.REQUEST),
                                    name=u'order_manager')
 
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
@@ -187,7 +187,7 @@ class TestCart(FtwShopTestCase):
         self.portal.REQUEST.SESSION['order_confirmation'] = True
         self.portal.REQUEST.SESSION['payment_processor_choice'] = pp_choice
         cart.checkout()
-        
+
         order = omanager.getOrders()[0]
         self.assertEquals(order.total, Decimal('7.15'))
         self.assertEquals(order.status, 3)

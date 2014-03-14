@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
-import unittest
-
-from zope.component import  getMultiAdapter
-
+from ftw.shop.browser.ordermanager import COLUMN_TITLES
+from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.config import SESSION_SHIPPING_KEY
-from ftw.shop.config import CART_KEY
 from ftw.shop.tests.base import FtwShopTestCase
+from ftw.shop.tests.base import MOCK_CART
 from ftw.shop.tests.base import MOCK_CUSTOMER
 from ftw.shop.tests.base import MOCK_SHIPPING
-from ftw.shop.tests.base import MOCK_CART
+from plone import api
+from zope.component import  getMultiAdapter
+import unittest
 
-from ftw.shop.browser.ordermanager import COLUMN_TITLES
 
 class TestOrderManager(FtwShopTestCase):
 
     def afterSetUp(self):
         super(TestOrderManager, self).afterSetUp()
 
-
     def test_download_csv(self):
         session = self.portal.REQUEST.SESSION
         # Create an order that can be used to test CSV generation
-        order_manager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+        navroot = api.portal.get_navigation_root(self.portal)
+        order_manager = getMultiAdapter((navroot, self.portal.REQUEST),
                                    name=u'order_manager')
         session[SESSION_ADDRESS_KEY] = MOCK_CUSTOMER
         session[SESSION_SHIPPING_KEY] = MOCK_SHIPPING

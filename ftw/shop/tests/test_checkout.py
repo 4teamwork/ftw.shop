@@ -1,17 +1,17 @@
-import unittest
-
 from datetime import datetime
+from ftw.shop.browser.cart import CartView
 from ftw.shop.browser.checkout import CheckoutView
 from ftw.shop.browser.checkout import CheckoutWizard
-from ftw.shop.browser.cart import CartView
+from ftw.shop.config import  ONLINE_PENDING_KEY
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.tests.base import FtwShopTestCase
 from ftw.shop.tests.base import MOCK_CART
 from ftw.shop.tests.base import MOCK_CART_TWO_SUPPLIERS
 from ftw.shop.tests.base import MOCK_CUSTOMER
 from ftw.shop.tests.base import MOCK_SHIPPING
-from ftw.shop.config import  ONLINE_PENDING_KEY
+from plone import api
 from zope.component import getMultiAdapter, getUtility
+import unittest
 
 
 class TestCheckout(FtwShopTestCase):
@@ -53,7 +53,8 @@ class TestCheckout(FtwShopTestCase):
             cart_data=MOCK_CART,
             total='8.30')
 
-        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+        navroot = api.portal.get_navigation_root(self.portal)
+        omanager = getMultiAdapter((navroot, self.portal.REQUEST),
                                    name=u'order_manager')
 
         # send order mail
@@ -73,7 +74,8 @@ class TestCheckout(FtwShopTestCase):
             cart_data=MOCK_CART_TWO_SUPPLIERS,
             total='8.30')
 
-        omanager = getMultiAdapter((self.portal.shop, self.portal.REQUEST),
+        navroot = api.portal.get_navigation_root(self.portal)
+        omanager = getMultiAdapter((navroot, self.portal.REQUEST),
                                    name=u'order_manager')
 
         # send order mail

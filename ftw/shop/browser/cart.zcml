@@ -23,7 +23,7 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="cart_delete" 
     class=".cart.CartView" 
     attribute="cart_delete" 
@@ -31,14 +31,14 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="cart_edit" 
     template="templates/cart_edit.pt" 
     permission="zope2.View" 
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="cart_update" 
     class=".cart.CartView" 
     attribute="cart_update" 
@@ -46,7 +46,7 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="cart_remove" 
     class=".cart.CartView" 
     attribute="cart_remove" 
@@ -61,7 +61,7 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="checkout" 
     class=".cart.CartView" 
     attribute="checkout" 
