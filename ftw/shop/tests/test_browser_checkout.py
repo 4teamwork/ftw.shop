@@ -69,6 +69,24 @@ class TestBrowserCheckout(TestCase):
                 '[name="contact_information.widgets.firstname"]').first.value)
 
     @browsing
+    def test_contact_information_defaults_for_user_without_fullname(self,
+                                                                    browser):
+        browser.login()
+        checkout.visit_checkout_with_one_item_in_cart()
+        checkout.next()
+        checkout.assert_step(checkout.CONTACT_INFORMATION)
+
+        self.assertEquals(
+            '',
+            browser.css(
+                '[name="contact_information.widgets.lastname"]').first.value)
+        self.assertEquals(
+            '',
+            browser.css(
+                '[name="contact_information.widgets.firstname"]').first.value)
+
+
+    @browsing
     def test_submitting_contact_information_leads_to_shipping_address(self, browser):
         checkout.visit_checkout_with_one_item_in_cart()
         checkout.submit_valid_contact_info()

@@ -4,6 +4,10 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- BugFix: It's possible to have users wihtout a fullname: For example
+  SystemUsers / ldap users.
+  [mathias.leimgruber]
+
 - BugFix: If the fullname of a logged in user had umlauts the form was broken.
   :-)
   [mathias.leimgruber]

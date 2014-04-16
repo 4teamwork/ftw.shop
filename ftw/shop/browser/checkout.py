@@ -86,7 +86,7 @@ class DefaultContactInfoStep(wizard.Step):
         mt = getToolByName(self.context, 'portal_membership')
         if not mt.isAnonymousUser():
             member = mt.getAuthenticatedMember()
-            fullname = member.getProperty('fullname')
+            fullname = member.getProperty('fullname', '')
 
             if not isinstance(fullname, unicode):
                 # assume it's uft-8
