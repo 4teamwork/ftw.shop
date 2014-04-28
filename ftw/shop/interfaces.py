@@ -7,7 +7,8 @@ from zope.interface import Interface
 
 
 class IShopRoot(Interface):
-    """Marker interface for shop root folder.
+    """DEPRECATED!
+    Former marker interface for shop root folder.
     """
 
 

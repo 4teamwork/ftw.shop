@@ -1,15 +1,11 @@
-from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-
-from zope.interface import directlyProvides
-from zope.component import getUtility
-from zope.component import getMultiAdapter
-from plone.portlets.interfaces import IPortletManager
-from plone.portlets.interfaces import IPortletAssignmentMapping
-
-from ftw.shop.interfaces import IShopRoot
-from ftw.shop import shopMessageFactory as _
 from ftw.shop import portlets
+from ftw.shop import shopMessageFactory as _
+from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletManager
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
+from zope.component import getMultiAdapter
+from zope.component import getUtility
 
 
 class InitShopStructure(BrowserView):
@@ -25,9 +21,6 @@ class InitShopStructure(BrowserView):
         if not shop:
             portal.invokeFactory('Folder', 'shop', title='Shop')
             shop = portal.shop
-
-        if not IShopRoot.providedBy(shop):
-            directlyProvides(shop, IShopRoot)
 
         # Add Shopping Cart portlet to Shop Root
         column = getUtility(IPortletManager,

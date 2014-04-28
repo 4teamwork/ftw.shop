@@ -1,10 +1,27 @@
 Changelog
 =========
 
-1.3.2 (unreleased)
+2.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- BugFix: It's possible to have users wihtout a fullname: For example
+  SystemUsers / ldap users.
+  [mathias.leimgruber]
+
+- BugFix: If the fullname of a logged in user had umlauts the form was broken.
+  :-)
+  [mathias.leimgruber]
+
+- Eliminate all uses of the IShopRoot interface.
+  Instead we use the navigation root to register views that are supposed to be shop-global.
+  This will make ftw.shop work with subsites that are supposed to have "their own shop".
+  [lgraf]
+
+- Rebuild logic behind manage_categories view:
+  Don't search for categories to list downwards from shop root, but instead upwards
+  from current context. This will only return contiguous shop category structures,
+  and should therefore work nicely for setups with decentralized shop structures.
+  [lgraf]
 
 
 1.3.1 (2014-02-19)

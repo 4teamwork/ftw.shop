@@ -11,7 +11,7 @@ from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IShoppingCart
 from ftw.shop.interfaces import IVariationConfig
-from ftw.shop.utils import get_shop_root_object
+from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -444,7 +444,8 @@ class CartView(BrowserView):
                             default=u"Can't proceed with empty cart."),
                 'error')
             self.request.response.redirect(url)
-        omanager = getMultiAdapter((get_shop_root_object(context), self.request),
+        navroot = api.portal.get_navigation_root(context)
+        omanager = getMultiAdapter((navroot, self.request),
                                    name=u'order_manager')
 
 
@@ -499,13 +500,6 @@ class CartView(BrowserView):
             pp_launch_page = payment_processor.launch_page
             self.request.response.redirect('%s/%s' % (url, pp_launch_page))
             return
-
-    def shop_url(self):
-        """Return the root url of the shop folder.
-        """
-        context = aq_inner(self.context)
-        shop_root = get_shop_root_object(context)
-        return shop_root.absolute_url()
 
     def shop_config(self):
         """Return the shop configuration stored in the registry

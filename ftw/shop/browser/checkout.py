@@ -86,15 +86,20 @@ class DefaultContactInfoStep(wizard.Step):
         mt = getToolByName(self.context, 'portal_membership')
         if not mt.isAnonymousUser():
             member = mt.getAuthenticatedMember()
-            fullname = member.getProperty('fullname')
+            fullname = member.getProperty('fullname', '')
+
+            if not isinstance(fullname, unicode):
+                # assume it's uft-8
+                fullname = fullname.decode('utf-8')
+
             if fullname.find(' ') > -1:
                 firstname, lastname = fullname.rsplit(' ', 1)
             else:
                 firstname = lastname = ''
             email = member.getProperty('email')
 
-            self.widgets['firstname'].value = unicode(firstname)
-            self.widgets['lastname'].value = unicode(lastname)
+            self.widgets['firstname'].value = firstname
+            self.widgets['lastname'].value = lastname
             self.widgets['email'].value = unicode(email)
 
 

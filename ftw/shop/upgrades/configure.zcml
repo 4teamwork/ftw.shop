@@ -34,4 +34,14 @@
         directory="profiles/1300"
         />
 
+    <!-- 1300 -> 2000 -->
+    <gs:upgradeStep
+        title="Remove IShopRoot from all objects providing it"
+        description=""
+        source="1300"
+        destination="2000"
+        handler="ftw.shop.upgrades.to2000.RemoveShopRootInterface"
+        profile="ftw.shop:default"
+        />
+
 </configure>

@@ -1,10 +1,10 @@
-from Products.Five.browser import BrowserView
+from Acquisition import aq_parent
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.interfaces import IShopCategory
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-
-from ftw.shop import utils
-from ftw.shop import shopMessageFactory as _
 
 
 class ManageCategories(BrowserView):
@@ -58,45 +58,47 @@ class ManageCategories(BrowserView):
         return self.context.REQUEST.RESPONSE.redirect('%s' %
                                             (self.context.absolute_url()))
 
-    def get_categories(self, context=None, except_uids=[]):
-        # TODO: This method needs some refactoring!
-        # except_uids is never used!?
-        # a navtree builder seems more appropriate here
-        depth = -1
-        sort = True
-        if not context:
-            sort = False
-            context = utils.get_shop_root_object(self.context)
-            depth = 1
-            # shop root is a shop category
-            if context.portal_type == 'ShopCategory':
-                depth = 0
+    def find_first_non_category(self):
+        """Walk up from the current context and find the first object that
+        isn't of type ShopCategory.
+        """
+        # Start with the ShopItem's parent (which is a ShopCategory)
+        parent = aq_parent(self.context)
+        while IShopCategory.providedBy(parent):
+            parent = aq_parent(parent)
+        return parent
+
+    def get_top_level_categories(self):
+        """Walking up from current context, find the top level categories
+        defining the start of a shop category sub-structure.
+        """
+        category_tree_container = self.find_first_non_category()
+
         catalog = getToolByName(self.context, 'portal_catalog')
         query = dict(
-            portal_type = 'ShopCategory',
+            object_provides=IShopCategory.__identifier__,
+            path = {
+                'query': '/'.join(category_tree_container.getPhysicalPath()),
+                'depth': 1},
+            sort_on = 'path',
+            )
+        categories = [b.getObject() for b in catalog(query)]
+        return categories
+
+    def get_sub_categories(self, context):
+        """Given a ShopCategory as `context`, return all its subcategories.
+        """
+        catalog = getToolByName(self.context, 'portal_catalog')
+        query = dict(
+            object_provides=IShopCategory.__identifier__,
             path = {
                 'query': '/'.join(context.getPhysicalPath()),
-                'depth': depth},
-            sort_on = 'sortable_title',
+                },
+            sort_on = 'path',
             )
-        categories = []
-        for brain in catalog(query):
-            # Context can also be the portal obj, which doesn't have a UID
-            try:
-                context_UID = context.UID()
-            except AttributeError:
-                context_UID = None
-
-            if brain.UID not in except_uids and \
-               brain.UID != context_UID:
-                categories.append(brain.getObject())
-            # shop root is a shop category
-            elif depth == 0:
-                categories.append(brain.getObject())
-        if sort:
-            tmp = [('>'.join(c.fullTitle()[1:]), c) for c in categories]
-            tmp.sort()
-            return [c[1] for c in tmp]
+        categories = [b.getObject() for b in catalog(query)]
+        # Don't include the queried context itself
+        categories.remove(context)
         return categories
 
     def list_all_categories(self, categoryUID):

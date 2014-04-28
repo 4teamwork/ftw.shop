@@ -48,7 +48,7 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="view"
     permission="zope2.View"
     class=".category.CategoryView"
@@ -78,7 +78,7 @@
     />
 
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="compact_view"
     permission="zope2.View"
     class=".category.CategoryCompactView"
@@ -93,7 +93,7 @@
     />
 
   <browser:menuItem
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     menu="plone_displayviews"
     title="Compact View"
     action="compact_view"
@@ -102,7 +102,7 @@
     
   <!-- Order Manager View -->
   <browser:page
-    for="..interfaces.IShopRoot"
+    for="plone.app.layout.navigation.interfaces.INavigationRoot"
     name="order_manager"
     permission="cmf.ModifyPortalContent"
     class=".ordermanager.OrderManagerView"
