@@ -12,6 +12,7 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
+    'plone.app.testing',
     'pyquery<=0.6.1',
     'zope.testing',
     ]
