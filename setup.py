@@ -7,19 +7,21 @@ from setuptools import setup, find_packages
 
 version = '2.0.dev0'
 
-tests_require = ['zope.testing',
-                 'Products.PloneTestCase',
-                 'pyquery<=0.6.1',
-                 'ftw.builder',
-                 'ftw.testbrowser',
-                 'ftw.testing',
-                ]
+tests_require = [
+    'Products.PloneTestCase',
+    'ftw.builder',
+    'ftw.testbrowser',
+    'ftw.testing',
+    'plone.app.testing',
+    'pyquery<=0.6.1',
+    'zope.testing',
+    ]
 
 setup(name='ftw.shop',
       version=version,
       description="A web shop solution for Plone",
       long_description=open("README.rst").read() + "\n" + \
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+          open(os.path.join("docs", "HISTORY.txt")).read(),
 
       # Get more strings from
       # http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -45,16 +47,15 @@ setup(name='ftw.shop',
       zip_safe=False,
 
       install_requires=[
-        'setuptools',
-        'plone.app.z3cform',
-        'collective.z3cform.wizard',
-        'plone.app.registry',
-        'simplejson',
-        'ftw.upgrade',
         'collective.js.jqueryui',
+        'collective.z3cform.wizard',
+        'ftw.upgrade',
         'plone.api',
-#        'Products.ATCountryWidget',
-      ],
+        'plone.app.registry',
+        'plone.app.z3cform',
+        'setuptools',
+        'simplejson',
+        ],
 
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
