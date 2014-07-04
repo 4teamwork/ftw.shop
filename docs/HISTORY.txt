@@ -4,6 +4,9 @@ Changelog
 2.0 (unreleased)
 ------------------
 
+- Updated README / Installation instructions.
+  [lgraf]
+
 - BugFix: It's possible to have users wihtout a fullname: For example
   SystemUsers / ldap users.
   [mathias.leimgruber]

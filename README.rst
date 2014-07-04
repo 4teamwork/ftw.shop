@@ -41,19 +41,14 @@ Installation
         Plone
         ftw.shop
 
-- Install default profile in portal_setup.
-
+- Install the ``ftw.shop:default`` profile in ``portal_setup``.
 
 Configuration
 ============
 
-When installing ``ftw.shop``, the Plone site is automatically configured as
-shop root (``IShopRoot`` interface).
-If you'd like another container to be the shop root you can change this by
-removing the ``IShopRoot`` from the Plone site and let another container
-provide it.
-
-You might also want to add a shop cart portlet.
+- Create your shop structure by adding Shop Categories
+- Add Shop Items to your Shop Categories
+- Add a Shopping Cart Portlet (to your Plone site root or Shop Categories)
 
 After that, most configuration can be done through the "Shop configuration"
 control panel.
