@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0 (unreleased)
-------------------
+2.0 (2014-07-04)
+----------------
 
 - Updated README / Installation instructions.
   [lgraf]
