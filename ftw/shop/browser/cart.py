@@ -113,7 +113,9 @@ class ShoppingCartAdapter(object):
 
     def get_suppliers(self):
         suppliers = []
-        for uid in self.get_items():
+
+        for itemkey, itemvalue in self.get_items().items():
+            uid = itemkey.rstrip(itemvalue['variation_code'].strip('var'))
             item = self.catalog(UID=uid)[0].getObject()
             supplier = self._get_supplier(item)
             suppliers.append(supplier)
