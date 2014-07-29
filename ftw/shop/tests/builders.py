@@ -31,6 +31,13 @@ class ShopCategoryBuilder(ArchetypesBuilder):
 builder_registry.register('shop category', ShopCategoryBuilder)
 
 
+class ShopSupplierBuilder(ArchetypesBuilder):
+
+    portal_type = 'Supplier'
+
+builder_registry.register('supplier', ShopSupplierBuilder)
+
+
 class CartPortletBuilder(object):
 
     def __init__(self, session):
