@@ -115,7 +115,11 @@ class ShoppingCartAdapter(object):
         suppliers = []
 
         for itemkey, itemvalue in self.get_items().items():
-            uid = itemkey.rstrip(itemvalue['variation_code'].strip('var'))
+            if 'variation_code' in itemvalue:
+                uid = itemkey.rstrip(itemvalue['variation_code'].strip('var'))
+            else:
+                uid = itemkey
+
             item = self.catalog(UID=uid)[0].getObject()
             supplier = self._get_supplier(item)
             suppliers.append(supplier)
