@@ -4,7 +4,11 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix get suppliers on shopitems with variations.
+  [mathias.leimgruber]
+
+- Implement getting supplier recursively.
+  [mathias.leimgruber]
 
 
 2.0 (2014-07-04)

@@ -12,6 +12,7 @@ from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IShoppingCart
 from ftw.shop.interfaces import IVariationConfig
 from plone import api
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -96,24 +97,25 @@ class ShoppingCartAdapter(object):
     def _get_supplier(self, context):
         """If available, get supplier name and email address
         """
-        # If item itself has a supplier, it has precedence over category supplier
-        if context.getField('supplier') is not None:
-            supplier = context.getField('supplier').get(context)
-            if supplier not in (None, ''):
-                return supplier
+        supplier = None
 
-        # If not, check if parent cateogry has a supplier defined
-        parent_category = aq_parent(context)
-        if parent_category.getField('supplier') is not None:
-            category_supplier = parent_category.getField('supplier').get(parent_category)
-            if category_supplier not in (None, ''):
-                return category_supplier
+        while not INavigationRoot.providedBy(context):
+            field = context.getField('supplier')
+            if field is not None:
+                supplier = field.get(context)
 
-        return None
+                if supplier:
+                    break
+
+            context = aq_parent(aq_inner(context))
+
+        return supplier
 
     def get_suppliers(self):
         suppliers = []
-        for uid in self.get_items():
+
+        for itemkey, itemvalue in self.get_items().items():
+            uid = itemkey.rstrip(itemvalue['variation_code'].strip('var'))
             item = self.catalog(UID=uid)[0].getObject()
             supplier = self._get_supplier(item)
             suppliers.append(supplier)
