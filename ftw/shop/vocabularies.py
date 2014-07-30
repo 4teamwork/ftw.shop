@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
@@ -9,7 +8,9 @@ from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IStatusSet
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 from zope.component import getAdapters, getUtility, getUtilitiesFor
+from zope.component.hooks import getSite
 from zope.interface import directlyProvides
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
@@ -33,8 +34,8 @@ def create_terms_from_adapters(adapters):
 
     items.sort()
     terms = [SimpleTerm(value=pair[0],
-            token=pair[0],
-            title=pair[1]) for pair in items]
+                        token=pair[0],
+                        title=pair[1]) for pair in items]
     return terms
 
 
@@ -42,9 +43,10 @@ def ContactInfoStepGroups(context):
     """Returns a vocabulary of the registered StepGroups for the
     contact information StepGroup
     """
+    request = getSite().REQUEST
     # context is the portal config options, whose context is the portal
-    contact_info_step_groups = getAdapters((context, None, context),
-                                     IContactInformationStepGroup)
+    contact_info_step_groups = getAdapters((context, request, context),
+                                           IContactInformationStepGroup)
     terms = create_terms_from_adapters(contact_info_step_groups)
 
     directlyProvides(ContactInfoStepGroups, IVocabularyFactory)
@@ -56,8 +58,9 @@ def ShippingAddressStepGroups(context):
     shipping address StepGroup
     """
     # context is the portal config options, whose context is the portal
-    shipping_address_step_groups = getAdapters((context, None, context),
-                                     IShippingAddressStepGroup)
+    request = getSite().REQUEST
+    shipping_address_step_groups = getAdapters((context, request, context),
+                                               IShippingAddressStepGroup)
     terms = create_terms_from_adapters(shipping_address_step_groups)
 
     directlyProvides(ShippingAddressStepGroups, IVocabularyFactory)
@@ -69,8 +72,9 @@ def OrderReviewStepGroups(context):
     order review StepGroup
     """
     # context is the portal config options, whose context is the portal
-    order_review_step_groups = getAdapters((context, None, context),
-                                     IOrderReviewStepGroup)
+    request = getSite().REQUEST
+    order_review_step_groups = getAdapters((context, request, context),
+                                           IOrderReviewStepGroup)
     terms = create_terms_from_adapters(order_review_step_groups)
 
     directlyProvides(OrderReviewStepGroups, IVocabularyFactory)
@@ -82,8 +86,9 @@ def PaymentProcessorStepGroups(context):
     payment processor StepGroup
     """
     # context is the portal config options, whose context is the portal
-    payment_processor_step_groups = getAdapters((context, None, context),
-                                     IPaymentProcessorStepGroup)
+    request = getSite().REQUEST
+    payment_processor_step_groups = getAdapters((context, request, context),
+                                                IPaymentProcessorStepGroup)
     terms = create_terms_from_adapters(payment_processor_step_groups)
 
     directlyProvides(PaymentProcessorStepGroups, IVocabularyFactory)
@@ -95,7 +100,8 @@ def PaymentProcessors(context):
     """Returns a vocabulary of the registered PaymentProcessors
     """
     # context is the portal config options, whose context is the portal
-    payment_processors = getAdapters((context, None, context),
+    request = getSite().REQUEST
+    payment_processors = getAdapters((context, request, context),
                                      IPaymentProcessor)
     terms = create_terms_from_adapters(payment_processors)
 
@@ -111,7 +117,8 @@ def EnabledPaymentProcessors(context):
     # context is the portal config options, whose context is the portal
     registry = getUtility(IRegistry)
     shop_config = registry.forInterface(IShopConfiguration)
-    payment_processors = getAdapters((context, None, context),
+    request = getSite().REQUEST
+    payment_processors = getAdapters((context, request, context),
                                      IPaymentProcessor)
     terms = create_terms_from_adapters(payment_processors)
     for term in terms:
@@ -155,10 +162,12 @@ def VATRatesVocabulary(context):
     shop_config = registry.forInterface(IShopConfiguration)
     vat_rates = shop_config.vat_rates
 
-    terms = [SimpleTerm(value=str(rate), token=rate, title=str(rate)) for rate in vat_rates]
+    terms = [SimpleTerm(value=str(rate), token=rate, title=str(rate))
+             for rate in vat_rates]
 
     directlyProvides(VATRatesVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
+
 
 def SuppliersVocabulary(context):
     """Returns a vocabulary of the available suppliers
@@ -168,12 +177,12 @@ def SuppliersVocabulary(context):
     suppliers = catalog(portal_type="Supplier")
     items = [(brain.UID, brain.Title) for brain in suppliers]
     terms = [SimpleTerm(value=pair[0],
-                         token=pair[0],
-                         title=pair[1]) for pair in items]
+                        token=pair[0],
+                        title=pair[1]) for pair in items]
     terms.insert(0, SimpleTerm(value='',
-                            token='none',
-                            title=_("label_supplier_from_parent",
-                                default="Supplier from parent category")))
+                               token='none',
+                               title=_("label_supplier_from_parent",
+                                       default="Supplier from parent category")))
 
     directlyProvides(SuppliersVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

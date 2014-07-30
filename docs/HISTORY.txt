@@ -4,6 +4,9 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
+- Fix adapter lookups in vocabularies.
+  [mathias.leimgruber]
+
 - Fix get suppliers on shopitems with variations.
   [mathias.leimgruber]
 
