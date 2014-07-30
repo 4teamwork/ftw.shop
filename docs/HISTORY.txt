@@ -4,6 +4,12 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
+- Fix payment processor lookup in checkout wizard.
+  [mathias.leimgruber]
+
+- Fix adapter lookups in vocabularies.
+  [mathias.leimgruber]
+
 - Fix get suppliers on shopitems with variations.
   [mathias.leimgruber]
 
