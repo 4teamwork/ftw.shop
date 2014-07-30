@@ -272,7 +272,7 @@ class CheckoutWizard(wizard.Wizard):
             except KeyError:
                 # No payment processor step activated
                 pp_name = "none"
-        for name, adapter in getAdapters((self.context, None, self.context),
+        for name, adapter in getAdapters((self.context, self.request, self.context),
                                          IPaymentProcessor):
             if name == pp_name:
                 payment_processor = adapter
