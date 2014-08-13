@@ -254,3 +254,7 @@ input#shipping_address-widgets-title, input#contact_information-widgets-title {
     font-size: 100% !important;
     font-weight: normal !important;
 }
+
+.variation-toplevel-group{
+    clear: both;
+}
