@@ -474,7 +474,7 @@ class CartView(BrowserView):
         # Get the payment processor selected by the customer
         payment_processor_name = session.get(
             'payment_processor_choice').get('payment_processor')
-        for name, adapter in getAdapters((context, None, context),
+        for name, adapter in getAdapters((context, context.REQUEST, context),
                                          IPaymentProcessor):
             if name == payment_processor_name:
                 payment_processor = adapter
