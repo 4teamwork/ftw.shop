@@ -417,6 +417,7 @@ class OrderManagerView(BrowserView):
         mail_to = formataddr(("Shop Owner", self.shop_config.shop_email))
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
+        customer_address = formataddr((customer_name, order.customer_email))
         mail_subject = '[%s] Order %s by %s' % (self.shop_config.shop_name,
                                                order.order_id,
                                                customer_name)
@@ -426,7 +427,7 @@ class OrderManagerView(BrowserView):
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
                              shop_config=self.shop_config)
-        self._send_mail(mail_to, mail_subject, msg_body)
+        self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
 
     def _send_customer_mail(self, order, lang):
         """Send order confirmation mail to customer
@@ -456,6 +457,7 @@ class OrderManagerView(BrowserView):
         mail_to = formataddr(supplier)
         customer_name = "%s %s" % (order.customer_firstname,
                                    order.customer_lastname)
+        customer_address = formataddr((customer_name, order.customer_email))
         mail_subject = '[%s] Order %s by %s' % (self.shop_config.shop_name,
                                                order.order_id,
                                                customer_name)
@@ -466,9 +468,9 @@ class OrderManagerView(BrowserView):
                              show_prices=show_prices,
                              shop_config=self.shop_config,
                              supplier=supplier)
-        self._send_mail(mail_to, mail_subject, msg_body)
+        self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
 
-    def _send_mail(self, to, subject, body):
+    def _send_mail(self, to, subject, body, reply_to=None):
         """Send mail originating from the shop.
         """
 
@@ -479,6 +481,7 @@ class OrderManagerView(BrowserView):
              mto=to,
              mfrom=mail_from,
              mbcc=mail_bcc,
+             reply_to=reply_to,
              subject=subject,
              encode=None,
              immediate=False,

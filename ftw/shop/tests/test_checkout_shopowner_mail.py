@@ -69,6 +69,12 @@ class TestCheckoutMailToShopOwner(TestCase):
                                  r'^\[Webshop\] Order \d* by Hugo Boss$')
 
     @browsing
+    def test_shop_owner_replies_to_customer(self, browser):
+        mail = self.checkout_and_get_mail()
+        self.assertEquals(['Hugo Boss <hugo@boss.com>'],
+                          get_mail_header(mail, 'Reply-To'))
+
+    @browsing
     def test_personal_information(self, browser):
         self.open_mail_in_browser(self.checkout_and_get_mail(), browser)
 
