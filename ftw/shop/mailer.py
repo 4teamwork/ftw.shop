@@ -29,7 +29,7 @@ class MailHostAdapter(object):
     def __init__(self, context):
         self.context = context
 
-    def send(self, msg_body, mto, mfrom=None, mbcc=None, subject=None,
+    def send(self, msg_body, mto, mfrom=None, mbcc=None, reply_to=None, subject=None,
              encode=None, immediate=False, charset=None, msg_type=None):
         """Sends a message defined at least by its message body and the
         destination address.
@@ -45,6 +45,9 @@ class MailHostAdapter(object):
                 encode_base64(msg)
 
             msg['BCC']= Header(mbcc)
+            if reply_to:
+                msg['Reply-To'] = Header(reply_to)
+
             mhost.send(msg,
                          mto=mto,
                          mfrom=mfrom,
