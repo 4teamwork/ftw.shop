@@ -746,7 +746,7 @@ msgstr "Variación 1 valores"
 #: ./ftw/shop/content/shopitem.py:126
 #: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
-msgstr "Variación 2 atributos
+msgstr "Variación 2 atributos"
 
 #. Default: "Variation 2 Values"
 #: ./ftw/shop/content/shopitem.py:137
