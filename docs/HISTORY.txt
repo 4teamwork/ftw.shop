@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.3 (unreleased)
+2.0.3 (2014-08-29)
 ------------------
 
 - Set reply-to to customer for shop-owner and supplier mails.
