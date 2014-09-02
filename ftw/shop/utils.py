@@ -3,6 +3,7 @@ from decimal import InvalidOperation
 import codecs
 import cStringIO
 import csv
+import re
 
 
 def to_decimal(number):
@@ -21,6 +22,11 @@ def to_decimal(number):
         return Decimal(str(number)[:str(number).find('.') + 3])
     except InvalidOperation:
         return number
+
+
+def is_email_valid(address):
+    expr = re.compile(r'^[^@]*[^@\.]@[^@\.][^@]*\.[^@]+$', re.IGNORECASE)
+    return bool(expr.match(address))
 
 
 class UnicodeCSVWriter:
