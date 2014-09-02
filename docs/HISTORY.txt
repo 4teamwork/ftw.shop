@@ -4,7 +4,8 @@ Changelog
 2.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Validate email address in checkout form.
+  [jone]
 
 
 2.0.3 (2014-08-29)

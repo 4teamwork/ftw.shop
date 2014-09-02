@@ -1,9 +1,13 @@
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import DEFAULT_VAT_RATES
+from ftw.shop.utils import is_email_valid
 from plone.theme.interfaces import IDefaultPloneLayer
+from z3c.form import validator
 from z3c.form.interfaces import IRadioWidget
+from z3c.form.validator import SimpleFieldValidator
 from zope import schema
 from zope.interface import Interface
+from zope.interface import Invalid
 
 
 class IShopRoot(Interface):
@@ -328,6 +332,19 @@ class IDefaultContactInformation(Interface):
     comments = schema.Text(
             title=_(u'label_comments', default=u'Comments'),
             required=False)
+
+
+class EmailAddressValidator(SimpleFieldValidator):
+
+    def validate(self, value):
+        super(EmailAddressValidator, self).validate(value)
+        if not value or not is_email_valid(value):
+            raise Invalid(_(u'This email address is invalid.'))
+
+
+validator.WidgetValidatorDiscriminators(
+    EmailAddressValidator,
+    field=IDefaultContactInformation['email'])
 
 
 class IShippingAddress(Interface):

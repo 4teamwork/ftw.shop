@@ -87,6 +87,8 @@
       component=".vocabularies.ContactInfoStepGroups"
       />
 
+    <adapter factory=".interfaces.EmailAddressValidator" />
+
     <!-- Shipping Address StepGroups Vocabulary -->
     <utility
     provides="zope.schema.interfaces.IVocabularyFactory"

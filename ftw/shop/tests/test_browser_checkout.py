@@ -51,6 +51,18 @@ class TestBrowserCheckout(TestCase):
             z3cform.erroneous_fields(form))
 
     @browsing
+    def test_valid_email_address_required(self, browser):
+        checkout.visit_checkout_with_one_item_in_cart()
+        browser.fill({'Email': 'invalid.email.ch'})
+        checkout.next()
+        checkout.assert_step(checkout.CONTACT_INFORMATION)
+
+        form = browser.css('form.kssattr-formname-checkout-wizard').first
+        self.assertEquals(
+            ['This email address is invalid.'],
+            z3cform.erroneous_fields(form)[u'Email'])
+
+    @browsing
     def test_contact_information_defaults_for_logged_in_user(self, browser):
         hugo = create(Builder('user').named('H\xc3\xbcgo', 'B\xc3\xb6ss'))
         browser.login(hugo)
