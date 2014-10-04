@@ -44,7 +44,7 @@ Installation
 - Install the ``ftw.shop:default`` profile in ``portal_setup``.
 
 Configuration
-============
+=============
 
 - Create your shop structure by adding Shop Categories
 - Add Shop Items to your Shop Categories
