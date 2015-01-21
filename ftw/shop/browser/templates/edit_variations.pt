@@ -138,7 +138,7 @@
                             </tbody>
                         </table>
                     </div>
-                   <input type="submit" name="form.button.save" value="Speichern"/>
+                   <input type="submit" name="form.button.save" i18n:translate="label_save" value="Save"/>
                    <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
 
@@ -203,7 +203,7 @@
                             </table>
                         </fieldset>
                     </div>
-                    <input type="submit" name="form.button.save" value="Speichern"/>
+                    <input type="submit" name="form.button.save" value="Save" i18n:translate="label_save"/>
                     <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
             </dd>
