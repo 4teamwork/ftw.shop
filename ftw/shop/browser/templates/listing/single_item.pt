@@ -16,7 +16,7 @@
                 <form tal:attributes="action string:${item/url}/addtocart">
                     <span style="float: right">
                         <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
-                        <label>Menge</label>
+                        <label i18n:translate="">Quantity</label>
                         <input type="text" size="2" name="quantity:int" value="1"/>
                         <input class="allowMultiSubmit compact" name="addtocart" type="submit" value="Add to cart" i18n:attributes="value" />
                     </span>
