@@ -9,6 +9,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.component import getUtility
+from zope.component import getMultiAdapter
+from zope.i18n import translate
 
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig
@@ -148,7 +150,7 @@ class EditVariationsView(BrowserView):
         if form.get('reduce_level'):
             variation_config = IVariationConfig(self.context)
             variation_config.reduce_level()
-                
+
         if form.get('add_level'):
             variation_config = IVariationConfig(self.context)
             variation_config.add_level()
@@ -170,7 +172,10 @@ class EditVariationsView(BrowserView):
             values = list(self.context.getField(fn).get(self.context))
             var_dict = variation_config.getVariationDict()
             new_var_dict = {}
-            DEFAULT_VARDATA = {'active':True, 'price': '0.00', 'skuCode': '99999', 'description': "Neue Beschreibung"}
+            pps = getMultiAdapter((self.context, self.request), name='plone_portal_state')
+            language = pps.language()
+            new_description = translate(_('label_new_description', default=u'New description'), domain='ftw.shop', context=self.context, target_language=language)
+            DEFAULT_VARDATA = {'active':True, 'price': '0.00', 'skuCode': '99999', 'description': new_description}
 
 
             if len(variation_config.getVariationAttributes()) == 2:
@@ -241,8 +246,10 @@ class EditVariationsView(BrowserView):
             # Finally purge and update the var_dict
             variation_config.purge_dict()
             variation_config.updateVariationConfig(new_var_dict)
-
-            values.insert(pos, 'Neuer Wert')
+            pps = getMultiAdapter((self.context, self.request), name='plone_portal_state')
+            language = pps.language()
+            new_value = translate(_('label_new_value', default=u'New value'), domain='ftw.shop', context=self.context, target_language=language)
+            values.insert(pos, new_value)
             self.context.getField(fn).set(self.context, values)
 
 
@@ -410,7 +417,7 @@ class EditVariationsView(BrowserView):
             # Two variation attributes
             for i, var1_value in enumerate(variation_config.getVariation1Values()):
                 for j, var2_value in enumerate(variation_config.getVariation2Values()):
-                    variation_code = 'var-%s-%s' % (i, j) 
+                    variation_code = 'var-%s-%s' % (i, j)
                     variation_data[variation_code] = _parse_data(variation_code)
 
         return variation_data
