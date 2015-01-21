@@ -4,6 +4,9 @@ Changelog
 2.0.4 (unreleased)
 ------------------
 
+- Added basque (eu) translation.
+  [erral]
+
 - Validate email address in checkout form.
   [jone]
 
