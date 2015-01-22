@@ -7,24 +7,9 @@
       i18n:domain="ftw.shop">
 <body>
 
-<metal:main fill-slot="main">
-    <tal:main-macro metal:define-macro="main"
-           tal:define="kssClassesView context/@@kss_field_decorator_view;
-                       getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
-                       templateId template/getId;
-                       is_editable context/@@plone_context_state/is_editable;
-                       desc here/description|nothing;
-                       text here/getText|nothing">
+<metal:content-core fill-slot="content-core">
+    <tal:content-core-macro metal:define-macro="content-core">
 
-        <div tal:replace="structure provider:plone.abovecontenttitle" />
-
-        <h1 class="documentFirstHeading" tal:content="context/Title">
-            <metal:field use-macro="python:here.widget('Title', mode='view')">
-            Title
-            </metal:field>
-        </h1>
-
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <tal:shopitems repeat="item view/getItemDatas">
 
@@ -32,8 +17,7 @@
                 <img src="#" tal:attributes="src string:${item/url}/image_mini" />
             </a>
 
-            <div tal:replace="structure provider:plone.abovecontentbody" />
-            <div tal:replace="structure text" />
+            <div tal:replace="structure here/getText|nothing" />
 
             <script type="text/javascript" tal:content="string: var varDicts = ${view/getVarDictsJSON}"></script>
 
@@ -63,10 +47,8 @@
 
         <script type="text/javascript" src="++resource++shop.js"></script>
 
-        <div tal:replace="structure provider:plone.belowcontentbody" />
-
-    </tal:main-macro>
-</metal:main>
+    </tal:content-core-macro>
+</metal:content-core>
 
 </body>
 </html>
