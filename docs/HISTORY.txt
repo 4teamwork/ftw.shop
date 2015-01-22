@@ -4,7 +4,8 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fill content-core slot instead of main slot in shopitem view. Fixes #10
+  [erral]
 
 
 2.0.4 (2015-01-21)
