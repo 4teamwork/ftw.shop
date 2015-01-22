@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-02 14:03+0000\n"
+"POT-Creation-Date: 2015-01-22 08:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Enny Rodriguez <administrador@femto.com.ve>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,6 +70,12 @@ msgstr "Limpiar carrito de compra"
 msgid "Filter"
 msgstr "Filtro"
 
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:48
+#: ./ftw/shop/browser/templates/listing/single_item.pt:19
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:60
+msgid "Quantity"
+msgstr ""
+
 #: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
 msgstr "Categoría"
@@ -85,6 +91,10 @@ msgstr "Artículo"
 #: ./ftw/shop/profiles/default/types/Supplier.xml
 msgid "Supplier"
 msgstr "Proveedor"
+
+#: ./ftw/shop/browser/templates/edit_variations.pt:79
+msgid "This article has no variations"
+msgstr ""
 
 #: ./ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
@@ -254,6 +264,16 @@ msgstr "Detalles de la orden"
 msgid "heading_shop_setup"
 msgstr "Configuración de la tienda"
 
+#. Default: "Value"
+#: ./ftw/shop/browser/templates/edit_variations.pt:35
+msgid "heading_value"
+msgstr ""
+
+#. Default: "Variation ${number}"
+#: ./ftw/shop/browser/templates/edit_variations.pt:31
+msgid "heading_variation"
+msgstr ""
+
 #. Default: "This portlet displays the shopping cart contents."
 #: ./ftw/shop/portlets/cart.py:101
 msgid "help_add_cart_portlet"
@@ -316,10 +336,20 @@ msgstr "I.V.A"
 msgid "help_vat_rates"
 msgstr "I.V.A valor"
 
+#. Default: "Active"
+#: ./ftw/shop/browser/templates/edit_variations.pt:99
+msgid "label_active"
+msgstr ""
+
 #. Default: "Add Shopping Cart Portlet"
 #: ./ftw/shop/portlets/cart.py:99
 msgid "label_add_cart_portlet"
 msgstr "Añadir porlet de carrito de compra"
+
+#. Default: "Add variation"
+#: ./ftw/shop/browser/templates/edit_variations.pt:70
+msgid "label_add_variation"
+msgstr ""
 
 #. Default: "All Suppliers"
 #: ./ftw/shop/browser/templates/order_manager.pt:54
@@ -543,6 +573,31 @@ msgstr "Más"
 msgid "label_name"
 msgstr "Nombre"
 
+#. Default: "New attribute"
+#: ./ftw/shop/content/variations.py:243
+msgid "label_new_attr"
+msgstr ""
+
+#. Default: "New description"
+#: ./ftw/shop/browser/shopitem.py:177
+msgid "label_new_description"
+msgstr ""
+
+#. Default: "New value"
+#: ./ftw/shop/browser/shopitem.py:251
+msgid "label_new_value"
+msgstr ""
+
+#. Default: "New value 1"
+#: ./ftw/shop/content/variations.py:241
+msgid "label_new_value_1"
+msgstr ""
+
+#. Default: "New value 2"
+#: ./ftw/shop/content/variations.py:242
+msgid "label_new_value_2"
+msgstr ""
+
 #. Default: "Only if ShopItems available in current folder"
 #: ./ftw/shop/portlets/cart.py:22
 msgid "label_only_if_items"
@@ -613,6 +668,16 @@ msgstr "Número de teléfono"
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
 msgstr "Precio"
+
+#. Default: "Remove variation"
+#: ./ftw/shop/browser/templates/edit_variations.pt:73
+msgid "label_remove_variation"
+msgstr ""
+
+#. Default: "Save"
+#: ./ftw/shop/browser/templates/edit_variations.pt:141
+msgid "label_save"
+msgstr ""
 
 #. Default: "Selected orders"
 #: ./ftw/shop/browser/templates/status.pt:13
@@ -888,7 +953,7 @@ msgid "msg_thank_you_title"
 msgstr "¡Gracias!"
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:363
+#: ./ftw/shop/browser/shopitem.py:370
 msgid "msg_variations_saved"
 msgstr "Variaciones guardadas"
 
