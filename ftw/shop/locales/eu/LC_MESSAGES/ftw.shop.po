@@ -368,7 +368,7 @@ msgstr "Edozein egoera"
 #: ftw/shop/browser/templates/mail/order_notification.pt:99
 #: ftw/shop/browser/templates/mail/supplier_notification.pt:94
 msgid "label_article_no"
-msgstr "Elementu kopurua"
+msgstr "Erosgai-kodea (SKU)"
 
 #. Default: "Body Text"
 #: ftw/shop/content/shopitem.py:63
@@ -716,12 +716,12 @@ msgstr "Eskari kudeatzailean egoeraren zutabea erakutsi"
 #: ftw/shop/browser/templates/listing/one_variation_compact.pt:26
 #: ftw/shop/browser/templates/listing/single_item.pt:6
 msgid "label_sku_code"
-msgstr "SKU kodea"
+msgstr "Erosgai-kodea (SKU)"
 
 #. Default: "SKU code"
 #: ftw/shop/browser/templates/edit_variations.pt:104
 msgid "label_sku_code_required"
-msgstr "SKU kodea beharrezkoa da"
+msgstr "Erosgai-kodea (SKU) beharrezkoa da"
 
 #. Default: "Status"
 #: ftw/shop/browser/templates/order_manager.pt:62
