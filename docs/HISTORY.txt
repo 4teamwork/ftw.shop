@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.4 (unreleased)
+1.1.4 (2015-02-04)
 ------------------
 
 - Bypass session reset in collective.z3cform.wizard if HTTP referer is not 
