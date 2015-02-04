@@ -237,6 +237,12 @@ class CheckoutWizard(wizard.Wizard):
         self.context = context
         self.request = request
 
+    def update(self):
+        # Remove referer to bypass session reset if referer is not equal to
+        # actual url.
+        self.request.environ.update({'HTTP_REFERER': ''})
+        super(CheckoutWizard, self).update()
+
     def getSelectedPaymentProcessor(self):
         payment_processor = None
         if 'payment_processor_choice' not in self.session.keys():

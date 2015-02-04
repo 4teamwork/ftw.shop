@@ -4,7 +4,10 @@ Changelog
 1.1.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Bypass session reset in collective.z3cform.wizard if HTTP referer is not 
+  equal to the actual url which can be the case when the site is accessed
+  through a reverse proxy with url rewriting (e.g. MS ISA-Proxy).
+  [buchi]
 
 
 1.1.3 (2012-10-18)
