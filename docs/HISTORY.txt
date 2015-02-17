@@ -4,7 +4,8 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Some more translation fixes.
+  [erral]
 
 
 2.0.4 (2015-01-21)

@@ -92,7 +92,7 @@ msgid "Supplier"
 msgstr "Hornitzailea"
 
 #: ftw/shop/browser/templates/edit_variations.pt:79
-msgid "This article has no variations"
+msgid "This item has no variations"
 msgstr "Artikulu honek ez du aldakirik"
 
 #: ftw/shop/interfaces.py:342
@@ -254,14 +254,14 @@ msgstr "Eskariaren xehetasunak"
 msgid "heading_shop_setup"
 msgstr "Dendaren ezarpenak"
 
-#. Default: "Value"
+#. Default: "Values"
 #: ftw/shop/browser/templates/edit_variations.pt:35
-msgid "heading_value"
+msgid "heading_values"
 msgstr "Balioa"
 
-#. Default: "Variation ${number}"
+#. Default: "Variation Level ${level}"
 #: ftw/shop/browser/templates/edit_variations.pt:31
-msgid "heading_variation"
+msgid "heading_variation_level"
 msgstr "${number}. aldakia "
 
 #. Default: "This portlet displays the shopping cart contents."
@@ -338,9 +338,9 @@ msgstr "Aktibo"
 msgid "label_add_cart_portlet"
 msgstr "Erosketa saskiaren portleta gehitu"
 
-#. Default: "Add variation"
+#. Default: "Add variation level"
 #: ftw/shop/browser/templates/edit_variations.pt:70
-msgid "label_add_variation"
+msgid "label_add_variation_level"
 msgstr "Aldakia gehitu"
 
 #. Default: "All Suppliers"
@@ -661,9 +661,9 @@ msgstr "Telefono zenbakia"
 msgid "label_price"
 msgstr "Prezioa"
 
-#. Default: "Remove variation"
+#. Default: "Remove variation level"
 #: ftw/shop/browser/templates/edit_variations.pt:73
-msgid "label_remove_variation"
+msgid "label_remove_variation_level"
 msgstr "Aldakia kendu"
 
 #. Default: "Save"

@@ -28,11 +28,11 @@
                     <div class="variationEdit">
                         <div class="attribute-box" tal:repeat="attr varConf/getVariationAttributes">
                             <tal:idx tal:define="idx repeat/attr/index">
-                                <h3 i18n:translate="heading_variation">Variation <span i18n:name="number" tal:content="python:idx+1">1</span></h3>
+                                <h3 i18n:translate="heading_variation_level">Variation Level <span i18n:name="level" tal:content="python:idx+1">1</span></h3>
                                 <input type="text" tal:attributes="name string:vattr-${idx};
                                                                    value attr">
                                 <br/>
-                                <h3 i18n:translate="heading_value">Value</h3>
+                                <h3 i18n:translate="heading_values">Values</h3>
                                 <tal:block tal:condition="python: idx == 0">
                                     <tal:values tal:repeat="val varConf/getVariation1Values">
                                         <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
@@ -67,10 +67,10 @@
                     <div>
                         <input name="update_structure" type="submit" value="Update" style="float: left">
                         <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) < 2">
-                            <input name="add_level" type="submit" i18n:attributes="value label_add_variation" value="Add variation" style="float: right">
+                            <input name="add_level" type="submit" i18n:attributes="value label_add_variation_level" value="Add variation level" style="float: right">
                         </tal:cond>
                         <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) > 0">
-                            <input name="remove_level" type="submit" i18n:attributes="value label_remove_variation" value="Remove variation" style="float: right">
+                            <input name="remove_level" type="submit" i18n:attributes="value label_remove_variation_level" value="Remove variation level" style="float: right">
                         </tal:cond>
                     </div>
                     <br/><br/>
@@ -78,7 +78,7 @@
                 </form>
                 <p tal:condition="python:len(varConf.getVariationAttributes()) == 0"
                     i18n:translate="">
-                    This article has no variations
+                    This item has no variations
                 </p>
             </dd>
             <dt>

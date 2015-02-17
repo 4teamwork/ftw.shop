@@ -94,7 +94,7 @@ msgid "Supplier"
 msgstr ""
 
 #: ./ftw/shop/browser/templates/edit_variations.pt:79
-msgid "This article has no variations"
+msgid "This item has no variations"
 msgstr ""
 
 #: ./ftw/shop/interfaces.py:342
@@ -265,14 +265,14 @@ msgstr ""
 msgid "heading_shop_setup"
 msgstr ""
 
-#. Default: "Value"
+#. Default: "Values"
 #: ./ftw/shop/browser/templates/edit_variations.pt:35
-msgid "heading_value"
+msgid "heading_values"
 msgstr ""
 
-#. Default: "Variation ${number}"
+#. Default: "Variation Level ${level}"
 #: ./ftw/shop/browser/templates/edit_variations.pt:31
-msgid "heading_variation"
+msgid "heading_variation_level"
 msgstr ""
 
 #. Default: "This portlet displays the shopping cart contents."
@@ -347,9 +347,9 @@ msgstr ""
 msgid "label_add_cart_portlet"
 msgstr ""
 
-#. Default: "Add variation"
+#. Default: "Add variation level"
 #: ./ftw/shop/browser/templates/edit_variations.pt:70
-msgid "label_add_variation"
+msgid "label_add_variation_level"
 msgstr ""
 
 #. Default: "All Suppliers"
@@ -670,9 +670,9 @@ msgstr ""
 msgid "label_price"
 msgstr ""
 
-#. Default: "Remove variation"
+#. Default: "Remove variation level"
 #: ./ftw/shop/browser/templates/edit_variations.pt:73
-msgid "label_remove_variation"
+msgid "label_remove_variation_level"
 msgstr ""
 
 #. Default: "Save"

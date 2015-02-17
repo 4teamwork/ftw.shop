@@ -92,8 +92,8 @@ msgid "Supplier"
 msgstr "Lieferant"
 
 #: ftw/shop/browser/templates/edit_variations.pt:79
-msgid "This article has no variations"
-msgstr "(Dieser Artikel enthält keine Variationen)"
+msgid "This item has no variations"
+msgstr "Dieser Artikel enthält keine Variationen"
 
 #: ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
@@ -170,7 +170,8 @@ msgid "cart_header_total"
 msgstr "Total"
 
 #. Default: "Your cart is empty"
-#: ftw/shop/browser/templates/cart_edit.pt:18 ftw/shop/portlets/cart.pt:19
+#: ftw/shop/browser/templates/cart_edit.pt:18
+#: ftw/shop/portlets/cart.pt:19
 msgid "cart_is_empty"
 msgstr "Ihr Warenkorb ist leer"
 
@@ -194,35 +195,43 @@ msgstr "Titel"
 msgid "categories_title"
 msgstr "Kategorien"
 
-#: ftw/shop/content/shopitem.py:74 ftw/shop/extender.py:55
+#: ftw/shop/content/shopitem.py:74
+#: ftw/shop/extender.py:55
 msgid "desc_price"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:85 ftw/shop/extender.py:65
+#: ftw/shop/content/shopitem.py:85
+#: ftw/shop/extender.py:65
 msgid "desc_show_price"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:95 ftw/shop/extender.py:74
+#: ftw/shop/content/shopitem.py:95
+#: ftw/shop/extender.py:74
 msgid "desc_sku_code"
 msgstr ""
 
-#: ftw/shop/content/shopcategory.py:38 ftw/shop/content/shopitem.py:152
+#: ftw/shop/content/shopcategory.py:38
+#: ftw/shop/content/shopitem.py:152
 msgid "desc_supplier"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:105 ftw/shop/extender.py:83
+#: ftw/shop/content/shopitem.py:105
+#: ftw/shop/extender.py:83
 msgid "desc_variation1_attr"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:116 ftw/shop/extender.py:93
+#: ftw/shop/content/shopitem.py:116
+#: ftw/shop/extender.py:93
 msgid "desc_variation1_values"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:128 ftw/shop/extender.py:104
+#: ftw/shop/content/shopitem.py:128
+#: ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr ""
 
-#: ftw/shop/content/shopitem.py:139 ftw/shop/extender.py:115
+#: ftw/shop/content/shopitem.py:139
+#: ftw/shop/extender.py:115
 msgid "desc_variation2_values"
 msgstr ""
 
@@ -254,15 +263,15 @@ msgstr "Details zur Bestellung"
 msgid "heading_shop_setup"
 msgstr "Shop-Einstellungen"
 
-#. Default: "Value"
+#. Default: "Values"
 #: ftw/shop/browser/templates/edit_variations.pt:35
-msgid "heading_value"
+msgid "heading_values"
 msgstr "Werte"
 
-#. Default: "Variation ${number}"
+#. Default: "Variation Level ${level}"
 #: ftw/shop/browser/templates/edit_variations.pt:31
-msgid "heading_variation"
-msgstr "Variationsstufe ${number}"
+msgid "heading_variation_level"
+msgstr "Variationsstufe ${level}"
 
 #. Default: "This portlet displays the shopping cart contents."
 #: ftw/shop/portlets/cart.py:101
@@ -272,9 +281,7 @@ msgstr "Dieses Portlet zeigt den Inhalt des Warenkorbs an"
 #. Default: "Also send eMail to owner if supplier(s) have been notified"
 #: ftw/shop/interfaces.py:195
 msgid "help_always_notify_shop_owner"
-msgstr ""
-"Auch dann eine eMail an den Shopbesitzer senden wenn Lieferant(en) "
-"benachrichtigt wurde(n)"
+msgstr "Auch dann eine eMail an den Shopbesitzer senden wenn Lieferant(en) benachrichtigt wurde(n)"
 
 #: ftw/shop/browser/checkout.py:69
 msgid "help_default_contact_info_step"
@@ -338,9 +345,9 @@ msgstr "Aktiv"
 msgid "label_add_cart_portlet"
 msgstr "Warenkorb-Portlet hinzufügen"
 
-#. Default: "Add variation"
+#. Default: "Add variation level"
 #: ftw/shop/browser/templates/edit_variations.pt:70
-msgid "label_add_variation"
+msgid "label_add_variation_level"
 msgstr "Variationsstufe hinzufügen"
 
 #. Default: "All Suppliers"
@@ -661,15 +668,15 @@ msgstr "Telefonnummer"
 msgid "label_price"
 msgstr "Preis"
 
-#. Default: "Remove variation"
+#. Default: "Remove variation level"
 #: ftw/shop/browser/templates/edit_variations.pt:73
-msgid "label_remove_variation"
+msgid "label_remove_variation_level"
 msgstr "Variationsstufe löschen"
 
 #. Default: "Save"
 #: ftw/shop/browser/templates/edit_variations.pt:141
 msgid "label_save"
-msgstr ""
+msgstr "Speichern"
 
 #. Default: "Selected orders"
 #: ftw/shop/browser/templates/status.pt:13
@@ -702,7 +709,8 @@ msgid "label_shop_name"
 msgstr "Geben sie den Shop-Namen ein"
 
 #. Default: "Show price"
-#: ftw/shop/content/shopitem.py:84 ftw/shop/extender.py:64
+#: ftw/shop/content/shopitem.py:84
+#: ftw/shop/extender.py:64
 msgid "label_show_price"
 msgstr "Preis anzeigen"
 
@@ -750,7 +758,8 @@ msgstr "Übersicht"
 
 #. Default: "Supplier"
 #: ftw/shop/browser/templates/order_manager.pt:50
-#: ftw/shop/content/shopcategory.py:37 ftw/shop/content/shopitem.py:151
+#: ftw/shop/content/shopcategory.py:37
+#: ftw/shop/content/shopitem.py:151
 msgid "label_supplier"
 msgstr "Lieferant"
 
@@ -790,22 +799,26 @@ msgid "label_used"
 msgstr "Abweichende Lieferadresse"
 
 #. Default: "Variation 1 Attribute"
-#: ftw/shop/content/shopitem.py:103 ftw/shop/extender.py:81
+#: ftw/shop/content/shopitem.py:103
+#: ftw/shop/extender.py:81
 msgid "label_variation1_attr"
 msgstr "Variations-Attribut 1"
 
 #. Default: "Variation 1 Values"
-#: ftw/shop/content/shopitem.py:114 ftw/shop/extender.py:91
+#: ftw/shop/content/shopitem.py:114
+#: ftw/shop/extender.py:91
 msgid "label_variation1_values"
 msgstr "Werte für Variation 1"
 
 #. Default: "Variation 2 Attribute"
-#: ftw/shop/content/shopitem.py:126 ftw/shop/extender.py:102
+#: ftw/shop/content/shopitem.py:126
+#: ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr "Variations-Attribut 2"
 
 #. Default: "Variation 2 Values"
-#: ftw/shop/content/shopitem.py:137 ftw/shop/extender.py:113
+#: ftw/shop/content/shopitem.py:137
+#: ftw/shop/extender.py:113
 msgid "label_variation2_values"
 msgstr "Werte für Variation 2"
 
@@ -870,8 +883,7 @@ msgstr "Kategorien wurden aktualisiert."
 #. Default: "You will now be redirected to an external site."
 #: ftw/shop/browser/templates/checkout/order_review.pt:94
 msgid "msg_external_redirect"
-msgstr ""
-"Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
+msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
 #. Default: "Added item to cart."
 #: ftw/shop/browser/cart.py:256
@@ -1053,9 +1065,7 @@ msgstr "Ihre Bestellnummer lautet"
 #: ftw/shop/browser/templates/mail/order_notification.pt:139
 #: ftw/shop/browser/templates/mail/supplier_notification.pt:129
 msgid "txt_shipping"
-msgstr ""
-"Verpackung und Versandkosten sind nicht enthalten und werden individuell "
-"verrechnet."
+msgstr "Verpackung und Versandkosten sind nicht enthalten und werden individuell verrechnet."
 
 #. Default: "Hello, <br /> a customer has placed an order in your Webshop:"
 #: ftw/shop/browser/templates/mail/order_notification.pt:14
