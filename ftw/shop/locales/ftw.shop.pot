@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-01-22 08:00+0000\n"
+"POT-Creation-Date: 2015-02-19 14:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -89,12 +89,12 @@ msgstr ""
 msgid "Supplier"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/edit_variations.pt:79
-msgid "This item has no variations"
-msgstr ""
-
 #: ./ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
+msgstr ""
+
+#: ./ftw/shop/browser/templates/edit_variations.pt:79
+msgid "This item has no variations"
 msgstr ""
 
 #: ./ftw/shop/portlets/cart.py:112
@@ -345,7 +345,7 @@ msgstr ""
 
 #. Default: "Add variation level"
 #: ./ftw/shop/browser/templates/edit_variations.pt:70
-msgid "label_add_variation level"
+msgid "label_add_variation_level"
 msgstr ""
 
 #. Default: "All Suppliers"
