@@ -4,6 +4,9 @@ Changelog
 2.0.5 (unreleased)
 ------------------
 
+- Fix getting the uid in get_suppliers, if there are variations.
+  [mathias.leimgruber]
+
 - Fill content-core slot instead of main slot in shopitem view. Fixes #10
   [erral]
 

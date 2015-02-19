@@ -116,7 +116,9 @@ class ShoppingCartAdapter(object):
 
         for itemkey, itemvalue in self.get_items().items():
             if 'variation_code' in itemvalue:
-                uid = itemkey.rstrip(itemvalue['variation_code'].strip('var'))
+                # Strip of variation suffix from itemkey to get the uid.
+                variation_suffix = itemvalue['variation_code'].strip('var')
+                uid = itemkey[:-len(variation_suffix)]
             else:
                 uid = itemkey
 
