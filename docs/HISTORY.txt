@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.5 (unreleased)
+2.0.5 (2015-02-19)
 ------------------
 
 - Fix getting the uid in get_suppliers, if there are variations.
