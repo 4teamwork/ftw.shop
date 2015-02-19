@@ -1,449 +1,486 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ftw.shop\n"
-"POT-Creation-Date: 2015-01-21 08:44+0000\n"
-"PO-Revision-Date: 2015-01-21 13:31+0100\n"
+"POT-Creation-Date: 2015-02-19 14:50+0000\n"
+"PO-Revision-Date: 2015-01-22 09:08+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: eu <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
 "Language: Basque\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "A category for shop items"
 msgstr "Erosgaientzako kategoria"
 
-#: profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "A simple shop item"
 msgstr "Erosgaia"
 
-#: profiles/default/types/Supplier.xml
+#: ./ftw/shop/profiles/default/types/Supplier.xml
 msgid "A supplier"
 msgstr "Hornitzailea"
 
-#: browser/templates/listing/one_variation.pt:42
-#: browser/templates/listing/one_variation_compact.pt:51
-#: browser/templates/listing/single_item.pt:21
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:42
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:51
+#: ./ftw/shop/browser/templates/listing/single_item.pt:21
 msgid "Add to cart"
 msgstr "Saskira gehitu"
 
-#: profiles/default/types/ShopCategory.xml profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Categories"
 msgstr "Kategoriak"
 
-#: browser/templates/order_manager.pt:129 browser/templates/status.pt:38
+#: ./ftw/shop/browser/templates/order_manager.pt:129
+#: ./ftw/shop/browser/templates/status.pt:38
 msgid "Change status"
 msgstr "Egoera aldatu"
 
-#: browser/templates/cart_edit.pt:91
+#: ./ftw/shop/browser/templates/cart_edit.pt:91
 msgid "Checkout"
 msgstr "Ordaindu"
 
-#: portlets/cart.py:33
+#: ./ftw/shop/portlets/cart.py:33
 msgid "Conditions under which portlet should be shown"
 msgstr "Portleta erakusteko baldintzak"
 
-#: browser/templates/order_manager.pt:130
+#: ./ftw/shop/browser/templates/order_manager.pt:130
 msgid "Delete orders"
 msgstr "Eskariak ezabatu"
 
-#: portlets/cart.py:32
+#: ./ftw/shop/portlets/cart.py:32
 msgid "Display mode"
 msgstr "Erakusteko modua"
 
-#: portlets/cart.py:111
+#: ./ftw/shop/portlets/cart.py:111
 msgid "Edit Shopping Cart portlet"
 msgstr "Erosketa saskiaren portleta editatu"
 
-#: browser/templates/cart_edit.pt:85
+#: ./ftw/shop/browser/templates/cart_edit.pt:85
 msgid "Empty Shopping Cart"
 msgstr "Saskia hustu"
 
-#: browser/templates/order_manager.pt:80
+#: ./ftw/shop/browser/templates/order_manager.pt:80
 msgid "Filter"
 msgstr "Filtroa"
 
-#: profiles/default/types/ShopCategory.xml
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:48
+#: ./ftw/shop/browser/templates/listing/single_item.pt:19
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:60
+msgid "Quantity"
+msgstr "Kopurua"
+
+#: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
 msgstr "Denda kategoria"
 
-#: profiles/default/controlpanel.xml
+#: ./ftw/shop/profiles/default/controlpanel.xml
 msgid "Shop Configuration"
 msgstr "Dendaren Ezarpenak"
 
-#: profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Shop Item"
 msgstr "Erosgaia"
 
-#: profiles/default/types/Supplier.xml
+#: ./ftw/shop/profiles/default/types/Supplier.xml
 msgid "Supplier"
 msgstr "Hornitzailea"
 
-#: interfaces.py:342
+#: ./ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
 msgstr "E-posta helbide hau ez da zuzena."
 
-#: portlets/cart.py:112
+#: ./ftw/shop/browser/templates/edit_variations.pt:79
+msgid "This item has no variations"
+msgstr "Artikulu honek ez du aldakirik"
+
+#: ./ftw/shop/portlets/cart.py:112
 msgid "This portlet displays the Shopping Cart."
 msgstr "Portlet honek erosketa saskia erakusten du."
 
-#: browser/templates/edit_categories.pt:126
+#: ./ftw/shop/browser/templates/edit_categories.pt:126
 msgid "Update"
 msgstr "Eguneratu"
 
-#: browser/templates/cart_edit.pt:79
+#: ./ftw/shop/browser/templates/cart_edit.pt:79
 msgid "Update Cart"
 msgstr "Saskia eguneratu"
 
-#: profiles/default/types/ShopItem.xml
+#: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Variations"
 msgstr "Aldakiak"
 
 #. Default: "Back"
-#: browser/checkout.py:329
+#: ./ftw/shop/browser/checkout.py:329
 msgid "btn_back"
 msgstr "Atzera"
 
 #. Default: "Next"
-#: browser/checkout.py:351
+#: ./ftw/shop/browser/checkout.py:351
 msgid "btn_continue"
 msgstr "Hurrengoa"
 
 #. Default: "Finish"
-#: browser/checkout.py:373
+#: ./ftw/shop/browser/checkout.py:373
 msgid "btn_finish"
 msgstr "Bukatu"
 
 #. Default: "Delete"
-#: browser/templates/cart_edit.pt:32
+#: ./ftw/shop/browser/templates/cart_edit.pt:32
 msgid "cart_header_delete"
 msgstr "Ezabatu"
 
 #. Default: "Description"
-#: browser/templates/cart_edit.pt:28
-#: browser/templates/checkout/order_review.pt:58
+#: ./ftw/shop/browser/templates/cart_edit.pt:28
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:58
 msgid "cart_header_description"
 msgstr "Deskribapena"
 
 #. Default: "Price"
-#: browser/templates/cart_edit.pt:30
-#: browser/templates/checkout/order_review.pt:60
-#: browser/templates/mail/order_confirmation.pt:100
+#: ./ftw/shop/browser/templates/cart_edit.pt:30
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:60
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:100
 msgid "cart_header_price"
 msgstr "Prezioa"
 
 #. Default: "Product"
-#: browser/templates/cart_edit.pt:27
-#: browser/templates/checkout/order_review.pt:57
-#: browser/templates/mail/order_confirmation.pt:98
+#: ./ftw/shop/browser/templates/cart_edit.pt:27
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:57
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:98
 msgid "cart_header_product"
 msgstr "Produktua"
 
 #. Default: "Quantity"
-#: browser/templates/cart_edit.pt:29
-#: browser/templates/checkout/order_review.pt:59
-#: browser/templates/mail/order_confirmation.pt:99
+#: ./ftw/shop/browser/templates/cart_edit.pt:29
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:99
 msgid "cart_header_quantity"
 msgstr "Kopurua"
 
 #. Default: "Total"
-#: browser/templates/cart_edit.pt:31
-#: browser/templates/checkout/order_review.pt:61
-#: browser/templates/mail/order_confirmation.pt:101
+#: ./ftw/shop/browser/templates/cart_edit.pt:31
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:61
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:101
 msgid "cart_header_total"
 msgstr "Guztira"
 
 #. Default: "Your cart is empty"
-#: browser/templates/cart_edit.pt:18 portlets/cart.pt:19
+#: ./ftw/shop/browser/templates/cart_edit.pt:18
+#: ./ftw/shop/portlets/cart.pt:19
 msgid "cart_is_empty"
 msgstr "Zure saskia hutsik dago"
 
 #. Default: "Shopping Cart"
-#: browser/templates/cart_edit.pt:14
+#: ./ftw/shop/browser/templates/cart_edit.pt:14
 msgid "cart_title"
 msgstr "Erosketa saskia"
 
 #. Default: "Rank"
-#: browser/templates/edit_categories.pt:58
+#: ./ftw/shop/browser/templates/edit_categories.pt:58
 msgid "categories_header_rank"
 msgstr "Garrantzia"
 
 #. Default: "Title"
-#: browser/templates/edit_categories.pt:57
+#: ./ftw/shop/browser/templates/edit_categories.pt:57
 msgid "categories_header_title"
 msgstr "Izena"
 
 #. Default: "Categories"
-#: browser/templates/edit_categories.pt:48
+#: ./ftw/shop/browser/templates/edit_categories.pt:48
 msgid "categories_title"
 msgstr "Kategoriak"
 
-#: content/shopitem.py:74 extender.py:55
+#: ./ftw/shop/content/shopitem.py:74
+#: ./ftw/shop/extender.py:55
 msgid "desc_price"
 msgstr ""
 
-#: content/shopitem.py:85 extender.py:65
+#: ./ftw/shop/content/shopitem.py:85
+#: ./ftw/shop/extender.py:65
 msgid "desc_show_price"
 msgstr ""
 
-#: content/shopitem.py:95 extender.py:74
+#: ./ftw/shop/content/shopitem.py:95
+#: ./ftw/shop/extender.py:74
 msgid "desc_sku_code"
 msgstr ""
 
-#: content/shopcategory.py:38 content/shopitem.py:152
+#: ./ftw/shop/content/shopcategory.py:38
+#: ./ftw/shop/content/shopitem.py:152
 msgid "desc_supplier"
 msgstr ""
 
-#: content/shopitem.py:105 extender.py:83
+#: ./ftw/shop/content/shopitem.py:105
+#: ./ftw/shop/extender.py:83
 msgid "desc_variation1_attr"
 msgstr ""
 
-#: content/shopitem.py:116 extender.py:93
+#: ./ftw/shop/content/shopitem.py:116
+#: ./ftw/shop/extender.py:93
 msgid "desc_variation1_values"
 msgstr ""
 
-#: content/shopitem.py:128 extender.py:104
+#: ./ftw/shop/content/shopitem.py:128
+#: ./ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr ""
 
-#: content/shopitem.py:139 extender.py:115
+#: ./ftw/shop/content/shopitem.py:139
+#: ./ftw/shop/extender.py:115
 msgid "desc_variation2_values"
 msgstr ""
 
 #. Default: "Please select the value-added tax rate for this item."
-#: extender.py:126
+#: ./ftw/shop/extender.py:126
 msgid "desc_vat_rate"
 msgstr "Aukeratu elementu honi dagokion BEZa"
 
 #. Default: "Details of your order"
-#: browser/templates/mail/order_confirmation.pt:23
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:23
 msgid "header_orderdetails"
 msgstr "Zure eskariaren xehetasunak"
 
 #. Default: "Ordered items"
-#: browser/templates/mail/order_confirmation.pt:92
-#: browser/templates/mail/order_notification.pt:94
-#: browser/templates/mail/supplier_notification.pt:90
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:92
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:94
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:90
 msgid "header_ordereditems"
 msgstr "Eskatutako produktuak"
 
 #. Default: "Details of the order"
-#: browser/templates/mail/order_notification.pt:18
-#: browser/templates/mail/supplier_notification.pt:18
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:18
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:18
 msgid "header_shopowner_orderdetails"
 msgstr "Eskariaren xehetasunak"
 
 #. Default: "Shop Setup"
-#: browser/templates/settings-template.pt:21
+#: ./ftw/shop/browser/templates/settings-template.pt:21
 msgid "heading_shop_setup"
 msgstr "Dendaren ezarpenak"
 
+#. Default: "Values"
+#: ./ftw/shop/browser/templates/edit_variations.pt:35
+msgid "heading_values"
+msgstr "Balioa"
+
+#. Default: "Variation Level ${level}"
+#: ./ftw/shop/browser/templates/edit_variations.pt:31
+msgid "heading_variation_level"
+msgstr "${number}. aldakia "
+
 #. Default: "This portlet displays the shopping cart contents."
-#: portlets/cart.py:101
+#: ./ftw/shop/portlets/cart.py:101
 msgid "help_add_cart_portlet"
 msgstr "Portlet honek erosketa saskiaren edukiak erakusten ditu."
 
 #. Default: "Also send eMail to owner if supplier(s) have been notified"
-#: interfaces.py:195
+#: ./ftw/shop/interfaces.py:195
 msgid "help_always_notify_shop_owner"
 msgstr "Jabeari ere mezua bidali hornitzaileei ere bidali bazaie."
 
-#: browser/checkout.py:69
+#: ./ftw/shop/browser/checkout.py:69
 msgid "help_default_contact_info_step"
 msgstr ""
 
-#: browser/checkout.py:202
+#: ./ftw/shop/browser/checkout.py:202
 msgid "help_default_payment_processor_choice_step"
 msgstr ""
 
-#: browser/checkout.py:148
+#: ./ftw/shop/browser/checkout.py:148
 msgid "help_default_shipping_address_step"
 msgstr ""
 
 #. Default: "The subject for order mails."
-#: interfaces.py:178
+#: ./ftw/shop/interfaces.py:178
 msgid "help_mail_subject"
 msgstr "Eskaera e-posten gaia"
 
 #. Default: "The supplier's name"
-#: content/supplier.py:39
+#: ./ftw/shop/content/supplier.py:39
 msgid "help_name"
 msgstr "Hornitzailearen izena"
 
-#: browser/checkout.py:236
+#: ./ftw/shop/browser/checkout.py:236
 msgid "help_order_review_step"
 msgstr ""
 
 #. Default: "Will be displayed in the customer confirmation mail as contact information when configured."
-#: interfaces.py:186
+#: ./ftw/shop/interfaces.py:186
 msgid "help_phone_number"
-msgstr ""
-"Bezeroari bidaltzen zaion e-posta mezuan agertuko da kontakturako informazio "
-"gisa."
+msgstr "Bezeroari bidaltzen zaion e-posta mezuan agertuko da kontakturako informazio gisa."
 
-#: interfaces.py:254
+#: ./ftw/shop/interfaces.py:254
 msgid "help_show_status_column"
 msgstr ""
 
 #. Default: "Supplier's postal address"
-#: content/supplier.py:34
+#: ./ftw/shop/content/supplier.py:34
 msgid "help_supplier_address"
 msgstr "Hornitzailearen helbidea"
 
-#: interfaces.py:262
+#: ./ftw/shop/interfaces.py:262
 msgid "help_vat_enabled"
 msgstr ""
 
-#: interfaces.py:270
+#: ./ftw/shop/interfaces.py:270
 msgid "help_vat_number"
 msgstr ""
 
-#: interfaces.py:278
+#: ./ftw/shop/interfaces.py:278
 msgid "help_vat_rates"
 msgstr ""
 
+#. Default: "Active"
+#: ./ftw/shop/browser/templates/edit_variations.pt:99
+msgid "label_active"
+msgstr "Aktibo"
+
 #. Default: "Add Shopping Cart Portlet"
-#: portlets/cart.py:99
+#: ./ftw/shop/portlets/cart.py:99
 msgid "label_add_cart_portlet"
 msgstr "Erosketa saskiaren portleta gehitu"
 
+#. Default: "Add variation level"
+#: ./ftw/shop/browser/templates/edit_variations.pt:70
+msgid "label_add_variation_level"
+msgstr "Aldakia gehitu"
+
 #. Default: "All Suppliers"
-#: browser/templates/order_manager.pt:54
+#: ./ftw/shop/browser/templates/order_manager.pt:54
 msgid "label_all_suppliers"
 msgstr "Hornitzaile guztiak"
 
 #. Default: "Always"
-#: portlets/cart.py:17
+#: ./ftw/shop/portlets/cart.py:17
 msgid "label_always"
 msgstr "Beti"
 
 #. Default: "Always notify shop owner about orders"
-#: interfaces.py:193
+#: ./ftw/shop/interfaces.py:193
 msgid "label_always_notify_shop_owner"
 msgstr "Beti jakinarazi jabeari eskaera berriak daudenean"
 
 #. Default: "Any status"
-#: browser/templates/order_manager.pt:68
+#: ./ftw/shop/browser/templates/order_manager.pt:68
 msgid "label_any_status"
 msgstr "Edozein egoera"
 
 #. Default: "Article number"
-#: browser/templates/mail/order_confirmation.pt:97
-#: browser/templates/mail/order_notification.pt:99
-#: browser/templates/mail/supplier_notification.pt:94
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:97
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:99
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:94
 msgid "label_article_no"
-msgstr "Elementu kopurua"
+msgstr "Erosgai-kodea (SKU)"
 
 #. Default: "Body Text"
-#: content/shopitem.py:63
+#: ./ftw/shop/content/shopitem.py:63
 msgid "label_body_text"
 msgstr "Testua"
 
 #. Default: "Cart"
-#: browser/templates/order_manager.pt:95
+#: ./ftw/shop/browser/templates/order_manager.pt:95
 msgid "label_cart"
 msgstr "Saskia"
 
 #. Default: "Cart Contents"
-#: browser/templates/checkout/order_review.pt:49
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:49
 msgid "label_cart_contents"
 msgstr "Saskiaren edukia"
 
 #. Default: "Cart Portlet"
-#: portlets/cart.py:56
+#: ./ftw/shop/portlets/cart.py:56
 msgid "label_cart_portlet"
 msgstr "Saskiaren portleta"
 
 #. Default: "Order"
-#: portlets/cart.pt:45
+#: ./ftw/shop/portlets/cart.pt:45
 msgid "label_checkout"
 msgstr "Eskaria"
 
 #. Default: "Checkout"
-#: browser/controlpanel.py:21
+#: ./ftw/shop/browser/controlpanel.py:21
 msgid "label_checkout_group"
 msgstr "Ordaindu"
 
 #. Default: "Checkout"
-#: browser/checkout.py:253
+#: ./ftw/shop/browser/checkout.py:253
 msgid "label_checkout_wizard"
 msgstr "Ordaindu"
 
 #. Default: "City"
-#: interfaces.py:325
+#: ./ftw/shop/interfaces.py:325
 msgid "label_city"
 msgstr "Hiria"
 
 #. Default: "Comments"
-#: browser/templates/checkout/order_review.pt:26 interfaces.py:333
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:26
+#: ./ftw/shop/interfaces.py:333
 msgid "label_comments"
 msgstr "Komentarioak"
 
 #. Default: "Company"
-#: interfaces.py:305
+#: ./ftw/shop/interfaces.py:305
 msgid "label_company"
 msgstr "Enpresa/Elkartea"
 
 #. Default: "Configurate Variations"
-#: browser/templates/edit_variations.pt:21
+#: ./ftw/shop/browser/templates/edit_variations.pt:21
 msgid "label_config_variations"
 msgstr "Aldakiak konfiguratu"
 
 #. Default: "Contact Information Step Group"
-#: interfaces.py:224
+#: ./ftw/shop/interfaces.py:224
 msgid "label_contact_info_step_group"
 msgstr "Kontakturako informazioaren pausua"
 
 #. Default: "Country"
-#: interfaces.py:329
+#: ./ftw/shop/interfaces.py:329
 msgid "label_country"
 msgstr "Herrialdea"
 
 #. Default: "Customer"
-#: browser/templates/order_manager.pt:96
+#: ./ftw/shop/browser/templates/order_manager.pt:96
 msgid "label_customer"
 msgstr "Bezeroa"
 
 #. Default: "Date"
-#: browser/templates/mail/order_notification.pt:23
-#: browser/templates/mail/supplier_notification.pt:22
-#: browser/templates/order_manager.pt:97
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:23
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:22
+#: ./ftw/shop/browser/templates/order_manager.pt:97
 msgid "label_date"
 msgstr "Data"
 
 #. Default: "Contact Information"
-#: browser/checkout.py:65
+#: ./ftw/shop/browser/checkout.py:65
 msgid "label_default_contact_info_step"
 msgstr "Kontakturako informazioa"
 
 #. Default: "Payment Processor"
-#: browser/checkout.py:198
+#: ./ftw/shop/browser/checkout.py:198
 msgid "label_default_payment_processor_choice_step"
 msgstr "Ordainketa prozesatzailea"
 
 #. Default: "Shipping Address"
-#: browser/checkout.py:144
+#: ./ftw/shop/browser/checkout.py:144
 msgid "label_default_shipping_address_step"
 msgstr "Bidalketa helbidea"
 
 #. Default: "Description"
-#: browser/templates/edit_variations.pt:105
-#: browser/templates/listing/one_variation.pt:13
-#: browser/templates/listing/one_variation_compact.pt:78
+#: ./ftw/shop/browser/templates/edit_variations.pt:105
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:13
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:78
 msgid "label_description"
 msgstr "Deskribapena"
 
 #. Default: "Comments"
-#: browser/templates/mail/order_confirmation.pt:64
-#: browser/templates/mail/order_notification.pt:65
-#: browser/templates/mail/supplier_notification.pt:62
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:64
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:65
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:62
 msgid "label_details_comments"
 msgstr "Komentarioak"
 
@@ -460,321 +497,363 @@ msgid "label_details_ms"
 msgstr ""
 
 #. Default: "Edit cart"
-#: portlets/cart.pt:43
+#: ./ftw/shop/portlets/cart.pt:43
 msgid "label_edit_cart"
 msgstr "Saskia aldatu"
 
 #. Default: "Edit variations"
-#: browser/templates/edit_variations.pt:85
-#: browser/templates/listing/one_variation.pt:33
-#: browser/templates/listing/one_variation_compact.pt:60
+#: ./ftw/shop/browser/templates/edit_variations.pt:85
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:33
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:60
 msgid "label_edit_variations"
 msgstr "Aldakiak aldatu"
 
 #. Default: "Email"
-#: browser/templates/checkout/order_review.pt:21
-#: browser/templates/mail/order_confirmation.pt:54
-#: browser/templates/mail/order_notification.pt:55
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:21
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:54
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:55
 msgid "label_email"
 msgstr "E-posta"
 
 #. Default: "Enabled Payment Processors"
-#: interfaces.py:208
+#: ./ftw/shop/interfaces.py:208
 msgid "label_enabled_payment_processors"
 msgstr "Aktibatutako ordainketa prozesatzaileak"
 
 #. Default: "First Name"
-#: interfaces.py:293
+#: ./ftw/shop/interfaces.py:293
 msgid "label_firstname"
 msgstr "Izena"
 
 #. Default: "From:"
-#: browser/templates/order_manager.pt:34
+#: ./ftw/shop/browser/templates/order_manager.pt:34
 msgid "label_from_date"
 msgstr "Noiztik:"
 
 #. Default: "Image"
-#: content/shopitem.py:40
+#: ./ftw/shop/content/shopitem.py:40
 msgid "label_image"
 msgstr "Irudia"
 
 #. Default: "VAT"
-#: browser/templates/mail/order_confirmation.pt:117
-#: browser/templates/mail/order_notification.pt:119
-#: browser/templates/mail/supplier_notification.pt:110
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:117
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:119
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:110
 msgid "label_included_vat"
 msgstr "BEZ"
 
 #. Default: "Last Name"
-#: interfaces.py:297
+#: ./ftw/shop/interfaces.py:297
 msgid "label_lastname"
 msgstr "Abizena"
 
 #. Default: "BCC Address"
-#: interfaces.py:171
+#: ./ftw/shop/interfaces.py:171
 msgid "label_mail_bcc"
 msgstr "BCC helbidea (ezkutuko e-posta)"
 
 #. Default: "Mail"
-#: browser/controlpanel.py:12
+#: ./ftw/shop/browser/controlpanel.py:12
 msgid "label_mail_group"
 msgstr "E-posta"
 
 #. Default: "Subject"
-#: interfaces.py:176
+#: ./ftw/shop/interfaces.py:176
 msgid "label_mail_subject"
 msgstr "Gaia"
 
 #. Default: "More"
-#: browser/templates/category.pt:48
+#: ./ftw/shop/browser/templates/category.pt:48
 msgid "label_more_link"
 msgstr "Gehiago"
 
 #. Default: "Name"
-#: content/supplier.py:38
+#: ./ftw/shop/content/supplier.py:38
 msgid "label_name"
 msgstr "Izena"
 
+#. Default: "New attribute"
+#: ./ftw/shop/content/variations.py:243
+msgid "label_new_attr"
+msgstr "Atributu berria"
+
+#. Default: "New description"
+#: ./ftw/shop/browser/shopitem.py:177
+msgid "label_new_description"
+msgstr "Deskribapen berria"
+
+#. Default: "New value"
+#: ./ftw/shop/browser/shopitem.py:251
+msgid "label_new_value"
+msgstr "Balio berria"
+
+#. Default: "New value 1"
+#: ./ftw/shop/content/variations.py:241
+msgid "label_new_value_1"
+msgstr "Balio berria 1"
+
+#. Default: "New value 2"
+#: ./ftw/shop/content/variations.py:242
+msgid "label_new_value_2"
+msgstr "Balio berria 2"
+
 #. Default: "Only if ShopItems available in current folder"
-#: portlets/cart.py:22
+#: ./ftw/shop/portlets/cart.py:22
 msgid "label_only_if_items"
 msgstr "Uneko karpetan erosgaiak badaude bakarrik"
 
 #. Default: "Order Manager"
-#: portlets/cart.pt:51
+#: ./ftw/shop/portlets/cart.pt:51
 msgid "label_order_manager"
 msgstr "Eskarien kudeatzailea"
 
 #. Default: "Order No."
-#: browser/templates/order_manager.pt:93
+#: ./ftw/shop/browser/templates/order_manager.pt:93
 msgid "label_order_no"
 msgstr "Eskari-zenbakia"
 
 #. Default: "Order Review"
-#: browser/checkout.py:233
+#: ./ftw/shop/browser/checkout.py:233
 msgid "label_order_review_step"
 msgstr "Eskaria gainbegiratu"
 
 #. Default: "Order Review Step Group"
-#: interfaces.py:238
+#: ./ftw/shop/interfaces.py:238
 msgid "label_order_review_step_group"
 msgstr "Eskaria gainbegiratzeko pausua"
 
 #. Default: "Order Status"
-#: browser/templates/mail/order_notification.pt:25
-#: browser/templates/mail/supplier_notification.pt:24
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:25
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:24
 msgid "label_order_status"
 msgstr "Eskariaren egoera"
 
 #. Default: "Order Storage method"
-#: interfaces.py:217
+#: ./ftw/shop/interfaces.py:217
 msgid "label_order_storage"
 msgstr "Eskariak gordetzeko modua"
 
 #. Default: "Payment Processor"
-#: browser/templates/checkout/order_review.pt:90 interfaces.py:128
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:90
+#: ./ftw/shop/interfaces.py:128
 msgid "label_payment_processor"
 msgstr "Ordainketa prozesatzailea"
 
 #. Default: "Payment Processor Step Group"
-#: interfaces.py:201
+#: ./ftw/shop/interfaces.py:201
 msgid "label_payment_processor_step_group"
 msgstr "Ordainketa prozesatzailearen pausua"
 
 #. Default: "Personal Information"
-#: browser/templates/checkout/order_review.pt:7
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:7
 msgid "label_personal_information"
 msgstr "Informazio pertsonala"
 
 #. Default: "Phone"
-#: browser/templates/checkout/order_review.pt:22
-#: browser/templates/mail/order_confirmation.pt:58
-#: browser/templates/mail/order_notification.pt:59
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:22
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:58
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:59
 msgid "label_phone"
 msgstr "Telefonoa"
 
 #. Default: "Phone number"
-#: interfaces.py:184
+#: ./ftw/shop/interfaces.py:184
 msgid "label_phone_number"
 msgstr "Telefono zenbakia"
 
 #. Default: "Price"
-#: browser/templates/edit_variations.pt:103
-#: browser/templates/listing/one_variation.pt:11
-#: browser/templates/listing/one_variation_compact.pt:22
+#: ./ftw/shop/browser/templates/edit_variations.pt:103
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:11
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
 msgstr "Prezioa"
 
+#. Default: "Remove variation level"
+#: ./ftw/shop/browser/templates/edit_variations.pt:73
+msgid "label_remove_variation_level"
+msgstr "Aldakia kendu"
+
+#. Default: "Save"
+#: ./ftw/shop/browser/templates/edit_variations.pt:141
+msgid "label_save"
+msgstr "Gorde"
+
 #. Default: "Selected orders"
-#: browser/templates/status.pt:13
+#: ./ftw/shop/browser/templates/status.pt:13
 msgid "label_selected_orders"
 msgstr "Aukeratutako eskariak"
 
 #. Default: "Shipping Address"
-#: browser/templates/checkout/order_review.pt:33
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:33
 msgid "label_shipping_address"
 msgstr "Bidalketa-helbidea"
 
 #. Default: "Shipping Address Step Group"
-#: interfaces.py:231
+#: ./ftw/shop/interfaces.py:231
 msgid "label_shipping_address_step_group"
 msgstr "Bidalketa-helbidearen pausua"
 
 #. Default: "Shop configuration"
-#: browser/controlpanel.py:57
+#: ./ftw/shop/browser/controlpanel.py:57
 msgid "label_shop_configuration"
 msgstr "Dendaren ezarpenak"
 
 #. Default: "Sender e-Mail Address"
-#: interfaces.py:166
+#: ./ftw/shop/interfaces.py:166
 msgid "label_shop_email"
 msgstr "Dendaren e-posta helbidea"
 
 #. Default: "Enter the shop name"
-#: interfaces.py:161
+#: ./ftw/shop/interfaces.py:161
 msgid "label_shop_name"
 msgstr "Dendaren izena"
 
 #. Default: "Show price"
-#: content/shopitem.py:84 extender.py:64
+#: ./ftw/shop/content/shopitem.py:84
+#: ./ftw/shop/extender.py:64
 msgid "label_show_price"
 msgstr "Prezioa erakutsi"
 
 #. Default: "Show status column in order manager"
-#: interfaces.py:252
+#: ./ftw/shop/interfaces.py:252
 msgid "label_show_status_column"
 msgstr "Eskari kudeatzailean egoeraren zutabea erakutsi"
 
 #. Default: "SKU code"
-#: browser/templates/listing/one_variation.pt:12
-#: browser/templates/listing/one_variation_compact.pt:26
-#: browser/templates/listing/single_item.pt:6
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:12
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:26
+#: ./ftw/shop/browser/templates/listing/single_item.pt:6
 msgid "label_sku_code"
-msgstr "SKU kodea"
+msgstr "Erosgai-kodea (SKU)"
 
 #. Default: "SKU code"
-#: browser/templates/edit_variations.pt:104
+#: ./ftw/shop/browser/templates/edit_variations.pt:104
 msgid "label_sku_code_required"
-msgstr "SKU kodea beharrezkoa da"
+msgstr "Erosgai-kodea (SKU) beharrezkoa da"
 
 #. Default: "Status"
-#: browser/templates/order_manager.pt:62
+#: ./ftw/shop/browser/templates/order_manager.pt:62
 msgid "label_status"
 msgstr "Egoera"
 
 #. Default: "Status Set"
-#: interfaces.py:245
+#: ./ftw/shop/interfaces.py:245
 msgid "label_status_set"
 msgstr "Egoera ezarrita"
 
 #. Default: "Street/No."
-#: interfaces.py:309
+#: ./ftw/shop/interfaces.py:309
 msgid "label_street"
 msgstr "Helbide osoa (kalea, zenbakia, ...)"
 
 #. Default: "Address 2"
-#: interfaces.py:313
+#: ./ftw/shop/interfaces.py:313
 msgid "label_street2"
 msgstr "Helbidea (gehigarria)"
 
 #. Default: "Summary"
-#: browser/templates/checkout/order_review.pt:5
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:5
 msgid "label_summary"
 msgstr "Laburpena"
 
 #. Default: "Supplier"
-#: browser/templates/order_manager.pt:50 content/shopcategory.py:37
-#: content/shopitem.py:151
+#: ./ftw/shop/browser/templates/order_manager.pt:50
+#: ./ftw/shop/content/shopcategory.py:37
+#: ./ftw/shop/content/shopitem.py:151
 msgid "label_supplier"
 msgstr "Hornitzailea"
 
 #. Default: "Address"
-#: content/supplier.py:33
+#: ./ftw/shop/content/supplier.py:33
 msgid "label_supplier_address"
 msgstr "Helbidea"
 
 #. Default: "E-Mail"
-#: content/supplier.py:22
+#: ./ftw/shop/content/supplier.py:22
 msgid "label_supplier_email"
 msgstr "E-posta"
 
 #. Default: "Supplier from parent category"
-#: vocabularies.py:184
+#: ./ftw/shop/vocabularies.py:184
 msgid "label_supplier_from_parent"
 msgstr "Kategoria gurasoko hornitzailea"
 
 #. Default: "Title"
-#: interfaces.py:289
+#: ./ftw/shop/interfaces.py:289
 msgid "label_title"
 msgstr "Izenburua"
 
 #. Default: "To:"
-#: browser/templates/order_manager.pt:41
+#: ./ftw/shop/browser/templates/order_manager.pt:41
 msgid "label_to_date"
 msgstr "Noiz arte:"
 
 #. Default: "Up to Shop Setup"
-#: browser/templates/settings-template.pt:24
+#: ./ftw/shop/browser/templates/settings-template.pt:24
 msgid "label_up_to_shop_setup"
 msgstr "Dendaren ezarpenetara joan"
 
 #. Default: "Different from invoice address"
-#: interfaces.py:355
+#: ./ftw/shop/interfaces.py:355
 msgid "label_used"
 msgstr "Fakturazio helbidearen ezberdina erabili"
 
 #. Default: "Variation 1 Attribute"
-#: content/shopitem.py:103 extender.py:81
+#: ./ftw/shop/content/shopitem.py:103
+#: ./ftw/shop/extender.py:81
 msgid "label_variation1_attr"
 msgstr "1. aldakiaren atributu-izena"
 
 #. Default: "Variation 1 Values"
-#: content/shopitem.py:114 extender.py:91
+#: ./ftw/shop/content/shopitem.py:114
+#: ./ftw/shop/extender.py:91
 msgid "label_variation1_values"
 msgstr "1. aldakiaren balioa"
 
 #. Default: "Variation 2 Attribute"
-#: content/shopitem.py:126 extender.py:102
+#: ./ftw/shop/content/shopitem.py:126
+#: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr "2. aldakiaren atributu-izena"
 
 #. Default: "Variation 2 Values"
-#: content/shopitem.py:137 extender.py:113
+#: ./ftw/shop/content/shopitem.py:137
+#: ./ftw/shop/extender.py:113
 msgid "label_variation2_values"
 msgstr "2. aldakiaren balioa"
 
 #. Default: "VAT"
-#: browser/templates/checkout/order_review.pt:78
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:78
 msgid "label_vat"
 msgstr "BEZ"
 
 #. Default: "Enable VAT support"
-#: interfaces.py:260
+#: ./ftw/shop/interfaces.py:260
 msgid "label_vat_enabled"
 msgstr "BEZa erabiltzea aktibatu"
 
 #. Default: "VAT"
-#: browser/controlpanel.py:32
+#: ./ftw/shop/browser/controlpanel.py:32
 msgid "label_vat_group"
 msgstr "BEZ"
 
 #. Default: "VAT number"
-#: interfaces.py:268
+#: ./ftw/shop/interfaces.py:268
 msgid "label_vat_number"
 msgstr "IFZ"
 
 #. Default: "VAT rate"
-#: extender.py:125
+#: ./ftw/shop/extender.py:125
 msgid "label_vat_rate"
 msgstr "BEZ ehunekoa"
 
 #. Default: "VAT rates"
-#: interfaces.py:276
+#: ./ftw/shop/interfaces.py:276
 msgid "label_vat_rates"
 msgstr "BEZ ehunekoak"
 
 #. Default: "Zip Code"
-#: interfaces.py:321
+#: ./ftw/shop/interfaces.py:321
 msgid "label_zipcode"
 msgstr "Posta-kodea"
 
@@ -782,245 +861,244 @@ msgid "link_agb"
 msgstr ""
 
 #. Default: "Cart emptied."
-#: browser/cart.py:303
+#: ./ftw/shop/browser/cart.py:303
 msgid "msg_cart_emptied"
 msgstr "Saskia hustu egin da."
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: browser/cart.py:325
+#: ./ftw/shop/browser/cart.py:325
 msgid "msg_cart_invalidvalue"
 msgstr "Balioak ez dira zuzenak. Saskia ez da eguneratu."
 
 #. Default: "Cart updated."
-#: browser/cart.py:288
+#: ./ftw/shop/browser/cart.py:288
 msgid "msg_cart_updated"
 msgstr "Saskia eguneratu egin da."
 
 #. Default: "Categories updated."
-#: browser/manage_categories.py:27
+#: ./ftw/shop/browser/manage_categories.py:27
 msgid "msg_categories_updated"
 msgstr "Kategoriak eguneratu egin dira."
 
 #. Default: "You will now be redirected to an external site."
-#: browser/templates/checkout/order_review.pt:94
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:94
 msgid "msg_external_redirect"
-msgstr ""
-"Orain, kanpoko webgune batera bideratuko zaitugu ordainketa gauzatzeko."
+msgstr "Orain, kanpoko webgune batera bideratuko zaitugu ordainketa gauzatzeko."
 
 #. Default: "Added item to cart."
-#: browser/cart.py:256
+#: ./ftw/shop/browser/cart.py:256
 msgid "msg_item_added"
 msgstr "Erosgaia saskian sartu duzu."
 
 #. Default: "Item is disabled and can't be added."
-#: browser/cart.py:259
+#: ./ftw/shop/browser/cart.py:259
 msgid "msg_item_disabled"
 msgstr "Erosgaia desaktibatuta dago eta ezin da gehitu."
 
 #. Default: "Error"
-#: browser/cart.py:377
+#: ./ftw/shop/browser/cart.py:377
 msgid "msg_label_error"
 msgstr "Errorea"
 
 #. Default: "Information"
-#: browser/cart.py:374
+#: ./ftw/shop/browser/cart.py:374
 msgid "msg_label_info"
 msgstr "Informazioa"
 
 #. Default: "Can't proceed with empty cart."
-#: browser/cart.py:449
+#: ./ftw/shop/browser/cart.py:449
 msgid "msg_no_cart"
 msgstr "Ezin da jarraitu saskia hutsik badago."
 
 #. Default: "<dt>Not buyable</dt> <dd>${edit_variations}</dd>"
-#: browser/templates/listing/one_variation.pt:33
-#: browser/templates/listing/one_variation_compact.pt:60
-#: browser/templates/listing/two_variations.pt:32
+#: ./ftw/shop/browser/templates/listing/one_variation.pt:33
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:60
+#: ./ftw/shop/browser/templates/listing/two_variations.pt:32
 msgid "msg_not_buyable"
 msgstr "<dt>Ezin da erosi</dt> <dd>${edit_variations}</dd>"
 
 #. Default: "${no_orders} orders cancelled."
-#: browser/ordermanager.py:265
+#: ./ftw/shop/browser/ordermanager.py:265
 msgid "msg_order_cancelled"
 msgstr "${no_orders} eskaera bertan behera utzi dira."
 
 #. Default: "Shop structure initialized."
-#: browser/initialize.py:33
+#: ./ftw/shop/browser/initialize.py:33
 msgid "msg_shop_initialized"
 msgstr "Dendaren egitura hasieratuta."
 
 #. Default: "Changed status for ${no_orders} orders."
-#: browser/ordermanager.py:291
+#: ./ftw/shop/browser/ordermanager.py:291
 msgid "msg_status_changed"
 msgstr "${no_orders} eskariren egoera aldatu egin da."
 
-#: browser/templates/thankyou.pt:13
+#: ./ftw/shop/browser/templates/thankyou.pt:13
 msgid "msg_thank_you_info"
 msgstr ""
 
 #. Default: "Order submitted"
-#: browser/templates/thankyou.pt:11
+#: ./ftw/shop/browser/templates/thankyou.pt:11
 msgid "msg_thank_you_message"
 msgstr "Eskaria bidali da"
 
 #. Default: "Your order number: ${order_number}"
-#: browser/templates/thankyou.pt:17
+#: ./ftw/shop/browser/templates/thankyou.pt:17
 msgid "msg_thank_you_orderno"
 msgstr "Zure eskari zenbakia: ${order_number}"
 
 #. Default: "Thank you!"
-#: browser/templates/thankyou.pt:9
+#: ./ftw/shop/browser/templates/thankyou.pt:9
 msgid "msg_thank_you_title"
 msgstr "Eskerrik asko!"
 
 #. Default: "Variations saved."
-#: browser/shopitem.py:363
+#: ./ftw/shop/browser/shopitem.py:370
 msgid "msg_variations_saved"
 msgstr "Aldakiak gorde egin dira."
 
 #. Default: "Cart"
-#: portlets/cart.pt:8
+#: ./ftw/shop/portlets/cart.pt:8
 msgid "portletheader_cart"
 msgstr "Saskia"
 
 #. Default: "Confirmed (online payment)"
-#: default_status_set.py:27
+#: ./ftw/shop/default_status_set.py:27
 msgid "status_confirmed"
 msgstr "Ordainketa konfirmatuta"
 
 #. Default: "On account"
-#: default_status_set.py:32
+#: ./ftw/shop/default_status_set.py:32
 msgid "status_on_account"
 msgstr "Prestatzen"
 
 #. Default: "Pending (online payment)"
-#: default_status_set.py:22
+#: ./ftw/shop/default_status_set.py:22
 msgid "status_online_pending"
 msgstr "Ordainketaren zain"
 
 #. Default: "Default Contact Information"
-#: browser/checkout.py:67
+#: ./ftw/shop/browser/checkout.py:67
 msgid "title_default_contact_info_step"
 msgstr "Defektuzko kontaktu-informazioa"
 
 #. Default: "Default Contact Information"
-#: browser/checkout.py:136
+#: ./ftw/shop/browser/checkout.py:136
 msgid "title_default_contact_info_step_group"
 msgstr "Defektuzko kontaktu-informazioa"
 
 #. Default: "Default Order Review Step"
-#: browser/checkout.py:234
+#: ./ftw/shop/browser/checkout.py:234
 msgid "title_default_order_review_step"
 msgstr "Eskaeraren errebisio pausua"
 
 #. Default: "Default Order Review Step Group"
-#: browser/checkout.py:247
+#: ./ftw/shop/browser/checkout.py:247
 msgid "title_default_order_review_step_group"
 msgstr "Eskaeraren errebisio pausuaren taldea"
 
 #. Default: "Default Payment Processor Choice"
-#: browser/checkout.py:200
+#: ./ftw/shop/browser/checkout.py:200
 msgid "title_default_payment_processor_step"
 msgstr "Defektuzko ordainketa prozesatzailearen aukera"
 
 #. Default: "Default Payment Processor Choice"
-#: browser/checkout.py:211
+#: ./ftw/shop/browser/checkout.py:211
 msgid "title_default_payment_processor_step_group"
 msgstr "Defektuzko ordainketa prozesatzailearen aukera"
 
 #. Default: "Default Shipping Address"
-#: browser/checkout.py:146
+#: ./ftw/shop/browser/checkout.py:146
 msgid "title_default_shipping_address_step"
 msgstr "Defektuzko bidalketa-helbidea"
 
 #. Default: "Default Shipping Address"
-#: browser/checkout.py:190
+#: ./ftw/shop/browser/checkout.py:190
 msgid "title_default_shipping_address_step_group"
 msgstr "Defektuzko bidalketa-helbidea"
 
 #. Default: "Status"
-#: browser/templates/order_view.pt:22
+#: ./ftw/shop/browser/templates/order_view.pt:22
 msgid "title_order_status"
 msgstr "Egoera"
 
 #. Default: "Ordered Items"
-#: browser/templates/order_view.pt:94
+#: ./ftw/shop/browser/templates/order_view.pt:94
 msgid "title_ordered_items"
 msgstr "Eskatutakoak"
 
 #. Default: "Orders"
-#: browser/templates/order_manager.pt:25
+#: ./ftw/shop/browser/templates/order_manager.pt:25
 msgid "title_orders"
 msgstr "Eskariak"
 
 #. Default: "Personal Information"
-#: browser/templates/mail/order_confirmation.pt:30
-#: browser/templates/mail/order_notification.pt:31
-#: browser/templates/mail/supplier_notification.pt:29
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:30
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:31
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:29
 msgid "title_personal_information"
 msgstr "Informazioa"
 
 #. Default: "Shipping Address"
-#: browser/templates/mail/order_confirmation.pt:69
-#: browser/templates/mail/order_notification.pt:70
-#: browser/templates/mail/supplier_notification.pt:67
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:69
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:70
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:67
 msgid "title_shipping_address"
 msgstr "Bidalketa-helbidea"
 
 #. Default: "For inquiries please contact us: ${phone} E-Mail ${email}"
-#: browser/templates/mail/order_confirmation.pt:146
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:146
 msgid "txt_contact"
-msgstr ""
-"Eskaerak edo galderak badituzu, jarri kontaktuan gurekin. Telefonoa ${phone} "
-"E-posta ${email}"
+msgstr "Eskaerak edo galderak badituzu, jarri kontaktuan gurekin. Telefonoa ${phone} E-posta ${email}"
 
 #. Default: "Phone"
-#: browser/templates/mail/order_confirmation.pt:143
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:143
 msgid "txt_contact_phone"
 msgstr "Telefonoa"
 
 #. Default: "Your order number is"
-#: browser/templates/mail/order_confirmation.pt:26
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:26
 msgid "txt_ordernumber"
 msgstr "Zure eskaera zenbakia hau da"
 
 #. Default: "Shipping and packaging costs are not included and will be charged individually."
-#: browser/templates/mail/order_confirmation.pt:138
-#: browser/templates/mail/order_notification.pt:139
-#: browser/templates/mail/supplier_notification.pt:129
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:138
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:139
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:129
 msgid "txt_shipping"
 msgstr "Bidalketa gastuak ez daude sartuta eta aparte kobratuko dira."
 
 #. Default: "Hello, <br /> a customer has placed an order in your Webshop:"
-#: browser/templates/mail/order_notification.pt:14
-#: browser/templates/mail/supplier_notification.pt:14
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:14
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:14
 msgid "txt_shopowner_greeting"
 msgstr "Kaixo, <br/> bezero batek zuren dendan eskari bat egin du:"
 
 #. Default: "Order number"
-#: browser/templates/mail/order_notification.pt:21
-#: browser/templates/mail/supplier_notification.pt:20
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:21
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:20
 msgid "txt_shopowner_ordernumber"
 msgstr "Eskari zenbakia"
 
 #. Default: "Thank you for your order in our shop on the ${date}"
-#: browser/templates/mail/order_confirmation.pt:20
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:20
 msgid "txt_thankyou"
 msgstr "Eskerrik asko gure dendan ${date}-n eskari bat egitearren"
 
 #. Default: "Dear"
-#: browser/templates/mail/order_confirmation.pt:14
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:14
 msgid "txt_title"
 msgstr "Kaixo "
 
 #. Default: "Total (incl.VAT)"
-#: browser/templates/mail/order_confirmation.pt:125
-#: browser/templates/mail/order_notification.pt:127
-#: browser/templates/mail/supplier_notification.pt:118
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:125
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:127
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:118
 msgid "txt_total"
 msgstr "Guztira (BEZ barne)"
 
 #. Default: "(incl. VAT)"
-#: browser/templates/order_view.pt:121
+#: ./ftw/shop/browser/templates/order_view.pt:121
 msgid "txt_vat"
 msgstr "(BEZ barne)"
+
+

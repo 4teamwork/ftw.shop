@@ -11,7 +11,7 @@
 
     <body>
         <div metal:fill-slot="main" tal:define="portal_url context/@@plone_portal_state/portal_url">
-            <h1 class="documentFirstHeading" tal:content="context/Title"> 
+            <h1 class="documentFirstHeading" tal:content="context/Title">
                 <metal:field use-macro="python:here.widget('Title', mode='view')">
                 Title
                 </metal:field>
@@ -28,11 +28,11 @@
                     <div class="variationEdit">
                         <div class="attribute-box" tal:repeat="attr varConf/getVariationAttributes">
                             <tal:idx tal:define="idx repeat/attr/index">
-                                <h3 tal:content="python: 'Variationsstufe %s' % (idx + 1)">Variationsstufe 1</h3>
+                                <h3 i18n:translate="heading_variation_level">Variation Level <span i18n:name="level" tal:content="python:idx+1">1</span></h3>
                                 <input type="text" tal:attributes="name string:vattr-${idx};
                                                                    value attr">
                                 <br/>
-                                <h3>Werte</h3>
+                                <h3 i18n:translate="heading_values">Values</h3>
                                 <tal:block tal:condition="python: idx == 0">
                                     <tal:values tal:repeat="val varConf/getVariation1Values">
                                         <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
@@ -46,7 +46,7 @@
                                         <br/>
                                     </tal:values>
                                 </tal:block>
-                                
+
                                 <tal:block tal:condition="python: idx == 1">
                                     <tal:values tal:repeat="val varConf/getVariation2Values">
                                         <input type="text" tal:attributes="value val; name string:vvalue-${idx}-${repeat/val/index}">
@@ -67,18 +67,18 @@
                     <div>
                         <input name="update_structure" type="submit" value="Update" style="float: left">
                         <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) < 2">
-                            <input name="add_level" type="submit" value="Variationsstufe hinzufügen" style="float: right">
+                            <input name="add_level" type="submit" i18n:attributes="value label_add_variation_level" value="Add variation level" style="float: right">
                         </tal:cond>
                         <tal:cond tal:condition="python: len(varConf.getVariationAttributes()) > 0">
-                            <input name="remove_level" type="submit" value="Variationsstufe löschen" style="float: right">
+                            <input name="remove_level" type="submit" i18n:attributes="value label_remove_variation_level" value="Remove variation level" style="float: right">
                         </tal:cond>
                     </div>
                     <br/><br/>
                     <div style="clear: both"></div>
                 </form>
-                <p tal:condition="python:len(varConf.getVariationAttributes()) == 0">
-                    <br/>
-                    (Dieser Artikel enthält keine Variationen)
+                <p tal:condition="python:len(varConf.getVariationAttributes()) == 0"
+                    i18n:translate="">
+                    This item has no variations
                 </p>
             </dd>
             <dt>
@@ -96,7 +96,7 @@
                         <table class="listing nosort varTable">
                             <thead>
                                 <tr>
-                                    <th>Aktiv</th>
+                                    <th i18n:translate="label_active">Active</th>
                                     <th>
                                         <strong class="attribute-label" tal:content="python:context.Schema().getField('variation1_attribute').get(context)" />
                                     </th>
@@ -114,7 +114,7 @@
                                                tal:attributes="name string:${vcode}-active:boolean;
                                                                checked python:varConf.getVariationData(v1idx, None, 'active')"/>
                                     </td>
-                                    <td width="5%" class="attribute-label centered" 
+                                    <td width="5%" class="attribute-label centered"
                                         tal:content="varValue1">
                                     </td>
                                     <td width="3%" >
@@ -138,7 +138,7 @@
                             </tbody>
                         </table>
                     </div>
-                   <input type="submit" name="form.button.save" value="Speichern"/>
+                   <input type="submit" name="form.button.save" i18n:attributes="value label_save" value="Save"/>
                    <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
 
@@ -157,7 +157,7 @@
                             <table class="listing nosort varTable">
                                 <thead>
                                     <tr>
-                                        <th>Aktiv</th>
+                                        <th i18n:translate="label_active">Active</th>
                                         <th>
                                             <strong class="attribute-label" tal:content="python:context.Schema().getField('variation2_attribute').get(context)" />
                                         </th>
@@ -166,7 +166,7 @@
                                         <th i18n:translate="label_description">Description</th>
                                     </tr>
                                 </thead>
-                
+
                                 <tbody class="sortable">
                                     <tr tal:repeat="varValue2 varConf/getVariation2Values" class="combination">
                                     <tal:v2idx tal:define="v2idx repeat/varValue2/index">
@@ -176,11 +176,11 @@
                                                    tal:attributes="name string:${vcode}-active:boolean;
                                                                    checked python:varConf.getVariationData(v1idx, v2idx, 'active')"/>
                                         </td>
-                
-                                        <td width="5%" class="attribute-label centered" 
+
+                                        <td width="5%" class="attribute-label centered"
                                             tal:content="varValue2">
                                         </td>
-                
+
                                         <td width="3%" >
                                             <input type="text" class="number" size="3%"
                                                    tal:attributes="name string:${vcode}-price;
@@ -203,7 +203,7 @@
                             </table>
                         </fieldset>
                     </div>
-                    <input type="submit" name="form.button.save" value="Speichern"/>
+                    <input type="submit" name="form.button.save" value="Save" i18n:attributes="value label_save"/>
                     <input type="hidden" name="form.submitted:boolean" value="True" />
                 </form>
             </dd>

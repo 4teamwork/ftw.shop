@@ -7,6 +7,9 @@ Changelog
 - Fill content-core slot instead of main slot in shopitem view. Fixes #10
   [erral]
 
+- Some more translation fixes.
+  [erral]
+
 
 2.0.4 (2015-01-21)
 ------------------

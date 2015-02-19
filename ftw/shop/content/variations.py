@@ -1,9 +1,13 @@
 from decimal import Decimal
 from decimal import InvalidOperation
+from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig, IShopItem
 from persistent.mapping import PersistentMapping
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapts
+from zope.component import getMultiAdapter
+from zope.globalrequest import getRequest
+from zope.i18n import translate
 from zope.interface import implements
 import itertools
 
@@ -230,9 +234,15 @@ class VariationConfig(object):
 
     def add_level(self):
         fields = ['active', 'skuCode', 'price', 'description']
+        request = getRequest()
+        pps = getMultiAdapter((self.context, request), name='plone_portal_state')
+        language = pps.language()
         if len(self.getVariationAttributes()) == 1:
-            self.context.getField('variation2_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
-            self.context.getField('variation2_attribute').set(self.context, 'Neues Attribut')
+            new_value_1 = translate(_('label_new_value_1', default=u'New value 1'), domain='ftw.shop', context=self.context, target_language=language)
+            new_value_2 = translate(_('label_new_value_2', default=u'New value 2'), domain='ftw.shop', context=self.context, target_language=language)
+            new_attr = translate(_('label_new_attr', default=u'New attribute'), domain='ftw.shop', context=self.context, target_language=language)
+            self.context.getField('variation2_values').set(self.context, [new_value_1, new_value_2])
+            self.context.getField('variation2_attribute').set(self.context, new_attr)
 
             # Initialize var data for newly added level with default values
             for i in range(len(self.getVariation1Values())):
@@ -246,8 +256,12 @@ class VariationConfig(object):
                         self.updateVariationConfig(partial_vardict)
 
         elif len(self.getVariationAttributes()) == 0:
-            self.context.getField('variation1_values').set(self.context, ['Neuer Wert 1', 'Neuer Wert2'])
-            self.context.getField('variation1_attribute').set(self.context, 'Neues Attribut')
+            new_value_1 = translate(_('label_new_value_1', default=u'New value 1'), domain='ftw.shop', context=self.context, target_language=language)
+            new_value_2 = translate(_('label_new_value_2', default=u'New value 2'), domain='ftw.shop', context=self.context, target_language=language)
+            new_attr = translate(_('label_new_attr', default=u'New attribute'), domain='ftw.shop', context=self.context, target_language=language)
+
+            self.context.getField('variation1_values').set(self.context, [new_value_1, new_value_2])
+            self.context.getField('variation1_attribute').set(self.context, new_attr)
 
             # Initialize var data for newly added level with default values
             for i in range(len(self.getVariation1Values())):

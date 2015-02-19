@@ -1,15 +1,17 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-02 14:03+0000\n"
-"PO-Revision-Date: 2013-12-28 14:42+0100\n"
-"Last-Translator: Lukas Graf <lukas.graf@4teamwork.ch>\n"
+"Project-Id-Version: ftw.shop\n"
+"POT-Creation-Date: 2015-02-19 14:50+0000\n"
+"PO-Revision-Date: 2015-01-22 09:06+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: German\n"
 
 #: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "A category for shop items"
@@ -67,6 +69,12 @@ msgstr "Warenkorb leeren"
 msgid "Filter"
 msgstr "Anzeigen"
 
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:48
+#: ./ftw/shop/browser/templates/listing/single_item.pt:19
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:60
+msgid "Quantity"
+msgstr "Menge"
+
 #: ./ftw/shop/profiles/default/types/ShopCategory.xml
 msgid "Shop Category"
 msgstr "Shop-Kategorie"
@@ -86,6 +94,10 @@ msgstr "Lieferant"
 #: ./ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
 msgstr "Diese E-Mail Adresse ist ungültig."
+
+#: ./ftw/shop/browser/templates/edit_variations.pt:79
+msgid "This item has no variations"
+msgstr "Dieser Artikel enthält keine Variationen"
 
 #: ./ftw/shop/portlets/cart.py:112
 msgid "This portlet displays the Shopping Cart."
@@ -251,6 +263,16 @@ msgstr "Details zur Bestellung"
 msgid "heading_shop_setup"
 msgstr "Shop-Einstellungen"
 
+#. Default: "Values"
+#: ./ftw/shop/browser/templates/edit_variations.pt:35
+msgid "heading_values"
+msgstr "Werte"
+
+#. Default: "Variation Level ${level}"
+#: ./ftw/shop/browser/templates/edit_variations.pt:31
+msgid "heading_variation_level"
+msgstr "Variationsstufe ${level}"
+
 #. Default: "This portlet displays the shopping cart contents."
 #: ./ftw/shop/portlets/cart.py:101
 msgid "help_add_cart_portlet"
@@ -313,10 +335,20 @@ msgstr ""
 msgid "help_vat_rates"
 msgstr ""
 
+#. Default: "Active"
+#: ./ftw/shop/browser/templates/edit_variations.pt:99
+msgid "label_active"
+msgstr "Aktiv"
+
 #. Default: "Add Shopping Cart Portlet"
 #: ./ftw/shop/portlets/cart.py:99
 msgid "label_add_cart_portlet"
 msgstr "Warenkorb-Portlet hinzufügen"
+
+#. Default: "Add variation level"
+#: ./ftw/shop/browser/templates/edit_variations.pt:70
+msgid "label_add_variation_level"
+msgstr "Variationsstufe hinzufügen"
 
 #. Default: "All Suppliers"
 #: ./ftw/shop/browser/templates/order_manager.pt:54
@@ -540,6 +572,31 @@ msgstr "» Mehr"
 msgid "label_name"
 msgstr "Name"
 
+#. Default: "New attribute"
+#: ./ftw/shop/content/variations.py:243
+msgid "label_new_attr"
+msgstr "Neues Attribut"
+
+#. Default: "New description"
+#: ./ftw/shop/browser/shopitem.py:177
+msgid "label_new_description"
+msgstr "Neue Beschreibung"
+
+#. Default: "New value"
+#: ./ftw/shop/browser/shopitem.py:251
+msgid "label_new_value"
+msgstr "Neuer Wert"
+
+#. Default: "New value 1"
+#: ./ftw/shop/content/variations.py:241
+msgid "label_new_value_1"
+msgstr "Neuer Wert 1"
+
+#. Default: "New value 2"
+#: ./ftw/shop/content/variations.py:242
+msgid "label_new_value_2"
+msgstr "Neuer Wert 2"
+
 #. Default: "Only if ShopItems available in current folder"
 #: ./ftw/shop/portlets/cart.py:22
 msgid "label_only_if_items"
@@ -610,6 +667,16 @@ msgstr "Telefonnummer"
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
 msgid "label_price"
 msgstr "Preis"
+
+#. Default: "Remove variation level"
+#: ./ftw/shop/browser/templates/edit_variations.pt:73
+msgid "label_remove_variation_level"
+msgstr "Variationsstufe löschen"
+
+#. Default: "Save"
+#: ./ftw/shop/browser/templates/edit_variations.pt:141
+msgid "label_save"
+msgstr "Speichern"
 
 #. Default: "Selected orders"
 #: ./ftw/shop/browser/templates/status.pt:13
@@ -885,7 +952,7 @@ msgid "msg_thank_you_title"
 msgstr "Besten Dank!"
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:363
+#: ./ftw/shop/browser/shopitem.py:370
 msgid "msg_variations_saved"
 msgstr "Variationen wurden gespeichert."
 
@@ -1033,3 +1100,5 @@ msgstr "Total (inkl. MwSt)"
 #: ./ftw/shop/browser/templates/order_view.pt:121
 msgid "txt_vat"
 msgstr "(inkl. MwSt)"
+
+
