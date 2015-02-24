@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_css">
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        remove="True"
+        enabled="1" expression="" id="++resource++ftw_shop.css"
+        media="screen" rel="stylesheet" rendering="import"/>
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        enabled="1" expression="" id="++resource++ftw-shop-resources/ftw_shop.css"
+        media="screen" rel="stylesheet" rendering="import"/>
+</object>
