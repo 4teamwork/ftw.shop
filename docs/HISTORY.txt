@@ -4,7 +4,9 @@ Changelog
 2.0.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Consistently use resource directory instead of individually registered resources,
+  and make resource URLs always absolute and based on portal_url.
+  [erral]
 
 
 2.0.5 (2015-02-19)
