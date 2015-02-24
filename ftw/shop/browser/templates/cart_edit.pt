@@ -12,15 +12,15 @@
                             cart cview/cart_items">
 
     <h1 i18n:translate="cart_title">Shopping Cart</h1>
-    
+
     <tal:block tal:define="cart_items python:cart.values()">
-                           
+
         <p tal:condition="not:cart_items"
            i18n:translate="cart_is_empty">Your cart is empty</p>
-           
+
         <form method="post" action="./"
               tal:condition="cart_items">
-              
+
             <table class="cartListing listing" cellpadding="0" cellspacing="0">
                 <thead>
                   <tr>
@@ -63,10 +63,12 @@
                       <td>
                           <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
-                              <img src="++resource++ftw-shop-resources/delete_p.gif" />
+                              <img tal:define="portal_url context/@@plone_portal_state/portal_url"
+                                  tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/delete_p.gif"
+                                src="++resource++ftw-shop-resources/delete_p.gif" />
                           </a>
                       </td>
-                    </tr> 
+                    </tr>
                   </metal:block>
                 </tbody>
               </table>

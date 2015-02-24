@@ -18,7 +18,7 @@
 
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
-        <h1 class="documentFirstHeading" tal:content="context/Title"> 
+        <h1 class="documentFirstHeading" tal:content="context/Title">
             <metal:field use-macro="python:here.widget('Title', mode='view')">
             Title
             </metal:field>
@@ -114,7 +114,10 @@
 
     </tal:shopitems>
 
-    <script type="text/javascript" src="++resource++shop.js"></script>
+    <script type="text/javascript"
+        tal:define="portal_url context/@@plone_portal_state/portal_url"
+        tal:attributes="src string:${portal_url}/++resource++shop.js"
+        src="++resource++shop.js"></script>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

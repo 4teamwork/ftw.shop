@@ -130,7 +130,10 @@
            <input i18n:attributes="value" type="submit" name="cancel_orders" value="Delete orders">
         </p>
 
-        <script type="text/javascript" src="++resource++jquery-ui-i18n-manual.js"></script>
+        <script type="text/javascript"
+            tal:define="portal_url context/@@plone_portal_state/portal_url"
+            tal:attributes="src string:${portal_url}/++resource++jquery-ui-i18n-manual.js"
+            src="++resource++jquery-ui-i18n-manual.js"></script>
         <script>
             jQuery(function($) {
                 //read out language cookie
