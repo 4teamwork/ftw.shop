@@ -45,7 +45,9 @@
 
         </tal:shopitems>
 
-        <script type="text/javascript" src="++resource++shop.js"></script>
+        <script type="text/javascript"
+          tal:define="portal_url context/@@plone_portal_state/portal_url"
+          tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/shop.js"></script>
 
     </tal:content-core-macro>
 </metal:content-core>

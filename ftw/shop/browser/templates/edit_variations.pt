@@ -5,7 +5,9 @@
 
     <head>
         <metal:js fill-slot="javascript_head_slot">
-            <script type="text/javascript" src="++resource++ftw-shop-resources/edit_variations.js"></script>
+            <script type="text/javascript"
+                tal:define="portal_url context/@@plone_portal_state/portal_url"
+                tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/edit_variations.js"></script>
         </metal:js>
     </head>
 

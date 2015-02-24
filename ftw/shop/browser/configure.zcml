@@ -5,11 +5,11 @@
 
   <include package="plone.app.contentmenu" />
   <include package=".widgets" file="paymentprocessor.zcml"/>
-  
+
   <include file="cart.zcml" />
   <include file="mail.zcml" />
 
-  <!-- Shop Items --> 
+  <!-- Shop Items -->
   <browser:page
     for="..interfaces.IShopItem"
     name="view"
@@ -23,7 +23,7 @@
     permission="zope2.View"
     class=".shopitem.ShopCompactItemView"
     />
-    
+
   <browser:menuItem
     for="..interfaces.IShopItem"
     menu="plone_displayviews"
@@ -38,8 +38,8 @@
     permission="zope2.View"
     class=".shopitem.EditVariationsView"
     />
-    
-  <!-- Shop Categories --> 
+
+  <!-- Shop Categories -->
   <browser:page
     for="..interfaces.IShopCategory"
     name="view"
@@ -53,7 +53,7 @@
     permission="zope2.View"
     class=".category.CategoryView"
     />
-    
+
   <browser:page
     for="..interfaces.IShopCategory"
     name="compact_view"
@@ -99,7 +99,7 @@
     action="compact_view"
     description=""
     />
-    
+
   <!-- Order Manager View -->
   <browser:page
     for="plone.app.layout.navigation.interfaces.INavigationRoot"
@@ -117,11 +117,11 @@
     class=".ordermanager.OrderView"
     />
 
-  <browser:page 
+  <browser:page
     for="*"
-    name="edit_categories" 
+    name="edit_categories"
     class=".manage_categories.ManageCategories"
-    permission="cmf.ModifyPortalContent" 
+    permission="cmf.ModifyPortalContent"
     />
 
   <browser:page
@@ -185,33 +185,7 @@
 
   <browser:resourceDirectory
     name='ftw-shop-resources'
-    directory="resources" 
-    />
-
-  <browser:resource
-    name="ftw_shop.css"
-    file="resources/ftw_shop.css"
-    />
-
-  <browser:resource
-    name="shop.js"
-    file="resources/shop.js"
-    />
-
-  <browser:resource
-    name="shop_config.js"
-    file="resources/shop_config.js"
-    />
-
-  <browser:resource
-    name="contactform_prefill.js"
-    file="resources/contactform_prefill.js"
-    />
-
-
-  <browser:resource
-    name="jquery-ui-i18n-manual.js"
-    file="resources/jquery-ui-i18n-manual.js"
+    directory="resources"
     />
 
 </configure>

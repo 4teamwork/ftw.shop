@@ -44,4 +44,14 @@
         profile="ftw.shop:default"
         />
 
+    <!-- 2000 -> 2001 -->
+    <upgrade-step:importProfile
+        title="Register CSS and JS from the resourceDirectory"
+        description=""
+        source="2000"
+        destination="2001"
+        profile="ftw.shop:default"
+        directory="profiles/2001"
+        />
+
 </configure>
