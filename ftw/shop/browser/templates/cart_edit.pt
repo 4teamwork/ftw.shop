@@ -64,8 +64,7 @@
                           <a href="" tal:attributes="href python:'cart_remove?skuCode=%s' % skuCode"
                                      i18n:attributes="cart_remove">
                               <img tal:define="portal_url context/@@plone_portal_state/portal_url"
-                                  tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/delete_p.gif"
-                                src="++resource++ftw-shop-resources/delete_p.gif" />
+                                  tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/delete_p.gif" />
                           </a>
                       </td>
                     </tr>

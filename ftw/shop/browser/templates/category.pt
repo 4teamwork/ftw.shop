@@ -116,8 +116,7 @@
 
     <script type="text/javascript"
         tal:define="portal_url context/@@plone_portal_state/portal_url"
-        tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/shop.js"
-        src="++resource++ftw-shop-resources/shop.js"></script>
+        tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/shop.js"></script>
 
     <div tal:replace="structure provider:plone.belowcontentbody" />
 

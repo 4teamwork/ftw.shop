@@ -132,8 +132,7 @@
 
         <script type="text/javascript"
             tal:define="portal_url context/@@plone_portal_state/portal_url"
-            tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/jquery-ui-i18n-manual.js"
-            src="++resource++ftw-shop-resources/jquery-ui-i18n-manual.js"></script>
+            tal:attributes="src string:${portal_url}/++resource++ftw-shop-resources/jquery-ui-i18n-manual.js"></script>
         <script>
             jQuery(function($) {
                 //read out language cookie
