@@ -22,6 +22,12 @@
         title="ftw.shop: Add Supplier"
         />
 
+    <permission
+        id="ftw.shop.assign.shopping.cart.portlet"
+        title="ftw.shop: Assign shopping cart portlet"
+        />
+
+
     <five:registerPackage package="." initialize=".initialize" />
 
     <include package="plone.app.z3cform" />

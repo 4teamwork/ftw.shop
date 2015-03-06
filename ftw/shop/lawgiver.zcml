@@ -12,4 +12,9 @@
                      ftw.shop: Add Supplier"
         />
 
+    <lawgiver:map_permissions
+        action_group="add shopping card portlet"
+        permissions="ftw.shop: Assign shopping cart portlet"
+        />
+
 </configure>

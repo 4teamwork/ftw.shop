@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rolemap>
+  <permissions>
+
+    <permission name="ftw.shop: Assign shopping cart portlet" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+    </permission>
+
+  </permissions>
+</rolemap>

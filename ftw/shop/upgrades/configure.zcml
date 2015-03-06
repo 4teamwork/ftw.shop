@@ -54,4 +54,14 @@
         directory="profiles/2001"
         />
 
+    <!-- 2001 -> 2002 -->
+    <upgrade-step:importProfile
+        title="Use a different write permission for the shopping card portlet (not longer use ManagePortal)."
+        description=""
+        source="2001"
+        destination="2002"
+        profile="ftw.shop:default"
+        directory="profiles/2002"
+        />
+
 </configure>

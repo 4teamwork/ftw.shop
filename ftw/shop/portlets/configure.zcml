@@ -13,7 +13,7 @@
       interface=".cart.ICartPortlet"
       assignment=".cart.Assignment"
       view_permission="zope2.View"
-      edit_permission="cmf.ManagePortal"
+      edit_permission="ftw.shop.assign.shopping.cart.portlet"
       renderer=".cart.Renderer"
       addview="ftw.shop.portlets.cart.AddForm"
       editview="ftw.shop.portlets.cart.EditForm"
