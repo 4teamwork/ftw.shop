@@ -4,11 +4,11 @@
      of this file for more information.
   -->
 <portlets>
-    
+
   <portlet
     addview="ftw.shop.portlets.cart"
     title="Shopping Cart Portlet"
     description="Shows items currently in the shopping cart"
   />
-  
+
 </portlets>
