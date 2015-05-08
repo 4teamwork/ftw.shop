@@ -57,8 +57,8 @@ control panel.
 Links
 =====
 
-- Github project repository: https://github.com/4teamwork/ftw.shop
-- Issue tracker: https://github.com/4teamwork/ftw.shop/issues
+- Github: https://github.com/4teamwork/ftw.shop
+- Issues: https://github.com/4teamwork/ftw.shop/issues
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.shop
 
 
