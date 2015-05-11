@@ -40,8 +40,7 @@ jQuery(function ($) {
       $('.varActiveCheckbox').live('click', function(event) {
           var row = $(this).parents('tr');
           row.find('input').not('.varActiveCheckbox').not('.attributeLabelInput').each(function() {
-              var current_val = $(this).attr('disabled');
-              if (current_val === true) {
+              if ($(this).is(":disabled")) {
                   $(this).removeAttr('disabled');
               }
               else {
