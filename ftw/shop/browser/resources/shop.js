@@ -80,8 +80,8 @@ jQuery(function ($) {
         }
         else {
             // We've got two variations
-            var var1choice = $('select[name="var1choice"] option:selected').attr("value");
-            var var2choice = $('select[name="var2choice"] option:selected').attr("value");
+            var var1choice = $(this).parents('form').find('select[name="var1choice"] option:selected').attr("value");
+            var var2choice = $(this).parents('form').find('select[name="var2choice"] option:selected').attr("value");
             varcode = "var-" + var1choice + "-" + var2choice;
 
             // Grey out variations that are deactivated
@@ -109,7 +109,7 @@ jQuery(function ($) {
                     }
                 });
                 // restore selection
-                $('select[name="var1choice"] option[value="'+var1choice+'"]').attr('selected', 'selected');
+                $(this).parents('form').find('select[name="var1choice"] option[value="'+var1choice+'"]').attr('selected', 'selected');
 
             }
             else {
@@ -130,7 +130,7 @@ jQuery(function ($) {
                     }
                 });
                 // restore selection
-                $('select[name="var2choice"] option[value="'+var2choice+'"]').attr('selected', 'selected');
+                $(this).parents('form').find('select[name="var2choice"] option[value="'+var2choice+'"]').attr('selected', 'selected');
             }
         }
 

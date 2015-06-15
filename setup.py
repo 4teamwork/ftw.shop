@@ -49,7 +49,7 @@ setup(name='ftw.shop',
       install_requires=[
         'collective.js.jqueryui',
         'collective.z3cform.wizard',
-        'ftw.upgrade',
+        'ftw.upgrade >= 1.14.5',
         'plone.api',
         'plone.app.registry',
         'plone.app.z3cform',
