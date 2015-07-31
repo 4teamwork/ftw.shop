@@ -158,7 +158,8 @@ class OrderManagerView(BrowserView):
         cart_cols = ['sku_code', 'quantity', 'title', 'price',
                      'item_total', 'supplier_name', 'supplier_email']
 
-        column_titles = [COLUMN_TITLES[col].decode('utf-8').encode('cp1252') for col in columns + cart_cols]
+        column_titles = [COLUMN_TITLES[col].decode('utf-8').encode(
+            'cp1252', 'replace') for col in columns + cart_cols]
         # Write header row
         csv_writer.writerow(column_titles)
 
@@ -170,7 +171,7 @@ class OrderManagerView(BrowserView):
 
             for i, value in enumerate(order_data):
                 if isinstance(value, unicode):
-                    order_data[i] = value.encode('cp1252')
+                    order_data[i] = value.encode('cp1252', 'replace')
 
             for cart_item in order.cartitems:
                 cart_data = [cart_item.sku_code,
@@ -183,7 +184,7 @@ class OrderManagerView(BrowserView):
 
                 for i, value in enumerate(cart_data):
                     if isinstance(value, unicode):
-                        cart_data[i] = value.encode('cp1252')
+                        cart_data[i] = value.encode('cp1252', 'replace')
 
                 csv_writer.writerow(order_data + cart_data)
 

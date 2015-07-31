@@ -4,7 +4,9 @@ Changelog
 1.1.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use 'replace' mode for encoding mail body to avoid encode errors with
+  non-latin characters.
+  [buchi]   
 
 
 1.1.4 (2015-02-04)

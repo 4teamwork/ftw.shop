@@ -38,7 +38,7 @@ class MailHostAdapter(object):
 
         try:
             # Plone 4
-            msg = message_from_string(msg_body.encode(charset))
+            msg = message_from_string(msg_body.encode(charset, 'replace'))
             if encode is None or encode in ["quoted-printable", "qp"]:
                 encode_quopri(msg)
             else:
