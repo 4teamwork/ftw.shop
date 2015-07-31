@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.5 (unreleased)
+1.1.5 (2015-07-31)
 ------------------
 
 - Use 'replace' mode for encoding mail body to avoid encode errors with
