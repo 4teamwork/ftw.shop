@@ -47,6 +47,7 @@ setup(name='ftw.shop',
       zip_safe=False,
 
       install_requires=[
+        'Plone',
         'collective.js.jqueryui',
         'collective.z3cform.wizard',
         'ftw.upgrade >= 1.14.5',
