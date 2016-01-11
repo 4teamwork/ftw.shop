@@ -38,7 +38,7 @@ class TestShopItemViews(FtwShopTestCase):
         item_listing = self.movie_view.single_item(item)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=12345]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value='12345']")), 1)
 
     def test_one_variation(self):
         item_datas = self.book_view.getItemDatas()
@@ -56,7 +56,7 @@ class TestShopItemViews(FtwShopTestCase):
         item = item_datas[0]
         item_listing = self.tshirt_view.two_variations(item)
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=11]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value='11']")), 1)
 
     def test_get_item_datas(self):
         movie_data = self.movie_view.getItemDatas()[0]

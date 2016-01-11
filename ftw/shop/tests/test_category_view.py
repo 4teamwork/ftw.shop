@@ -7,26 +7,26 @@ from pyquery import PyQuery as pq
 
 
 class TestCategoryView(FtwShopTestCase):
-    
+
     def afterSetUp(self):
         super(TestCategoryView, self).afterSetUp()
-        
-        self.category_view = getMultiAdapter((self.portal.shop.products, 
-                                 self.portal.REQUEST), 
+
+        self.category_view = getMultiAdapter((self.portal.shop.products,
+                                 self.portal.REQUEST),
                                  name='view')
 
     def test_get_items(self):
         # Should be sorted aphabetically by Title
-        self.assertEquals(self.category_view.getItems(), 
+        self.assertEquals(self.category_view.getItems(),
                           [self.movie, self.tshirt, self.book])
-        
+
     def test_single_item(self):
         item_datas = self.category_view.getItemDatas()
         item = item_datas[0]
         item_listing = self.category_view.single_item(item)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=12345]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value='12345']")), 1)
 
     def test_one_variation(self):
         item_datas = self.category_view.getItemDatas()
@@ -45,15 +45,15 @@ class TestCategoryView(FtwShopTestCase):
         item_listing = self.category_view.two_variations(item)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=11]")), 1)
+        self.assertEquals(len(pq_doc("input[name=skuCode][value='11']")), 1)
 
     def test_get_item_datas(self):
         item_datas = self.category_view.getItemDatas()
         movie_data = item_datas[0]
         tshirt_data = item_datas[1]
         book_data = item_datas[2]
-        
-        self.assertEquals(movie_data['description'], 
+
+        self.assertEquals(movie_data['description'],
                           'A Shop Item with no variations')
         self.assertEquals(movie_data['hasVariations'], False)
         self.assertEquals(movie_data['imageTag'], None)
@@ -62,8 +62,8 @@ class TestCategoryView(FtwShopTestCase):
         self.assertEquals(movie_data['title'], 'A Movie')
         self.assertEquals(movie_data['varConf'], None)
         self.assertEquals(movie_data['variants'], None)
-       
-        self.assertEquals(book_data['description'], 
+
+        self.assertEquals(book_data['description'],
                           'A Shop Item with one variation')
         self.assertEquals(book_data['hasVariations'], True)
         self.assertEquals(book_data['imageTag'], None)
@@ -72,8 +72,8 @@ class TestCategoryView(FtwShopTestCase):
         self.assertEquals(book_data['title'], 'Professional Plone Development')
         self.assertTrue(book_data['varConf'])
         self.assertEquals(book_data['variants'], None)
-        
-        self.assertEquals(tshirt_data['description'], 
+
+        self.assertEquals(tshirt_data['description'],
                           'A Shop Item with two variations')
         self.assertEquals(tshirt_data['hasVariations'], True)
         self.assertEquals(tshirt_data['imageTag'], None)
@@ -88,7 +88,7 @@ class TestCategoryView(FtwShopTestCase):
         categories = self.category_view.categories
         self.assertEquals(len(categories), 1)
         self.assertTrue(self.subcategory.id in categories[0]['url'])
-        
+
     def test_category_contents(self):
         category_contents = self.category_view.category_contents
         self.assertEquals(len(category_contents), 4)
@@ -104,10 +104,10 @@ class TestCategoryView(FtwShopTestCase):
         self.subcategory.setRankForCategory(self.portal.shop.products, 40)
 
         category_contents = self.category_view.category_contents
-        self.assertEquals(category_contents, 
-                          [self.tshirt, 
-                           self.movie, 
-                           self.book, 
+        self.assertEquals(category_contents,
+                          [self.tshirt,
+                           self.movie,
+                           self.book,
                            self.subcategory])
 
 
