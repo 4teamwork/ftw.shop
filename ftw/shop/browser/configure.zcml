@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:theme="http://namespaces.zope.org/plonetheme.onegov"
     i18n_domain="ftw.shop">
 
   <include package="plone.app.contentmenu" />
@@ -187,5 +189,10 @@
     name='ftw-shop-resources'
     directory="resources"
     />
+
+  <configure zcml:condition="installed plonetheme.onegov" >
+    <include package="plonetheme.onegov" />
+    <theme:add_scss path="resources/onegov_integration.scss" />
+  </configure>
 
 </configure>
