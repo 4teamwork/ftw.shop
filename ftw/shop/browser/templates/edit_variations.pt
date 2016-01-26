@@ -119,7 +119,7 @@
                                     <td width="5%" class="attribute-label centered"
                                         tal:content="varValue1">
                                     </td>
-                                    <td width="7%" >
+                                    <td width="10%" >
                                         <input type="text" class="number" size="3%"
                                                tal:attributes="name string:${vcode}-price;
                                                                value python:varConf.getVariationData(v1idx, None, 'price')"/>
