@@ -63,7 +63,7 @@
                                    Edit variations</a></dd>
                         </dl>
 
-                        <input type="hidden" name="uid" type="text" tal:attributes="value item/uid" />
+                        <input type="hidden" name="uid" tal:attributes="value item/uid" />
                     </form>
 
                     <!-- Description Table -->

@@ -4,7 +4,8 @@ Changelog
 2.0.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix hidden uid inputs. They had type=text too.
+  [mathias.leimgruber]
 
 
 2.0.8 (2016-03-30)
