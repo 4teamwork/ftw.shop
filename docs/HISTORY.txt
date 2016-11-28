@@ -4,6 +4,9 @@ Changelog
 2.0.10 (unreleased)
 -------------------
 
+- Added unit to shop item.
+  [lknoepfel]
+
 - Make variations a mapping when saving to the annotation storage.
   [raphael-s]
 

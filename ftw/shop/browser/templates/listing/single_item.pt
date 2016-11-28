@@ -4,12 +4,13 @@
                 <table class="shopItemTable">
                     <tr>
                         <th tal:condition="item/skuCode" i18n:translate="label_sku_code">SKU code</th>
-                        <th tal:condition="item/showPrice" colspan="2" i18n:translate="label_price">Price</th>
+                        <th tal:condition="item/unit" i18n:translate="label_unit">Unit</th>
+                        <th tal:condition="item/showPrice" i18n:translate="label_price">Price</th>
                     </tr>
                     <tr>
                         <td tal:condition="item/skuCode" tal:content="item/skuCode" />
+                        <td tal:condition="item/unit" tal:content="item/unit"></td>
                         <td>CHF <span tal:condition="item/showPrice" tal:content="item/price" /></td>
-
                     </tr>
                 </table>
 
