@@ -4,7 +4,8 @@ Changelog
 2.0.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make variations a mapping when saving to the annotation storage.
+  [raphael-s]
 
 
 2.0.9 (2016-11-11)

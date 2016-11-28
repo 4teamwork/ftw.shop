@@ -3,6 +3,7 @@ from decimal import InvalidOperation
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.interfaces import IVariationConfig, IShopItem
 from persistent.mapping import PersistentMapping
+from persistent.list import PersistentList
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapts
 from zope.component import getMultiAdapter
@@ -71,18 +72,62 @@ class VariationConfig(object):
             return self.context.getField('skuCode').get(self.context)
         return self.getVariationDict().get(vcode).get('skuCode')
 
-
     def getVariationDict(self):
-        """Returns a nested dict with the variation config for the item
-        """
-        return self.annotations.get('variations', PersistentMapping())
+        # Returns a nested dict with the variation config for the item
+
+        return self.make_recursive_serializable(
+            self.annotations.get('variations', PersistentMapping()))
 
     def updateVariationConfig(self, data):
-        """Updates the stored variation config with changes
-        """
-        if not 'variations' in self.annotations.keys():
+        # Updates the stored variation config with changes
+
+        if 'variations' not in self.annotations.keys():
             self.annotations['variations'] = PersistentMapping()
-        self.annotations['variations'].update(data)
+
+        self.annotations['variations'].update(
+            self.make_recursive_persistent(data))
+
+    def make_recursive_persistent(self, data):
+        # Convert the data to a mapping for annotation-storage
+
+        def persist(data):
+            if isinstance(data, dict):
+                data = PersistentMapping(data)
+
+                for key, value in data.items():
+                    data[key] = persist(value)
+
+            elif isinstance(data, list):
+                return PersistentList(map(persist, data))
+
+            else:
+                # Usually we got basestrings, or integer here, so do nothing.
+                pass
+
+            return data
+
+        return persist(data)
+
+    def make_recursive_serializable(self, data):
+        # Convert the data to a mapping for annotation-storage
+
+        def serialize(data):
+            if isinstance(data, PersistentMapping):
+                data = dict(data)
+
+                for key, value in data.items():
+                    data[key] = serialize(value)
+
+            elif isinstance(data, PersistentList):
+                return map(serialize, data)
+
+            else:
+                # Usually we got basestrings, or integer here, so do nothing.
+                pass
+
+            return data
+
+        return serialize(data)
 
     def getVariation1Values(self):
         """Returns the values for the top level variation,
