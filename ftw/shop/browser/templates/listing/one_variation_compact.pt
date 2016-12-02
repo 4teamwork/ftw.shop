@@ -25,6 +25,8 @@
                                 <td class="variationSKUCodeLabel" style="display:none;">
                                     <label i18n:translate="label_sku_code">SKU code</label>
                                 </td>
+
+                                <th tal:condition="item/unit" i18n:translate="label_unit">Unit</th>
                             </tr>
 
                             <tr class="variationSelection">
@@ -40,6 +42,7 @@
 
                                 <td class="variationPrice" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']"></td>
                                 <td class="variationSKUCode" style="display:none;"></td>
+                                <td tal:condition="item/unit" tal:content="item/unit"></td>
                             </tr>
                         </table>
 

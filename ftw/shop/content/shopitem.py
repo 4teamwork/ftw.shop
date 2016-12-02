@@ -96,6 +96,17 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
                 ),
             ),
 
+        atapi.TextField(
+            name='unit',
+            widget=atapi.StringWidget(
+                label=_(u'label_unit', default='Unit'),
+                description=_(
+                    u'description_unit',
+                    default='The unit for the product quantity.'),
+            ),
+            schemata='default',
+        ),
+
         atapi.StringField(
             'variation1_attribute',
             required = 0,
