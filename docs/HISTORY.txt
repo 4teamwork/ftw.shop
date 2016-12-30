@@ -4,6 +4,9 @@ Changelog
 2.0.11 (unreleased)
 -------------------
 
+- Drop support for Plone 4.1.
+  [mbaechtold]
+
 - Use uid as the key for storing category ranks, not the category object itself.
   This makes the category ranks serializable and thus publishable for "ftw.publisher".
   [mbaechtold]
