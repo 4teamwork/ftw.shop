@@ -1,7 +1,7 @@
-from Persistence import PersistentMapping
 from AccessControl import ClassSecurityInfo
-
 from ftw.shop.config import CATEGORY_RELATIONSHIP
+from Persistence import PersistentMapping
+from plone.uuid.interfaces import IUUID
 
 
 class Categorizeable(object):
@@ -17,7 +17,8 @@ class Categorizeable(object):
         """Get the object's rank for the specified category
         """
         if hasattr(self, '_categoryRanks'):
-            return int(self._categoryRanks.get(category, self.defaultRank))
+            category_uuid = IUUID(category)
+            return int(self._categoryRanks.get(category_uuid, self.defaultRank))
         return self.defaultRank
 
 
@@ -29,7 +30,8 @@ class Categorizeable(object):
         if not hasattr(self, '_categoryRanks') \
             or not isinstance(self._categoryRanks, PersistentMapping):
             self._categoryRanks = PersistentMapping()
-        self._categoryRanks[category] = rank
+        category_uuid = IUUID(category)
+        self._categoryRanks[category_uuid] = rank
 
 
     security.declareProtected("Modify portal content", 'addToCategory')
