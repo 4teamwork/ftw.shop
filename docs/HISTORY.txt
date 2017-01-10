@@ -4,7 +4,7 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Make variations searchable.
+- Make variations and unit searchable.
   [lknoepfel]
 
 

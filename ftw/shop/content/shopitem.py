@@ -98,6 +98,7 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
         atapi.TextField(
             name='unit',
+            searchable=True,
             widget=atapi.StringWidget(
                 label=_(u'label_unit', default='Unit'),
                 description=_(
