@@ -98,6 +98,7 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
         atapi.TextField(
             name='unit',
+            searchable=True,
             widget=atapi.StringWidget(
                 label=_(u'label_unit', default='Unit'),
                 description=_(
@@ -174,6 +175,15 @@ class ShopItem(Categorizeable, ATCTContent):
 
     meta_type = "ShopItem"
     schema = ShopItemSchema
+
+    def SearchableText(self):
+        """ Make variations searchable. """
+        data = super(ShopItem, self).SearchableText()
+        return ' '.join([
+            data,
+            ' '.join(self.getVariation1_values()),
+            ' '.join(self.getVariation2_values())
+        ])
 
 
 def add_to_containing_category(context, event):
