@@ -23,8 +23,8 @@ class ShopItemView(BrowserView):
     __call__ = ViewPageTemplateFile('templates/shopitem.pt')
 
     single_item_template = ViewPageTemplateFile('templates/listing/single_item.pt')
-    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
-    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
+    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
+    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
 
     @property
     def depth(self):
@@ -123,14 +123,6 @@ class ShopItemView(BrowserView):
                         i[k] = val
 
         return simplejson.dumps(varDicts)
-
-
-class ShopCompactItemView(ShopItemView):
-    """Compact view for a shop item
-    """
-
-    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
-    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
 
 
 class EditVariationsView(BrowserView):

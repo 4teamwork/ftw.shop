@@ -13,12 +13,11 @@
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-  </property>  
+  </property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">compact_view</property>
+  <property name="default_view">view</property>
   <property name="view_methods">
     <element value="view" />
-    <element value="compact_view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />
@@ -39,5 +38,5 @@
   <action title="Variations" action_id="variations" category="object" condition_expr=""
     url_expr="string:${object_url}/edit_variations" visible="True" i18n:attributes="title">
     <permission value="Modify portal content" />
-  </action>  
+  </action>
 </object>

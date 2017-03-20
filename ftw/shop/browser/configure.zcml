@@ -20,25 +20,10 @@
     />
 
   <browser:page
-    for="..interfaces.IShopItem"
-    name="compact_view"
-    permission="zope2.View"
-    class=".shopitem.ShopCompactItemView"
-    />
-
-  <browser:page
     for="*"
     name="shopitem_macros"
     permission="zope2.View"
     template="templates/listing/macros.pt"
-    />
-
-  <browser:menuItem
-    for="..interfaces.IShopItem"
-    menu="plone_displayviews"
-    title="Compact View"
-    action="compact_view"
-    description=""
     />
 
   <browser:page
@@ -65,15 +50,8 @@
 
   <browser:page
     for="..interfaces.IShopCategory"
-    name="compact_view"
-    permission="zope2.View"
-    class=".category.CategoryCompactView"
-    />
-
-  <browser:page
-    for="..interfaces.IShopCategory"
     name="getVarDictsJSON"
-    class=".category.CategoryCompactView"
+    class=".category.CategoryView"
     attribute="getVarDictsJSON"
     permission="zope2.View"
     />
@@ -81,32 +59,9 @@
   <browser:page
     for="..interfaces.IShopItem"
     name="getVarDictsJSON"
-    class=".shopitem.ShopCompactItemView"
+    class=".shopitem.ShopItemView"
     attribute="getVarDictsJSON"
     permission="zope2.View"
-    />
-
-  <browser:page
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
-    name="compact_view"
-    permission="zope2.View"
-    class=".category.CategoryCompactView"
-    />
-
-  <browser:menuItem
-    for="..interfaces.IShopCategory"
-    menu="plone_displayviews"
-    title="Compact View"
-    action="compact_view"
-    description=""
-    />
-
-  <browser:menuItem
-    for="plone.app.layout.navigation.interfaces.INavigationRoot"
-    menu="plone_displayviews"
-    title="Compact View"
-    action="compact_view"
-    description=""
     />
 
   <!-- Order Manager View -->
