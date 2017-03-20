@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-11-28 09:03+0000\n"
+"POT-Creation-Date: 2017-03-20 12:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Thomas Buchberger <t.buchberger@4teamwork.ch>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -34,8 +34,8 @@ msgid "Add registry setting 'phone_number'"
 msgstr ""
 
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:44
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
-#: ./ftw/shop/browser/templates/listing/single_item.pt:22
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:55
+#: ./ftw/shop/browser/templates/listing/single_item.pt:23
 msgid "Add to cart"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Checkout"
 msgstr ""
 
-#: ./ftw/shop/browser/configure.zcml:35
+#: ./ftw/shop/browser/configure.zcml:42
 msgid "Compact View"
 msgstr ""
 
@@ -81,9 +81,13 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:51
-#: ./ftw/shop/browser/templates/listing/single_item.pt:20
-#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:62
+#: ./ftw/shop/content/shopitem.py:41
+msgid "Length (mm)"
+msgstr ""
+
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:52
+#: ./ftw/shop/browser/templates/listing/single_item.pt:21
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:63
 msgid "Quantity"
 msgstr ""
 
@@ -107,6 +111,10 @@ msgstr ""
 
 #: ./ftw/shop/profiles/default/types/Supplier.xml
 msgid "Supplier"
+msgstr ""
+
+#: ./ftw/shop/content/shopitem.py:54
+msgid "Thickness (mm)"
 msgstr ""
 
 #: ./ftw/shop/interfaces.py:342
@@ -139,6 +147,14 @@ msgstr ""
 
 #: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Variations"
+msgstr ""
+
+#: ./ftw/shop/content/shopitem.py:58
+msgid "Weight (g)"
+msgstr ""
+
+#: ./ftw/shop/content/shopitem.py:47
+msgid "Width (mm)"
 msgstr ""
 
 #. Default: "Back"
@@ -221,42 +237,42 @@ msgstr ""
 msgid "categories_title"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:74
+#: ./ftw/shop/content/shopitem.py:103
 #: ./ftw/shop/extender.py:55
 msgid "desc_price"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:85
+#: ./ftw/shop/content/shopitem.py:114
 #: ./ftw/shop/extender.py:65
 msgid "desc_show_price"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:95
+#: ./ftw/shop/content/shopitem.py:124
 #: ./ftw/shop/extender.py:74
 msgid "desc_sku_code"
 msgstr ""
 
 #: ./ftw/shop/content/shopcategory.py:38
-#: ./ftw/shop/content/shopitem.py:163
+#: ./ftw/shop/content/shopitem.py:205
 msgid "desc_supplier"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:116
+#: ./ftw/shop/content/shopitem.py:158
 #: ./ftw/shop/extender.py:83
 msgid "desc_variation1_attr"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:127
+#: ./ftw/shop/content/shopitem.py:169
 #: ./ftw/shop/extender.py:93
 msgid "desc_variation1_values"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:139
+#: ./ftw/shop/content/shopitem.py:181
 #: ./ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:150
+#: ./ftw/shop/content/shopitem.py:192
 #: ./ftw/shop/extender.py:115
 msgid "desc_variation2_values"
 msgstr ""
@@ -267,7 +283,7 @@ msgid "desc_vat_rate"
 msgstr ""
 
 #. Default: "The unit for the product quantity."
-#: ./ftw/shop/content/shopitem.py:103
+#: ./ftw/shop/content/shopitem.py:133
 msgid "description_unit"
 msgstr ""
 
@@ -413,7 +429,7 @@ msgid "label_article_no"
 msgstr ""
 
 #. Default: "Body Text"
-#: ./ftw/shop/content/shopitem.py:63
+#: ./ftw/shop/content/shopitem.py:92
 msgid "label_body_text"
 msgstr ""
 
@@ -508,7 +524,7 @@ msgstr ""
 #. Default: "Description"
 #: ./ftw/shop/browser/templates/edit_variations.pt:107
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:13
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:81
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:82
 msgid "label_description"
 msgstr ""
 
@@ -539,7 +555,7 @@ msgstr ""
 #. Default: "Edit variations"
 #: ./ftw/shop/browser/templates/edit_variations.pt:87
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:35
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:63
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
 msgid "label_edit_variations"
 msgstr ""
 
@@ -566,7 +582,7 @@ msgid "label_from_date"
 msgstr ""
 
 #. Default: "Image"
-#: ./ftw/shop/content/shopitem.py:40
+#: ./ftw/shop/content/shopitem.py:69
 msgid "label_image"
 msgstr ""
 
@@ -575,6 +591,21 @@ msgstr ""
 #: ./ftw/shop/browser/templates/mail/order_notification.pt:119
 #: ./ftw/shop/browser/templates/mail/supplier_notification.pt:110
 msgid "label_included_vat"
+msgstr ""
+
+#. Default: "Length"
+#: ./ftw/shop/vocabularies.py:196
+msgid "label_l"
+msgstr ""
+
+#. Default: "Length, Width"
+#: ./ftw/shop/vocabularies.py:197
+msgid "label_l_w"
+msgstr ""
+
+#. Default: "Length, Width, Thickness"
+#: ./ftw/shop/vocabularies.py:198
+msgid "label_l_w_t"
 msgstr ""
 
 #. Default: "Last Name"
@@ -608,28 +639,33 @@ msgid "label_name"
 msgstr ""
 
 #. Default: "New attribute"
-#: ./ftw/shop/content/variations.py:243
+#: ./ftw/shop/content/variations.py:288
 msgid "label_new_attr"
 msgstr ""
 
 #. Default: "New description"
-#: ./ftw/shop/browser/shopitem.py:178
+#: ./ftw/shop/browser/shopitem.py:180
 msgid "label_new_description"
 msgstr ""
 
 #. Default: "New value"
-#: ./ftw/shop/browser/shopitem.py:252
+#: ./ftw/shop/browser/shopitem.py:254
 msgid "label_new_value"
 msgstr ""
 
 #. Default: "New value 1"
-#: ./ftw/shop/content/variations.py:241
+#: ./ftw/shop/content/variations.py:286
 msgid "label_new_value_1"
 msgstr ""
 
 #. Default: "New value 2"
-#: ./ftw/shop/content/variations.py:242
+#: ./ftw/shop/content/variations.py:287
 msgid "label_new_value_2"
+msgstr ""
+
+#. Default: "---"
+#: ./ftw/shop/vocabularies.py:195
+msgid "label_no_dimensions"
 msgstr ""
 
 #. Default: "Only if ShopItems available in current folder"
@@ -713,6 +749,11 @@ msgstr ""
 msgid "label_save"
 msgstr ""
 
+#. Default: "Selectable dimensions"
+#: ./ftw/shop/content/shopitem.py:146
+msgid "label_selectable_dimensions"
+msgstr ""
+
 #. Default: "Selected orders"
 #: ./ftw/shop/browser/templates/status.pt:13
 msgid "label_selected_orders"
@@ -744,7 +785,7 @@ msgid "label_shop_name"
 msgstr ""
 
 #. Default: "Show price"
-#: ./ftw/shop/content/shopitem.py:84
+#: ./ftw/shop/content/shopitem.py:113
 #: ./ftw/shop/extender.py:64
 msgid "label_show_price"
 msgstr ""
@@ -794,7 +835,7 @@ msgstr ""
 #. Default: "Supplier"
 #: ./ftw/shop/browser/templates/order_manager.pt:50
 #: ./ftw/shop/content/shopcategory.py:37
-#: ./ftw/shop/content/shopitem.py:162
+#: ./ftw/shop/content/shopitem.py:204
 msgid "label_supplier"
 msgstr ""
 
@@ -841,25 +882,25 @@ msgid "label_used"
 msgstr ""
 
 #. Default: "Variation 1 Attribute"
-#: ./ftw/shop/content/shopitem.py:114
+#: ./ftw/shop/content/shopitem.py:156
 #: ./ftw/shop/extender.py:81
 msgid "label_variation1_attr"
 msgstr ""
 
 #. Default: "Variation 1 Values"
-#: ./ftw/shop/content/shopitem.py:125
+#: ./ftw/shop/content/shopitem.py:167
 #: ./ftw/shop/extender.py:91
 msgid "label_variation1_values"
 msgstr ""
 
 #. Default: "Variation 2 Attribute"
-#: ./ftw/shop/content/shopitem.py:137
+#: ./ftw/shop/content/shopitem.py:179
 #: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr ""
 
 #. Default: "Variation 2 Values"
-#: ./ftw/shop/content/shopitem.py:148
+#: ./ftw/shop/content/shopitem.py:190
 #: ./ftw/shop/extender.py:113
 msgid "label_variation2_values"
 msgstr ""
@@ -894,12 +935,25 @@ msgstr ""
 msgid "label_vat_rates"
 msgstr ""
 
+#. Default: "Weight"
+#: ./ftw/shop/vocabularies.py:200
+msgid "label_weight"
+msgstr ""
+
 #. Default: "Zip Code"
 #: ./ftw/shop/interfaces.py:321
 msgid "label_zipcode"
 msgstr ""
 
 msgid "link_agb"
+msgstr ""
+
+#: ./ftw/shop/content/shopitem.py:44
+msgid "mm2"
+msgstr ""
+
+#: ./ftw/shop/content/shopitem.py:50
+msgid "mm3"
 msgstr ""
 
 #. Default: "Cart emptied."
@@ -954,8 +1008,8 @@ msgstr ""
 
 #. Default: "<dt>Not buyable</dt> <dd>${edit_variations}</dd>"
 #: ./ftw/shop/browser/templates/listing/one_variation.pt:35
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:63
-#: ./ftw/shop/browser/templates/listing/two_variations.pt:33
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
+#: ./ftw/shop/browser/templates/listing/two_variations.pt:35
 msgid "msg_not_buyable"
 msgstr ""
 
@@ -994,7 +1048,7 @@ msgid "msg_thank_you_title"
 msgstr ""
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:371
+#: ./ftw/shop/browser/shopitem.py:373
 msgid "msg_variations_saved"
 msgstr ""
 

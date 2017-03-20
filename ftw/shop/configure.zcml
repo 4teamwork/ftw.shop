@@ -178,6 +178,13 @@
         component=".vocabularies.SuppliersVocabulary"
         />
 
+    <!-- Selectable dimensions vocabulary -->
+    <utility
+        provides="zope.schema.interfaces.IVocabularyFactory"
+        name="ftw.shop.selectable_dimensions_vocabulary"
+        component=".vocabularies.SelectableDimensionsVocabulary"
+        />
+
     <adapter
       factory="ftw.shop.mailer.MailHostAdapter"
     />

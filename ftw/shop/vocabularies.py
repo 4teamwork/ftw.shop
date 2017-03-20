@@ -186,3 +186,23 @@ def SuppliersVocabulary(context):
 
     directlyProvides(SuppliersVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)
+
+
+def SelectableDimensionsVocabulary(context):
+    """Returns a vocabulary of the available suppliers
+    """
+    items = [
+        ('no_dimensions', _(u"label_no_dimensions", default=u"---")),
+        ('length', _(u"label_l", default=u"Length")),
+        ('length_width', _(u"label_l_w", default=u"Length, Width")),
+        ('length_width_thickness', _(u"label_l_w_t",
+                                     default=u"Length, Width, Thickness")),
+        ('weight', _(u'label_weight', default=u"Weight"))
+    ]
+
+    terms = [SimpleTerm(value=pair[0],
+                        token=pair[0],
+                        title=pair[1]) for pair in items]
+
+    directlyProvides(SelectableDimensionsVocabulary, IVocabularyFactory)
+    return vocabulary.SimpleVocabulary(terms)

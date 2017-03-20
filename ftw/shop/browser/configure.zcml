@@ -26,6 +26,13 @@
     class=".shopitem.ShopCompactItemView"
     />
 
+  <browser:page
+    for="*"
+    name="shopitem_macros"
+    permission="zope2.View"
+    template="templates/listing/macros.pt"
+    />
+
   <browser:menuItem
     for="..interfaces.IShopItem"
     menu="plone_displayviews"

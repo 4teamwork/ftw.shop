@@ -1,0 +1,6 @@
+<span metal:define-macro="dimensions">
+    <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
+        <label tal:content="dimension"></label>
+        <input type="text" size="3" name="dimension:int" />
+    </tal:dimensions>
+</span>

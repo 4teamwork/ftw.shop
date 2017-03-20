@@ -65,6 +65,7 @@ class CategoryView(BrowserView):
 
             results.append(
                 dict(
+                    item = item,
                     title = item.Title(),
                     description = item.Description(),
                     url = item.absolute_url(),
@@ -77,7 +78,8 @@ class CategoryView(BrowserView):
                     unit=item.getField('unit').get(item),
                     uid = item.UID(),
                     varConf = varConf,
-                    hasVariations = has_variations))
+                    hasVariations = has_variations,
+                    selectable_dimensions = item.getSelectableDimensions()))
         return results
 
     def getVarDictsJSON(self):

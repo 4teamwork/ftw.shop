@@ -72,7 +72,8 @@ class ShopItemView(BrowserView):
                 skuCode = item.Schema().getField('skuCode').get(item)
                 price = item.Schema().getField('price').get(item)
 
-            results.append(dict(title = item.Title(),
+            results.append(dict(item = item,
+                                title = item.Title(),
                                 description = item.Description(),
                                 url = item.absolute_url(),
                                 hasImage = hasImage,
@@ -84,7 +85,8 @@ class ShopItemView(BrowserView):
                                 unit=item.getField('unit').get(item),
                                 uid = item.UID(),
                                 varConf = varConf,
-                                hasVariations = has_variations))
+                                hasVariations = has_variations,
+                                selectable_dimensions = item.getSelectableDimensions()))
         return results
 
     def getVariationsConfig(self):

@@ -47,6 +47,13 @@ jQuery(function ($) {
             };
         }
 
+        var dimensions = $(this).parents('form').find('input[name="dimension:int"]');
+        dimensions = dimensions.map(
+            function() {
+                return $(this).val();
+            });
+        itemdata['dimensions'] = dimensions.get().join();
+
         $.ajax({
         dataType: "json",
         url: url + "_ajax",

@@ -2,13 +2,14 @@
              <tal:block tal:define="item options/item;
                                     varConf item/varConf"
                         i18n:domain="ftw.shop">
+                 <span metal:use-macro="item/@@shopitem_macros/dimensions"></span>
                  <div class="variation-toplevel-group"
                         tal:condition="python:len(varConf.getVariationAttributes()) == 1">
                      <table>
                          <thead>
                              <tr>
                                  <th tal:content="python: varConf.getVariationAttributes()[0]">Red</th>
-                                 <th tal:condition="python: not varConf.allPricesZero() and item['showPrice']" i18n:translate="label_price">Price</th>
+                                 <th tal:condition="python: not varConf.allPricesZero() and item['showPrice']"><span i18n:translate="label_price">Price</span><span tal:condition="item/item/getDimensionsLabel"> / <span tal:replace="item/item/getDimensionsLabel"></span></span></th>
                                  <th i18n:translate="label_sku_code">SKU code</th>
                                  <th i18n:translate="label_description">Description</th>
                                  <th tal:condition="item/unit" i18n:translate="label_unit">Unit</th>
