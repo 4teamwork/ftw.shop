@@ -30,6 +30,7 @@ import simplejson
 def calc_vat(rate, price, qty=1):
     """Calculate VAT and round to correct precision.
     """
+    # TODO: dimensions
     vat_amount = (Decimal(rate)/100) * Decimal(price) * qty
     vat_amount = vat_amount.quantize(Decimal('.01'))
     return vat_amount
@@ -144,7 +145,7 @@ class ShoppingCartAdapter(object):
         suppliers = self.get_suppliers()
         return all(x == suppliers[0] for x in suppliers)
 
-    def update_item(self, key, quantity):
+    def update_item(self, key, quantity, dimensions):
         """Update the quantity of an item.
         """
         session = self.request.SESSION
@@ -153,7 +154,8 @@ class ShoppingCartAdapter(object):
         if key in cart_items:
             item = cart_items[key]
             item['quantity'] = int(quantity)
-            item['total'] = str(Decimal(item['price']) * item['quantity'])
+            item['dimensions'] = dimensions
+            item['total'] = str(self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions))
             item['vat_amount'] = str(calc_vat(item['vat_rate'], item['price'], quantity))
             cart_items[key] = item
 
@@ -265,7 +267,6 @@ class ShoppingCartAdapter(object):
         """
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
-        # TODO: ?validate dimensions
 
         # Add item to cart
         success = self._add_item(skuCode, quantity, var1choice, var2choice, dimensions)
@@ -352,9 +353,16 @@ class ShoppingCartAdapter(object):
         # now update quantities (and VAT amounts, done by update_item)
         for skuCode, item in self.get_items().items():
             quantity = int(float(self.request.get('quantity_%s' % skuCode)))
-            if quantity != item['quantity'] and quantity != 0:
-                #TODO: update dimensions
-                self.update_item(skuCode, quantity)
+
+            dimensions = self.request.get('dimension_%s' % skuCode)
+            if not validate_dimensions(dimensions, item['selectable_dimensions']):
+                raise ValueError('Invalid dimensions.')
+            dimensions = map(int, dimensions)
+
+            if quantity <= 0:
+                raise ValueError('Invalid quantity.')
+
+            self.update_item(skuCode, quantity, dimensions)
 
         ptool.addPortalMessage(_(u'msg_cart_updated',
                                  default=u"Cart updated."), 'info')
@@ -390,7 +398,7 @@ class CartView(BrowserView):
         # unpack dimensions from request
         dimensions = dimensions.split(',') if dimensions else []
 
-        if self.validate_dimensions(dimensions):
+        if validate_dimensions(dimensions, self.context.getSelectableDimensions()):
             dimensions = map(int, dimensions)
 
             success = self.cart._add_item(skuCode, quantity, var1choice, var2choice, dimensions)
@@ -426,7 +434,7 @@ class CartView(BrowserView):
         if isinstance(dimension, int):
             dimension = [dimension]
 
-        if not self.validate_dimensions(dimension):
+        if not validate_dimensions(dimension, self.context.getSelectableDimensions()):
             raise ValueError('Invalid dimensions.')
 
         return self.cart.add_item(skuCode=skuCode, quantity=quantity,
@@ -451,11 +459,10 @@ class CartView(BrowserView):
         """
         return self.cart.get_vat()
 
-    def update_item(self, key, quantity):
+    def update_item(self, key, quantity, dimensions):
         """Update the quantity of an item.
         """
-        #TODO: dimensions
-        return self.cart.update_item(key, quantity)
+        return self.cart.update_item(key, quantity, dimensions)
 
     def cart_update(self):
         """Update cart contents.
@@ -552,18 +559,19 @@ class CartView(BrowserView):
         shop_config = registry.forInterface(IShopConfiguration)
         return shop_config
 
-    def validate_dimensions(self, dimensions):
-        """ Checks if the request has the sane amount of dimensions. """
-        if len(dimensions) != len(self.context.getSelectableDimensions()):
+
+def validate_dimensions(dimensions, selectable_dimensions):
+    """ Checks if the request has the sane amount of dimensions. """
+    if len(dimensions) != len(selectable_dimensions):
+        return False
+
+    try:
+        dimensions = map(int, dimensions)
+    except ValueError:
+        return False
+
+    for dimension in dimensions:
+        if dimension <= 0:
             return False
 
-        try:
-            dimensions = map(int, dimensions)
-        except ValueError:
-            return False
-
-        for dimension in dimensions:
-            if dimension <= 0:
-                return False
-
-        return True
+    return True
