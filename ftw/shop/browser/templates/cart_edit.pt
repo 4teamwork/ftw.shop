@@ -26,6 +26,7 @@
                   <tr>
                     <th i18n:translate="cart_header_product">Product</th>
                     <th i18n:translate="cart_header_description">Description</th>
+                    <th i18n:translate="cart_header_dimensions">Dimensions</th>
                     <th i18n:translate="cart_header_quantity">Quantity</th>
                     <th i18n:translate="cart_header_price" tal:condition="cview/show_prices">Price</th>
                     <th tal:condition="cview/show_prices" i18n:translate="cart_header_total">Total</th>
@@ -45,6 +46,7 @@
                         </a>
                       </td>
                       <td tal:content="item/description"></td>
+                      <td><span metal:use-macro="item/@@shopitem_macros/dimensions"></span></td>
                       <td><input type="text" size="5"
                                  tal:attributes="value item/quantity;
                                                  name string:quantity_${skuCode}" /></td>

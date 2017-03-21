@@ -1,6 +1,8 @@
-<span metal:define-macro="dimensions">
+<span metal:define-macro="dimensions" class="dimensions-selection">
     <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
-        <label tal:content="dimension"></label>
-        <input type="text" size="3" name="dimension:int" />
+        <span>
+            <label tal:content="dimension"></label>
+            <input type="text" size="3" name="dimension:int" tal:attributes="value python: '' if not item.get('dimensions') else item['dimensions'][repeat['dimension'].index]" />
+        </span>
     </tal:dimensions>
 </span>
