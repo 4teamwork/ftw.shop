@@ -27,15 +27,6 @@ from zope.publisher.interfaces.browser import IBrowserRequest
 import simplejson
 
 
-def calc_vat(rate, price, qty=1):
-    """Calculate VAT and round to correct precision.
-    """
-    # TODO: dimensions
-    vat_amount = (Decimal(rate)/100) * Decimal(price) * qty
-    vat_amount = vat_amount.quantize(Decimal('.01'))
-    return vat_amount
-
-
 class ShoppingCartAdapter(object):
     """Adapter that represents the shopping cart for the current user, defined
     by the adapted context and request.
@@ -135,8 +126,15 @@ class ShoppingCartAdapter(object):
         return False
 
     def calc_item_total(self, price, quantity, dimensions):
-        size = reduce(lambda x, y: x * y, dimensions)
+        size = reduce(lambda x, y: x * y, dimensions) if dimensions else 1
         return quantity * size * price
+
+    def calc_vat(self, rate, total):
+        """Calculate VAT and round to correct precision.
+        """
+        vat_amount = (Decimal(rate) / 100) * total
+        vat_amount = vat_amount.quantize(Decimal('.01'))
+        return vat_amount
 
     def has_single_supplier(self):
         """Returns true if all the suppliers are the same, or there are no
@@ -153,10 +151,11 @@ class ShoppingCartAdapter(object):
 
         if key in cart_items:
             item = cart_items[key]
+            total = self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions)
             item['quantity'] = int(quantity)
             item['dimensions'] = dimensions
-            item['total'] = str(self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions))
-            item['vat_amount'] = str(calc_vat(item['vat_rate'], item['price'], quantity))
+            item['total'] = str(total)
+            item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
             cart_items[key] = item
 
         session[CART_KEY] = cart_items
@@ -201,6 +200,7 @@ class ShoppingCartAdapter(object):
             price = Decimal(variation_dict[variation_code]['price'])
             # add item to cart
             if item is None:
+                total = self.calc_item_total(price, quantity, dimensions)
 
                 item = {'title': item_title,
                         'description': context.Description(),
@@ -208,50 +208,52 @@ class ShoppingCartAdapter(object):
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(self.calc_item_total(price, quantity, dimensions)),
+                        'total': str(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'variation_code': variation_code,
                         'vat_rate': vat_rate,
-                        'vat_amount': str(calc_vat(vat_rate, price)),
+                        'vat_amount': str(self.calc_vat(vat_rate, total)),
                         'dimensions': dimensions,
                         'selectable_dimensions': context.getSelectableDimensions()
                 }
             # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
+                total = self.calc_item_total(price, item['quantity'], dimensions)
                 item['dimensions'] = dimensions
-                item['total'] = str(self.calc_item_total(price, item['quantity'], dimensions))
-                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
+                item['total'] = str(total)
+                item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         else:
             price = Decimal(context.Schema().getField('price').get(context))
 
             # add item to cart
             if item is None:
-
+                total = self.calc_item_total(price, quantity, dimensions)
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(self.calc_item_total(price, quantity, dimensions)),
+                        'total': str(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'vat_rate': vat_rate,
-                        'vat_amount': str(calc_vat(vat_rate, price)),
+                        'vat_amount': str(self.calc_vat(vat_rate, total)),
                         'dimensions': dimensions,
                         'selectable_dimensions': context.getSelectableDimensions()
                 }
             # item already in cart, update quantitiy
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
+                total = self.calc_item_total(price, item['quantity'], dimensions)
                 item['dimensions'] = dimensions
-                item['total'] = str(self.calc_item_total(price, item['quantity'], dimensions))
-                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
+                item['total'] = str(total)
+                item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         # store cart in session
         cart_items[item_key] = item

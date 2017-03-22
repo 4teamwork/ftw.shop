@@ -10,3 +10,13 @@
         </span>
     </tal:dimensions>
 </span>
+
+<span metal:define-macro="dimensions_display" class="dimensions-display">
+    <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
+        <div>
+            <span tal:content="dimension"></span>:
+            <span tal:condition="python: hasattr(item, 'dimensions')" tal:content="python: item.dimensions[repeat['dimension'].index]"></span>
+            <span tal:condition="python: not hasattr(item, 'dimensions')" tal:content="python:item['dimensions'][repeat['dimension'].index()]"></span>
+        </div>
+    </tal:dimensions>
+</span>

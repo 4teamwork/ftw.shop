@@ -96,6 +96,7 @@ Thank you for your order in our shop on the
    <tr>
        <th i18n:translate="label_article_no">Article number</th>
        <th i18n:translate="cart_header_product">Product</th>
+       <th i18n:translate="cart_header_dimensions">Dimensions</th>
        <th i18n:translate="cart_header_quantity">Quantity</th>
        <th tal:condition="show_prices" i18n:translate="cart_header_price">Price</th>
        <th tal:condition="show_prices" i18n:translate="cart_header_total">Total</th>
@@ -106,6 +107,7 @@ Thank you for your order in our shop on the
    <tr tal:repeat="item order/cartitems">
      <td tal:content="item/sku_code"/>
      <td tal:content="item/title"/>
+     <td><span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span></td>
      <td tal:content="item/quantity"/>
      <td tal:condition="show_prices" tal:content="python:str(item.getPrice()) in ('0.00', '0.0') and ' ' or str(item.getPrice())"/>
      <td tal:condition="show_prices" tal:content="item/getTotal"/>
