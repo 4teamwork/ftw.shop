@@ -93,6 +93,7 @@ COLUMN_TITLES = {
 
     'sku_code': 'Artikel-Nr',
     'quantity': 'Menge',
+    'dimensions': 'Abmessung',
     'title': 'Titel',
     'price': 'Preis',
     'show_price': 'Preis anzeigen',
@@ -200,7 +201,7 @@ class OrderManagerView(BrowserView):
         # Create union of core_cols + all_cols to retain order
         all_cols = self.order_storage.getFieldNames()
         columns = core_cols + filter(lambda x:x not in core_cols, all_cols)
-        cart_cols = ['sku_code', 'quantity', 'title', 'price',
+        cart_cols = ['sku_code', 'quantity', 'dimensions', 'title', 'price',
                      'item_total', 'supplier_name', 'supplier_email']
 
         column_titles = [COLUMN_TITLES[col].decode('utf-8').encode('cp1252') for col in columns + cart_cols]
@@ -218,8 +219,14 @@ class OrderManagerView(BrowserView):
                     order_data[i] = value.encode('cp1252')
 
             for cart_item in order.cartitems:
+                # format dimensions
+                dimensions = [(cart_item.dimensions[i], dim) for i, dim in enumerate(cart_item.selectable_dimensions)]
+                dim_strings = [' '.join([str(dim[0]), translate(_(dim[1]), context=self.request)]) for dim in dimensions]
+                dim_formatted = ','.join(dim_strings)
+
                 cart_data = [cart_item.sku_code,
                             cart_item.quantity,
+                            dim_formatted,
                             cart_item.title,
                             cart_item.getPrice(),
                             cart_item.getTotal(),

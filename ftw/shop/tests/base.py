@@ -64,8 +64,8 @@ MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
                           'url': 'http://nohost/plone/shop/products/item',
                           'vat_amount': '0.00',
                           'vat_rate': Decimal('0.00'),
-                          'dimensions': [],
-                          'selectable_dimensions': []}}
+                          'dimensions': [1],
+                          'selectable_dimensions': [u'Weight (g)']}}
 
 MOCK_CART_TWO_SUPPLIERS = {
     'other-uid': {'description': 'A Shop Item with no variations',

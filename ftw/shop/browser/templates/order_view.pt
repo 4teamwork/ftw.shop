@@ -12,7 +12,7 @@
                 tal:define="order view/getOrder">
 
     <div tal:replace="structure provider:plone.abovecontenttitle" />
-    
+
     <h1 class="documentFirstHeading" tal:content="string:Order ${order/title}">Title</h1>
 
     <div tal:replace="structure provider:plone.belowcontenttitle" />
@@ -27,7 +27,7 @@
                          name="form.widgets.status"
                          id="form-widgets-status">
 
-            <option tal:repeat="term statusSet" 
+            <option tal:repeat="term statusSet"
                     tal:attributes="value term/value; selected python:order.status == term.value and 'selected' or ''"
                     tal:content="term/title">Status Title</option>
         </select>
@@ -99,6 +99,7 @@
         <thead>
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
+            <th i18n:translate="cart_header_dimensions">Dimensions</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
             <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
@@ -108,6 +109,7 @@
           <metal:block tal:repeat="item python:order.cartitems">
             <tr>
               <td tal:content="item/title"></td>
+              <td><span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span></td>
               <td tal:content="item/quantity"></td>
               <td tal:content="item/getPrice"></td>
               <td tal:content="item/getTotal"></td>
@@ -127,4 +129,3 @@
 </body>
 </html>
 
-        
