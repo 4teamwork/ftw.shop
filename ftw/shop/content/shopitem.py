@@ -30,6 +30,7 @@ from ftw.shop.config import PROJECTNAME
 from ftw.shop import shopMessageFactory as _
 
 
+# Update the SelectableDimensionsVocabulary if you add an item!
 selectable_dimensions = {
     'no_dimensions': {
         'dimension_unit': None,

@@ -186,6 +186,7 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.movie.getField('showPrice').set(self.movie, True)
         self.movie.getField('title').set(self.movie, "A Movie")
         self.movie.getField('description').set(self.movie, "A Shop Item with no variations")
+        self.movie.getField('selectable_dimensions').set(self.movie, 'length_width')
 
         # Fire ObjectInitializedEvent to add item to containing category
         event = ObjectInitializedEvent(self.movie, self.portal.REQUEST)
