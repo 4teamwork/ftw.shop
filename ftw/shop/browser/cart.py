@@ -151,9 +151,9 @@ class ShoppingCartAdapter(object):
 
         if key in cart_items:
             item = cart_items[key]
-            total = self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions)
             item['quantity'] = int(quantity)
             item['dimensions'] = dimensions
+            total = self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions)
             item['total'] = str(total)
             item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
             cart_items[key] = item
@@ -433,6 +433,8 @@ class CartView(BrowserView):
         without variations, or by its variation key.
         """
         # wrap single dimension in list so all dimensions are lists
+        if not dimension:
+            dimension = []
         if isinstance(dimension, int):
             dimension = [dimension]
 
@@ -564,6 +566,9 @@ class CartView(BrowserView):
 
 def validate_dimensions(dimensions, selectable_dimensions):
     """ Checks if the request has the sane amount of dimensions. """
+    if dimensions is None or selectable_dimensions is None:
+        return False
+
     if len(dimensions) != len(selectable_dimensions):
         return False
 

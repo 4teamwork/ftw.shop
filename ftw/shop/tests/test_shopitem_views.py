@@ -48,15 +48,16 @@ class TestShopItemViews(FtwShopTestCase):
         self.assertTrue('Hardcover' in item_listing)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=b11]")), 1)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=b22]")), 1)
+        self.assertEquals(pq_doc("#var-Hardcover td")[2].text, 'b11')
+        self.assertEquals(pq_doc("#var-Paperback td")[2].text, 'b22')
 
     def test_two_variations(self):
         item_datas = self.tshirt_view.getItemDatas()
         item = item_datas[0]
         item_listing = self.tshirt_view.two_variations(item)
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value='11']")), 1)
+        self.assertEquals(len(pq_doc('select[name=var1choice] option')), 3)
+        self.assertEquals(len(pq_doc('select[name=var2choice] option')), 3)
 
     def test_get_item_datas(self):
         movie_data = self.movie_view.getItemDatas()[0]
@@ -112,13 +113,9 @@ class TestShopItemViews(FtwShopTestCase):
         item_listing = self.tshirt_view.two_variations(item)
 
         pq_doc = pq(item_listing)
-        all_sku_codes = pq_doc('input[name=skuCode]')
-        red_s = [e for e in all_sku_codes if e.value=='11'][0]
-        green_s = [e for e in all_sku_codes if e.value=='44'][0]
-        blue_s = [e for e in all_sku_codes if e.value=='77'][0]
-
-        self.assertTrue(all_sku_codes.index(red_s) < all_sku_codes.index(green_s) \
-            and all_sku_codes.index(green_s) < all_sku_codes.index(blue_s))
+        self.assertEquals(
+            ['Red', 'Green', 'Blue'],
+            [op.text for op in pq_doc('select[name=var1choice] option')])
 
         # Now we swap 'Red' and 'Blue' and check if the listing reflects
         # the new order
@@ -129,14 +126,9 @@ class TestShopItemViews(FtwShopTestCase):
         item_listing = self.tshirt_view.two_variations(item)
 
         pq_doc = pq(item_listing)
-        all_sku_codes = pq_doc('input[name=skuCode]')
-        red_s = [e for e in all_sku_codes if e.value=='11'][0]
-        green_s = [e for e in all_sku_codes if e.value=='44'][0]
-        blue_s = [e for e in all_sku_codes if e.value=='77'][0]
-
-        self.assertTrue(all_sku_codes.index(red_s) > all_sku_codes.index(green_s) \
-            and all_sku_codes.index(green_s) > all_sku_codes.index(blue_s))
-
+        self.assertEquals(
+            ['Blue', 'Green', 'Red'],
+            [op.text for op in pq_doc('select[name=var1choice] option')])
 
 def test_suite():
     suite = unittest.TestSuite()

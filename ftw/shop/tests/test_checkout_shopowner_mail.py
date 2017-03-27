@@ -113,6 +113,7 @@ class TestCheckoutMailToShopOwner(TestCase):
 
         self.assertEquals([{'Article number': '123.1',
                             'Product': 'A pair of socks',
+                            'Dimensions': '',
                             'Price': '12.90',
                             'Quantity': '1',
                             'Total': '12.90'}],

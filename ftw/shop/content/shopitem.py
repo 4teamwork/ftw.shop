@@ -138,7 +138,7 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
         atapi.StringField(
             'selectable_dimensions',
-            required=False,
+            required=True,
             vocabulary_factory='ftw.shop.selectable_dimensions_vocabulary',
             widget=atapi.SelectionWidget(
                 format='select',
