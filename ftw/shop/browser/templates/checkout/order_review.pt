@@ -56,7 +56,7 @@
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
             <th i18n:translate="cart_header_description">Description</th>
-            <th i18n:translate="cart_header_dimensions">Dimensions</th>
+            <th tal:condition="context/REQUEST/cart_view/cart_has_dimensions" i18n:translate="cart_header_dimensions">Dimensions</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
             <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
@@ -67,7 +67,7 @@
             <tr>
               <td tal:content="item/title"></td>
               <td tal:content="item/description"></td>
-              <td>
+              <td tal:condition="context/REQUEST/cart_view/cart_has_dimensions">
                   <span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span>
               </td>
               <td tal:content="item/quantity"></td>

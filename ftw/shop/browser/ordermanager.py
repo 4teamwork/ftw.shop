@@ -433,6 +433,7 @@ class OrderManagerView(BrowserView):
                                     name=u'shopowner_mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
 
@@ -454,6 +455,7 @@ class OrderManagerView(BrowserView):
                                     name=u'mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
 
@@ -473,6 +475,7 @@ class OrderManagerView(BrowserView):
                                     name=u'supplier_mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config,
                              supplier=supplier)
         self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
@@ -498,6 +501,14 @@ class OrderManagerView(BrowserView):
     def show_prices(self, order):
         for item in order.cartitems:
             if item.show_price:
+                return True
+        return False
+
+    def has_order_dimensions(self, order):
+        """Checks if order has an item with dimensions.
+        """
+        for item in order.cartitems:
+            if len(item.dimensions) > 0:
                 return True
         return False
 
@@ -551,6 +562,14 @@ class OrderView(BrowserView):
                                    name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
         return order
+
+    def has_order_dimensions(self):
+        """Checks if order has an item with dimensions.
+        """
+        for item in self.getOrder().cartitems:
+            if len(item.dimensions) > 0:
+                return True
+        return False
 
     def getStatus(self, order_id=None):
         """Return the human readable title of the status for

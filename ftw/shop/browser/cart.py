@@ -143,6 +143,14 @@ class ShoppingCartAdapter(object):
         suppliers = self.get_suppliers()
         return all(x == suppliers[0] for x in suppliers)
 
+    def has_specified_dimensions(self):
+        """Checks if any item has dimensions.
+        """
+        for item in self.get_items().values():
+            if len(item['dimensions']) > 0:
+                return True
+        return False
+
     def update_item(self, key, quantity, dimensions):
         """Update the quantity of an item.
         """
@@ -356,7 +364,7 @@ class ShoppingCartAdapter(object):
         for skuCode, item in self.get_items().items():
             quantity = int(float(self.request.get('quantity_%s' % skuCode)))
 
-            dimensions = self.request.get('dimension_%s' % skuCode)
+            dimensions = self.request.get('dimension_%s' % skuCode, [])
             if not validate_dimensions(dimensions, item['selectable_dimensions']):
                 raise ValueError('Invalid dimensions.')
             dimensions = map(int, dimensions)
@@ -483,6 +491,10 @@ class CartView(BrowserView):
         """
         return self.cart.purge_cart()
 
+    def cart_has_dimensions(self):
+        """Checks if any item has dimensions.
+        """
+        return self.cart.has_specified_dimensions()
 
     def checkout(self):
         """Process checkout
