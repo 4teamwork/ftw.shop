@@ -144,7 +144,11 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
             widget=atapi.SelectionWidget(
                 format='select',
                 label=_(u'label_selectable_dimensions',
-                        default=u'Selectable dimensions')
+                        default=u'Selectable dimensions'),
+                description=_(
+                    u'description_dimensions',
+                    default='Specifies which dimensions of the product can '
+                            'be chosen by the user.')
             ),
             schemata='default'
         ),

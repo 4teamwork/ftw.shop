@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-03-22 13:45+0000\n"
+"POT-Creation-Date: 2017-04-03 07:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Enny Rodriguez <administrador@femto.com.ve>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgstr "Limpiar carrito de compra"
 msgid "Filter"
 msgstr "Filtro"
 
-#: ./ftw/shop/content/shopitem.py:40
+#: ./ftw/shop/content/shopitem.py:41
 msgid "Length (mm)"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr "Artículo"
 msgid "Supplier"
 msgstr "Proveedor"
 
-#: ./ftw/shop/content/shopitem.py:53
+#: ./ftw/shop/content/shopitem.py:54
 msgid "Thickness (mm)"
 msgstr ""
 
@@ -144,11 +144,11 @@ msgstr ""
 msgid "Variations"
 msgstr "Variaciones de producto"
 
-#: ./ftw/shop/content/shopitem.py:57
+#: ./ftw/shop/content/shopitem.py:58
 msgid "Weight (g)"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:46
+#: ./ftw/shop/content/shopitem.py:47
 msgid "Width (mm)"
 msgstr ""
 
@@ -239,42 +239,42 @@ msgstr "Título"
 msgid "categories_title"
 msgstr "Categorías"
 
-#: ./ftw/shop/content/shopitem.py:102
+#: ./ftw/shop/content/shopitem.py:103
 #: ./ftw/shop/extender.py:55
 msgid "desc_price"
 msgstr "Descuento"
 
-#: ./ftw/shop/content/shopitem.py:113
+#: ./ftw/shop/content/shopitem.py:114
 #: ./ftw/shop/extender.py:65
 msgid "desc_show_price"
 msgstr "Mostrar precio"
 
-#: ./ftw/shop/content/shopitem.py:123
+#: ./ftw/shop/content/shopitem.py:124
 #: ./ftw/shop/extender.py:74
 msgid "desc_sku_code"
 msgstr "Código"
 
 #: ./ftw/shop/content/shopcategory.py:38
-#: ./ftw/shop/content/shopitem.py:204
+#: ./ftw/shop/content/shopitem.py:209
 msgid "desc_supplier"
 msgstr "Proveedor"
 
-#: ./ftw/shop/content/shopitem.py:157
+#: ./ftw/shop/content/shopitem.py:162
 #: ./ftw/shop/extender.py:83
 msgid "desc_variation1_attr"
 msgstr "Atributo"
 
-#: ./ftw/shop/content/shopitem.py:168
+#: ./ftw/shop/content/shopitem.py:173
 #: ./ftw/shop/extender.py:93
 msgid "desc_variation1_values"
 msgstr "Valor"
 
-#: ./ftw/shop/content/shopitem.py:180
+#: ./ftw/shop/content/shopitem.py:185
 #: ./ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr "Atributo"
 
-#: ./ftw/shop/content/shopitem.py:191
+#: ./ftw/shop/content/shopitem.py:196
 #: ./ftw/shop/extender.py:115
 msgid "desc_variation2_values"
 msgstr "Valor"
@@ -284,8 +284,13 @@ msgstr "Valor"
 msgid "desc_vat_rate"
 msgstr "Por favor, seleccione el tipo de impuesto al valor agregado por este producto."
 
+#. Default: "Specifies which dimensions of the product can be chosen by the user."
+#: ./ftw/shop/content/shopitem.py:148
+msgid "description_dimensions"
+msgstr ""
+
 #. Default: "The unit for the product quantity."
-#: ./ftw/shop/content/shopitem.py:132
+#: ./ftw/shop/content/shopitem.py:133
 msgid "description_unit"
 msgstr ""
 
@@ -431,7 +436,7 @@ msgid "label_article_no"
 msgstr "Número de artículo"
 
 #. Default: "Body Text"
-#: ./ftw/shop/content/shopitem.py:91
+#: ./ftw/shop/content/shopitem.py:92
 msgid "label_body_text"
 msgstr "Texto del cuerpo"
 
@@ -584,7 +589,7 @@ msgid "label_from_date"
 msgstr "De:"
 
 #. Default: "Image"
-#: ./ftw/shop/content/shopitem.py:68
+#: ./ftw/shop/content/shopitem.py:69
 msgid "label_image"
 msgstr "Imagen"
 
@@ -752,7 +757,7 @@ msgid "label_save"
 msgstr ""
 
 #. Default: "Selectable dimensions"
-#: ./ftw/shop/content/shopitem.py:145
+#: ./ftw/shop/content/shopitem.py:146
 msgid "label_selectable_dimensions"
 msgstr ""
 
@@ -787,7 +792,7 @@ msgid "label_shop_name"
 msgstr "Ingrese el nombre de la tienda"
 
 #. Default: "Show price"
-#: ./ftw/shop/content/shopitem.py:112
+#: ./ftw/shop/content/shopitem.py:113
 #: ./ftw/shop/extender.py:64
 msgid "label_show_price"
 msgstr "Mostrar precio"
@@ -837,7 +842,7 @@ msgstr "Resumen"
 #. Default: "Supplier"
 #: ./ftw/shop/browser/templates/order_manager.pt:50
 #: ./ftw/shop/content/shopcategory.py:37
-#: ./ftw/shop/content/shopitem.py:203
+#: ./ftw/shop/content/shopitem.py:208
 msgid "label_supplier"
 msgstr "Proveedor"
 
@@ -884,25 +889,25 @@ msgid "label_used"
 msgstr "Diferente a la dirección de la factura"
 
 #. Default: "Variation 1 Attribute"
-#: ./ftw/shop/content/shopitem.py:155
+#: ./ftw/shop/content/shopitem.py:160
 #: ./ftw/shop/extender.py:81
 msgid "label_variation1_attr"
 msgstr "Atributo variación 1"
 
 #. Default: "Variation 1 Values"
-#: ./ftw/shop/content/shopitem.py:166
+#: ./ftw/shop/content/shopitem.py:171
 #: ./ftw/shop/extender.py:91
 msgid "label_variation1_values"
 msgstr "Variación 1 valores"
 
 #. Default: "Variation 2 Attribute"
-#: ./ftw/shop/content/shopitem.py:178
+#: ./ftw/shop/content/shopitem.py:183
 #: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr "Variación 2 atributos"
 
 #. Default: "Variation 2 Values"
-#: ./ftw/shop/content/shopitem.py:189
+#: ./ftw/shop/content/shopitem.py:194
 #: ./ftw/shop/extender.py:113
 msgid "label_variation2_values"
 msgstr "Variación 2 valores"
@@ -950,11 +955,11 @@ msgstr "Código postal"
 msgid "link_agb"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:43
+#: ./ftw/shop/content/shopitem.py:44
 msgid "mm2"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:49
+#: ./ftw/shop/content/shopitem.py:50
 msgid "mm3"
 msgstr ""
 
@@ -1009,7 +1014,7 @@ msgid "msg_label_info"
 msgstr "Información"
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:496
+#: ./ftw/shop/browser/cart.py:498
 msgid "msg_no_cart"
 msgstr "No se puede continuar con el carrito vacío"
 
@@ -1020,7 +1025,7 @@ msgid "msg_not_buyable"
 msgstr "<dt>No disponible</dt> <dd>${edit_variations}</dd>"
 
 #. Default: "${no_orders} orders cancelled."
-#: ./ftw/shop/browser/ordermanager.py:265
+#: ./ftw/shop/browser/ordermanager.py:272
 msgid "msg_order_cancelled"
 msgstr "${no_orders} Ordenes canceladas."
 
@@ -1030,7 +1035,7 @@ msgid "msg_shop_initialized"
 msgstr "Estructura de la tienda inicializada"
 
 #. Default: "Changed status for ${no_orders} orders."
-#: ./ftw/shop/browser/ordermanager.py:291
+#: ./ftw/shop/browser/ordermanager.py:298
 msgid "msg_status_changed"
 msgstr "Estado cambiado para ${no_orders} ordenes."
 
@@ -1199,7 +1204,7 @@ msgid "txt_total"
 msgstr "Total + I.V.A"
 
 #. Default: "(incl. VAT)"
-#: ./ftw/shop/browser/templates/order_view.pt:121
+#: ./ftw/shop/browser/templates/order_view.pt:123
 msgid "txt_vat"
 msgstr "(+ I.V.A)"
 
