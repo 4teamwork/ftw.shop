@@ -114,7 +114,6 @@ class TestCart(FtwShopTestCase):
         cart.addtocart(skuCode='b11', var1choice='Hardcover', quantity=2)
 
         # Try to update cart with no values in request (invalid)
-        self.portal.REQUEST['dimension_%s' % self.movie.UID()] = []
         cart.cart_update()
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u'Invalid Values specified. Cart not updated.')

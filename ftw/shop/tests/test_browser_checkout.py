@@ -183,7 +183,6 @@ class TestBrowserCheckout(TestCase):
         checkout.goto(checkout.ORDER_REVIEW)
         self.assertEquals([{'Product': 'Socks',
                             'Description': 'A good pair of socks.',
-                            'Dimensions': '',
                             'Quantity': '1',
                             'Price': '10.00',
                             'Total': '10.00'}],
