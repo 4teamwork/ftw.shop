@@ -14,24 +14,26 @@ from zope.component import getMultiAdapter, adapts
 from zope.component import getAdapters
 from zope.component import getUtility
 
-from ftw.shop.config import SESSION_ADDRESS_KEY
-from ftw.shop.config import SESSION_SHIPPING_KEY
+from ftw.shop import shopMessageFactory as _
+from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
 from ftw.shop.config import COOKIE_ADDRESS_KEY
-from ftw.shop.interfaces import IShopConfiguration
-from ftw.shop.interfaces import IDefaultContactInformation
+from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_REVIEW_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.interfaces import IContactInformationStep
 from ftw.shop.interfaces import IContactInformationStepGroup
-from ftw.shop.interfaces import IShippingAddress
-from ftw.shop.interfaces import IShippingAddressStep
-from ftw.shop.interfaces import IShippingAddressStepGroup
+from ftw.shop.interfaces import IDefaultContactInformation
+from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
+from ftw.shop.interfaces import IOrderReviewSchema
+from ftw.shop.interfaces import IOrderReviewStep
+from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.interfaces import IPaymentProcessor
 from ftw.shop.interfaces import IPaymentProcessorChoiceStep
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
-from ftw.shop.interfaces import IDefaultPaymentProcessorChoice
-from ftw.shop.interfaces import IOrderReviewStep
-from ftw.shop.interfaces import IOrderReviewStepGroup
-from ftw.shop.browser.widgets.paymentprocessor import PaymentProcessorFieldWidget
-from ftw.shop import shopMessageFactory as _
+from ftw.shop.interfaces import IShippingAddress
+from ftw.shop.interfaces import IShippingAddressStep
+from ftw.shop.interfaces import IShippingAddressStepGroup
+from ftw.shop.interfaces import IShopConfiguration
 
 
 try:
@@ -235,6 +237,7 @@ class DefaultOrderReviewStep(wizard.Step):
               default="Default Order Review Step")
     description = _(u'help_order_review_step', default=u'')
     index = zvptf.ViewPageTemplateFile('templates/checkout/order_review.pt')
+    fields = field.Fields(IOrderReviewSchema)
 
     def __init__(self, context, request, wiz):
         super(wizard.Step, self).__init__(context, request)
@@ -391,6 +394,10 @@ class CheckoutWizard(wizard.Wizard):
         shipping_data = {}
         shipping_data.update(self.session['shipping_address'])
         self.request.SESSION[SESSION_SHIPPING_KEY] = shipping_data
+
+        review_data = {}
+        review_data.update(self.session['order-review'])
+        self.request.SESSION[SESSION_REVIEW_KEY] = review_data
 
         self.request.SESSION['order_confirmation'] = True
 

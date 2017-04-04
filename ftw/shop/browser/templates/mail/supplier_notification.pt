@@ -59,10 +59,10 @@
         </tal:block>
     </p>
 
-    <p tal:condition="order/customer_comments">
-         <span i18n:translate="label_details_comments">Comments</span>:
-         <span tal:replace="order/customer_comments" />
-    </p>
+<div tal:condition="order/customer_comments">
+     <h4 i18n:translate="label_details_comments">Comments</h4>
+     <span tal:replace="order/customer_comments" />
+</div>
 
 
 <h4 i18n:translate="title_shipping_address">Shipping Address</h4>

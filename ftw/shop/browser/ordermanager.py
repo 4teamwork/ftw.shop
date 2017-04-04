@@ -23,17 +23,18 @@ from zope.publisher.interfaces.browser import IBrowserView
 from zope.i18n import translate
 
 from ftw.shop import shopMessageFactory as _
-from ftw.shop.config import SESSION_ADDRESS_KEY
-from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.config import ONLINE_PENDING_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_REVIEW_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
-from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
+from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.interfaces import IMailHostAdapter
-from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
+from ftw.shop.interfaces import IShopConfiguration
 
 try:
     # Python > 2.5
@@ -350,6 +351,12 @@ class OrderManagerView(BrowserView):
         shipping_data = session.get(SESSION_SHIPPING_KEY, {})
         if not shipping_data:
             raise MissingShippingAddress
+
+        # check for review data
+        review_data = session.get(SESSION_REVIEW_KEY, {})
+        # The comment was previously in the customer data step. If we move it
+        # to the customer data set we can avoid changing all templates.
+        customer_data.update(review_data)
 
         # check for order confirmation
         if not session.get('order_confirmation', None):

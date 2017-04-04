@@ -21,9 +21,6 @@
           <li><span i18n:translate="label_email">Email</span>: <span tal:content="customer/email"/></li>
           <li><span i18n:translate="label_phone">Phone</span>: <span tal:content="customer/phone"/></li>
 
-
-          <li tal:condition="customer/comments">
-              <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
           <li><br/></li>
       </ul>
 
@@ -94,9 +91,10 @@
           <h2 i18n:translate="label_payment_processor">Payment Processor</h2>
           <img tal:replace="structure payment_processor/image" />
           <p tal:content="payment_processor/title"></p>
-          <p>&nbsp;</p>
           <div i18n:translate="msg_external_redirect"
-               tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
+               tal:condition="payment_processor/external"><p>&nbsp;</p>You will now be redirected to an external site.</div>
       </tal:block>
+
+      <div tal:content="structure view/widgets/comments/@@ploneform-render-widget" />
 
 </tal:block>
