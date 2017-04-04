@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.shop.browser.cart import validate_dimensions
 from ftw.shop.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
 
@@ -51,3 +52,24 @@ class TestUnitField(FunctionalTestCase):
         dim = browser.css('.dimensions-selection input')
         self.assertEquals('4', dim[1].value)
         self.assertEquals('16.00', browser.css('form > div b span').first.text)
+
+    def test_dimensions_validation(self):
+        self.assertTrue(validate_dimensions([], []))
+        self.assertTrue(validate_dimensions([1], [u'Length (mm)']))
+        self.assertTrue(validate_dimensions(
+            [1, 2, 3],
+            [u"Length (mm)", u"Width (mm)", u"Thickness (mm)"]))
+        self.assertTrue(validate_dimensions(['2'], [u'Length (mm)']))
+
+        self.assertFalse(
+            validate_dimensions([], [u'Length (mm)']),
+            'There has to be the same amount of dimensions.')
+        self.assertFalse(
+            validate_dimensions([], None),
+            'Both parameter have to be specified.')
+        self.assertFalse(
+            validate_dimensions(['2.2'], [u'Length (mm)']),
+            'Float numbers are not allowed. The base unit cannot be split.')
+        self.assertFalse(
+            validate_dimensions([-1], [u'Length (mm)']),
+            'Negative dimensions are not allowed.')
