@@ -286,7 +286,7 @@ msgstr ""
 #. Default: "Specifies which dimensions of the product can be chosen by the user."
 #: ./ftw/shop/content/shopitem.py:148
 msgid "description_dimensions"
-msgstr "Definiert welche Abmessungen am Produkt vom Kunden gewählt werden können."
+msgstr "Definiert welche Abmessungen am Produkt vom Kunden gewählt werden können. Der Preis wird pro Einheit (mm, mm³, etc.) angebeben."
 
 #. Default: "The unit for the product quantity."
 #: ./ftw/shop/content/shopitem.py:133
@@ -602,17 +602,17 @@ msgstr "MwSt"
 #. Default: "Length"
 #: ./ftw/shop/vocabularies.py:196
 msgid "label_l"
-msgstr "Länge"
+msgstr "Länge (mm)"
 
 #. Default: "Length, Width"
 #: ./ftw/shop/vocabularies.py:197
 msgid "label_l_w"
-msgstr "Länge, Breite"
+msgstr "Länge, Breite (mm²)"
 
 #. Default: "Length, Width, Thickness"
 #: ./ftw/shop/vocabularies.py:198
 msgid "label_l_w_t"
-msgstr "Länge, Breite, Dicke"
+msgstr "Länge, Breite, Dicke (mm³)"
 
 #. Default: "Last Name"
 #: ./ftw/shop/interfaces.py:297
@@ -944,7 +944,7 @@ msgstr "MwSt-Sätze"
 #. Default: "Weight"
 #: ./ftw/shop/vocabularies.py:200
 msgid "label_weight"
-msgstr "Gramm"
+msgstr "Gramm (g)"
 
 #. Default: "Zip Code"
 #: ./ftw/shop/interfaces.py:321

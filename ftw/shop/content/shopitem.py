@@ -148,7 +148,8 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
                 description=_(
                     u'description_dimensions',
                     default='Specifies which dimensions of the product can '
-                            'be chosen by the user.')
+                            'be chosen by the user. The price is per base unit '
+                            '(mm, g, etc.).')
             ),
             schemata='default'
         ),
