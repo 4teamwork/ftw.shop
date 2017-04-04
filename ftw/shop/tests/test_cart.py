@@ -1,6 +1,7 @@
 from decimal import Decimal
 from ftw.shop.config import SESSION_ADDRESS_KEY
 from ftw.shop.config import SESSION_SHIPPING_KEY
+from ftw.shop.interfaces import IShoppingCart
 from ftw.shop.tests.base import FtwShopTestCase
 from plone import api
 from Products.CMFCore.utils import getToolByName
@@ -195,6 +196,29 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(order.customer_firstname, "Hugo")
         self.assertEquals(order.customer_lastname, "Boss")
         self.assertEquals(order.customer_email, "hugo.boss@example.org")
+
+    def test_calc_item_total(self):
+        cart = getMultiAdapter((self.portal, self.portal.REQUEST), IShoppingCart)
+        self.assertEqual(
+            7.5,
+            cart.calc_item_total(7.5, 1, [1]),
+            "Price should be respected in the calculation")
+        self.assertEqual(
+            15,
+            cart.calc_item_total(7.5, 2, [1]),
+            "Quantity should be respected in the calculation")
+        self.assertEqual(
+            15,
+            cart.calc_item_total(7.5, 1, [2]),
+            "Dimension should be respected in the calculation")
+        self.assertEqual(
+            60,
+            cart.calc_item_total(7.5, 1, [2, 2, 2]),
+            "Multiple dimensions should be respected in the calculation")
+        self.assertEqual(
+            120,
+            cart.calc_item_total(7.5, 2, [2, 2, 2]),
+            "Quantity and dimensions can be used simultaneously")
 
 
 def test_suite():
