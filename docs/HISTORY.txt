@@ -1,8 +1,19 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
+2.2.0 (unreleased)
 ------------------
+
+- Added dimensions to shopitems which can be specified by the user.
+  [lknoepfel]
+
+- Moved comments field to the order review step.
+  This allowes the user to add information he was not able to provide with the standard field.
+  [lknoepfel]
+
+- The compact view is now the default view.
+  The old default view has been removed because it didn't work.
+  [lknoepfel]
 
 - Make variations and unit searchable.
   [lknoepfel]
