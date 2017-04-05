@@ -18,8 +18,9 @@ class CategoryView(BrowserView):
     __call__ = ViewPageTemplateFile('templates/category.pt')
 
     single_item_template = ViewPageTemplateFile('templates/listing/single_item.pt')
-    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation.pt')
-    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations.pt')
+    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
+    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')
+
 
     def getItems(self):
         """Returns a list of ShopItems directly contained in this category
@@ -65,6 +66,7 @@ class CategoryView(BrowserView):
 
             results.append(
                 dict(
+                    item = item,
                     title = item.Title(),
                     description = item.Description(),
                     url = item.absolute_url(),
@@ -77,7 +79,8 @@ class CategoryView(BrowserView):
                     unit=item.getField('unit').get(item),
                     uid = item.UID(),
                     varConf = varConf,
-                    hasVariations = has_variations))
+                    hasVariations = has_variations,
+                    selectable_dimensions = item.getSelectableDimensions()))
         return results
 
     def getVarDictsJSON(self):
@@ -161,11 +164,3 @@ class CategoryView(BrowserView):
         contents.sort(lambda x, y: cmp(x.getRankForCategory(context),
                         y.getRankForCategory(context)))
         return contents
-
-
-class CategoryCompactView(CategoryView):
-    """Compact view for a category. Shows all contained items and categories.
-    """
-
-    one_variation_template = ViewPageTemplateFile('templates/listing/one_variation_compact.pt')
-    two_variations_template = ViewPageTemplateFile('templates/listing/two_variations_compact.pt')

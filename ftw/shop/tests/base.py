@@ -63,7 +63,9 @@ MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
                           'total': '8.30',
                           'url': 'http://nohost/plone/shop/products/item',
                           'vat_amount': '0.00',
-                          'vat_rate': Decimal('0.00')}}
+                          'vat_rate': Decimal('0.00'),
+                          'dimensions': [1],
+                          'selectable_dimensions': [u'Weight (g)']}}
 
 MOCK_CART_TWO_SUPPLIERS = {
     'other-uid': {'description': 'A Shop Item with no variations',
@@ -77,7 +79,9 @@ MOCK_CART_TWO_SUPPLIERS = {
                   'total': '8.30',
                   'url': 'http://nohost/plone/shop/products/item',
                   'vat_amount': '0.00',
-                  'vat_rate': Decimal('0.00')}}
+                  'vat_rate': Decimal('0.00'),
+                  'dimensions': [],
+                  'selectable_dimensions': []}}
 
 
 class FakeMailHostAdapter(MailHostAdapter):
@@ -182,6 +186,7 @@ class FtwShopTestCase(ptc.PloneTestCase):
         self.movie.getField('showPrice').set(self.movie, True)
         self.movie.getField('title').set(self.movie, "A Movie")
         self.movie.getField('description').set(self.movie, "A Shop Item with no variations")
+        self.movie.getField('selectable_dimensions').set(self.movie, 'length_width')
 
         # Fire ObjectInitializedEvent to add item to containing category
         event = ObjectInitializedEvent(self.movie, self.portal.REQUEST)

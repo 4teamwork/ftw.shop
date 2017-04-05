@@ -5,7 +5,7 @@
                     <tr>
                         <th tal:condition="item/skuCode" i18n:translate="label_sku_code">SKU code</th>
                         <th tal:condition="item/unit" i18n:translate="label_unit">Unit</th>
-                        <th tal:condition="item/showPrice" i18n:translate="label_price">Price</th>
+                        <th tal:condition="item/showPrice"><span i18n:translate="label_price">Price</span><span tal:condition="item/item/getDimensionsLabel"> / <span tal:replace="item/item/getDimensionsLabel"></span></span></th>
                     </tr>
                     <tr>
                         <td tal:condition="item/skuCode" tal:content="item/skuCode" />
@@ -16,6 +16,7 @@
 
                 <form tal:attributes="action string:${item/url}/addtocart">
                     <span style="float: right">
+                        <span metal:use-macro="item/@@shopitem_macros/dimensions"></span>
                         <input type="hidden" name="skuCode" tal:attributes="value item/skuCode"/>
                         <label i18n:translate="">Quantity</label>
                         <input type="text" size="2" name="quantity:int" value="1"/>

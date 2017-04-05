@@ -329,6 +329,11 @@ class IDefaultContactInformation(Interface):
             title=_(u'label_country', default=u'Country'),
             required=True)
 
+
+class IOrderReviewSchema(Interface):
+    """Fields for the order review step.
+    """
+
     comments = schema.Text(
             title=_(u'label_comments', default=u'Comments'),
             required=False)

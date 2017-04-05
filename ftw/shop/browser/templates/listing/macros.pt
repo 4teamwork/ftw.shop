@@ -1,0 +1,22 @@
+<span metal:define-macro="dimensions" class="dimensions-selection">
+    <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
+        <span>
+            <label tal:content="dimension"></label>
+            <input
+                    type="text"
+                    size="3"
+                    tal:attributes="name python: 'dimension:int' if not 'skuCode' in locals() else 'dimension_%s' % skuCode;
+                                    value python:'' if not item.get('dimensions') else item['dimensions'][repeat['dimension'].index];" />
+        </span>
+    </tal:dimensions>
+</span>
+
+<span metal:define-macro="dimensions_display" class="dimensions-display">
+    <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
+        <div>
+            <span tal:content="dimension"></span>:
+            <span tal:condition="python: hasattr(item, 'dimensions')" tal:content="python: item.dimensions[repeat['dimension'].index]"></span>
+            <span tal:condition="python: not hasattr(item, 'dimensions')" tal:content="python:item['dimensions'][repeat['dimension'].index()]"></span>
+        </div>
+    </tal:dimensions>
+</span>

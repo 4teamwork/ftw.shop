@@ -1,9 +1,9 @@
-<tal:block 
+<tal:block
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.shop">
 
       <h1 i18n:translate="label_summary">Summary</h1>
-      
+
       <h2 i18n:translate="label_personal_information">Personal Information</h2>
 
       <ul style="list-style:none" tal:define="customer python:view.wizard.session['contact_information'];"
@@ -21,9 +21,6 @@
           <li><span i18n:translate="label_email">Email</span>: <span tal:content="customer/email"/></li>
           <li><span i18n:translate="label_phone">Phone</span>: <span tal:content="customer/phone"/></li>
 
-
-          <li tal:condition="customer/comments"> 
-              <span i18n:translate="label_comments">Comments</span>: <span tal:content="customer/comments"/></li>
           <li><br/></li>
       </ul>
 
@@ -56,6 +53,7 @@
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
             <th i18n:translate="cart_header_description">Description</th>
+            <th tal:condition="context/REQUEST/cart_view/cart_has_dimensions" i18n:translate="cart_header_dimensions">Dimensions</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
             <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
@@ -66,6 +64,9 @@
             <tr>
               <td tal:content="item/title"></td>
               <td tal:content="item/description"></td>
+              <td tal:condition="context/REQUEST/cart_view/cart_has_dimensions">
+                  <span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span>
+              </td>
               <td tal:content="item/quantity"></td>
               <td tal:content="item/price"></td>
               <td tal:content="item/total"></td>
@@ -90,9 +91,10 @@
           <h2 i18n:translate="label_payment_processor">Payment Processor</h2>
           <img tal:replace="structure payment_processor/image" />
           <p tal:content="payment_processor/title"></p>
-          <p>&nbsp;</p>
           <div i18n:translate="msg_external_redirect"
-               tal:condition="payment_processor/external">You will now be redirected to an external site.</div>
+               tal:condition="payment_processor/external"><p>&nbsp;</p>You will now be redirected to an external site.</div>
       </tal:block>
+
+      <div tal:content="structure view/widgets/comments/@@ploneform-render-widget" />
 
 </tal:block>

@@ -36,8 +36,8 @@ class TestCategoryView(FtwShopTestCase):
         self.assertTrue('Hardcover' in item_listing)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=b11]")), 1)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value=b22]")), 1)
+        self.assertEquals(pq_doc("#var-Hardcover td")[2].text, 'b11')
+        self.assertEquals(pq_doc("#var-Paperback td")[2].text, 'b22')
 
     def test_two_variations(self):
         item_datas = self.category_view.getItemDatas()
@@ -45,7 +45,8 @@ class TestCategoryView(FtwShopTestCase):
         item_listing = self.category_view.two_variations(item)
 
         pq_doc = pq(item_listing)
-        self.assertEquals(len(pq_doc("input[name=skuCode][value='11']")), 1)
+        self.assertEquals(len(pq_doc('select[name=var1choice] option')), 3)
+        self.assertEquals(len(pq_doc('select[name=var2choice] option')), 3)
 
     def test_get_item_datas(self):
         item_datas = self.category_view.getItemDatas()

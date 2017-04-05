@@ -10,8 +10,10 @@ class SupplierMailView(BrowserView):
 
     template = ViewPageTemplateFile('templates/mail/supplier_notification.pt')
 
-    def __call__(self, show_prices=False, order=None, shop_config=None, supplier=None):
+    def __call__(self, show_prices=False, has_order_dimensions=True,
+                 order=None, shop_config=None, supplier=None):
         self.show_prices = show_prices
+        self.has_order_dimensions = has_order_dimensions
         self.order = order
         self.shop_config = shop_config
         self.supplier = supplier
@@ -19,7 +21,8 @@ class SupplierMailView(BrowserView):
         return self.template(order=order,
                              shop_config=shop_config,
                              supplier=supplier,
-                             show_prices=show_prices)
+                             show_prices=show_prices,
+                             has_order_dimensions=has_order_dimensions)
 
     def cartitems(self):
         """Returns the subset of items from the order that are supplied

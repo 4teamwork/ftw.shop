@@ -30,6 +30,35 @@ from ftw.shop.config import PROJECTNAME
 from ftw.shop import shopMessageFactory as _
 
 
+# Update the SelectableDimensionsVocabulary if you add an item!
+selectable_dimensions = {
+    'no_dimensions': {
+        'dimension_unit': None,
+        'dimensions': []
+    },
+    'length': {
+        'dimension_unit': u'mm',
+        'dimensions': [_(u"Length (mm)")]
+    },
+    'length_width': {
+        'dimension_unit': _(u'mm2'),
+        'dimensions': [
+            _(u"Length (mm)"),
+            _(u"Width (mm)")]
+    },
+    'length_width_thickness': {
+        'dimension_unit': _(u'mm3'),
+        'dimensions': [
+            _(u"Length (mm)"),
+            _(u"Width (mm)"),
+            _(u"Thickness (mm)")]
+    },
+    'weight': {
+        'dimension_unit': u'g',
+        'dimensions': [_(u"Weight (g)")]
+    }
+}
+
 ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
 
         atapi.ImageField(
@@ -109,6 +138,23 @@ ShopItemSchema = ATContentTypeSchema.copy() + atapi.Schema((
         ),
 
         atapi.StringField(
+            'selectable_dimensions',
+            required=True,
+            vocabulary_factory='ftw.shop.selectable_dimensions_vocabulary',
+            widget=atapi.SelectionWidget(
+                format='select',
+                label=_(u'label_selectable_dimensions',
+                        default=u'Selectable dimensions'),
+                description=_(
+                    u'description_dimensions',
+                    default='Specifies which dimensions of the product can '
+                            'be chosen by the user. The price is per base unit '
+                            '(mm, g, etc.).')
+            ),
+            schemata='default'
+        ),
+
+        atapi.StringField(
             'variation1_attribute',
             required = 0,
             widget = atapi.StringWidget(
@@ -184,6 +230,21 @@ class ShopItem(Categorizeable, ATCTContent):
             ' '.join(self.getVariation1_values()),
             ' '.join(self.getVariation2_values())
         ])
+
+    def getDimensionDict(self):
+        dim_key = self.Schema().getField('selectable_dimensions').get(self)
+        if not dim_key:
+            return selectable_dimensions['no_dimensions']
+
+        return selectable_dimensions[dim_key]
+
+    def getSelectableDimensions(self):
+        dimension_dict = self.getDimensionDict()
+        return dimension_dict.get('dimensions', [])
+
+    def getDimensionsLabel(self):
+        dimension_dict = self.getDimensionDict()
+        return dimension_dict.get('dimension_unit', None)
 
 
 def add_to_containing_category(context, event):

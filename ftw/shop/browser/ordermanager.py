@@ -23,17 +23,18 @@ from zope.publisher.interfaces.browser import IBrowserView
 from zope.i18n import translate
 
 from ftw.shop import shopMessageFactory as _
-from ftw.shop.config import SESSION_ADDRESS_KEY
-from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.config import ONLINE_PENDING_KEY
+from ftw.shop.config import SESSION_ADDRESS_KEY
+from ftw.shop.config import SESSION_REVIEW_KEY
+from ftw.shop.config import SESSION_SHIPPING_KEY
 from ftw.shop.exceptions import MissingCustomerInformation
-from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.exceptions import MissingOrderConfirmation
 from ftw.shop.exceptions import MissingPaymentProcessor
+from ftw.shop.exceptions import MissingShippingAddress
 from ftw.shop.interfaces import IMailHostAdapter
-from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IOrderStorage
 from ftw.shop.interfaces import IPaymentProcessorStepGroup
+from ftw.shop.interfaces import IShopConfiguration
 
 try:
     # Python > 2.5
@@ -93,6 +94,7 @@ COLUMN_TITLES = {
 
     'sku_code': 'Artikel-Nr',
     'quantity': 'Menge',
+    'dimensions': 'Abmessung',
     'title': 'Titel',
     'price': 'Preis',
     'show_price': 'Preis anzeigen',
@@ -200,7 +202,7 @@ class OrderManagerView(BrowserView):
         # Create union of core_cols + all_cols to retain order
         all_cols = self.order_storage.getFieldNames()
         columns = core_cols + filter(lambda x:x not in core_cols, all_cols)
-        cart_cols = ['sku_code', 'quantity', 'title', 'price',
+        cart_cols = ['sku_code', 'quantity', 'dimensions', 'title', 'price',
                      'item_total', 'supplier_name', 'supplier_email']
 
         column_titles = [COLUMN_TITLES[col].decode('utf-8').encode('cp1252') for col in columns + cart_cols]
@@ -218,8 +220,14 @@ class OrderManagerView(BrowserView):
                     order_data[i] = value.encode('cp1252')
 
             for cart_item in order.cartitems:
+                # format dimensions
+                dimensions = [(cart_item.dimensions[i], dim) for i, dim in enumerate(cart_item.selectable_dimensions)]
+                dim_strings = [' '.join([str(dim[0]), translate(_(dim[1]), context=self.request)]) for dim in dimensions]
+                dim_formatted = ','.join(dim_strings)
+
                 cart_data = [cart_item.sku_code,
                             cart_item.quantity,
+                            dim_formatted,
                             cart_item.title,
                             cart_item.getPrice(),
                             cart_item.getTotal(),
@@ -344,6 +352,12 @@ class OrderManagerView(BrowserView):
         if not shipping_data:
             raise MissingShippingAddress
 
+        # check for review data
+        review_data = session.get(SESSION_REVIEW_KEY, {})
+        # The comment was previously in the customer data step. If we move it
+        # to the customer data set we can avoid changing all templates.
+        customer_data.update(review_data)
+
         # check for order confirmation
         if not session.get('order_confirmation', None):
             raise MissingOrderConfirmation
@@ -426,6 +440,7 @@ class OrderManagerView(BrowserView):
                                     name=u'shopowner_mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
 
@@ -447,6 +462,7 @@ class OrderManagerView(BrowserView):
                                     name=u'mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config)
         self._send_mail(mail_to, mail_subject, msg_body)
 
@@ -466,6 +482,7 @@ class OrderManagerView(BrowserView):
                                     name=u'supplier_mail_view')
         msg_body = mail_view(order=order,
                              show_prices=show_prices,
+                             has_order_dimensions=self.has_order_dimensions(order),
                              shop_config=self.shop_config,
                              supplier=supplier)
         self._send_mail(mail_to, mail_subject, msg_body, reply_to=customer_address)
@@ -491,6 +508,14 @@ class OrderManagerView(BrowserView):
     def show_prices(self, order):
         for item in order.cartitems:
             if item.show_price:
+                return True
+        return False
+
+    def has_order_dimensions(self, order):
+        """Checks if order has an item with dimensions.
+        """
+        for item in order.cartitems:
+            if len(item.dimensions) > 0:
                 return True
         return False
 
@@ -544,6 +569,14 @@ class OrderView(BrowserView):
                                    name=self.order_storage_name)
         order = order_storage.getOrder(order_id)
         return order
+
+    def has_order_dimensions(self):
+        """Checks if order has an item with dimensions.
+        """
+        for item in self.getOrder().cartitems:
+            if len(item.dimensions) > 0:
+                return True
+        return False
 
     def getStatus(self, order_id=None):
         """Return the human readable title of the status for

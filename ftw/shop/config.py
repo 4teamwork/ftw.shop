@@ -20,6 +20,7 @@ CURRENCIES = DisplayList((
 SESSION_ORDERS_KEY = 'ftw.shop.orders'
 SESSION_ADDRESS_KEY = 'ftw.shop.customer_data'
 SESSION_SHIPPING_KEY = 'ftw.shop.shipping_address'
+SESSION_REVIEW_KEY = 'ftw.shop.review_data'
 SESSION_ERRORS_KEY = 'ftw.shop.errors'
 
 COOKIE_ADDRESS_KEY = 'ftw.shop.customer_cookie'

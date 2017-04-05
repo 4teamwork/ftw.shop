@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ftw.shop\n"
-"POT-Creation-Date: 2016-11-28 09:03+0000\n"
+"POT-Creation-Date: 2017-04-03 07:26+0000\n"
 "PO-Revision-Date: 2015-01-22 09:06+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: 4teamwork GmbH <info@4teamwork.ch>\n"
@@ -33,9 +33,9 @@ msgstr ""
 msgid "Add registry setting 'phone_number'"
 msgstr ""
 
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:44
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:54
-#: ./ftw/shop/browser/templates/listing/single_item.pt:22
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:55
+#: ./ftw/shop/browser/templates/listing/single_item.pt:23
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:66
 msgid "Add to cart"
 msgstr "In Warenkorb legen"
 
@@ -49,13 +49,9 @@ msgstr "Kategorien"
 msgid "Change status"
 msgstr "Status ändern"
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:92
+#: ./ftw/shop/browser/templates/cart_edit.pt:94
 msgid "Checkout"
 msgstr "Bestellen"
-
-#: ./ftw/shop/browser/configure.zcml:35
-msgid "Compact View"
-msgstr "Kompakte Ansicht"
 
 #: ./ftw/shop/portlets/cart.py:33
 msgid "Conditions under which portlet should be shown"
@@ -73,7 +69,7 @@ msgstr "Anzeigemodus"
 msgid "Edit Shopping Cart portlet"
 msgstr "Warenkorb-Portlet bearbeiten"
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:86
+#: ./ftw/shop/browser/templates/cart_edit.pt:88
 msgid "Empty Shopping Cart"
 msgstr "Warenkorb leeren"
 
@@ -81,9 +77,13 @@ msgstr "Warenkorb leeren"
 msgid "Filter"
 msgstr "Anzeigen"
 
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:51
-#: ./ftw/shop/browser/templates/listing/single_item.pt:20
-#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:62
+#: ./ftw/shop/content/shopitem.py:41
+msgid "Length (mm)"
+msgstr "Länge (mm)"
+
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:52
+#: ./ftw/shop/browser/templates/listing/single_item.pt:21
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:63
 msgid "Quantity"
 msgstr "Menge"
 
@@ -107,6 +107,10 @@ msgstr "Shop-Artikel"
 msgid "Supplier"
 msgstr "Lieferant"
 
+#: ./ftw/shop/content/shopitem.py:54
+msgid "Thickness (mm)"
+msgstr "Dicke (mm)"
+
 #: ./ftw/shop/interfaces.py:342
 msgid "This email address is invalid."
 msgstr "Diese E-Mail Adresse ist ungültig."
@@ -123,7 +127,7 @@ msgstr "Dieses Portlet zeigt den Warenkorb an."
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: ./ftw/shop/browser/templates/cart_edit.pt:80
+#: ./ftw/shop/browser/templates/cart_edit.pt:82
 msgid "Update Cart"
 msgstr "Warenkorb aktualisieren"
 
@@ -138,6 +142,14 @@ msgstr ""
 #: ./ftw/shop/profiles/default/types/ShopItem.xml
 msgid "Variations"
 msgstr "Variationen"
+
+#: ./ftw/shop/content/shopitem.py:58
+msgid "Weight (g)"
+msgstr "Gramm (g)"
+
+#: ./ftw/shop/content/shopitem.py:47
+msgid "Width (mm)"
+msgstr "Breite (mm)"
 
 #. Default: "Back"
 #: ./ftw/shop/browser/checkout.py:329
@@ -155,7 +167,7 @@ msgid "btn_finish"
 msgstr "Abschliessen"
 
 #. Default: "Delete"
-#: ./ftw/shop/browser/templates/cart_edit.pt:32
+#: ./ftw/shop/browser/templates/cart_edit.pt:33
 msgid "cart_header_delete"
 msgstr "Löschen"
 
@@ -165,10 +177,17 @@ msgstr "Löschen"
 msgid "cart_header_description"
 msgstr "Beschreibung"
 
+#. Default: "Dimensions"
+#: ./ftw/shop/browser/templates/cart_edit.pt:29
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:99
+msgid "cart_header_dimensions"
+msgstr "Abmessung"
+
 #. Default: "Price"
-#: ./ftw/shop/browser/templates/cart_edit.pt:30
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:60
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:100
+#: ./ftw/shop/browser/templates/cart_edit.pt:31
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:61
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:101
 msgid "cart_header_price"
 msgstr "Preis"
 
@@ -180,16 +199,16 @@ msgid "cart_header_product"
 msgstr "Produkt"
 
 #. Default: "Quantity"
-#: ./ftw/shop/browser/templates/cart_edit.pt:29
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:59
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:99
+#: ./ftw/shop/browser/templates/cart_edit.pt:30
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:60
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:100
 msgid "cart_header_quantity"
 msgstr "Menge"
 
 #. Default: "Total"
-#: ./ftw/shop/browser/templates/cart_edit.pt:31
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:61
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:101
+#: ./ftw/shop/browser/templates/cart_edit.pt:32
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:62
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:102
 msgid "cart_header_total"
 msgstr "Total"
 
@@ -219,42 +238,42 @@ msgstr "Titel"
 msgid "categories_title"
 msgstr "Kategorien"
 
-#: ./ftw/shop/content/shopitem.py:74
+#: ./ftw/shop/content/shopitem.py:103
 #: ./ftw/shop/extender.py:55
 msgid "desc_price"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:85
+#: ./ftw/shop/content/shopitem.py:114
 #: ./ftw/shop/extender.py:65
 msgid "desc_show_price"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:95
+#: ./ftw/shop/content/shopitem.py:124
 #: ./ftw/shop/extender.py:74
 msgid "desc_sku_code"
 msgstr ""
 
 #: ./ftw/shop/content/shopcategory.py:38
-#: ./ftw/shop/content/shopitem.py:163
+#: ./ftw/shop/content/shopitem.py:209
 msgid "desc_supplier"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:116
+#: ./ftw/shop/content/shopitem.py:162
 #: ./ftw/shop/extender.py:83
 msgid "desc_variation1_attr"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:127
+#: ./ftw/shop/content/shopitem.py:173
 #: ./ftw/shop/extender.py:93
 msgid "desc_variation1_values"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:139
+#: ./ftw/shop/content/shopitem.py:185
 #: ./ftw/shop/extender.py:104
 msgid "desc_variation2_attr"
 msgstr ""
 
-#: ./ftw/shop/content/shopitem.py:150
+#: ./ftw/shop/content/shopitem.py:196
 #: ./ftw/shop/extender.py:115
 msgid "desc_variation2_values"
 msgstr ""
@@ -264,8 +283,13 @@ msgstr ""
 msgid "desc_vat_rate"
 msgstr ""
 
+#. Default: "Specifies which dimensions of the product can be chosen by the user."
+#: ./ftw/shop/content/shopitem.py:148
+msgid "description_dimensions"
+msgstr "Definiert welche Abmessungen am Produkt vom Kunden gewählt werden können. Der Preis wird pro Einheit (mm, mm³, etc.) angebeben."
+
 #. Default: "The unit for the product quantity."
-#: ./ftw/shop/content/shopitem.py:103
+#: ./ftw/shop/content/shopitem.py:133
 msgid "description_unit"
 msgstr "Die Mengeneinheit in der das Produkt gemessen wird."
 
@@ -411,7 +435,7 @@ msgid "label_article_no"
 msgstr "Artikel-Nr."
 
 #. Default: "Body Text"
-#: ./ftw/shop/content/shopitem.py:63
+#: ./ftw/shop/content/shopitem.py:92
 msgid "label_body_text"
 msgstr "Text"
 
@@ -505,8 +529,8 @@ msgstr "Lieferadresse"
 
 #. Default: "Description"
 #: ./ftw/shop/browser/templates/edit_variations.pt:107
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:13
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:81
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:82
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:92
 msgid "label_description"
 msgstr "Beschreibung"
 
@@ -536,8 +560,8 @@ msgstr "Warenkorb bearbeiten"
 
 #. Default: "Edit variations"
 #: ./ftw/shop/browser/templates/edit_variations.pt:87
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:35
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:63
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:74
 msgid "label_edit_variations"
 msgstr "Variationen bearbeiten"
 
@@ -564,16 +588,31 @@ msgid "label_from_date"
 msgstr "Von:"
 
 #. Default: "Image"
-#: ./ftw/shop/content/shopitem.py:40
+#: ./ftw/shop/content/shopitem.py:69
 msgid "label_image"
 msgstr "Bild"
 
 #. Default: "VAT"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:117
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:119
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:110
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:119
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:121
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:112
 msgid "label_included_vat"
 msgstr "MwSt"
+
+#. Default: "Length"
+#: ./ftw/shop/vocabularies.py:196
+msgid "label_l"
+msgstr "Länge (mm)"
+
+#. Default: "Length, Width"
+#: ./ftw/shop/vocabularies.py:197
+msgid "label_l_w"
+msgstr "Länge, Breite (mm²)"
+
+#. Default: "Length, Width, Thickness"
+#: ./ftw/shop/vocabularies.py:198
+msgid "label_l_w_t"
+msgstr "Länge, Breite, Dicke (mm³)"
 
 #. Default: "Last Name"
 #: ./ftw/shop/interfaces.py:297
@@ -606,29 +645,34 @@ msgid "label_name"
 msgstr "Name"
 
 #. Default: "New attribute"
-#: ./ftw/shop/content/variations.py:243
+#: ./ftw/shop/content/variations.py:288
 msgid "label_new_attr"
 msgstr "Neues Attribut"
 
 #. Default: "New description"
-#: ./ftw/shop/browser/shopitem.py:178
+#: ./ftw/shop/browser/shopitem.py:172
 msgid "label_new_description"
 msgstr "Neue Beschreibung"
 
 #. Default: "New value"
-#: ./ftw/shop/browser/shopitem.py:252
+#: ./ftw/shop/browser/shopitem.py:246
 msgid "label_new_value"
 msgstr "Neuer Wert"
 
 #. Default: "New value 1"
-#: ./ftw/shop/content/variations.py:241
+#: ./ftw/shop/content/variations.py:286
 msgid "label_new_value_1"
 msgstr "Neuer Wert 1"
 
 #. Default: "New value 2"
-#: ./ftw/shop/content/variations.py:242
+#: ./ftw/shop/content/variations.py:287
 msgid "label_new_value_2"
 msgstr "Neuer Wert 2"
+
+#. Default: "---"
+#: ./ftw/shop/vocabularies.py:195
+msgid "label_no_dimensions"
+msgstr ""
 
 #. Default: "Only if ShopItems available in current folder"
 #: ./ftw/shop/portlets/cart.py:22
@@ -667,7 +711,7 @@ msgid "label_order_storage"
 msgstr "Storage-Methode für Bestellungen"
 
 #. Default: "Payment Processor"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:90
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:94
 #: ./ftw/shop/interfaces.py:128
 msgid "label_payment_processor"
 msgstr "Zahlungsanbieter"
@@ -696,8 +740,8 @@ msgstr "Telefonnummer"
 
 #. Default: "Price"
 #: ./ftw/shop/browser/templates/edit_variations.pt:105
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:11
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:22
+#: ./ftw/shop/browser/templates/listing/single_item.pt:8
 msgid "label_price"
 msgstr "Preis"
 
@@ -710,6 +754,11 @@ msgstr "Variationsstufe löschen"
 #: ./ftw/shop/browser/templates/edit_variations.pt:143
 msgid "label_save"
 msgstr "Speichern"
+
+#. Default: "Selectable dimensions"
+#: ./ftw/shop/content/shopitem.py:146
+msgid "label_selectable_dimensions"
+msgstr "Abmessung"
 
 #. Default: "Selected orders"
 #: ./ftw/shop/browser/templates/status.pt:13
@@ -742,7 +791,7 @@ msgid "label_shop_name"
 msgstr "Geben sie den Shop-Namen ein"
 
 #. Default: "Show price"
-#: ./ftw/shop/content/shopitem.py:84
+#: ./ftw/shop/content/shopitem.py:113
 #: ./ftw/shop/extender.py:64
 msgid "label_show_price"
 msgstr "Preis anzeigen"
@@ -753,9 +802,9 @@ msgid "label_show_status_column"
 msgstr "Spalte 'Status' in Bestellungsverwaltung anzeigen"
 
 #. Default: "SKU code"
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:12
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:26
 #: ./ftw/shop/browser/templates/listing/single_item.pt:6
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:27
 msgid "label_sku_code"
 msgstr "Artikel-Nr."
 
@@ -792,7 +841,7 @@ msgstr "Übersicht"
 #. Default: "Supplier"
 #: ./ftw/shop/browser/templates/order_manager.pt:50
 #: ./ftw/shop/content/shopcategory.py:37
-#: ./ftw/shop/content/shopitem.py:162
+#: ./ftw/shop/content/shopitem.py:208
 msgid "label_supplier"
 msgstr "Lieferant"
 
@@ -822,9 +871,9 @@ msgid "label_to_date"
 msgstr "Bis:"
 
 #. Default: "Unit"
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:14
 #: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:29
 #: ./ftw/shop/browser/templates/listing/single_item.pt:7
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:30
 msgid "label_unit"
 msgstr "Abgabemenge"
 
@@ -839,31 +888,31 @@ msgid "label_used"
 msgstr "Abweichende Lieferadresse"
 
 #. Default: "Variation 1 Attribute"
-#: ./ftw/shop/content/shopitem.py:114
+#: ./ftw/shop/content/shopitem.py:160
 #: ./ftw/shop/extender.py:81
 msgid "label_variation1_attr"
 msgstr "Variations-Attribut 1"
 
 #. Default: "Variation 1 Values"
-#: ./ftw/shop/content/shopitem.py:125
+#: ./ftw/shop/content/shopitem.py:171
 #: ./ftw/shop/extender.py:91
 msgid "label_variation1_values"
 msgstr "Werte für Variation 1"
 
 #. Default: "Variation 2 Attribute"
-#: ./ftw/shop/content/shopitem.py:137
+#: ./ftw/shop/content/shopitem.py:183
 #: ./ftw/shop/extender.py:102
 msgid "label_variation2_attr"
 msgstr "Variations-Attribut 2"
 
 #. Default: "Variation 2 Values"
-#: ./ftw/shop/content/shopitem.py:148
+#: ./ftw/shop/content/shopitem.py:194
 #: ./ftw/shop/extender.py:113
 msgid "label_variation2_values"
 msgstr "Werte für Variation 2"
 
 #. Default: "VAT"
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:78
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:82
 msgid "label_vat"
 msgstr "MwSt"
 
@@ -892,6 +941,11 @@ msgstr "MwSt-Satz"
 msgid "label_vat_rates"
 msgstr "MwSt-Sätze"
 
+#. Default: "Weight"
+#: ./ftw/shop/vocabularies.py:200
+msgid "label_weight"
+msgstr "Gramm (g)"
+
 #. Default: "Zip Code"
 #: ./ftw/shop/interfaces.py:321
 msgid "label_zipcode"
@@ -900,18 +954,26 @@ msgstr "Postleitzahl"
 msgid "link_agb"
 msgstr "http://www.4teamwork.ch"
 
+#: ./ftw/shop/content/shopitem.py:44
+msgid "mm2"
+msgstr "mm²"
+
+#: ./ftw/shop/content/shopitem.py:50
+msgid "mm3"
+msgstr "mm³"
+
 #. Default: "Cart emptied."
-#: ./ftw/shop/browser/cart.py:305
+#: ./ftw/shop/browser/cart.py:323
 msgid "msg_cart_emptied"
 msgstr "Der Warenkorb wurde geleert."
 
 #. Default: "Invalid Values specified. Cart not updated."
-#: ./ftw/shop/browser/cart.py:327
+#: ./ftw/shop/browser/cart.py:345
 msgid "msg_cart_invalidvalue"
 msgstr "Ungültige Mengenangabe. Der Warenkorb wurde nicht aktualisiert."
 
 #. Default: "Cart updated."
-#: ./ftw/shop/browser/cart.py:290
+#: ./ftw/shop/browser/cart.py:308
 msgid "msg_cart_updated"
 msgstr "Der Warenkorb wurde aktualisiert."
 
@@ -921,44 +983,48 @@ msgid "msg_categories_updated"
 msgstr "Kategorien wurden aktualisiert."
 
 #. Default: "You will now be redirected to an external site."
-#: ./ftw/shop/browser/templates/checkout/order_review.pt:94
+#: ./ftw/shop/browser/templates/checkout/order_review.pt:98
 msgid "msg_external_redirect"
 msgstr "Sie werden nun auf eine externe Seite des Zahlungsanbieters weitergeleitet"
 
+#. Default: "Invalid dimensions."
+#: ./ftw/shop/browser/cart.py:417
+msgid "msg_invalid_dimensions"
+msgstr "Ungültige Abmessung."
+
 #. Default: "Added item to cart."
-#: ./ftw/shop/browser/cart.py:258
+#: ./ftw/shop/browser/cart.py:276
 msgid "msg_item_added"
 msgstr "Der Artikel wurde in den Warenkorb gelegt."
 
 #. Default: "Item is disabled and can't be added."
-#: ./ftw/shop/browser/cart.py:261
+#: ./ftw/shop/browser/cart.py:279
 msgid "msg_item_disabled"
 msgstr "Artikel ist deaktiviert und kann nicht hinzugefügt werden"
 
 #. Default: "Error"
-#: ./ftw/shop/browser/cart.py:379
+#: ./ftw/shop/browser/cart.py:412
 msgid "msg_label_error"
 msgstr "Fehler"
 
 #. Default: "Information"
-#: ./ftw/shop/browser/cart.py:376
+#: ./ftw/shop/browser/cart.py:409
 msgid "msg_label_info"
 msgstr "Information"
 
 #. Default: "Can't proceed with empty cart."
-#: ./ftw/shop/browser/cart.py:451
+#: ./ftw/shop/browser/cart.py:498
 msgid "msg_no_cart"
 msgstr "Weiterfahren mit leeren Warenkorb nicht möglich"
 
 #. Default: "<dt>Not buyable</dt> <dd>${edit_variations}</dd>"
-#: ./ftw/shop/browser/templates/listing/one_variation.pt:35
-#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:63
-#: ./ftw/shop/browser/templates/listing/two_variations.pt:33
+#: ./ftw/shop/browser/templates/listing/one_variation_compact.pt:64
+#: ./ftw/shop/browser/templates/listing/two_variations_compact.pt:74
 msgid "msg_not_buyable"
 msgstr "<dt>Nicht kaufbar</dt> <dd>${edit_variations}</dd>"
 
 #. Default: "${no_orders} orders cancelled."
-#: ./ftw/shop/browser/ordermanager.py:265
+#: ./ftw/shop/browser/ordermanager.py:272
 msgid "msg_order_cancelled"
 msgstr "${no_orders} Bestellungen storniert."
 
@@ -968,7 +1034,7 @@ msgid "msg_shop_initialized"
 msgstr "Shop-Struktur initialisiert"
 
 #. Default: "Changed status for ${no_orders} orders."
-#: ./ftw/shop/browser/ordermanager.py:291
+#: ./ftw/shop/browser/ordermanager.py:298
 msgid "msg_status_changed"
 msgstr "Status für ${no_orders} Bestellungen wurde geändert."
 
@@ -992,7 +1058,7 @@ msgid "msg_thank_you_title"
 msgstr "Besten Dank!"
 
 #. Default: "Variations saved."
-#: ./ftw/shop/browser/shopitem.py:371
+#: ./ftw/shop/browser/shopitem.py:365
 msgid "msg_variations_saved"
 msgstr "Variationen wurden gespeichert."
 
@@ -1086,12 +1152,12 @@ msgid "title_shipping_address"
 msgstr "Lieferadresse"
 
 #. Default: "For inquiries please contact us: ${phone} E-Mail ${email}"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:146
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:148
 msgid "txt_contact"
 msgstr "Bei Fragen kontaktieren Sie uns bitte: ${phone} E-Mail ${email}"
 
 #. Default: "Phone"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:143
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:145
 msgid "txt_contact_phone"
 msgstr ""
 
@@ -1101,9 +1167,9 @@ msgid "txt_ordernumber"
 msgstr "Ihre Bestellnummer lautet"
 
 #. Default: "Shipping and packaging costs are not included and will be charged individually."
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:138
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:139
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:129
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:140
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:141
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:131
 msgid "txt_shipping"
 msgstr "Verpackung und Versandkosten sind nicht enthalten und werden individuell verrechnet."
 
@@ -1130,14 +1196,14 @@ msgid "txt_title"
 msgstr "Sehr geehrte/r"
 
 #. Default: "Total (incl.VAT)"
-#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:125
-#: ./ftw/shop/browser/templates/mail/order_notification.pt:127
-#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:118
+#: ./ftw/shop/browser/templates/mail/order_confirmation.pt:127
+#: ./ftw/shop/browser/templates/mail/order_notification.pt:129
+#: ./ftw/shop/browser/templates/mail/supplier_notification.pt:120
 msgid "txt_total"
 msgstr "Total (inkl. MwSt)"
 
 #. Default: "(incl. VAT)"
-#: ./ftw/shop/browser/templates/order_view.pt:121
+#: ./ftw/shop/browser/templates/order_view.pt:123
 msgid "txt_vat"
 msgstr "(inkl. MwSt)"
 

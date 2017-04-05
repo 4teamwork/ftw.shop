@@ -27,14 +27,6 @@ from zope.publisher.interfaces.browser import IBrowserRequest
 import simplejson
 
 
-def calc_vat(rate, price, qty=1):
-    """Calculate VAT and round to correct precision.
-    """
-    vat_amount = (Decimal(rate)/100) * Decimal(price) * qty
-    vat_amount = vat_amount.quantize(Decimal('.01'))
-    return vat_amount
-
-
 class ShoppingCartAdapter(object):
     """Adapter that represents the shopping cart for the current user, defined
     by the adapted context and request.
@@ -133,6 +125,17 @@ class ShoppingCartAdapter(object):
                 return True
         return False
 
+    def calc_item_total(self, price, quantity, dimensions):
+        size = reduce(lambda x, y: x * y, dimensions) if dimensions else 1
+        return quantity * size * price
+
+    def calc_vat(self, rate, total):
+        """Calculate VAT and round to correct precision.
+        """
+        vat_amount = (Decimal(rate) / 100) * total
+        vat_amount = vat_amount.quantize(Decimal('.01'))
+        return vat_amount
+
     def has_single_supplier(self):
         """Returns true if all the suppliers are the same, or there are no
         suppliers whatsoever.
@@ -140,7 +143,15 @@ class ShoppingCartAdapter(object):
         suppliers = self.get_suppliers()
         return all(x == suppliers[0] for x in suppliers)
 
-    def update_item(self, key, quantity):
+    def has_specified_dimensions(self):
+        """Checks if any item has dimensions.
+        """
+        for item in self.get_items().values():
+            if len(item['dimensions']) > 0:
+                return True
+        return False
+
+    def update_item(self, key, quantity, dimensions):
         """Update the quantity of an item.
         """
         session = self.request.SESSION
@@ -149,14 +160,16 @@ class ShoppingCartAdapter(object):
         if key in cart_items:
             item = cart_items[key]
             item['quantity'] = int(quantity)
-            item['total'] = str(Decimal(item['price']) * item['quantity'])
-            item['vat_amount'] = str(calc_vat(item['vat_rate'], item['price'], quantity))
+            item['dimensions'] = dimensions
+            total = self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions)
+            item['total'] = str(total)
+            item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
             cart_items[key] = item
 
         session[CART_KEY] = cart_items
 
     def _add_item(self, skuCode=None, quantity=1,
-                   var1choice=None, var2choice=None):
+                   var1choice=None, var2choice=None, dimensions=None):
         """ Add item to cart
         """
         context = aq_inner(self.context)
@@ -180,6 +193,9 @@ class ShoppingCartAdapter(object):
 
         supplier_name, supplier_email = self._get_supplier_info(context)
 
+        if dimensions is None:
+            dimensions = []
+
         has_variations = varConf.hasVariations()
         if has_variations:
             variation_dict = varConf.getVariationDict()
@@ -192,6 +208,7 @@ class ShoppingCartAdapter(object):
             price = Decimal(variation_dict[variation_code]['price'])
             # add item to cart
             if item is None:
+                total = self.calc_item_total(price, quantity, dimensions)
 
                 item = {'title': item_title,
                         'description': context.Description(),
@@ -199,43 +216,52 @@ class ShoppingCartAdapter(object):
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(price * quantity),
+                        'total': str(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'variation_code': variation_code,
                         'vat_rate': vat_rate,
-                        'vat_amount': str(calc_vat(vat_rate, price))
+                        'vat_amount': str(self.calc_vat(vat_rate, total)),
+                        'dimensions': dimensions,
+                        'selectable_dimensions': context.getSelectableDimensions()
                 }
             # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
-                item['total'] = str(item['quantity'] * price)
-                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
+                total = self.calc_item_total(price, item['quantity'], dimensions)
+                item['dimensions'] = dimensions
+                item['total'] = str(total)
+                item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         else:
             price = Decimal(context.Schema().getField('price').get(context))
+
             # add item to cart
             if item is None:
-
+                total = self.calc_item_total(price, quantity, dimensions)
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(price * quantity),
+                        'total': str(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'vat_rate': vat_rate,
-                        'vat_amount': str(calc_vat(vat_rate, price))
+                        'vat_amount': str(self.calc_vat(vat_rate, total)),
+                        'dimensions': dimensions,
+                        'selectable_dimensions': context.getSelectableDimensions()
                 }
             # item already in cart, update quantitiy
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
-                item['total'] = str(item['quantity'] * price)
-                item['vat_amount'] = str(calc_vat(vat_rate, price, quantity))
+                total = self.calc_item_total(price, item['quantity'], dimensions)
+                item['dimensions'] = dimensions
+                item['total'] = str(total)
+                item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         # store cart in session
         cart_items[item_key] = item
@@ -243,7 +269,7 @@ class ShoppingCartAdapter(object):
         return True
 
     def add_item(self, skuCode=None, quantity=1,
-                 var1choice=None, var2choice=None):
+                 var1choice=None, var2choice=None, dimensions=None):
         """Add item to cart and redirect to referer.
 
         The item must be identified by either its skuCode if it is an item
@@ -253,7 +279,7 @@ class ShoppingCartAdapter(object):
         ptool = getToolByName(context, 'plone_utils')
 
         # Add item to cart
-        success = self._add_item(skuCode, quantity, var1choice, var2choice)
+        success = self._add_item(skuCode, quantity, var1choice, var2choice, dimensions)
         if success:
             ptool.addPortalMessage(_(u'msg_item_added',
                                      default=u'Added item to cart.'), 'info')
@@ -337,8 +363,16 @@ class ShoppingCartAdapter(object):
         # now update quantities (and VAT amounts, done by update_item)
         for skuCode, item in self.get_items().items():
             quantity = int(float(self.request.get('quantity_%s' % skuCode)))
-            if quantity != item['quantity'] and quantity != 0:
-                self.update_item(skuCode, quantity)
+
+            dimensions = self.request.get('dimension_%s' % skuCode, [])
+            if not validate_dimensions(dimensions, item['selectable_dimensions']):
+                raise ValueError('Invalid dimensions.')
+            dimensions = map(int, dimensions)
+
+            if quantity <= 0:
+                raise ValueError('Invalid quantity.')
+
+            self.update_item(skuCode, quantity, dimensions)
 
         ptool.addPortalMessage(_(u'msg_cart_updated',
                                  default=u"Cart updated."), 'info')
@@ -365,19 +399,30 @@ class CartView(BrowserView):
         return self._cart
 
     def addtocart_ajax(self, skuCode=None, quantity=1,
-                       var1choice=None, var2choice=None):
+                       var1choice=None, var2choice=None, dimensions=None):
         """ Add item to cart, return portlet HTML and translated status
         message
         """
         translate = self.context.translate
 
-        success = self.cart._add_item(skuCode, quantity, var1choice, var2choice)
-        if success:
-            status_msg_label = _(u'msg_label_info', default=u"Information")
-            status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
+        # unpack dimensions from request
+        dimensions = dimensions.split(',') if dimensions else []
+
+        if validate_dimensions(dimensions, self.context.getSelectableDimensions()):
+            dimensions = map(int, dimensions)
+
+            success = self.cart._add_item(skuCode, quantity, var1choice, var2choice, dimensions)
+
+            if success:
+                status_msg_label = _(u'msg_label_info', default=u"Information")
+                status_msg_text = _(u'msg_item_added', default=u"Added item to cart.")
+            else:
+                status_msg_label = _(u'msg_label_error', default=u"Error")
+                status_msg_text = _(u'msg_item_disabled', default=u"Item is disabled and can't be added.")
+
         else:
             status_msg_label = _(u'msg_label_error', default=u"Error")
-            status_msg_text = _(u'msg_item_disabled', default=u"Item is disabled and can't be added.")
+            status_msg_text = _(u'msg_invalid_dimensions', default=u"Invalid dimensions.")
 
         status_message = """\
 <dt>%s</dt>
@@ -389,14 +434,24 @@ class CartView(BrowserView):
                     status_message=status_message))
 
     def addtocart(self, skuCode=None, quantity=1,
-                  var1choice=None, var2choice=None):
+                  var1choice=None, var2choice=None, dimension=None):
         """Add item to cart and redirect to referer.
 
         The item must be identified by either its skuCode if it is an item
         without variations, or by its variation key.
         """
+        # wrap single dimension in list so all dimensions are lists
+        if not dimension:
+            dimension = []
+        if isinstance(dimension, int):
+            dimension = [dimension]
+
+        if not validate_dimensions(dimension, self.context.getSelectableDimensions()):
+            raise ValueError('Invalid dimensions.')
+
         return self.cart.add_item(skuCode=skuCode, quantity=quantity,
-                                  var1choice=var1choice, var2choice=var2choice)
+                                  var1choice=var1choice, var2choice=var2choice,
+                                  dimensions=dimension)
 
     def cart_items(self):
         """Get all items currently contained in shopping cart
@@ -416,10 +471,10 @@ class CartView(BrowserView):
         """
         return self.cart.get_vat()
 
-    def update_item(self, key, quantity):
+    def update_item(self, key, quantity, dimensions):
         """Update the quantity of an item.
         """
-        return self.cart.update_item(key, quantity)
+        return self.cart.update_item(key, quantity, dimensions)
 
     def cart_update(self):
         """Update cart contents.
@@ -436,6 +491,10 @@ class CartView(BrowserView):
         """
         return self.cart.purge_cart()
 
+    def cart_has_dimensions(self):
+        """Checks if any item has dimensions.
+        """
+        return self.cart.has_specified_dimensions()
 
     def checkout(self):
         """Process checkout
@@ -515,3 +574,23 @@ class CartView(BrowserView):
         registry = getUtility(IRegistry)
         shop_config = registry.forInterface(IShopConfiguration)
         return shop_config
+
+
+def validate_dimensions(dimensions, selectable_dimensions):
+    """ Checks if the request has the sane amount of dimensions. """
+    if dimensions is None or selectable_dimensions is None:
+        return False
+
+    if len(dimensions) != len(selectable_dimensions):
+        return False
+
+    try:
+        dimensions = map(int, dimensions)
+    except ValueError:
+        return False
+
+    for dimension in dimensions:
+        if dimension <= 0:
+            return False
+
+    return True
