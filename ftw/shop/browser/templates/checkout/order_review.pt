@@ -76,11 +76,11 @@
         </tbody>
         <tfoot>
           <tr tal:condition="python:context.REQUEST['cart_view'].shop_config().vat_enabled">
-              <td><strong i18n:translate="label_vat">VAT</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_vat"></td>
+              <td><strong i18n:translate="label_vat">VAT</strong></td><td></td><td tal:condition="context/REQUEST/cart_view/cart_has_dimensions"></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_vat"></td>
           </tr>
 
           <tr>
-              <td><strong>Total</strong></td><td></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
+              <td><strong>Total</strong></td><td></td><td tal:condition="context/REQUEST/cart_view/cart_has_dimensions"></td><td></td><td></td><td tal:content="context/REQUEST/cart_view/cart_total"></td>
           </tr>
 
         </tfoot>
