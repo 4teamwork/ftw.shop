@@ -1,4 +1,5 @@
 from ftw.shop import shopMessageFactory as _
+from ftw.shop.content.shopitem import selectable_dimensions
 from ftw.shop.interfaces import IContactInformationStepGroup
 from ftw.shop.interfaces import IOrderReviewStepGroup
 from ftw.shop.interfaces import IOrderStorage
@@ -7,10 +8,12 @@ from ftw.shop.interfaces import IPaymentProcessorStepGroup
 from ftw.shop.interfaces import IShippingAddressStepGroup
 from ftw.shop.interfaces import IShopConfiguration
 from ftw.shop.interfaces import IStatusSet
+from functools import partial
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from zope.component import getAdapters, getUtility, getUtilitiesFor
 from zope.component.hooks import getSite
+from zope.i18n import translate
 from zope.interface import directlyProvides
 from zope.schema import vocabulary
 from zope.schema.interfaces import IVocabularyFactory
@@ -191,18 +194,25 @@ def SuppliersVocabulary(context):
 def SelectableDimensionsVocabulary(context):
     """Returns a vocabulary of the available suppliers
     """
-    items = [
-        ('no_dimensions', _(u"label_no_dimensions", default=u"---")),
-        ('length', _(u"label_l", default=u"Length")),
-        ('length_width', _(u"label_l_w", default=u"Length, Width")),
-        ('length_width_thickness', _(u"label_l_w_t",
-                                     default=u"Length, Width, Thickness")),
-        ('weight', _(u'label_weight', default=u"Weight"))
-    ]
+    transl = partial(translate, context=context.REQUEST)
 
-    terms = [SimpleTerm(value=pair[0],
-                        token=pair[0],
-                        title=pair[1]) for pair in items]
+    terms = []
+    for key, value in selectable_dimensions.iteritems():
+        title = transl(value['label'])
+        if key != 'no_dimensions':
+            form = transl(_(
+                u'dimensions_format',
+                default=u'%(label)s (%(dimension)s) - price in %(price)s',
+            ))
+            title = form % {
+                'label': title,
+                'dimension': transl(value['dimension_unit']),
+                'price': transl(value['price_unit'] if 'price_unit' in value else translate(value['dimension_unit']))
+            }
+
+        terms.append(SimpleTerm(value=key, token=key, title=title))
+
+    terms = sorted(terms, key=lambda term: term.title)
 
     directlyProvides(SelectableDimensionsVocabulary, IVocabularyFactory)
     return vocabulary.SimpleVocabulary(terms)

@@ -4,6 +4,13 @@ Changelog
 2.2.0 (unreleased)
 ------------------
 
+- Enable decimal numbers for dimensions.
+  [lknoepfel]
+
+- Enable different units for dimension entry and price.
+  Eg. input an amount in g and display the price per kg.
+  [lknoepfel]
+
 - Added dimensions to shopitems which can be specified by the user.
   [lknoepfel]
 

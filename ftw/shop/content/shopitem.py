@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Definition of the Shop Item content type
 """
 
@@ -30,32 +31,72 @@ from ftw.shop.config import PROJECTNAME
 from ftw.shop import shopMessageFactory as _
 
 
-# Update the SelectableDimensionsVocabulary if you add an item!
 selectable_dimensions = {
     'no_dimensions': {
+        'label': _(u"label_no_dimensions", default=u"---"),
         'dimension_unit': None,
         'dimensions': []
     },
-    'length': {
+    'length_mm_mm': {
+        'label': _(u"label_length", default=u"Length"),
         'dimension_unit': u'mm',
         'dimensions': [_(u"Length (mm)")]
     },
-    'length_width': {
-        'dimension_unit': _(u'mm2'),
+    'length_m_m': {
+        'label': _(u"label_length", default=u"Length"),
+        'dimension_unit': u'm',
+        'dimensions': [_(u"Length (m)")]
+    },
+    'length_width_mm_mm2': {
+        'label': _(u"label_l_w", default=u"Length, Width"),
+        'dimension_unit': u'mm²',
         'dimensions': [
             _(u"Length (mm)"),
             _(u"Width (mm)")]
     },
-    'length_width_thickness': {
-        'dimension_unit': _(u'mm3'),
+    'length_width_mm_m2': {
+        'label': _(u"label_l_w", default=u"Length, Width"),
+        'price_unit': u'm²',
+        'price_to_dimension_modifier': 1000000,
+        'dimension_unit': u'mm²',
+        'dimensions': [
+            _(u"Length (mm)"),
+            _(u"Width (mm)")]
+    },
+    'length_width_thickness_mm_mm3': {
+        'label': _(u"label_l_w_t", default=u"Length, Width, Thickness"),
+        'dimension_unit': u'mm³',
         'dimensions': [
             _(u"Length (mm)"),
             _(u"Width (mm)"),
             _(u"Thickness (mm)")]
     },
-    'weight': {
+    'length_width_thickness_mm_m3': {
+        'label': _(u"label_l_w_t", default=u"Length, Width, Thickness"),
+        'price_unit': u'm³',
+        'price_to_dimension_modifier': 1000000000,
+        'dimension_unit': u'mm³',
+        'dimensions': [
+            _(u"Length (mm)"),
+            _(u"Width (mm)"),
+            _(u"Thickness (mm)")]
+    },
+    'weight_g_g': {
+        'label': _(u'label_weight', default=u"Weight"),
         'dimension_unit': u'g',
         'dimensions': [_(u"Weight (g)")]
+    },
+    'weight_g_kg': {
+        'label': _(u'label_weight', default=u"Weight"),
+        'price_unit': u'kg',
+        'price_to_dimension_modifier': 1000,
+        'dimension_unit': u'g',
+        'dimensions': [_(u"Weight (g)")]
+    },
+    'weight_kg_kg': {
+        'label': _(u'label_weight', default=u"Weight"),
+        'dimension_unit': u'kg',
+        'dimensions': [_(u"Weight (kg)")]
     }
 }
 
@@ -233,7 +274,7 @@ class ShopItem(Categorizeable, ATCTContent):
 
     def getDimensionDict(self):
         dim_key = self.Schema().getField('selectable_dimensions').get(self)
-        if not dim_key:
+        if not dim_key or dim_key not in selectable_dimensions:
             return selectable_dimensions['no_dimensions']
 
         return selectable_dimensions[dim_key]
@@ -245,6 +286,16 @@ class ShopItem(Categorizeable, ATCTContent):
     def getDimensionsLabel(self):
         dimension_dict = self.getDimensionDict()
         return dimension_dict.get('dimension_unit', None)
+
+    def getPriceUnit(self):
+        dimension_dict = self.getDimensionDict()
+        if 'price_unit' in dimension_dict:
+            return dimension_dict['price_unit']
+        return dimension_dict.get('dimension_unit', None)
+
+    def getPriceModifier(self):
+        dimension_dict = self.getDimensionDict()
+        return dimension_dict.get('price_to_dimension_modifier', 1)
 
 
 def add_to_containing_category(context, event):

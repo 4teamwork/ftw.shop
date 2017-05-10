@@ -1,5 +1,8 @@
 from Acquisition import aq_inner, aq_parent
 from decimal import Decimal
+from decimal import ROUND_UP
+from decimal import getcontext
+from decimal import InvalidOperation
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
@@ -42,6 +45,9 @@ class ShoppingCartAdapter(object):
         self.context = context
         self.request = request
 
+        # Setup Decimal environment
+        getcontext().rounding = ROUND_UP
+
     @property
     def catalog(self):
         if not hasattr(self, '_catalog'):
@@ -76,7 +82,7 @@ class ShoppingCartAdapter(object):
         total = Decimal('0.00')
         for item in items.values():
             total += Decimal(item['total'])
-        return str(total)
+        return '{:.2f}'.format(total)
 
     def _get_supplier_info(self, context):
         supplier = self._get_supplier(context)
@@ -125,9 +131,12 @@ class ShoppingCartAdapter(object):
                 return True
         return False
 
-    def calc_item_total(self, price, quantity, dimensions):
+    def calc_item_total(self, price, quantity, dimensions, price_modifier):
+        # calculates the item total form price, dimensions and quantity
+        # the dimensions_modifier is needed because the price is sometimes in a
+        # different unit than the dimensions (amount in g, price in kg)
         size = reduce(lambda x, y: x * y, dimensions) if dimensions else 1
-        return quantity * size * price
+        return quantity * Decimal(size) * Decimal(price) / Decimal(price_modifier)
 
     def calc_vat(self, rate, total):
         """Calculate VAT and round to correct precision.
@@ -161,8 +170,11 @@ class ShoppingCartAdapter(object):
             item = cart_items[key]
             item['quantity'] = int(quantity)
             item['dimensions'] = dimensions
-            total = self.calc_item_total(Decimal(item['price']), item['quantity'], dimensions)
-            item['total'] = str(total)
+            total = self.calc_item_total(Decimal(item['price']),
+                                         item['quantity'],
+                                         dimensions,
+                                         item['price_modifier'])
+            item['total'] = '{:.2f}'.format(total)
             item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
             cart_items[key] = item
 
@@ -196,6 +208,8 @@ class ShoppingCartAdapter(object):
         if dimensions is None:
             dimensions = []
 
+        price_modifier = self.context.getPriceModifier()
+
         has_variations = varConf.hasVariations()
         if has_variations:
             variation_dict = varConf.getVariationDict()
@@ -208,7 +222,7 @@ class ShoppingCartAdapter(object):
             price = Decimal(variation_dict[variation_code]['price'])
             # add item to cart
             if item is None:
-                total = self.calc_item_total(price, quantity, dimensions)
+                total = self.calc_item_total(price, quantity, dimensions, price_modifier)
 
                 item = {'title': item_title,
                         'description': context.Description(),
@@ -216,7 +230,7 @@ class ShoppingCartAdapter(object):
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(total),
+                        'total': '{:.2f}'.format(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
@@ -224,14 +238,15 @@ class ShoppingCartAdapter(object):
                         'vat_rate': vat_rate,
                         'vat_amount': str(self.calc_vat(vat_rate, total)),
                         'dimensions': dimensions,
-                        'selectable_dimensions': context.getSelectableDimensions()
+                        'selectable_dimensions': context.getSelectableDimensions(),
+                        'price_modifier': price_modifier
                 }
             # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
-                total = self.calc_item_total(price, item['quantity'], dimensions)
+                total = self.calc_item_total(price, item['quantity'], dimensions, price_modifier)
                 item['dimensions'] = dimensions
-                item['total'] = str(total)
+                item['total'] = '{:.2f}'.format(total)
                 item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         else:
@@ -239,28 +254,29 @@ class ShoppingCartAdapter(object):
 
             # add item to cart
             if item is None:
-                total = self.calc_item_total(price, quantity, dimensions)
+                total = self.calc_item_total(price, quantity, dimensions, price_modifier)
                 item = {'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
                         'quantity': quantity,
                         'price': str(price),
                         'show_price': context.showPrice,
-                        'total': str(total),
+                        'total': '{:.2f}'.format(total),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
                         'vat_rate': vat_rate,
                         'vat_amount': str(self.calc_vat(vat_rate, total)),
                         'dimensions': dimensions,
-                        'selectable_dimensions': context.getSelectableDimensions()
+                        'selectable_dimensions': context.getSelectableDimensions(),
+                        'price_modifier': price_modifier
                 }
             # item already in cart, update quantitiy
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
-                total = self.calc_item_total(price, item['quantity'], dimensions)
+                total = self.calc_item_total(price, item['quantity'], dimensions, price_modifier)
                 item['dimensions'] = dimensions
-                item['total'] = str(total)
+                item['total'] = '{:.2f}'.format(total)
                 item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         # store cart in session
@@ -362,12 +378,14 @@ class ShoppingCartAdapter(object):
 
         # now update quantities (and VAT amounts, done by update_item)
         for skuCode, item in self.get_items().items():
-            quantity = int(float(self.request.get('quantity_%s' % skuCode)))
+            quantity = float(self.request.get('quantity_%s' % skuCode))
 
             dimensions = self.request.get('dimension_%s' % skuCode, [])
+            if not isinstance(dimensions, list):
+                dimensions = [dimensions]
             if not validate_dimensions(dimensions, item['selectable_dimensions']):
                 raise ValueError('Invalid dimensions.')
-            dimensions = map(int, dimensions)
+            dimensions = map(Decimal, dimensions)
 
             if quantity <= 0:
                 raise ValueError('Invalid quantity.')
@@ -406,10 +424,10 @@ class CartView(BrowserView):
         translate = self.context.translate
 
         # unpack dimensions from request
-        dimensions = dimensions.split(',') if dimensions else []
+        dimensions = dimensions.split('|') if dimensions else []
 
         if validate_dimensions(dimensions, self.context.getSelectableDimensions()):
-            dimensions = map(int, dimensions)
+            dimensions = map(Decimal, dimensions)
 
             success = self.cart._add_item(skuCode, quantity, var1choice, var2choice, dimensions)
 
@@ -443,12 +461,13 @@ class CartView(BrowserView):
         # wrap single dimension in list so all dimensions are lists
         if not dimension:
             dimension = []
-        if isinstance(dimension, int):
+        if not isinstance(dimension, list):
             dimension = [dimension]
 
         if not validate_dimensions(dimension, self.context.getSelectableDimensions()):
             raise ValueError('Invalid dimensions.')
 
+        dimension = map(Decimal, dimension)
         return self.cart.add_item(skuCode=skuCode, quantity=quantity,
                                   var1choice=var1choice, var2choice=var2choice,
                                   dimensions=dimension)
@@ -585,8 +604,8 @@ def validate_dimensions(dimensions, selectable_dimensions):
         return False
 
     try:
-        dimensions = map(int, dimensions)
-    except ValueError:
+        dimensions = map(Decimal, dimensions)
+    except InvalidOperation:
         return False
 
     for dimension in dimensions:

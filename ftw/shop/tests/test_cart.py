@@ -18,7 +18,7 @@ class TestCart(FtwShopTestCase):
     def test_add_to_cart(self):
         # Add an item with no variations to cart
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart.addtocart("12345", quantity=2, dimension=[1, 2])
+        cart.addtocart("12345", quantity=2, dimension=[Decimal(1), Decimal(2)])
         cart_items = cart.cart_items()
         self.assertEquals(len(cart_items), 1)
         item_uid = self.movie.UID()
@@ -28,11 +28,10 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(cart_items[item_uid]['quantity'], 2)
         self.assertEquals(cart_items[item_uid]['title'], 'A Movie')
         self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with no variations')
-
         self.assertEquals(cart.cart_total(), '28.60')
 
         # Add an item type that's already in the cart
-        cart.addtocart("12345", quantity=1, dimension=[1, 2])
+        cart.addtocart("12345", quantity=1, dimension=[Decimal(1), Decimal(2)])
         self.assertEquals(cart.cart_items()[item_uid]['quantity'], 3)
         self.assertEquals(cart.cart_total(), '42.90')
 
@@ -78,7 +77,7 @@ class TestCart(FtwShopTestCase):
     def test_add_to_cart_ajax(self):
         # Add an item with no variations to cart
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart_response = cart.addtocart_ajax("12345", quantity=2, dimensions='1,2')
+        cart_response = cart.addtocart_ajax("12345", quantity=2, dimensions='1|2')
         cart_response_dict = simplejson.loads(cart_response)
         portlet_html = cart_response_dict['portlet_html']
         status_message = cart_response_dict['status_message']
@@ -93,7 +92,7 @@ class TestCart(FtwShopTestCase):
     def test_remove_item(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart_item_count = len(cart.cart_items())
-        cart.addtocart(skuCode='12345', dimension=[1, 2])
+        cart.addtocart(skuCode='12345', dimension=[Decimal(1), Decimal(2)])
         self.assertEquals(len(cart.cart_items()), cart_item_count + 1)
         self.assertTrue(self.movie.UID() in cart.cart_items())
         cart.cart._remove_item(self.movie.UID())
@@ -102,7 +101,7 @@ class TestCart(FtwShopTestCase):
 
     def test_update_item(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart.addtocart(skuCode='12345', quantity=1, dimension=[1, 2])
+        cart.addtocart(skuCode='12345', quantity=1, dimension=[Decimal(1), Decimal(2)])
         cart.update_item(self.movie.UID(), 2, [1, 2])
         self.assertEquals(cart.cart_items()[self.movie.UID()]['quantity'], 2)
         self.assertEquals(cart.cart_items()[self.movie.UID()]['total'], '28.60')
@@ -110,7 +109,7 @@ class TestCart(FtwShopTestCase):
     def test_cart_update(self):
         ptool = getToolByName(self.portal, 'plone_utils')
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart.addtocart(skuCode='12345', quantity=1, dimension=[1, 2])
+        cart.addtocart(skuCode='12345', quantity=1, dimension=[Decimal(1), Decimal(2)])
         cart = getMultiAdapter((self.book, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='b11', var1choice='Hardcover', quantity=2)
 
@@ -133,7 +132,7 @@ class TestCart(FtwShopTestCase):
     def test_cart_remove(self):
         ptool = getToolByName(self.portal, 'plone_utils')
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart.addtocart('12345', dimension=[1, 2])
+        cart.addtocart('12345', dimension=[Decimal(1), Decimal(2)])
 
         # Remove the item we just added
         item_key = self.movie.UID()
@@ -146,7 +145,7 @@ class TestCart(FtwShopTestCase):
 
     def test_cart_delete(self):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
-        cart.addtocart('12345', dimension=[1, 2])
+        cart.addtocart('12345', dimension=[Decimal(1), Decimal(2)])
         self.assertEquals(len(cart.cart_items()), 1)
 
         cart.cart_delete()
@@ -170,7 +169,7 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(last_msg, u"Can't proceed with empty cart.")
 
         # Test checkout with item in cart but missing order confirmation
-        cart.addtocart('12345', dimension=[1, 2])
+        cart.addtocart('12345', dimension=[Decimal(1), Decimal(2)])
         self.portal.REQUEST.SESSION[SESSION_ADDRESS_KEY] = customer_info
         cart.checkout()
 
@@ -201,24 +200,33 @@ class TestCart(FtwShopTestCase):
         cart = getMultiAdapter((self.portal, self.portal.REQUEST), IShoppingCart)
         self.assertEqual(
             7.5,
-            cart.calc_item_total(7.5, 1, [1]),
+            cart.calc_item_total(7.5, 1, [1], 1),
             "Price should be respected in the calculation")
         self.assertEqual(
             15,
-            cart.calc_item_total(7.5, 2, [1]),
+            cart.calc_item_total(7.5, 2, [1], 1),
             "Quantity should be respected in the calculation")
         self.assertEqual(
             15,
-            cart.calc_item_total(7.5, 1, [2]),
+            cart.calc_item_total(7.5, 1, [2], 1),
             "Dimension should be respected in the calculation")
         self.assertEqual(
             60,
-            cart.calc_item_total(7.5, 1, [2, 2, 2]),
+            cart.calc_item_total(7.5, 1, [2, 2, 2], 1),
             "Multiple dimensions should be respected in the calculation")
         self.assertEqual(
             120,
-            cart.calc_item_total(7.5, 2, [2, 2, 2]),
+            cart.calc_item_total(7.5, 2, [2, 2, 2], 1),
             "Quantity and dimensions can be used simultaneously")
+        self.assertEqual(
+            4.4,
+            float(cart.calc_item_total(11, 2, [0.2, 1, 1], 1)),
+            "Decimal dimensions should be respected in the calculation.")
+        self.assertEqual(
+            2.2,
+            # 11.-/m2 and 10mm * 1000mm dimensions
+            float(cart.calc_item_total(11, 2, [100, 1000], 1000000)),
+            "The price modifier is used to convert price unit to dimension unit.")
 
 
 def test_suite():

@@ -21,7 +21,7 @@
                                 </td>
 
                                 <td class="variationPriceLabel" style="display:none;" tal:condition="python: not varConf.allPricesZero() and item['showPrice']">
-                                    <label><span i18n:translate="label_price">Price</span><span tal:condition="item/item/getDimensionsLabel"> / <span tal:replace="item/item/getDimensionsLabel"></span></span></label>
+                                    <label><span i18n:translate="label_price">Price</span><span tal:condition="item/item/getPriceUnit"> / <span tal:replace="item/item/getPriceUnit"></span></span></label>
                                 </td>
                                 <td class="variationSKUCodeLabel" style="display:none;">
                                     <label i18n:translate="label_sku_code">SKU code</label>
