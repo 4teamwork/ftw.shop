@@ -47,12 +47,12 @@ jQuery(function ($) {
             };
         }
 
-        var dimensions = $(this).parents('form').find('input[name="dimension:int"]');
+        var dimensions = $(this).parents('form').find('input[name="dimension:float"]');
         dimensions = dimensions.map(
             function() {
                 return $(this).val();
             });
-        itemdata['dimensions'] = dimensions.get().join();
+        itemdata['dimensions'] = dimensions.get().join('|');
 
         $.ajax({
         dataType: "json",

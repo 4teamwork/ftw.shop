@@ -112,6 +112,7 @@
    <tr tal:condition="python:shop_config.vat_enabled">
     <td style="border-top: 2px solid black;"><span i18n:translate="label_included_vat">VAT</span></td>
     <td style="border-top: 2px solid black;"></td>
+    <td tal:condition="has_order_dimensions" style="border-top: 2px solid black;"></td>
     <td style="border-top: 2px solid black;"></td>
     <td style="border-top: 2px solid black;"></td>
     <td style="border-top: 2px solid black;"><span tal:content="order/vat_amount"/></td>
@@ -120,6 +121,7 @@
    <tr>
     <td style="border-top: 3px solid black;"><span i18n:translate="txt_total">Total (incl.VAT)</span></td>
     <td style="border-top: 3px solid black;"></td>
+    <td tal:condition="has_order_dimensions" style="border-top: 2px solid black;"></td>
     <td style="border-top: 3px solid black;"></td>
     <td style="border-top: 3px solid black;"></td>
     <td style="border-top: 3px solid black;"><strong tal:content="order/getTotal" /></td>
