@@ -4,7 +4,8 @@ Changelog
 2.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Made sku code searchable.
+  [lknoepfel]
 
 
 2.2.0 (2017-06-26)
