@@ -25,7 +25,9 @@ if HAS_LINGUA_PLONE:
 else:
     from Products.Archetypes.atapi import registerType
 
-from ftw.shop.interfaces import IShopItem, IBuyable
+from ftw.shop.interfaces import IBuyable
+from ftw.shop.interfaces import IShopItem
+from ftw.shop.interfaces import IVariationConfig
 from ftw.shop.content.categorizeable import Categorizeable
 from ftw.shop.config import PROJECTNAME
 from ftw.shop import shopMessageFactory as _
@@ -266,10 +268,22 @@ class ShopItem(Categorizeable, ATCTContent):
     def SearchableText(self):
         """ Make variations searchable. """
         data = super(ShopItem, self).SearchableText()
+
+        var_conf = IVariationConfig(self)
+        variation_details = []
+        if var_conf.hasVariations():
+            for variation in var_conf.getVariationDict().values():
+                if not variation['active']:
+                    continue
+                variation_details.append(variation['description'])
+                variation_details.append(variation['skuCode'])
+
         return ' '.join([
             data,
             ' '.join(self.getVariation1_values()),
-            ' '.join(self.getVariation2_values())
+            ' '.join(self.getVariation2_values()),
+            ' '.join(variation_details),
+            self.getSkuCode()
         ])
 
     def getDimensionDict(self):
