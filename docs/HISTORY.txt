@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.2.1 (unreleased)
+2.3.0 (2017-08-29)
 ------------------
 
 - Made sku code searchable.
