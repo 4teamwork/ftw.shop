@@ -129,7 +129,7 @@ class TestBrowserCheckout(TestCase):
         form = browser.css('form.kssattr-formname-checkout-wizard').first
 
         # XXX: "Gegen Rechnung" should be translated to english
-        self.assertEquals({u'Gegen Rechnung': ['Required input is missing.']},
+        self.assertEquals({u'Payment Processor': ['Required input is missing.']},
                           z3cform.erroneous_fields(form))
 
     @browsing
