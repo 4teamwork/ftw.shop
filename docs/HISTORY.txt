@@ -4,8 +4,7 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Show country in mails. [jone]
 
 2.3.0 (2017-08-29)
 ------------------

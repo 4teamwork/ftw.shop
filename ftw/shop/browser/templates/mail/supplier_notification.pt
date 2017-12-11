@@ -46,7 +46,8 @@
         </tal:block>
 
         <span tal:replace="order/customer_zipcode" />
-        <span tal:replace="order/customer_city" />
+        <span tal:replace="order/customer_city" /><br />
+        <span tal:replace="order/customer_country" />
     </p>
 
     <p>

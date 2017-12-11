@@ -89,7 +89,8 @@
         </tal:block>
 
         <span tal:replace="order/shipping_zipcode" />
-        <span tal:replace="order/shipping_city" />
+        <span tal:replace="order/shipping_city" /><br />
+        <span tal:replace="order/customer_country" />
     </p>
 </div>
 

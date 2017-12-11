@@ -97,7 +97,8 @@ class TestCheckoutMailToShopOwner(TestCase):
             '\n'.join(('Sir',
                        'Hugo Boss',
                        'Example Street 15',
-                       '3000 Bern')),
+                       '3000 Bern',
+                       'Switzerland')),
 
             browser.css('#shipping-address').first.text)
 

@@ -67,6 +67,7 @@ class TestCheckoutMailToCustomer(TestCase):
                        'Hugo Boss',
                        'Example Street 15',
                        '3000 Bern',
+                       'Switzerland',
                        '',
                        'Email: hugo@boss.com',
                        'Phone: 001 0101 0101 01')),
