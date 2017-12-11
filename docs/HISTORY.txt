@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3.3 (unreleased)
+2.3.3 (2017-12-11)
 ------------------
 
 - Fix upgrade step fix. [jone]
