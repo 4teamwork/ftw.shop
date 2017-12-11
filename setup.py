@@ -5,7 +5,7 @@ This module contains the tool of ftw.shop
 import os
 from setuptools import setup, find_packages
 
-version = '2.3.2.dev0'
+version = '2.3.2'
 
 tests_require = [
     'Products.PloneTestCase',
