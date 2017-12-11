@@ -20,7 +20,7 @@ class ConvertCategoryRankKeysToUid(UpgradeStep):
         )
         for obj in objs:
             if hasattr(obj, '_categoryRanks'):
-                for category, rank in obj._categoryRanks.iteritems()[:]:
+                for category, rank in obj._categoryRanks.items()[:]:
                     if isinstance(category, ShopCategory):
                         # Only convert the keys the first time the upgrade
                         # step is run.
