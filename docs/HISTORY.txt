@@ -4,8 +4,7 @@ Changelog
 2.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fix upgrade step (dictionary changed size during iteration). [jone]
 
 2.3.1 (2017-12-11)
 ------------------
