@@ -193,7 +193,14 @@ class ShoppingCartAdapter(object):
             item['variation_code'] if 'variation_code' in item else '',
             dimensions)
         if key != new_key:
-            cart_items[new_key] = cart_items[key]
+            if new_key in cart_items:
+                # i want a cookie if this ever happens
+                self.update_item(new_key,
+                                 int(quantity)+cart_items[new_key]['quantity'],
+                                 dimensions)
+            else:
+                cart_items[new_key] = cart_items[key]
+
             del cart_items[key]
 
         session[CART_KEY] = cart_items

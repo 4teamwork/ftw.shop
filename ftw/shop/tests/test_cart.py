@@ -74,6 +74,28 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(cart.cart_total(), '70.90')
         cart.cart_delete()
 
+    def test_add_with_different_and_same_dimensions(self):
+        # Add an item with dimensions
+        cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
+        cart.addtocart("12345", quantity=1, dimension=[Decimal(1), Decimal(2)])
+        cart_items = cart.cart_items()
+        item_key = self.movie.UID() + '==1-2'
+
+        self.assertEquals(1, len(cart_items))
+
+        # adding with same dimensions does not add a second item in the cart
+        cart.addtocart("12345", quantity=2, dimension=[Decimal(1), Decimal(2)])
+        cart_items = cart.cart_items()
+        self.assertEquals(1, len(cart_items))
+        self.assertEquals(3, cart_items[item_key]['quantity'])
+
+        # adding with different dimensions adds a second item
+        cart.addtocart("12345", quantity=1, dimension=[Decimal(3), Decimal(3)])
+        cart_items = cart.cart_items()
+        self.assertEquals(2, len(cart_items))
+
+        cart.cart_delete()
+
     def test_add_to_cart_ajax(self):
         # Add an item with no variations to cart
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
@@ -130,6 +152,37 @@ class TestCart(FtwShopTestCase):
         self.assertTrue('b11' not in cart.cart_items())
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u'Cart updated.')
+
+    def test_changing_dimensions_updates_key(self):
+        # Add an item with dimensions
+        cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
+        cart.addtocart("12345", quantity=1, dimension=[Decimal(1), Decimal(2)])
+        cart_items = cart.cart_items()
+
+        self.assertEquals(1, len(cart_items))
+
+        # updating the dimensions will change the key
+        self.portal.REQUEST['dimension_%s==1-2' % self.movie.UID()] = [3, 3]
+        self.portal.REQUEST['quantity_%s==1-2' % self.movie.UID()] = 1
+        cart.cart_update()
+
+        self.assertEquals([self.movie.UID()+'==3-3'], cart.cart_items().keys())
+
+        # add a second item and change it to the same dimensions
+        # as the first item
+        cart.addtocart("12345", quantity=2, dimension=[Decimal(1), Decimal(2)])
+
+        self.assertEquals(2, len(cart.cart_items()))
+
+        self.portal.REQUEST['dimension_%s==1-2' % self.movie.UID()] = [3, 3]
+        self.portal.REQUEST['quantity_%s==1-2' % self.movie.UID()] = 2
+        self.portal.REQUEST['dimension_%s==3-3' % self.movie.UID()] = [3, 3]
+        self.portal.REQUEST['quantity_%s==3-3' % self.movie.UID()] = 1
+        cart.cart_update()
+
+        cart_items = cart.cart_items()
+        self.assertEquals(1, len(cart_items))
+        self.assertEquals(3, cart_items[self.movie.UID()+'==3-3']['quantity'])
 
     def test_cart_remove(self):
         ptool = getToolByName(self.portal, 'plone_utils')
