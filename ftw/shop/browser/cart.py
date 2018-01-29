@@ -389,7 +389,7 @@ class ShoppingCartAdapter(object):
         for skuCode in self.get_items().keys():
             try:
                 qty = int(float(self.request.get('quantity_%s' % skuCode)))
-                if qty == 0:
+                if qty <= 0:
                     del_items.append(skuCode)
             except (ValueError, TypeError):
                 ptool.addPortalMessage(
@@ -410,12 +410,18 @@ class ShoppingCartAdapter(object):
             dimensions = self.request.get('dimension_%s' % skuCode, [])
             if not isinstance(dimensions, list):
                 dimensions = [dimensions]
-            if not validate_dimensions(dimensions, item['selectable_dimensions']):
-                raise ValueError('Invalid dimensions.')
-            dimensions = map(Decimal, dimensions)
 
-            if quantity <= 0:
-                raise ValueError('Invalid quantity.')
+            if not validate_dimensions(dimensions, item['selectable_dimensions']):
+                ptool.addPortalMessage(
+                    _(u'msg_cart_invalidvalue',
+                      default=u"Invalid Values specified. Cart not updated."),
+                    'error')
+                referer = self.request.get('HTTP_REFERER',
+                                           context.absolute_url())
+                self.request.response.redirect(referer)
+                return
+
+            dimensions = map(Decimal, dimensions)
 
             self.update_item(skuCode, quantity, dimensions)
 
