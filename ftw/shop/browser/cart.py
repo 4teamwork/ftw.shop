@@ -378,12 +378,11 @@ class ShoppingCartAdapter(object):
 
         # delete items with quantity 0
         del_items = []
-        # XXX - these are not skuCodes but item keys - rename!
-        for skuCode in self.get_items().keys():
+        for item_key in self.get_items().keys():
             try:
-                qty = int(float(self.request.get('quantity_%s' % skuCode)))
+                qty = int(float(self.request.get('quantity_%s' % item_key)))
                 if qty <= 0:
-                    del_items.append(skuCode)
+                    del_items.append(item_key)
             except (ValueError, TypeError):
                 ptool.addPortalMessage(
                     _(u'msg_cart_invalidvalue',
@@ -393,14 +392,14 @@ class ShoppingCartAdapter(object):
                                            context.absolute_url())
                 self.request.response.redirect(referer)
                 return
-        for skuCode in del_items:
-            self._remove_item(skuCode)
+        for item_key in del_items:
+            self._remove_item(item_key)
 
         # now update quantities and dimensions
         for item_key, item in self.get_items().items():
-            quantity = float(self.request.get('quantity_%s' % skuCode))
+            quantity = float(self.request.get('quantity_%s' % item_key))
 
-            dimensions = self.request.get('dimension_%s' % skuCode, [])
+            dimensions = self.request.get('dimension_%s' % item_key, [])
             if not isinstance(dimensions, list):
                 dimensions = [dimensions]
 
@@ -413,6 +412,8 @@ class ShoppingCartAdapter(object):
                                            context.absolute_url())
                 self.request.response.redirect(referer)
                 return
+
+            dimensions = map(Decimal, dimensions)
 
             # check that dimension changes do not collide
             item = self.get_items()[item_key]
@@ -429,8 +430,6 @@ class ShoppingCartAdapter(object):
                                            context.absolute_url())
                 self.request.response.redirect(referer)
                 return
-
-            dimensions = map(Decimal, dimensions)
 
             self.update_item(item_key, quantity, dimensions)
 

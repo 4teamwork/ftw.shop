@@ -21,18 +21,18 @@ class TestCart(FtwShopTestCase):
         cart.addtocart("12345", quantity=2, dimension=[Decimal(1), Decimal(2)])
         cart_items = cart.cart_items()
         self.assertEquals(len(cart_items), 1)
-        item_uid = self.movie.UID() + '==1-2'
-        self.assertEquals(cart_items[item_uid]['price'], '7.15')
-        self.assertEquals(cart_items[item_uid]['total'], '28.60')
-        self.assertEquals(cart_items[item_uid]['skucode'], '12345')
-        self.assertEquals(cart_items[item_uid]['quantity'], 2)
-        self.assertEquals(cart_items[item_uid]['title'], 'A Movie')
-        self.assertEquals(cart_items[item_uid]['description'], 'A Shop Item with no variations')
+        item_key = self.movie.UID() + '==1-2'
+        self.assertEquals(cart_items[item_key]['price'], '7.15')
+        self.assertEquals(cart_items[item_key]['total'], '28.60')
+        self.assertEquals(cart_items[item_key]['skucode'], '12345')
+        self.assertEquals(cart_items[item_key]['quantity'], 2)
+        self.assertEquals(cart_items[item_key]['title'], 'A Movie')
+        self.assertEquals(cart_items[item_key]['description'], 'A Shop Item with no variations')
         self.assertEquals(cart.cart_total(), '28.60')
 
         # Add an item type that's already in the cart
         cart.addtocart("12345", quantity=1, dimension=[Decimal(1), Decimal(2)])
-        self.assertEquals(cart.cart_items()[item_uid]['quantity'], 3)
+        self.assertEquals(cart.cart_items()[item_key]['quantity'], 3)
         self.assertEquals(cart.cart_total(), '42.90')
 
 
