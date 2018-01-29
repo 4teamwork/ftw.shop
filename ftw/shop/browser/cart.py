@@ -54,6 +54,13 @@ class ShoppingCartAdapter(object):
             self._catalog = getToolByName(self.context, 'portal_catalog')
         return self._catalog
 
+    def get_item_key(self, uid, variation_code, dimensions=None):
+        """A unique id for each item / variation / dimension combination.
+        """
+        dimcode = '-'.join([str(dim) for dim in dimensions]) if dimensions else ''
+
+        return '='.join([uid, variation_code, dimcode])
+
     def get_items(self):
         """Get all items currently contained in shopping cart
         """
@@ -161,22 +168,33 @@ class ShoppingCartAdapter(object):
         return False
 
     def update_item(self, key, quantity, dimensions):
-        """Update the quantity of an item.
+        """Update the quantity or dimensions of an item.
         """
         session = self.request.SESSION
         cart_items = session.get(CART_KEY, {})
 
-        if key in cart_items:
-            item = cart_items[key]
-            item['quantity'] = int(quantity)
-            item['dimensions'] = dimensions
-            total = self.calc_item_total(Decimal(item['price']),
-                                         item['quantity'],
-                                         dimensions,
-                                         item['price_modifier'])
-            item['total'] = '{:.2f}'.format(total)
-            item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
-            cart_items[key] = item
+        if key not in cart_items:
+            return
+
+        item = cart_items[key]
+        item['quantity'] = int(quantity)
+        item['dimensions'] = dimensions
+        total = self.calc_item_total(Decimal(item['price']),
+                                     item['quantity'],
+                                     dimensions,
+                                     item['price_modifier'])
+        item['total'] = '{:.2f}'.format(total)
+        item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
+        cart_items[key] = item
+
+        # update the key if the dimensions changed
+        new_key = self.get_item_key(
+            item['uid'],
+            item['variation_code'] if 'variation_code' in item else '',
+            dimensions)
+        if key != new_key:
+            cart_items[new_key] = cart_items[key]
+            del cart_items[key]
 
         session[CART_KEY] = cart_items
 
@@ -196,7 +214,7 @@ class ShoppingCartAdapter(object):
         if not skuCode:
             skuCode = varConf.sku_code(var1choice, var2choice)
 
-        item_key = varConf.key(var1choice, var2choice)
+        item_key = self.get_item_key(self.context.UID(), variation_code, dimensions)
         item = cart_items.get(item_key, None)
 
         item_title = context.Title()
@@ -224,7 +242,8 @@ class ShoppingCartAdapter(object):
             if item is None:
                 total = self.calc_item_total(price, quantity, dimensions, price_modifier)
 
-                item = {'title': item_title,
+                item = {'uid': self.context.UID(),
+                        'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
                         'quantity': quantity,
@@ -255,7 +274,8 @@ class ShoppingCartAdapter(object):
             # add item to cart
             if item is None:
                 total = self.calc_item_total(price, quantity, dimensions, price_modifier)
-                item = {'title': item_title,
+                item = {'uid': self.context.UID(),
+                        'title': item_title,
                         'description': context.Description(),
                         'skucode': skuCode,
                         'quantity': quantity,
@@ -271,7 +291,7 @@ class ShoppingCartAdapter(object):
                         'selectable_dimensions': context.getSelectableDimensions(),
                         'price_modifier': price_modifier
                 }
-            # item already in cart, update quantitiy
+            # item already in cart, update quantity
             else:
                 item['quantity'] = item.get('quantity', 0) + quantity
                 total = self.calc_item_total(price, item['quantity'], dimensions, price_modifier)
@@ -376,7 +396,7 @@ class ShoppingCartAdapter(object):
         for skuCode in del_items:
             self._remove_item(skuCode)
 
-        # now update quantities (and VAT amounts, done by update_item)
+        # now update quantities and dimensions
         for skuCode, item in self.get_items().items():
             quantity = float(self.request.get('quantity_%s' % skuCode))
 
@@ -396,7 +416,6 @@ class ShoppingCartAdapter(object):
                                  default=u"Cart updated."), 'info')
         referer = self.request.get('HTTP_REFERER', context.absolute_url())
         self.request.response.redirect(referer)
-        return
 
 
 class CartView(BrowserView):
