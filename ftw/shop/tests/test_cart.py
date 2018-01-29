@@ -180,9 +180,13 @@ class TestCart(FtwShopTestCase):
         self.portal.REQUEST['quantity_%s==3-3' % self.movie.UID()] = 1
         cart.cart_update()
 
+        ptool = getToolByName(self.portal, 'plone_utils')
+        last_msg = ptool.showPortalMessages()[-1].message
+        self.assertEquals(last_msg, u'Invalid Values specified. Cart not updated.')
+
         cart_items = cart.cart_items()
-        self.assertEquals(1, len(cart_items))
-        self.assertEquals(3, cart_items[self.movie.UID()+'==3-3']['quantity'])
+        self.assertEquals(2, len(cart_items))
+        self.assertEquals(1, cart_items[self.movie.UID()+'==3-3']['quantity'])
 
     def test_cart_remove(self):
         ptool = getToolByName(self.portal, 'plone_utils')

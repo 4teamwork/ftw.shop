@@ -193,14 +193,7 @@ class ShoppingCartAdapter(object):
             item['variation_code'] if 'variation_code' in item else '',
             dimensions)
         if key != new_key:
-            if new_key in cart_items:
-                # i want a cookie if this ever happens
-                self.update_item(new_key,
-                                 int(quantity)+cart_items[new_key]['quantity'],
-                                 dimensions)
-            else:
-                cart_items[new_key] = cart_items[key]
-
+            cart_items[new_key] = cart_items[key]
             del cart_items[key]
 
         session[CART_KEY] = cart_items
@@ -383,7 +376,7 @@ class ShoppingCartAdapter(object):
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
 
-        # first delete items with quantity 0
+        # delete items with quantity 0
         del_items = []
         # XXX - these are not skuCodes but item keys - rename!
         for skuCode in self.get_items().keys():
@@ -404,7 +397,7 @@ class ShoppingCartAdapter(object):
             self._remove_item(skuCode)
 
         # now update quantities and dimensions
-        for skuCode, item in self.get_items().items():
+        for item_key, item in self.get_items().items():
             quantity = float(self.request.get('quantity_%s' % skuCode))
 
             dimensions = self.request.get('dimension_%s' % skuCode, [])
@@ -421,9 +414,25 @@ class ShoppingCartAdapter(object):
                 self.request.response.redirect(referer)
                 return
 
+            # check that dimension changes do not collide
+            item = self.get_items()[item_key]
+            new_key = self.get_item_key(
+                item['uid'],
+                item['variation_code'] if 'variation_code' in item else '',
+                dimensions)
+            if new_key != item_key and new_key in self.get_items().keys():
+                ptool.addPortalMessage(
+                    _(u'msg_cart_invalidvalue',
+                      default=u"Invalid Values specified. Cart not updated."),
+                    'error')
+                referer = self.request.get('HTTP_REFERER',
+                                           context.absolute_url())
+                self.request.response.redirect(referer)
+                return
+
             dimensions = map(Decimal, dimensions)
 
-            self.update_item(skuCode, quantity, dimensions)
+            self.update_item(item_key, quantity, dimensions)
 
         ptool.addPortalMessage(_(u'msg_cart_updated',
                                  default=u"Cart updated."), 'info')
