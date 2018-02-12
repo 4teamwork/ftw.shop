@@ -4,7 +4,7 @@ Changelog
 2.3.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Sort items in cart by date added. [lknoepfel]
 
 
 2.3.3 (2017-12-11)

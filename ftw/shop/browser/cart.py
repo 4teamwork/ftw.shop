@@ -1,8 +1,9 @@
 from Acquisition import aq_inner, aq_parent
+from collections import OrderedDict
 from decimal import Decimal
-from decimal import ROUND_UP
 from decimal import getcontext
 from decimal import InvalidOperation
+from decimal import ROUND_UP
 from ftw.shop import shopMessageFactory as _
 from ftw.shop.config import CART_KEY
 from ftw.shop.config import SESSION_ADDRESS_KEY, ONACCOUNT_KEY
@@ -70,7 +71,7 @@ class ShoppingCartAdapter(object):
         if not browser_id:
             return {}
         session = self.request.SESSION
-        items = session.get(CART_KEY, {})
+        items = session.get(CART_KEY, OrderedDict())
         return items
 
     def get_vat(self):
@@ -171,7 +172,7 @@ class ShoppingCartAdapter(object):
         """Update the quantity or dimensions of an item.
         """
         session = self.request.SESSION
-        cart_items = session.get(CART_KEY, {})
+        cart_items = session.get(CART_KEY, OrderedDict())
 
         if key not in cart_items:
             return
@@ -207,7 +208,7 @@ class ShoppingCartAdapter(object):
 
         # get current items in cart
         session = self.request.SESSION
-        cart_items = session.get(CART_KEY, {})
+        cart_items = session.get(CART_KEY, OrderedDict())
         variation_code = varConf.variation_code(var1choice, var2choice)
 
         # We got no skuCode, so look it up by variation key
@@ -333,7 +334,7 @@ class ShoppingCartAdapter(object):
         """Remove the item with the given key from the cart.
         """
         session = self.request.SESSION
-        cart_items = session.get(CART_KEY, {})
+        cart_items = session.get(CART_KEY, OrderedDict())
 
         if key in cart_items:
             del cart_items[key]
@@ -360,7 +361,7 @@ class ShoppingCartAdapter(object):
         """Remove all items from cart.
         """
         session = self.request.SESSION
-        session[CART_KEY] = {}
+        session[CART_KEY] = OrderedDict()
 
         context = aq_inner(self.context)
         ptool = getToolByName(context, 'plone_utils')
