@@ -1,8 +1,10 @@
 Changelog
 =========
 
-2.3.4 (unreleased)
+3.0.0 (unreleased)
 ------------------
+
+- Drop plone 4.2 support (including python 2.6). [lknoepfel]
 
 - Sort items in cart by date added. [lknoepfel]
 
