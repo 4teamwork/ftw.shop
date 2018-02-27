@@ -20,3 +20,7 @@
         </div>
     </tal:dimensions>
 </span>
+
+<span metal:define-macro="price_display"  tal:omit-tag="">
+
+</span>

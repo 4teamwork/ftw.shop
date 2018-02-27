@@ -100,8 +100,8 @@
           <tr>
             <th i18n:translate="cart_header_product">Product</th>
             <th tal:condition="view/has_order_dimensions" i18n:translate="cart_header_dimensions">Dimensions</th>
+            <th i18n:translate="cart_header_price">Price per item</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
-            <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
           </tr>
         </thead>
@@ -110,8 +110,8 @@
             <tr>
               <td tal:content="item/title"></td>
               <td tal:condition="view/has_order_dimensions"><span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span></td>
+              <td tal:content="item/price_per_item"></td>
               <td tal:content="item/quantity"></td>
-              <td tal:content="item/getPrice"></td>
               <td tal:content="item/getTotal"></td>
             </tr>
           </metal:block>
