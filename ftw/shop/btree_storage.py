@@ -101,6 +101,7 @@ class CartItems(Persistent):
         self.vat_amount = None
         self.dimensions = None
         self.selectable_dimensions = None
+        self.price_per_item = None
 
         self.order = None
 
@@ -186,6 +187,7 @@ class BTreeOrderStorage(Persistent):
             cart_items.vat_amount = Decimal(cart_data[key]['vat_amount'])
             cart_items.dimensions = cart_data[key]['dimensions']
             cart_items.selectable_dimensions = cart_data[key]['selectable_dimensions']
+            cart_items.price_per_item = cart_data[key]['price_per_item']
             cart_items.order_id = order_id
             cart_items.order = new_order
 
