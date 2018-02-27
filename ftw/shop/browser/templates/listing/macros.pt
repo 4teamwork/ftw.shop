@@ -4,7 +4,7 @@
             <label tal:content="dimension"></label>
             <input
                     type="text"
-                    size="3"
+                    size="5"
                     tal:attributes="name python: 'dimension:float' if not 'skuCode' in locals() else 'dimension_%s' % skuCode;
                                     value python:'' if not item.get('dimensions') else item['dimensions'][repeat['dimension'].index];" />
         </span>
