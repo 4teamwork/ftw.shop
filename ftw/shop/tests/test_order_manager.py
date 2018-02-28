@@ -111,7 +111,7 @@ class TestOrderManager(FtwShopTestCase):
             MOCK_CART['some-uid']['vat_amount'],
             MOCK_CART['some-uid']['skucode'],
             str(MOCK_CART.values()[0]['quantity']),
-            '1 Weight (g)',
+            '2 Weight (g)',
             MOCK_CART.values()[0]['title'],
             str(MOCK_CART.values()[0]['price']),
             str(MOCK_CART.values()[0]['total']),

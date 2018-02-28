@@ -54,8 +54,8 @@
             <th i18n:translate="cart_header_product">Product</th>
             <th i18n:translate="cart_header_description">Description</th>
             <th tal:condition="context/REQUEST/cart_view/cart_has_dimensions" i18n:translate="cart_header_dimensions">Dimensions</th>
+            <th i18n:translate="cart_header_price">Price per item</th>
             <th i18n:translate="cart_header_quantity">Quantity</th>
-            <th i18n:translate="cart_header_price">Price</th>
             <th i18n:translate="cart_header_total">Total</th>
           </tr>
         </thead>
@@ -67,8 +67,8 @@
               <td tal:condition="context/REQUEST/cart_view/cart_has_dimensions">
                   <span metal:use-macro="context/@@shopitem_macros/dimensions_display"></span>
               </td>
+              <td tal:content="item/price_per_item"></td>
               <td tal:content="item/quantity"></td>
-              <td tal:content="item/price"></td>
               <td tal:content="item/total"></td>
             </tr>
           </metal:block>

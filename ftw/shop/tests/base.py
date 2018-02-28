@@ -60,12 +60,13 @@ MOCK_CART = {'some-uid': {'description': 'A Shop Item with no variations',
                           'supplier_email': 'supplier@example.org',
                           'supplier_name': 'Supplier Name',
                           'title': 'Item Title',
-                          'total': '8.30',
+                          'total': '16.60',
                           'url': 'http://nohost/plone/shop/products/item',
                           'vat_amount': '0.00',
                           'vat_rate': Decimal('0.00'),
-                          'dimensions': [1],
-                          'selectable_dimensions': [u'Weight (g)']}}
+                          'dimensions': [2],
+                          'selectable_dimensions': [u'Weight (g)'],
+                          'price_per_item': '8.30'}}
 
 MOCK_CART_TWO_SUPPLIERS = {
     'other-uid': {'description': 'A Shop Item with no variations',
@@ -81,7 +82,8 @@ MOCK_CART_TWO_SUPPLIERS = {
                   'vat_amount': '0.00',
                   'vat_rate': Decimal('0.00'),
                   'dimensions': [],
-                  'selectable_dimensions': []}}
+                  'selectable_dimensions': [],
+                  'price_per_item': '8.30'}}
 
 
 class FakeMailHostAdapter(MailHostAdapter):

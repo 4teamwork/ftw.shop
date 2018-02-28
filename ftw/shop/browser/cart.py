@@ -143,8 +143,11 @@ class ShoppingCartAdapter(object):
         # calculates the item total form price, dimensions and quantity
         # the dimensions_modifier is needed because the price is sometimes in a
         # different unit than the dimensions (amount in g, price in kg)
+        return quantity * self.calc_price_per_item(price, dimensions, price_modifier)
+
+    def calc_price_per_item(self, price, dimensions, price_modifier):
         size = reduce(lambda x, y: x * y, dimensions) if dimensions else 1
-        return quantity * Decimal(size) * Decimal(price) / Decimal(price_modifier)
+        return Decimal(size) * Decimal(price) / Decimal(price_modifier)
 
     def calc_vat(self, rate, total):
         """Calculate VAT and round to correct precision.
@@ -180,10 +183,14 @@ class ShoppingCartAdapter(object):
         item = cart_items[key]
         item['quantity'] = int(quantity)
         item['dimensions'] = dimensions
+        price_per_item = self.calc_price_per_item(Decimal(item['price']),
+                                                  dimensions,
+                                                  item['price_modifier'])
         total = self.calc_item_total(Decimal(item['price']),
                                      item['quantity'],
                                      dimensions,
                                      item['price_modifier'])
+        item['price_per_item'] = '{:.2f}'.format(price_per_item)
         item['total'] = '{:.2f}'.format(total)
         item['vat_amount'] = str(self.calc_vat(item['vat_rate'], total))
         cart_items[key] = item
@@ -239,6 +246,9 @@ class ShoppingCartAdapter(object):
             variation_pretty_name = varConf.getPrettyName(variation_code)
             item_title = '%s - %s' % (context.Title(), variation_pretty_name)
             price = Decimal(variation_dict[variation_code]['price'])
+
+            price_per_item = self.calc_price_per_item(price, dimensions, price_modifier)
+
             # add item to cart
             if item is None:
                 total = self.calc_item_total(price, quantity, dimensions, price_modifier)
@@ -251,6 +261,7 @@ class ShoppingCartAdapter(object):
                         'price': str(price),
                         'show_price': context.showPrice,
                         'total': '{:.2f}'.format(total),
+                        'price_per_item': '{:.2f}'.format(price_per_item),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
@@ -267,10 +278,12 @@ class ShoppingCartAdapter(object):
                 total = self.calc_item_total(price, item['quantity'], dimensions, price_modifier)
                 item['dimensions'] = dimensions
                 item['total'] = '{:.2f}'.format(total)
+                item['price_per_item'] = '{:.2f}'.format(price_per_item)
                 item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         else:
             price = Decimal(context.Schema().getField('price').get(context))
+            price_per_item = self.calc_price_per_item(price, dimensions, price_modifier)
 
             # add item to cart
             if item is None:
@@ -283,6 +296,7 @@ class ShoppingCartAdapter(object):
                         'price': str(price),
                         'show_price': context.showPrice,
                         'total': '{:.2f}'.format(total),
+                        'price_per_item': '{:.2f}'.format(price_per_item),
                         'url': context.absolute_url(),
                         'supplier_name': supplier_name,
                         'supplier_email': supplier_email,
@@ -298,6 +312,7 @@ class ShoppingCartAdapter(object):
                 total = self.calc_item_total(price, item['quantity'], dimensions, price_modifier)
                 item['dimensions'] = dimensions
                 item['total'] = '{:.2f}'.format(total)
+                item['price_per_item'] = '{:.2f}'.format(price_per_item)
                 item['vat_amount'] = str(self.calc_vat(vat_rate, total))
 
         # store cart in session

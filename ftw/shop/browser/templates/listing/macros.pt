@@ -1,14 +1,25 @@
-<span metal:define-macro="dimensions" class="dimensions-selection">
+<span metal:define-macro="dimensions" class="dimensions-selection"
+        tal:attributes="data-price item/price;
+                        data-price-to-dimension-modifier python: item['item'].getPriceModifier() if 'item' in item else item['price_modifier'] ;">
     <tal:dimensions tal:repeat="dimension item/selectable_dimensions">
         <span>
             <label tal:content="dimension"></label>
             <input
                     type="text"
-                    size="3"
+                    size="5"
                     tal:attributes="name python: 'dimension:float' if not 'skuCode' in locals() else 'dimension_%s' % skuCode;
                                     value python:'' if not item.get('dimensions') else item['dimensions'][repeat['dimension'].index];" />
         </span>
     </tal:dimensions>
+
+    <tal:priceperitem tal:condition="python: not item.get('dimensions') and len(item.get('selectable_dimensions', [])) > 0">
+        <tal:comment replace="nothing">With this condition the price tag is added to add-views of shop items.</tal:comment>
+        <label i18n:translate="cart_header_price"></label>
+        <span>
+            CHF
+            <span class="item-price">-</span>
+        </span>
+    </tal:priceperitem>
 </span>
 
 <span metal:define-macro="dimensions_display" class="dimensions-display">

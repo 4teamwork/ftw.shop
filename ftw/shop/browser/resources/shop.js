@@ -149,7 +149,7 @@ jQuery(function ($) {
         varSkuCode = varDicts[uid][varcode]['skuCode'];
         varDescription = varDicts[uid][varcode]['description'];
 
-        varSelectTable.find("td.variationPrice").text("CHF " + varPrice);
+        varSelectTable.find("td.variationPrice").html("CHF <span class='price'>" + varPrice + "</span>");
         varSelectTable.find("td.variationSKUCode").text(varSkuCode);
         $(this).parents(".variation-toplevel-group").find("span.variationDescription").text(varDescription);
         $(this).parents(".variation-toplevel-group").find("span.variationDescription").show();

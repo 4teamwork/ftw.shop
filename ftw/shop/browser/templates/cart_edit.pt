@@ -27,8 +27,8 @@
                     <th i18n:translate="cart_header_product">Product</th>
                     <th i18n:translate="cart_header_description">Description</th>
                     <th tal:condition="cview/cart_has_dimensions" i18n:translate="cart_header_dimensions">Dimensions</th>
+                    <th i18n:translate="cart_header_price" tal:condition="cview/show_prices">Price per item</th>
                     <th i18n:translate="cart_header_quantity">Quantity</th>
-                    <th i18n:translate="cart_header_price" tal:condition="cview/show_prices">Price</th>
                     <th tal:condition="cview/show_prices" i18n:translate="cart_header_total">Total</th>
                     <th i18n:translate="cart_header_delete">Delete</th>
                   </tr>
@@ -47,16 +47,16 @@
                       </td>
                       <td tal:content="item/description"></td>
                       <td tal:condition="cview/cart_has_dimensions"><span metal:use-macro="item/@@shopitem_macros/dimensions"></span></td>
+                      <td tal:condition="cview/show_prices">
+                          <span tal:condition="item/show_price">
+                              CHF <span class="item-price" tal:content="python: item['price_per_item'] if len(item['dimensions']) > 0 else item['price']">123.00</span>
+                          </span>
+                      </td>
                       <td><input type="text" size="5"
                                  tal:attributes="value item/quantity;
                                                  name string:quantity_${skuCode}" /></td>
 
                       <!-- TODO: hackish - better make sure prices are stored normalized in varConf -->
-                      <td tal:condition="cview/show_prices">
-                          CHF <span tal:condition="python:item['show_price']"
-                                tal:content="python:item['price'] in ('0.00', '0.0') and ' ' or item['price']"
-                                />
-                      </td>
                       <td tal:condition="cview/show_prices">
                           CHF <span tal:condition="python:item['show_price']"
                                 tal:content="python:item['total'] in ('0.00', '0.0') and ' ' or item['total']"
