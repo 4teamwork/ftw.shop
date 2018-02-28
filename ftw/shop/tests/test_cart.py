@@ -153,6 +153,19 @@ class TestCart(FtwShopTestCase):
         last_msg = ptool.showPortalMessages()[-1].message
         self.assertEquals(last_msg, u'Cart updated.')
 
+    def test_cart_item_order(self):
+        # Previously the order of the items was random. This test failed about
+        # half the times it was run. The OrderedDict change fixed it.
+        ptool = getToolByName(self.portal, 'plone_utils')
+        cart = getMultiAdapter((self.book, self.portal.REQUEST), name='cart_view')
+        cart.addtocart(skuCode='b11', var1choice='Hardcover', quantity=2)
+        cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
+        cart.addtocart(skuCode='12345', quantity=1, dimension=[Decimal(1), Decimal(2)])
+        cart.cart_update()
+        self.assertEquals(
+            ['b11', '12345'],
+            [item['skucode'] for item in cart.cart_items().values()])
+
     def test_changing_dimensions_updates_key(self):
         # Add an item with dimensions
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
