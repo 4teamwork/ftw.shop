@@ -114,7 +114,7 @@ class TestCheckoutMailToShopOwner(TestCase):
 
         self.assertEquals([{'Article number': '123.1',
                             'Product': 'A pair of socks',
-                            'Price': '12.90',
+                            'Price per item': '12.90',
                             'Quantity': '1',
                             'Total': '12.90'}],
                           browser.css('table').first.dicts(foot=False))

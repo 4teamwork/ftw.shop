@@ -184,7 +184,7 @@ class TestBrowserCheckout(TestCase):
         self.assertEquals([{'Product': 'Socks',
                             'Description': 'A good pair of socks.',
                             'Quantity': '1',
-                            'Price': '10.00',
+                            'Price per item': '10.00',
                             'Total': '10.00'}],
                           browser.css('table.cartListing').first.dicts(foot=False))
 

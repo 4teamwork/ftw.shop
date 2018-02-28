@@ -23,6 +23,7 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(len(cart_items), 1)
         item_key = self.movie.UID() + '==1-2'
         self.assertEquals(cart_items[item_key]['price'], '7.15')
+        self.assertEquals(cart_items[item_key]['price_per_item'], '14.30')
         self.assertEquals(cart_items[item_key]['total'], '28.60')
         self.assertEquals(cart_items[item_key]['skucode'], '12345')
         self.assertEquals(cart_items[item_key]['quantity'], 2)
@@ -44,6 +45,7 @@ class TestCart(FtwShopTestCase):
         item_key = "%s=var-Paperback=" % self.book.UID()
 
         self.assertEquals(cart_items[item_key]['price'], '2.00')
+        self.assertEquals(cart_items[item_key]['price_per_item'], '2.00')
         self.assertEquals(cart_items[item_key]['total'], '6.00')
         self.assertEquals(cart_items[item_key]['skucode'], 'b22')
         self.assertEquals(cart_items[item_key]['quantity'], 3)
@@ -65,6 +67,7 @@ class TestCart(FtwShopTestCase):
         self.assertEquals(len(cart_items), 3)
         item_key = "%s=var-Green-M=" % self.tshirt.UID()
         self.assertEquals(cart_items[item_key]['price'], '5.00')
+        self.assertEquals(cart_items[item_key]['price_per_item'], '5.00')
         self.assertEquals(cart_items[item_key]['total'], '20.00')
         self.assertEquals(cart_items[item_key]['skucode'], '55')
         self.assertEquals(cart_items[item_key]['quantity'], 4)
@@ -126,9 +129,11 @@ class TestCart(FtwShopTestCase):
         cart = getMultiAdapter((self.movie, self.portal.REQUEST), name='cart_view')
         cart.addtocart(skuCode='12345', quantity=1, dimension=[Decimal(1), Decimal(2)])
         movie_key = self.movie.UID()+'==1-2'
-        cart.update_item(movie_key, 2, [1, 2])
+        cart.update_item(movie_key, 2, [2, 2])
+        movie_key = self.movie.UID() + '==2-2'
         self.assertEquals(cart.cart_items()[movie_key]['quantity'], 2)
-        self.assertEquals(cart.cart_items()[movie_key]['total'], '28.60')
+        self.assertEquals(cart.cart_items()[movie_key]['price_per_item'], '28.60')
+        self.assertEquals(cart.cart_items()[movie_key]['total'], '57.20')
 
     def test_cart_update(self):
         ptool = getToolByName(self.portal, 'plone_utils')
