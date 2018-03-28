@@ -4,7 +4,7 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix list styling for checkout wizard view [raphael-s]
 
 
 3.0.0 (2018-03-06)
