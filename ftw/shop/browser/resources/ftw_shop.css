@@ -264,7 +264,11 @@ input#shipping_address-widgets-title, input#contact_information-widgets-title {
     overflow: auto;
     margin: 1px 0;
 }
-.template-cart_edit td span input,
-.template-checkout-wizard .cartListing .dimensions-display span:last-child {
+.template-cart_edit td span input {
     float: right;
+}
+
+.template-checkout-wizard .cartListing .dimensions-display {
+    white-space: nowrap;
+    display: inline-block;
 }
