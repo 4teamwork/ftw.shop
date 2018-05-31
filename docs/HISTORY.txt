@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.2 (unreleased)
+3.0.2 (2018-05-31)
 ------------------
 
 - Ignore encoding errors in mail body [raphael-s]
