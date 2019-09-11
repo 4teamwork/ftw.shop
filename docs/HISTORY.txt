@@ -4,7 +4,9 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Revert "changed mail charset from utf8 to latin1 (outlook 2003)".
+  Use utf-8 as mail encoding since outlook 2003 is no longer supported by microsoft since 2013.
+  [elioschmutz]
 
 
 3.0.2 (2018-05-31)
