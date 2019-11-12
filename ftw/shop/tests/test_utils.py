@@ -2,7 +2,7 @@ from decimal import Decimal
 from ftw.shop.tests.base import FtwShopTestCase
 from ftw.shop.utils import to_decimal
 from ftw.shop.utils import is_email_valid
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestUtils(FtwShopTestCase):
