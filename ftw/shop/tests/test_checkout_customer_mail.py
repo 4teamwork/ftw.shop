@@ -12,7 +12,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 from zope.interface import alsoProvides
 import email
