@@ -217,7 +217,7 @@ class OrderManagerView(BrowserView):
 
             for i, value in enumerate(order_data):
                 if isinstance(value, unicode):
-                    order_data[i] = value.encode('cp1252')
+                    order_data[i] = value.encode('cp1252', 'ignore')
 
             for cart_item in order.cartitems:
                 # format dimensions

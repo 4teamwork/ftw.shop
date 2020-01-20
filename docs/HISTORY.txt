@@ -4,7 +4,7 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Ignore unsupported characters while generating the csv in cp1252 (For example emojis are not in there). [mathias.leimgruber]
 
 
 3.0.3 (2019-11-25)
