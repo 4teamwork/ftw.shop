@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.0.4 (unreleased)
+3.0.4 (2020-01-20)
 ------------------
 
 - Ignore unsupported characters while generating the csv in cp1252 (For example emojis are not in there). [mathias.leimgruber]
